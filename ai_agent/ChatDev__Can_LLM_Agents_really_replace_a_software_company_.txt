@@ -1,0 +1,1033 @@
+ Hi, everyone.
+ And today we'll be talking about one interesting topic called chat dev.
+ So basically chat dev is a system of agents that work from start to end, from the idea
+ formulation all the way to executing out the code.
+ And like, for example, you want to create like a Gomoku game, then you can simulate
+ like a software company trying to get the game out.
+ Obviously, it's not going to be as good as a real software company, because agents is
+ quite new.
+ But let us see how far this can push the frontier and what are the limitations.
+ So with one system, you can see that they have created multiple programs.
+ One thing that strikes me is that these programs kind of look a little simple.
+ That kind of highlights what kind of programs that can be done right now.
+ Like maybe if I want to create a very big browser or database, it may not be possible.
+ Like a game like maybe MapleStory may not be possible as well, it requires too many
+ files.
+ But simple apps like a timer, create a bar chart, I think those are all possible stuff.
+ So now I tried to do something that is a bit different from what they have done.
+ I want to just show you the results.
+ So let me just upload the log here.
+ So there's this very nice log you can, once you run chat dev from the GitHub, you can
+ actually upload your log and then you can replay it here to see it live.
+ So this is how chat dev works.
+ At the start, you give the requirements.
+ So the requirements like this, I said create me a Wheel of Fortune game with beautiful
+ graphics and pie game.
+ And then we have the chief executive officer stopping it.
+ And then we say that, okay, this is what you have.
+ And you notice that they ground the agents using a text prompt.
+ So the text prompt can be like, okay, you can only use the following tools like image document
+ and so on.
+ Okay.
+ One thing I like to say about chat dev is that there's not really tool use here.
+ It's mainly like prompting the agent in text.
+ And then the output of the agent is all mainly in text as well.
+ So this is quite a big limitation, but I think with improvements, this can be linked to other
+ tools and external APIs and so on.
+ So the CEO is now talking to the CPO, the chief product officer to see like, how can
+ we create this?
+ Of course, I already gave it pie game, so I extracted the right thing.
+ So over here you see over that there's stuff like info.
+ So this is something that is unique to this chat dev system.
+ It's because if we do not have this kind of tokens to say that, okay, we have decided
+ on something, what they have found is that agents communicating with each other like
+ that, they might lead to an infinite conversation, they might never end.
+ So this kind of tokens will cue the end of the discussion.
+ So at each part of time, there will be two people discussing.
+ So now this is like the CEO discussing the CPO to come up with how do we do the product
+ and so on.
+ So after that, there's a discussion with the CTO as well.
+ So this is the template that is used.
+ So this will ground the way the documents will be generated later on.
+ So it's quite cool.
+ I mean, there's a process flow.
+ After that, the programmer will then create the real fortune game and out comes the code
+ following the template earlier.
+ And you can see that this is in Pygame because we have specified Pygame and also the CTO
+ decided Python as well and CTO decided Pygame.
+ So all this earlier generations are passed on to the later, when the process goes to
+ the later parts, we also use whatever has been decided earlier on to ground the generation.
+ So you can see that this is what has been passed down like the task, the modality, the
+ programming language.
+ And some ideas as well.
+ Now is the idea.
+ So now think step by step, you can see that there's some prompts to ask them to generate
+ detailed steps, broad steps and detailed steps.
+ So I quite like this way of streamlining the generation from a very broad concept all the
+ way to a very, very specific one.
+ So you can see this is the program that has been output and the output, not just the main,
+ they also output like the other stuff as well, the view, the player, and you can see this
+ is what happens now.
+ So now if you look at the illustration here, this is the coding step.
+ Okay, let's just skip all the code for now.
+ We generate a lot of code.
+ And then right now we need to do some testing.
+ So let's go to the testing part.
+ So where's the testing area?
+ Let me just see whether we can find it.
+ So now the programmer is iterating with the chief technology officer to generate the code.
+ Let's just increase the generation speed.
+ Okay, where are we now?
+ The programmer.
+ All right, so this is actually quite reflective of the actual software development process
+ because the programming part is actually part one of the longest programming and debugging
+ parts.
+ All right, so where are we?
+ So you can see that they iterated over the code many, many times.
+ So when one person does the code, the other person might say, "Hey, you haven't done this
+ part."
+ Then you do the code again, and so on.
+ So this is actually some form of reflection.
+ So after you have generated your output, the other person will function as your reflector
+ that will critique whatever you have done and then tell you, okay, what you need to
+ do next.
+ So it's a very interesting framework because this is exactly like maybe if you communicate
+ with other people, you present your ideas, someone will tell you back.
+ You can also do self-reflection.
+ You can say that, "Okay, I think this is the case.
+ Let me check.
+ Let me verify whether it's the case."
+ So this can be done as a single agent or as multiple agents.
+ Over here they chose the multiple agents framework.
+ So yes, I want to show you this part.
+ This is the code reviewer part.
+ So the code reviewer would take in the code, the form of a prompt, or rather this is the
+ context that is given, this whole thing, all the different files will be given as the prompts.
+ I don't know if you can see this.
+ You all can see this.
+ This is the main.py.
+ Then we have the wheel, we have the player, the game.
+ And then after that, the code reviewer would then base on this text and say, "Okay, what
+ is the thing that needs to be fixed?"
+ So we forgot to import the other files.
+ So this one needs to be added in.
+ So this, I tried my best to find in the code to see whether they actually run it out in
+ the IDE, in the integrated development environment, but I couldn't find that line.
+ So I suspect that this code reviewer is just purely based on the text to review it.
+ So that's not ideal because this is something that should be done in the environment itself.
+ But after the code review is done, they correct the code.
+ This takes a while.
+ Let's just skip all this.
+ After they get the code out, what we'll do is we'll then try to form the requirements
+ for all this.
+ So after all this, the requirements can be just gotten from just the text alone.
+ That's quite remarkable, but of course this means that the requirements might not be the
+ correct ones as well because it's just inferred from the text of the code.
+ So other than the requirements, we also come up with the user manual of how to install
+ this.
+ First, you see over here, this is how the manual should look like.
+ This is an example using like Langchain.
+ So let's see what's the user manual that they generated for us.
+ Welcome to the Wheel of Fortune game is using the Pygame library, an interactive environment.
+ Then this is basically how you install it.
+ You have this, you install the requirements and then after that, you can use the left and
+ right arrow keys to spin the wheel, press any letter A to Z and then press escape to
+ quit the game.
+ We just need to key in this Python main.py and that's the end of ChatDev.
+ So quite remarkable, they simulated the whole thing.
+ This is obviously not within the testing set that they have.
+ I just decided to see whether they can create a game that is like not really created online.
+ I mean, if you search Wheel of Fortune game, I don't think you can find a Python source
+ code.
+ But if you search, I don't think there's anything in Pygame online for Wheel of Fortune.
+ Maybe it's like Python and so on.
+ So this is something that is not easy because we don't have this in Pygame online.
+ I don't think this is readily available.
+ So the computer needs to imagine this out.
+ So let's see how this end product looks like.
+ So after you run your ChatDev, you will actually go into this.
+ You can see this, right?
+ These are all the files that are generated and we can see that like this is the main.py.
+ Just take a look.
+ This is the code that was generated and all the other files you can see that main, game,
+ player, wheel.
+ So all these are the stuff that can be generated by the AI itself, which is not too bad.
+ Let's see whether it works.
+ So I'm just going to the terminal and I'm just going to type in titan main.py.
+ Okay, can you see this pop-up window?
+ Yes.
+ Okay, so let's see in the instruction manual, they tell me I can go left and right to play
+ it.
+ Okay, I click left and right and actually nothing happens.
+ So I king the letters now.
+ So at least the letters kind of work, but not all the functionalities work.
+ So this is the outcome of the game.
+ I would say that it's not that bad because they have some semblance of like, oh, we have
+ a player, we have a wheel, although the wheel did not appear.
+ So these are some stuff that needs to be iterated more and the main thing that I would like
+ to say is that perhaps the detailed steps of how the game should be created was not
+ really there.
+ Like we don't really have, okay, we want a main menu, we want a next page where the user
+ keys in the, like press the start button and goes to a stage and then load the stage and
+ so on.
+ So when you create a game, actually all these things need to be there.
+ You need to plan out like where are your scenes and so on.
+ So this is missing in chat dev, they created me one basic game, which doesn't work fully.
+ But for the tester, because if you see the tester just now, they just basically based
+ on the text and then the text looks okay, it looks runnable, good, it passed the unit
+ test.
+ So this unit test is not robust enough, but apart from that, I think the idea is quite
+ interesting.
+ I'm going to stop share now, I'm going to go to the slides and continue the rest.
+ So to be honest, I was slightly disappointed.
+ I thought that since this chat dev is quite hyped up these few weeks, I thought it would
+ create the game.
+ But it turns out that there's still a lot more to be done.
+ This is not the ideal state that we should be.
+ So some background for why chat dev can work.
+ The first part of chat dev is actually this thing called the camel, which is like the
+ society of mind's paper, where they ask themselves a simple question, if I'm the person talking
+ to chat GPT now, can I make AI replace me?
+ So this is the idea.
+ So if you look here, this is the task that someone has, like for example, you want to
+ develop a trading bot for the stock market.
+ So right now, like I kind of need to tell the chat GPT that, okay, I want to create this
+ bot, list me the steps needed and do step one, do step two, do step three.
+ So the idea is, can I automate my instructions?
+ So the instruction is basically given by the user right now, which is like the human.
+ Can I have the AI be an AI user and type in this inputs for me?
+ So if that could be done, you essentially automate the entire process.
+ So the idea is very simple.
+ So you have a big task that you give as a human, and then the AI itself, it will probably
+ do a more specific task, like develop a trading bot, sentiment analysis tool, monitor social
+ media platforms.
+ This is actually quite a real life kind of bot that you can create.
+ So if we want this kind of bot, now what we need to do when we talk to chat GPT, we need
+ to prompt it.
+ Okay, I want to create this.
+ Tell me what I should do.
+ Then what's the step one, what's the step two.
+ So the user needs to do all this, like you yourself needs to do all this.
+ Let me just put this.
+ User needs to do all this.
+ So this is obviously not good, because if we need to do all this, then we need to spend
+ a lot more time.
+ So can we prompt it?
+ And so that's the purpose of this paper.
+ Let's see whether we can.
+ So the prompt is very simple.
+ They just basically added in some system prompt for the user and for the AI assistant.
+ So the system prompt for the user is that, okay, you must only tell me, okay, based on
+ my expertise and my needs, basically they want you to give an instruction to the assistant.
+ So you keep giving me instructions until you think the task is completed.
+ Okay, and when the task is completed, you reply with this done token.
+ So what this means is that when they simulate the user, okay, you need to basically ask
+ the AI user to instruct the assistant, and instruct according to the assistant's expertise.
+ And then at the end of it, the AI user is given a termination token.
+ Why is this termination token needed?
+ The first part is understood because you kind of need to give the instruction to the assistant,
+ your assistant, based on what the assistant can do.
+ So you need to have the capabilities of the assistant and so on.
+ So that's a given.
+ Okay, why is there a termination token needed?
+ Okay, this one is, I think the answer is down there.
+ You can see, the thing is, if you look at this, look at this thing here.
+ Look at this thing.
+ Keep on saying thank you to each other, goodbye indefinitely.
+ So this is obviously not good, all right?
+ And I think this is the reason why if we use AI agents in a chatbot fashion, especially
+ if the chatbot is prompted or trained using RLHF, it can actually lead to very weird kind
+ of artifacts, like this.
+ So that's why this token is there.
+ So this is not exactly a good thing, but this is like a bypass for the current state
+ of the art right now.
+ Using ChatGPT and RLHF, you get this kind of artifacts.
+ So what about the assistant prompt?
+ So the assistant prompt is, you are an assistant, okay?
+ Never instruct me.
+ So this is quite interesting because somehow if they don't put this prompt there, the assistant
+ might take in the, the AI user might say something like this, the AI user might say, do this.
+ Then the AI assistant might copy this and also say, do this.
+ Okay, so we don't want the assistant to instruct the user, is it like, we want it to be such
+ that the assistant just does the job and reports that the job is done and so on.
+ So it's quite interesting that they need to prompt it like that, okay?
+ You must decline my instruction, honestly, if you cannot perform the instruction, okay?
+ It is understandable also because the assistant cannot do everything, all right?
+ If it's not within the capabilities or if it's not morally right, yeah, you shouldn't
+ do this.
+ Then also there's this like the frame of how the solution should be, okay, this is just
+ formatting, not that important and always end your solution with next request.
+ So this is just a way to say that, you know, we do not want the assistant to end the conversation
+ because imagine that's this case, okay, the user says do this and then the AI assistant
+ says done, okay?
+ That's not exactly what we want because we want the task completion, or sorry, not done.
+ Maybe like the AI assistant says, task completed.
+ We don't really want the AI assistant to say task completed because this should be done
+ by the user, like the user needs to be satisfied with what's going on, then we end the conversation.
+ So this is the RAF framework for the Canwell framework where both the user and the assistant
+ are both AI agents talking to each other, the user gives instructions to the assistant
+ and the assistant will then reply whether or not the thing is done or if they cannot
+ do give reasons why.
+ Any questions on this before I move on to the chat there?
+ Yeah, a small question about like, how does the chatbot know what is legally correct or
+ what is morally correct, like does it have pre-trained knowledge or something?
+ I think it doesn't have any, because it's not like they have a constitution or something
+ to refer to that was correct or wrong, it's probably due to the training distribution
+ of what they have seen to be correct or wrong and they have a, they can form their categorization
+ there.
+ Especially with chatgp, they have RRHF.
+ So with the RRHF, they already been prompted what is right and what is wrong, like solved.
+ Because when you ask them to do something morally wrong, they can reply, chatgp can
+ reply, this is not, I'm not allowed to do this or I'm not able to do this.
+ So this one, it's based on the training.
+ If you don't use like this kind of RRHF stuff to train based on like what is acceptable
+ or have no moderation capabilities to catch it, then it will largely be based on what
+ kind of text is being trained on.
+ Yeah.
+ So if you're training on text that says that, you know, certain things are, are moral when
+ it's not like, for example, you can say stealing is morally right in that kind of text.
+ The AI will just learn the training distribution.
+ So yeah, did that answer the question, it's really based on how it's trained.
+ Yeah, I guess there's no way to confirm it.
+ Like when they're discussing it, you only at the end, then you can see the product and
+ then you can determine whether it's okay or not okay.
+ But like, I think that goes to the second question that I have, like, can you interfere
+ with the conversation halfway currently?
+ Oh, in this, in this camo framework or is it chat dev?
+ Chat dev, chat dev, yes.
+ In chat dev, you can interfere.
+ So later I will touch on where the interference can be done.
+ So you can actually create your own phase because they go by phases.
+ You can create your own phase where you can interfere with the, or not interfere.
+ You can be one of the agents.
+ So instead of the AI agent, you can be a human.
+ Okay.
+ So can you change, can you inject the prompts?
+ So instead of being, like being another agent, are you able to change some of the agent's
+ prompts?
+ No, no, you can't just change the prompts like that.
+ I mean, if you want to change the prompt and like help the agent type the prompt in, I
+ think it can be done in a custom way, but not in the current chat dev format.
+ Oh, but the repository, you can, you change the prompt.
+ Yeah.
+ Yes.
+ You can, you can add your own, you can add your own prompts, you can change the prompts.
+ You have to do it before you run the program.
+ You cannot, you cannot do it halfway, right?
+ Yes.
+ Okay.
+ Okay.
+ Yeah.
+ So if you really want to have your own prompts for the AI, what I recommend you to do is you
+ don't use chat dev for that.
+ It's easier if you just type it into chat jpt.
+ Okay.
+ Yeah.
+ Nice.
+ All right.
+ Okay.
+ So this is the overall chat dev process over here.
+ We have stuff like, you know, we have a designing, coding, testing, and documenting.
+ So this is a safe simulate the waterfall, waterfall model.
+ Okay.
+ So I guess this means like you start from the top all the way to the bottom, like waterfall
+ model, right?
+ Yeah.
+ So each of them in each phase of the waterfall model, you have different agents that are involved.
+ So like for designing what to come out of the product, we have the CEO, we have the CTO,
+ we have the CPO, the chief product officer, the coding, we have the programmer and the
+ designer.
+ So like, so they're quite cool.
+ They also have this thing called the designer, which basically if you need some assets, like
+ for example, images, they can call the OpenAI.E to generate the images.
+ Okay.
+ The programmer will come out with the code and then they can like leave placeholders
+ for the image.
+ So I thought this was quite cool.
+ So they automated something that I've been doing by hand.
+ So I've been doing some pie games as well, by hand to like create some maze, create the
+ various games like snake and so on.
+ But I've been like copy and pasting the image inside the folder myself.
+ So they managed to automate this process.
+ So that's quite cool.
+ So in the testing, we have a reviewer and a tester.
+ So the reviewer is supposed to give like inputs about whether the code is correct or not.
+ The tester is supposed to test it out in the IDE, but I don't see this testing code anywhere
+ at the chat there.
+ So I might have missed it out, but it'll be better if the tester could just do the IDE
+ and give the error message back.
+ So documenting is basically there's four agents that come up with like the specifications
+ and the manual.
+ Okay.
+ Don't be fooled by these stages.
+ In the illustration diagram, it looks like all three of them talk to each other, right?
+ Like the CEO, CTO and CBO.
+ Okay.
+ In actual fact, that's not the case.
+ In actual fact, if you look down here, it's only two people talking at one time.
+ All right.
+ I think this is actually quite a smart move.
+ Imagine if you have three or four agents talking, they will just keep overlapping with one another.
+ This is like also like how humans talk.
+ Okay.
+ If you have too big a group, your group will have problems, okay.
+ Problems communicating.
+ So I thought this was a smart choice.
+ So within each of them, like the CEO and CBO, one will be the user and one will be the assistant.
+ So one, the user is the one generally with the tasks that needs to be fulfilled.
+ So like the CEO says, "I want to create a Wheel of Fortune game."
+ Then the chief product officer will be like, "Yes, boss.
+ What can I do for you?
+ How can I do it for you?"
+ So basically this, you start off with a task at hand and then you go to modality.
+ Modality maybe is like, "Oh, I need to create it in the form of a game or maybe modality
+ is a computer software."
+ Because there are other modalities as well.
+ There's like stuff like PowerPoint, Word, I mean, you can use it to create that also.
+ The language can be like Titan, okay.
+ The code, this code is basically like what are the main.py and so on.
+ So you can see that majority of the chat dev process is code, all right.
+ And I think this is quite reflective of a actual software development process also because
+ this part is the longest and you need to iterate many times, okay.
+ Iterate over like your programmer, your designer need to add in, your reviewer needs to say,
+ there's something wrong with the code, your tester needs to say, "Hey, there's something
+ wrong with the code as well."
+ So this is quite reflective of how code is done.
+ It takes very long to do this coding part.
+ Then once the code is done here, the specifications will be created by the programmer itself,
+ like what are the requirements and then the manual will be created actually by the programmer
+ as well.
+ So actually I don't think we need the CEO here and the CPO.
+ I mean, what do you all think about it?
+ I just think actually the programmer is enough for the documentation.
+ So this is roughly how the chat dev is done.
+ They go through different phases.
+ Each phases we have different personas to go and process the stuff.
+ And what happens is from the start, we have a very, very broad task.
+ So you can see at the start here, we have a very broad task.
+ And at the end, what we will have, we have specific outcomes, we have the specific products.
+ So at the beginning, the idea is very, very broad.
+ The idea is like super vague, give me a Wheel of Fortune game.
+ And towards the end, you have the working game itself, right?
+ And all this is done through iterating in a conversation style.
+ At each level, we iterate in the conversation style.
+ Then we'll output like modality or something, we output a certain decision.
+ And this decision point can be used to, this decision point will be used to condition all
+ the subsequent generations.
+ So that's really quite cool because the way you do this top-down approach or they call
+ it the waterfall approach, it really mimics, I believe, human decision-making as well.
+ If you want to go from point A to point B, I say, okay, I need to take a bus to point
+ C and I take a taxi from point B to point C. So that's the broad level task.
+ I break it down into broad level sub-tasks.
+ So the first part is bus, second part is taxi.
+ So then condition on a bus, okay, what bus should I take?
+ So the next person should make decision based on that.
+ So this level of chain of thoughts over a hierarchy, I like this idea a lot.
+ So you start off with a very broad goal, you use chain of thought, okay, to get a more
+ specific goal, a more specific goal, more specific goal, in the end, you get your product
+ right at the bottom, all right?
+ Okay, questions on this diagram?
+ Because I think this is more or less chat there, right?
+ I described it in one diagram.
+ Anything you want to ask about this diagram?
+ This looks good.
+ Okay, let's move on.
+ All right, so obviously, I don't think chat-death is very remarkable yet.
+ The idea is that execution could use more words.
+ Let's see why.
+ Let's just see what chat-death does.
+ Okay, so this is the waterfall model, as I mentioned just now.
+ You break up into linear sequential phases, all right, and then you pass down the phases
+ to each other, all right, whatever you decide to talk to each other.
+ Each phase depends on the developer or the previous one and corresponds to the specialization
+ of tasks.
+ So yeah, I mean, it's quite similar to what they have earlier, like the designing, the
+ coding, the testing.
+ And then the last part is documentation, which is not really here, but I guess if you consider
+ maintenance as documentation, I guess, I mean, it looks about the same.
+ But the idea is sequential processes, all right, and this is something quite useful
+ for prompting because it fulfills the chain of thought criteria, which is you generate
+ stuff all the way from broad to specific using chain of thought.
+ Whatever you generate earlier will be used to condition the bottom.
+ Yeah, it's quite cool because you look here, the chain of thought, right, let's say this
+ is your context, all right, then you have context and then you have the next level context and
+ so on.
+ You can actually treat this as a conversation or like this is like what you ground your
+ conversation to be.
+ So each of these two people, when they talk to each other, they are just like one part
+ of your structure of the entire generation.
+ So towards the end, you will get like Python code or this because that will be all conditioned
+ on like the context, which is like, I want a Python code, I want to create a Py game.
+ So yeah, I quite like this idea, right.
+ By the way we implement it, I don't think the conversation approach is the best way.
+ All right, so let's see why, okay, let's see why.
+ I'm going to skip this slide, okay, because this is similar to what I talked about earlier.
+ So there's four different phases here, okay.
+ So what are the key things that they did in ShredDev?
+ So there are three things I'm going to cover.
+ First is role specialization, which is over here on the left.
+ Second is memory stream.
+ Third is self-reflection.
+ So all these three are what makes the agents.
+ So first role specialization, right, how do we get like the CEO to become a CEO, you know,
+ how do we get the CTO to become a CTO, it turns out that they just prompted with just one
+ word like that.
+ You are a CEO for decision-making, you are a CTO for system design, you know, there's
+ something like that.
+ They just basically give text, okay, so imagine one day, you know, you want to become like
+ a skydiver, you can just say you are a skydiver or like one day you will say you want to solve
+ math, you are a math solver, okay, obviously you can get my drift here, it's not going to
+ work for everything.
+ Okay, it's only going to work for things that text can condition well, right, if let's say
+ you want to be a role that requires specialized skills, just using text itself is not going
+ to cut it.
+ You will need to give the agent some tools and you will need the agent to call on these
+ tools reliably, okay, which is currently still a problem for agents in our LLM agents.
+ So right now, chat dev is a very, very naive method of zero-shot prompting, okay, you prompt,
+ okay, because this is like, you can then use this prompt, this context, to ground the generation
+ for maybe like the CEO and then the CEO can generate stuff that sounds like a CEO, right,
+ so I thought that this idea of zero-shot prompting was quite interesting, okay, because it could
+ be like how nature governs some of our behavior because through our genes we've been told,
+ okay, this is like the behavior that you should exhibit.
+ So something like that, okay, however, after I use chat dev, I realized that this zero-shot
+ prompting is not sufficient, okay, it's not good enough basically to use zero-shot prompting
+ to get all the kind of criteria you need from that role itself.
+ Like if I could be a CEO just by telling the AI agent you are a CEO, then you know, why
+ do we pay in millions of dollars for CEOs worldwide, right, we could just use an LLM,
+ you just say you are a CEO, do the decision for me, okay, so obviously there's something
+ missing here, okay, if not we can replace everyone with AI agents, right, yeah, so this
+ is, okay, so this one, let's ignore this part, okay, this part here is actually not correct,
+ okay, not every agent has both user and assistant, basically what I want to say is every agent
+ can be user or assistant, okay, so it depends on the use case, so it's like whoever comes
+ up with the task should be the user and whoever executes the task should be the assistant,
+ so each of them will promise each other until the user is satisfied with the task, the user
+ will come up with an end token and we will end the generation there, okay, so this framework
+ of user assistant is exactly like how the camo framework does it, okay.
+ Next one is called memory stream, right, this memory stream is actually nothing new, this
+ is basically the same as, you know, when you talk to a chatbot, the chatbot will remember
+ your past few messages and use your past few messages as the context, so let me just write
+ here, so like past messages and then like maybe the user will say do this and then the assistant
+ will, okay, the assistant will generate here, yeah, so what happens is that we have this
+ memory, it's past messages, okay, so the past interactions of the user and assistant will
+ be here, like user assistant, yeah, so you have all these things to ground it and then
+ the assistant will generate something that is relevant to the stream of exchanges, so
+ like over here, language java, okay, too hard, then you generate again, python, okay, so if
+ I didn't have this memory, I would maybe just repeat java again, okay, so this memory stream
+ is basically conditioning on what has happened in the conversation so far and of course if
+ the conversation is too long, you probably cannot store everything, okay, so user and
+ the assistant all have their own memory stream of the past, okay, the assistant will have
+ the user's latest instruction as the context as well, okay, and you keep repeating until
+ the user comes up with an end token, so that's memory stream, it's basically just two chatbots
+ talking to each other and using the conversation history to remember stuff, okay, all clear
+ on this?
+ Yeah, I think this is quite standard, so unfortunately as with academic papers, they had to use math,
+ so let me just show you the math formulation of this, so this is how it looks like in math,
+ so I mean I'm just going to briefly cover, so we have the user's message here, we have
+ the assistant message, this forms your context, your memory context, okay, and the assistant
+ when they come out with a decision, they will form this st which is made with this phi function
+ which is basically a large language model giving the output, okay, we update the instruction
+ with a certain action again and the action will be, sorry not action, this basically
+ is the large language model that generates the assistant message and this is the large
+ language model that generates the user's message, so don't ask me why they did all this, okay,
+ because honestly it's just LMS generating stuff, okay, this looks a bit too complicated,
+ alright, I didn't really like the notation, add back your message, add back your output
+ from the assistant, okay, so I'm not going to cover this because I think it's overly
+ complicated, if you are interested to know how it works, just look at these words here,
+ I think these are they relate more to the human mind, alright, this one is more for academics,
+ so we leave it as that, okay, so next self-reflection, okay, how to do self-reflection is something
+ quite critical, alright, there's actually quite a lot of papers on reflection, so I'm
+ going to list out a few of them, some of them is called reflection, so basically like after
+ your LM agent does a task, ask it to reflect, okay, so this very simple approach of asking
+ you to reflect and then based on your reflection, redo the task again has led to like almost
+ 50% increase in software in some elf world, in some RPG world in this paper, so just asking
+ for reflection is a very powerful tool, I mean you can try that for your kids as well
+ if you have kids, like if they do something they ask, you ask them, why do you do it,
+ and based on why the kid replied you can say, actually that doesn't really make sense, you
+ should do something instead, so reflection is useful, but reflection is also limited
+ because it's only as good as the person giving you the reflection, you know, if you cannot
+ reflect well, there's no way you can improve, so if you cannot criticize yourself well,
+ how can you improve, right, you can only improve as much as that criticism or that reflection
+ helps you, so, but self-reflection has shown to improve performance quite a lot, the other
+ one that improves performance quite a lot is to verify and react accordingly, so there's
+ a chain of verification, you can read that paper, so basically you ask the LLF to verify
+ using external tools and then prompt back again, so this environment feedback, I think
+ both are important, here we just talked about reflection only, okay, and you can see that
+ this self-reflection tool rather than in the reflection way that the LLM agents reflect
+ themselves, what happens is because we are doing pair kind of conversation, the pair
+ will reflect as a group, so look at this, this is like the normal way to do it, like
+ you want to do the code, you ask it to implement all methods, okay, and the programmer will
+ just type out everything, okay, so if we do in the conversation, okay, we can ask, okay,
+ the other person like, this can be like the critic, okay, this guy is the critic or the
+ reflector, I mean, this is actually the user, the person can say, hey, is there anything
+ that's not done, then the other agents can say, oh, I haven't done this thing, I haven't
+ done game.init, and then the CTO can say, okay, go ahead and implement it now, all right,
+ then, yeah, so this is, okay, these are actually different people, but the idea is that because
+ of the way that we converse with one another, all right, one person might catch the mistakes
+ of the other person, so they call this thing with a very cool name, okay, anyone want to
+ guess what they call this in the camel paper, I give you a hint, it starts with I, but what
+ did they call this method, okay, you can shout out if you think you know the answer, inception
+ prompting, so they came up with the name inception prompting, okay, actually it's just like self-reflection
+ using different agents, okay, and so if you can actually do the thing, all right, you
+ can see that even for bug fixes, one person can write the code, one person can say what's
+ the problem with the code, okay, then another person can say in the next one, okay, what
+ you need to do, okay, you need to change using this, then the programmer can say, okay, I'm
+ going to type it out, right, and then at the end the tester can check again and say that,
+ okay, I run it on my environment and you pass the test, okay, so actually I was looking for
+ this because they have this symbol here in the paper, which is, it looks like an IDE
+ to me, so I thought that they executed it in the IDE, I went to look through the code
+ for chat dev, I couldn't find any part that tested the IDE, so I guess this could be implemented,
+ but right now the chat dev that I use, the one that they have it on the github, I don't
+ think they do this part, which is why the Wheel of Fortune game just now didn't really
+ work out fully, all right, I mean it could run but the game couldn't be played, all right,
+ so results for chat dev, hey, not bad, sorry, yes, Prince, you want to ask something?
+ Yeah, so I want to understand memory thing for this different set of actors, so for example
+ tester, programmer and CTO is there, so is their memory independently managed as a different,
+ okay, programmer's memory is different, CTO memory is different, or they are combined
+ together in a bigger memory chunk, so that every actor is aware of all other actors'
+ previous actions, how would that look like? Okay, I like your approach because that's
+ exactly my criticism of them, they don't have, so the memory is only limited with the memory
+ of the current conversation itself, so it's literally a chatbot memory, so after let's
+ say the CTO tells the programmer do something, then when the CTO next interacts, the CTO
+ will have no recollection of what happens before that, so it's like starting anew, the only
+ thing that the CTO will have is that they have the prompt, you are a CTO, you are great at
+ tech, you know that kind of prompt, you only have that as the context, you will lose out
+ like all the decision making stuff that you've done earlier on, I mean the only thing that
+ you will bring back is this one, the only thing that you will bring back from the decision
+ making is this thing, task modality language, because all these are like meta decisions that
+ are passed on to the conversation agents, but the agents itself to the best of my knowledge,
+ they do not carry over memory after their conversation is done, they will basically
+ forget all their memory of that conversation, so that's not a good thing to do of course,
+ that means that you need to keep repeating stuff to the agents, that's something that I think can
+ be improved because if you have memory, a memory bank of what has been done, I mean they might even
+ store it in a knowledge graph or something, they might even store what they have experienced and
+ then they can use that to ground their decisions in the future, so we have a true learning agent now,
+ okay unfortunately that we are still far from that, but that's the dream okay, if you can do
+ something like that, your agents can truly learn, I think this will be much better because lessons
+ that you learn from one program can translate to another program, so even when you generate
+ different outcomes, your memory might actually carry over, so I think that will be the like
+ towards the end game, if you can do that, we have like solved a lot of things that agents can do,
+ there's also another problem with memory is like if you have too much memory, how do you store it,
+ how do you retrieve it, so retrieval is a problem, I mean memory retrieval techniques like retrieval
+ augmented generation, they have its flaws, they cannot retrieve everything fully, so the more you
+ store, the worse you might perform, so there's a lot of issues with that and all this needs to be
+ solved first before LLM agents can really do properly, can really learn actively.
+ That is I like the point that storing memory may be in the knowledge graph and just like humans
+ can be able to fetch long-term and short-term memory, where short-term memory you can fetch
+ from the knowledge graph, some subgraph and then something like that, but yeah I like that
+ knowledge graph can be used for the whole memory thing. Yeah, so what we have just discussed is not
+ in this paper by the way, these are just future ideas that I have, this paper is really very
+ simple, it's just the chatbot memory, which is the memory of the conversation.
+ Yeah, good question, good question, thanks. Alright, so let's move on to results, how impressive is chat
+ dev, so the paper said that they managed to do like 70 user requirements, okay not managed to,
+ they tried it out for 70 user requirements, how are these requirements generated, I don't know,
+ but they look to be quite simple ones because if you look at the earlier diagram with all the
+ different products, they look like those kind of three or four files can do and like some kind of
+ like graphs, maybe a simple game, yeah but nothing too complicated, you definitely don't expect them
+ to program MapleStory or something with this chat dev, yeah I don't think it's possible,
+ I mean you want to create even simple mobile games like Candy Crush, I also don't think it's
+ possible because there's just too many files. Alright, so on average they generate about 17
+ files per software, including the manual, okay, elevated code vulnerabilities 13 times, software
+ production time of about 409 seconds, that's about six minutes, eight or eight minutes, so like for
+ the wheel of fortune, it took it five minutes to generate, I also did a Gomoku, Gomoku is five in
+ a row, the stones, it took about three minutes, I also did one Pomodoro app, Pomodoro is like the
+ timer, you know when when a 15 minutes up, one orange will light up, so that's called a Pomodoro
+ timer, that one took about three minutes or so but the app didn't work, so yeah I was trying to
+ try out different things, yeah, so only the Gomoku work, okay, so I will discuss why I think this is
+ the case, okay, so they spent about three cents, 30 cents, okay, in order to generate a program,
+ which to be honest, if the program works, it's a huge cost savings because a programmer can easily
+ cost you thousands, okay, yeah or more than that depending on how good the programmer is,
+ so if you can replace that kind of programmer with a GPT or like with a group of agents, you can save
+ a lot of money for your company, but fortunately for the software programmers out there, all right,
+ LM agents are still far from replacing software programmers, so this is something that I don't
+ think will be anytime soon, all right, so still have the job, don't worry about that, okay,
+ what they found out was that conversation, okay, like managed to find out at least
+ about 20 types of code vulnerabilities, okay, and more than 10 types of potential bugs just by
+ discussion, so earlier I said that you know they didn't really test it the IDE, maybe in this paper
+ they use the IDE, but once they release the code open source, the error correction seems to be like
+ just based on the prompt, okay, but remarkable, if let's say you can just based on the prompt,
+ you can correct your code, okay, it's quite ingenious because like a lot of times we don't
+ know the error until we run it, so if GPT can simulate the code without even running it,
+ that's quite incredible, unfortunately we all know that this is not going to happen,
+ even the best programmer you look through and say that the code won't break, the code is great,
+ when you run it, it might still break, okay, there are some hidden dependencies, all this,
+ that's not on the code itself, not on the prompt itself, you cannot just do your error correction
+ just based on the problem alone, okay, so this pretty much sums up the benefits of having peer
+ review or having a conversation and having one other person reflect on the output of the other
+ one, okay, you can correct code in this way, so overall generation statistics, the code size is
+ actually pretty small, like I realize you only generate about two to three files per software,
+ okay, they say max is about eight, okay, and there's a reason for that because all these eight files
+ need to fit in one single prompt, okay, your context length for GPT is about 8,000, so if you
+ do 32,000, if you use the larger one, if you do any more than eight, I think you can't fit in the
+ context length, okay, and this means that whatever you use for chat dev is limited to your context
+ length, and in fact, I've done, I mean, there's some studies that also show that the longer your
+ context length, the worse your generation, because there's too much to condition on, so this is a
+ huge problem for chat dev, because if you want to do complex games like MapleStory, you have a lot
+ of files, okay, and your files not just be in the same hierarchy, they might be in different hierarchies
+ with different folders, it looks like it's going to be difficult to express all this, I mean, even if
+ you summarize each of these files, you can say that, okay, main.py is to do the main game itself,
+ player.py is to do the statistics of the player, so you could maybe do like a total of
+ brief descriptions, you could do something like that, all right,
+ but you know, in very very large things, you could actually have like thousands of files
+ for very very large kind of systems, it will still bust the context length, even if you do a summary
+ of the descriptions, so the only way to do this, okay, in my opinion, is to do it by hierarchy,
+ so you have like the meta-agent, so you like, you have your meta-agent, let's call it ma-meta-agent,
+ we'll do like folder level, so you have folder one, let me just put here, folder one, and then we have
+ another one here, like folder two, yeah, so maybe at the top level, the actions are by folder side,
+ okay, these are the folders I need, then at the bottom level, given the folders, okay, I then do
+ my files, okay, so this is just an example of a hierarchy, so your agent at the top doesn't access
+ the files at all, it just thinks in terms of folders, and the agent at the bottom just thinks
+ in terms of the files, and each agent can also be specialized to do different kinds of files,
+ so that like one can do documents, one can do PowerPoint, one can do
+ Python code, so if we spread out, like spread the load using hierarchy, I think we can actually
+ potentially increase the number of files to thousands, okay, which is not possible right
+ now with the current chat there, because they just use the prompt itself, all right, next asset files
+ can up to 21, that's fine, because it's just images most of the time, okay, document files about five,
+ okay, I'm sorry, about four, I mean look at the average, okay, let's take a look at the average,
+ okay, lines of source code you can see is actually very very short, okay, 131 lines, that's barely,
+ that's less than my straight JSON, jupyter notebook, I have more than this number of lines in that one
+ one file, so you can see that the limitations of chat dev is, you can see over here, lines of
+ dependencies about three, means maybe only import three other files, okay, because I guess your code
+ files only have four, so it makes sense, like your one main file import the other three, so I guess
+ that's about it, lines of user manual, okay, user manual, I give it to them, gpt is great for user
+ manuals, okay, they can come out free flow text, okay, version updates, okay, this one I don't know
+ what this means, but I guess this means like the requirements dependency and so on, software
+ redevelopment is like, if you need to redo again, if there's an error message, redo the chain,
+ so this like the feedback mechanism, does it like on average 1.4 times, so overall my verdict for
+ chat dev is that works well for simple programs, okay, if programs are two verbose, cannot fit in
+ context lang, okay, and another thing that I want to say is that the way the modules work with one
+ another, is not well captured, okay, because a lot of times I see the error message is that oh you
+ forgot to import this other file, you forgot to import your other file, so it's like they know
+ that okay I need to generate all these files, but somehow in the code it doesn't reflect that okay I
+ need to import the other file inside, so the dependency graph is not very well established
+ for chat dev, okay, based on my three experiments with it, okay, and I think this is indeed the case
+ because in the grounding they did not ground by like, okay they might ground by descriptions like
+ that, but they did not say in the description, this is not done, okay, they did not say in the
+ description call player and like will or something like that, so it's like you don't have a linkage
+ of like where your files are, maybe it's better to draw in a graph, so it's like if let's say this is
+ your main.py, you know we want to kind of show that you know from player,
+ so this is like a dependency tree, so main.py and player.py,
+ you know we want to kind of say that in your main file we want to import the class called player,
+ so something like this is kind of missing in the context, that's why when they generate the main
+ file, the main file is typically absent of this kind of dependency like player, like for the
+ wheel of fortune game, they wanted to import the wheel, they wanted to import the player, in the end
+ what happened, everything is generated in main, okay, so the main.py generates like all this kind
+ of thing itself, it didn't really import from the rest, okay, even if they import from the rest they
+ did not call it, so these are some of the things for larger projects, I think there will be problems
+ using chat dev because of all this kind of things, okay, so this again highlights the role of a
+ software engineer is not easy, okay, not only you need to code well for one file, you also need to
+ know how all your files link to one another, and that's why AI doesn't do very well right now.
+ Okay, questions on this before I move on or any comments you want to add?
+ It will be interesting to know the average token count also for these
+ overall program level, the task level. I don't have the statistic right now, but I think it might be
+ somewhere in the paper, yeah, but you can see later the programs I generate, you can count the
+ tokens, but it's about 30 cents, so if you convert the 30 cents back to tokens, I think you can get
+ the number of tokens, maybe in the 20 to 30 thousand, you have to see how much it costs,
+ but if you use chat gbt 3.5 turbo, 30 cents, you can convert back to the number of tokens,
+ that's about the total amount of tokens that this whole process of chat dev generates.
+ Okay, so now it's time for me to critique this system, okay, I critique a lot, but this is the
+ time to critique even more, all right, so as with all my sessions, usually I'm not very satisfied
+ with the state of the art, because it's very hyped up, but it's actually not very good,
+ it's hyped up, but it doesn't perform as well as I expected it to. So why is it good? Oh, I love this
+ part about broad to specific, it's very in line with how I do chain of thought as well,
+ it helps to guide the generation, and this is great because in the waterfall framework,
+ you start from like the project product requirements, then you move on to what are the
+ modules, and then move on to implement them, very good, this is a thumbs up for this system,
+ okay, this self-reflection is there, okay, because of the way the two agents work, so that's again a
+ plus point for this paper, and what's not good, all right, can they generate code that they have not
+ seen before, okay, so I mean they give the given the example of gomoku, you know, the five in a row
+ stones one, there's so many programs doing gomoku out there, you search gomoku python on google,
+ okay, I think at least 10 pages do gomoku, so you know, do I really need a software agent
+ process to generate me a gomoku when I can just copy from a github, all right, so I that's why I
+ tested real fortune, because we are fortunate to have to the best of my knowledge, there's no
+ pie game implementation of it, indeed it doesn't really do it well, okay, so if it's out of the
+ training distribution, your chat dev process, okay, even though involves many agents, so all these
+ agents are still trained using chat gbt, I mean chat gbt is the base agent, whatever chat gbt is
+ trained on, it's good at, whatever chat gbt is not trained on, even you put a thousand agents talking
+ to one another, you know, people like to say you have emergence, emergent properties, if you have
+ multiple agents, right, even you have this emergent ability, you still have a capability limit,
+ okay, so if you don't have the right tools to augment it, agents talking to one another is not
+ going to cut it, you are not able to break through that barrier and generalize out of distribution
+ easily, just from agents talking to one another, so this chat dev has a, it's a proof of concept of
+ that, that agents talking to one another cannot solve everything, okay, you must still be within
+ what you've seen before, or you must imbue it with some external tools that can help you to solve this,
+ okay, second all modular codes are part of the same prompt, okay, so basically like main.py,
+ player.py, all this are part of the same prompt, you know, why the program has many parts it cannot
+ fit in the context, so I talked about this earlier, if you have a thousand files it's not going to fit,
+ okay, so this is the limitation of chat dev, because if you want to show all your programs
+ at the same time, this is the problem, the way to solve it is hierarchy, at each level you'll need
+ to attend to a few things, you don't attend to everything, then you have the bandwidth to see
+ everything in your respective layer, okay, next the modular codes may not even refer to one another,
+ okay, this is the thing I was talking about earlier, the dependency graph, all this is not captured
+ very well, okay, one way to help to solve this is maybe to put the dependency graph in the context,
+ you need to say that, okay, your main.py, okay, needs to import player class from player.py,
+ so if you say something like that in your context, okay, or you could just say that, okay, given,
+ okay, player class from player.py, okay, functions of player class is to simulate
+ stores the score of player methods, so basically you can give the description of methods is like
+ add score, add points to player, so if you can do something like this to give what needs to be
+ imported as the context, I'm very sure your main.py can generate something like that, because you are
+ basically conditioning it on a function, so it's like a domain specific language here, you already
+ have something that you have created, you want it to use this specific, I mean in my app challenge,
+ I call it primitive functions, if you have this kind of primitive functions you already have,
+ you can use these primitive functions and come condition your software, so that your software
+ can use it in the output, the LMS can use this for output, okay, so there are multiple ways to do this,
+ whether is it graph method or this condition, I think this condition will work better because
+ you give more information to the LM, so the LM knows how to use this class, okay, so
+ these are just some of the bad points of it, they execute about 86.66 percent of software flawlessly,
+ okay, half is because of external dependency, incorrect version, no, if they did not really
+ test in the IDE like what I saw in their code, then this is understandable, because they don't
+ have the error message to say that your Python version is wrong, or you're using p-low, wrong
+ version or p-low, you know, all this you need to test in the IDE to find out, okay, I mean even in
+ Chick Nguyen's book on the bringing LMS to production, she also mentioned she spent days
+ trying to debug a code that her colleague has pushed onto the GIT, because they have different
+ versions of Python, they spent days figuring out that everything is the same, but the Python version
+ is different, that's why there's an error, so you need to have a way to execute this in a sandbox
+ environment, and your sandbox environment must be the same for every single one in the company,
+ so I think this is something that I think can be implemented, they can just use Docker or something,
+ yeah, so it's quite easily done actually, so I think chat def can be improved quite easily with
+ this step, token length limit issue, I think the hierarchy might solve it, but this is a difficult
+ thing to implement, okay, so we contrast this, okay, I might do another video on MetaGBD in contrast
+ to MetaGBD, MetaGBD is another kind of agent thing where they have like different processes or so,
+ but what MetaGBD does is that they have like a very rigid workflow, I mean very similar to chat def,
+ but theirs is, how would I say, they actually have the error correcting look much more ingrained in
+ that framework, okay, better error correcting look, and what happens is that they can execute 100% of
+ tasks given, okay, they can execute, but they may not complete it, I mean, but at least you compare
+ to chat def compared to MetaGBD, I think MetaGBD has a more rigid process of error checking,
+ has a more robust process, so maybe I'll cover this video next time, because I think MetaGBD
+ is also quite popular, okay, initially I thought chat def was better than MetaGBD, but looking at
+ the implementation, maybe MetaGBD might be better, so we'll see how it goes, next thing,
+ okay, this is the one that I described earlier, no sandbox testing, okay, just observing the code,
+ ah, this is another very important thing, and we like to specialize as a CEO or CTO, I just tell you,
+ you are a CEO, okay, that's not going to work, all right, that's not going to work, imagine telling
+ a human you are a CEO, then expecting him to make, him or her to make decisions, okay, you need to be
+ trained well, you need to have the right skill sets, okay, you need to know how to call the right
+ people or right networks and so on, so all this are quite hard to model, but definitely one thing
+ that's missing is skills or tools or APIs, okay, or skills, you know, you need to imbue with
+ role-specific skills, so all these things here, yeah, role-specific skills are missing,
+ okay, and of course, as they do different programs, they need to learn as well, they need to not make
+ the same mistakes so that you can progress, all right, so this is what Prince was talking about,
+ memory just now, this memory is also my favorite research topic, okay, I'm a memory person,
+ okay, I believe memory is the key to unlocking AGI, if you can solve memory, you can solve a lot of
+ things, because we can solve learning, so right now this memory is very rudimentary, just a
+ conversation-based memory, we need to make it bigger, we need to think bigger, think in terms
+ of multiple interactions, you preserve the memory across there, multiple products, multiple tasks,
+ you also preserve the memory, and you know, this memory might also help to give it new skills, you
+ can consolidate your memory and get a skill out of it, but you can do a reflection and say, hey,
+ actually, I should do process A every time I see this category, then that can be, process A can be
+ your skill, yeah, so dynamic skill learning, something very exciting to me, something that
+ is very hard to do, so I think this won't be done anytime soon, but I can see that in the end outcome
+ for agents, we will need it to learn its own skills as well, okay, so I pause here for a while, any
+ further like you want to add into this part on why chat dev is not good, or why chat dev is good,
+ you all can chime in now if you want to.
+ Okay, if not, let's move on. Yeah, sorry, I have a question, you mentioned that it generates the
+ folders structure also, or does it not generate the folder structure? Right now, I haven't seen it
+ generate the folder structure for my use cases, but maybe for more complicated ones, it would.
+ What I talked about folders just now is that I'm saying that if there's a lot of folders and so on,
+ it may not be able to generate the code properly, because like the prompt, oops, sorry,
+ because the prompts that we give it, like the number of code files or this prompt,
+ is limited by the context length, so you can only put in that many files.
+ So with regards to folders, my point just now was that
+ I don't think it can handle it very well, because it will bust the context length.
+ Okay, because yeah, I mean, it is good until you need to maintain,
+ like obviously generation is, it looks good, but we all know that once the code is generated,
+ and the files are messy, or like the folders are messy, it's quite hard to debug, like as a
+ programmer, and so what you're left with is an unmaintainable code. Yeah, I mean, there's a
+ saying, you know, like it's easy to create code, but it's hard to debug, so you can create things
+ that work for now. The moment the version changes and so on, you need a very capable agent that knows
+ how to access those various documentation to fix it. Documentation change, we need a way to fix it
+ based on how the documentation has changed and so on, so that you need programmers for, and I think
+ that right now, Shadf can't do this yet. Have you also, the next question is, have you, can it generate
+ images or like different kinds of types of files, like not just text files or python files, do you
+ think it can do pngs as well? Yes, it can. So there's now someone asked about like whether
+ humans can be in the loop. I think it was you, right? Yes. Yeah, I forgot to mention that, you
+ know, in this phase, like the coding phase, if you add in this designer, the designer can, based on
+ the requirements, okay, because like there'll be a problem, say last thing step by step and so on,
+ so you can ask, as the main problem is like, what are the images needed? So the programmer can work
+ with placeholder images names, and the designer will then fill in this image with the generated
+ stuff. So how they generate OpenAI.e. I mean, you can use other open, you can use other tools
+ as well, open source tools as well, but there's a way to generate images as well. In fact, the output
+ here can also be a PowerPoint file, can also be a document. It's not just python code that this can
+ generate. Okay, nice. Thanks. So where are the humans, right? Actually, over here, you can have
+ a phase called like human-computer interaction. You can be the user. So like the user is the human,
+ which is like how it's normally done, and the AI will be like the programmer. So you can like
+ order your programmer to change the code. And on a separate window, you can open your main.py,
+ you can run the game, or you run the program and say, hey, there's no start button, if you manage,
+ and then basically that's your user here. And then the programmer will say, okay, I will implement
+ your start button. Then they will go and redo the code. Here's the generated code. They can
+ test the code again and say, hey, there's no score. I don't have a UI for the score. Then the
+ programmer will say, okay, yes, I'm going to implement the score. So there's a way to do this
+ human-computer interaction here. You can have your own phase. You can implement your own phase in the
+ chat dev framework, a custom phase. Did that answer the question that you had earlier?
+ Yeah, sure. I mean, it is still basic injection of like props and everything. I think probably like
+ if this has enough, it's open source, right? If this has enough contributors, if this has enough
+ contributors, I think that some people will find a way to improve the system until we get to a level
+ where we can generate a simple workable applications first. Have you seen this new
+ beta called v0 by Vercel? Apparently it can create whole websites already. Let me send it in the chat.
+ Let me get the correct link and send it in the chat. But it's not available yet. I think it's
+ coming into production soon. What this promises is that it can do
+ the whole website. So I think that that is one good application. So I'm thinking
+ for this particular chat dev, probably a basic Unity game or basic Pi game or basic
+ website. If we can generate the basic one first, then we can iterate to
+ expand the scope of what it can generate. I don't know what is the LLM or what is the
+ AI powering this, but this v0 is by Vercel, the company Vercel. So they have a way to either
+ by multiple agents or some other prom engineering to generate all the files and folders required,
+ all the JavaScript and the HTML CSS. So probably they use similar methods or something like that.
+ I suspect for this, you need to have a better broad to specific grounding. So you need to ground
+ firstly, give me all the files needed. So that'll be the grounding and then each agent at the bottom
+ will then generate some files, not all the files, maybe three or four of the files and so on. They
+ can group by web page. So each agent can do one web page. So if you want to do a HTML agent like
+ that, I can see it being done if you modularize your generation. Yeah, because I'm already using
+ chat gbt to generate some low-level SQL or like HTML or CSS. Chat gbt is great if you don't need
+ to think, if you don't need it too much. Treat it as a very low-level executor, it works great. The
+ moment you want it to do lots of planning, you need to ground it with a lot of past knowledge.
+ You can only do process A with incident A, process B with incident B and so on. So all these things
+ is in your brain actually, this high-level knowledge, but it's very hard to codify it out.
+ So if you could just get gbt to do the lower level ones, at the top level, use more rule-based
+ things to do it. I think it will work out fine. gbt cannot plan very well, unlike common height.
+ Yeah, I don't think gbt reasons very well either. Yeah, it just matches very well.
+ So we need to use what gbt is good for. Right, thank you. Yeah, that's great. Yeah.
+ All right. So the last part here, some of the artifacts that they notice,
+ these are not exactly cons, but they realize that there's repetitive expressions of gratitude,
+ like thank you, good day, you know, that kind of stuff. And this is my take on this is because of
+ RLHF, like humans like to hear thank you a lot. So maybe that's why the agents keep saying thank you.
+ Yeah, so maybe the chat gbt is not trained to like say like, okay, I'm going to end the conversation
+ now because that sounds rude to humans, right? So that's why when you have two chat gbt agents
+ talking to one another, neither one wants to end the conversation. So this is what happens.
+ All right, so they fix this through a hack. They just use an end token so that the gbt
+ agents, at least the user will know how to end with the end token. So we don't have this never
+ ending dialogue. However, later I'll show you an example of why the dialogue may be an inefficient
+ way to do things. So the other thing that I want to point out is that there's a limited ability to
+ autonomously determine the specific implementation details. Okay, so this is again the limitations of
+ planning. The chat gbt can only plan well if you give it the tools to plan well. If you ask it to
+ free flow do the planning, okay, it may not do this implementation details well. So chicken we mentioned
+ about the website by v0, maybe they ground it in very very specific website designing stuff.
+ Okay, this chat dev is too broad, too generic. It's not grounded in anything specific about
+ games and anything. That's probably why it cannot do the multiple linkages between python files well.
+ So yeah, I also like to say that chat-based format may not be the best. Okay, you might need a more
+ rigid framework structure to ground the output generation of LLFs.
+ Okay, so some experiments I did. Okay, so this is in the paper. The CEO and CTO are discussing,
+ you know, like okay for Goboku, what language should I use? Python, all right, and use the
+ Pygame library. That's for later on. So I basically did a chat gbt experiment. I said, okay, I just
+ want you to output like the programming language and the module that you need and I get the same
+ answer which with like much fewer tokens. You can see that this is like literally less like four or
+ five tokens. So, I'm not sorry, like one, two, three. Okay, I mean you also need to count the
+ to use the tick token to check the number of tokens but you can see it's significantly less
+ than this amount of generation. This amount of generation also hides the fact that each of this
+ agent has a memory stream that that fuels it. So this is not cheap, you see. You need to have a
+ conversation. You remember what happened before that. The amount of tokens will explode with the
+ length of your conversation. The longer you converse, the more tokens you need. But if you
+ just want to say like, hey, for this task, okay, given this task, okay, given task A, what program
+ should I use? Or what modality should I use? You could even ask GPT this, okay, and then you can ask
+ it like only give the answer without explanation. You can do something like that. In GPT, you might
+ get the same stuff as what two agents converse with one another. Okay, why? These two agents are also
+ checked in GPT. There's no difference. Okay, you can converse with one another. The main thing you
+ gain is reflection. Okay, but if you have a task and you want to match it to the outcome, you don't
+ need a conversation. So, whatever conversation model that Camo is doing, that Chat Jeff is using
+ in their framework, it's not necessary for a lot of cases that I've seen. Okay, take a look at the
+ replay log. A lot of them can be replaced with this. You can ask it to output a JSON, or you
+ can ask it to output the answer like that. No simple problems can be solved simply. All right,
+ so this is the quote of the day for today. Yeah, you don't have to use a conversation to solve
+ everything. And I think this is one of the downfalls of Chat Jeff, because the conversation is very
+ lengthy. It might lead to loss of information. Okay, so I think this can be replaced. All right,
+ this part of Chat Jeff can be replaced for some parts of it. Like idea generation, you don't need
+ a conversation. Unless each of the agents have different backgrounds. Okay, because right now,
+ each agent doesn't have specific memory. If your CEO has memory of like his other corporation that
+ he has done before, your CTO has memory of other programs he has done before, then you know, yeah,
+ a conversation might be a good way to bring out the best of both of them. But right now,
+ because of the framework of how it's done, there's no memory, there's no past memory of
+ what has been done outside of the conversation. It's not necessary to have the conversation.
+ Okay, all clear on this.
+ All right, so this is how the Chat Jeff Gomoku game looks like. Okay, I didn't use the image,
+ but right now you can see that you can just like put the, you can click on the thing and like one
+ circle will appear. Yeah, so this is a five in a row game. You can see it costs about
+ 24 cents, 0.024 cents. Okay, the number of tokens is, is there a number of tokens here?
+ Number of prompt tokens is 1, 1, 5, 5, 7. Number of completion is 3, 5, 2, 8. So Gomoku is fairly
+ simple. All right, so this ran in about three minutes or so. And the game creator is runnable,
+ is playable. So put those to that. So at least Gomoku works. All right, so I tried to do the same
+ thing in Chat GPT. So I only use like six, six words or seven words. Okay, and I got a superior
+ result to chat there. So you can try typing this, create me a Gomoku game in Pygame and then it can
+ just run straight away like that. Yeah, it looks way better. And like, oh, like what was all the
+ conversation about, right? And you see the costs. Okay, actually it's not 0.01 cents, it's 0.001
+ cents. I didn't bother to check my open AI usage because I know it didn't use much. Okay, it's just
+ simply just this prompt and then output the Python code. You just copy paste and run it. Okay, this
+ is the Gomoku game. I give this example to just highlight how inefficient chat dev can be. All
+ right, because you can do the same thing with just one prompt. All right, Wheel of Fortune game. All
+ right, so this Wheel of Fortune game, in the end what happened is that they just created like this
+ thing here. There's no wheel, there's no, I mean you can key inside of the letters. It costs about
+ 0.04 cents, the number of tokens 20,000, completion tokens about 9,000. All right, so it took about
+ eight minutes for six, eight seconds. Yeah, so I think this is something that needs to be improved.
+ Okay, Wheel of Fortune game is actually not that difficult to create. You just need to create the
+ word and then you need to create the key press. They got most of it right, but they lack the UI.
+ Like there's no, like someone have a score, maybe like round what, then like players.
+ We are lacking a few other things, but at least the basic game functionality I think is there.
+ It's just not very apparent over here. Okay, so let's do a stress test and how important is
+ chat app to create this Wheel of Fortune game? Can I create it myself? So again, I asked it,
+ I asked ChatGbd, create me Wheel of Fortune using Pygame. Unfortunately, it didn't run. Okay,
+ there's this variable spinning that didn't work out. So let's prompt the error message back into
+ the chat. Okay, we asked it to basically ground it in degeneration. I prompted back the error
+ message and then again what happened is that, oh, okay, it gave me a wheel. Okay, but the wheel is
+ supposed to be like, it's supposed to be segmented. Okay, but I think there's some problem with the
+ code, like putting the segments out because all the words overlap at the center. So I have six
+ segments here. So, okay, at least the wheel was created. Okay, then I realized that if I asked
+ ChatGbd to just prompt the Wheel of Fortune itself, okay, it's a bit too rudimentary. It doesn't really
+ know what is needed. Okay, so it literally just generated the wheel for ChatGbd. So I mean,
+ there's some merit for ChatDev because ChatDev managed to do like maybe the word guessing logic
+ as well, just that the UI is not exactly well created. So I just thought, can I do it
+ by multiple brought to specific from things? So I create a minimalist Wheel of Fortune game.
+ Because if I ask you to create the real Wheel of Fortune game, it comes out with a lot of assets,
+ sound assets, image assets, and so on. I want to do as little as possible. So these are the stuff that
+ Gbd generates for me. And I think this is a great thing to use. You can just use all this,
+ okay, give it this overall config file of what's needed, ask it to generate, generate main,
+ generate wheel.py and so on. So that's what I did. I asked it to generate main, given that.
+ And guess what? It creates a decent game. There's no wheel now because I only generated the main
+ without the wheel. But you can see that like over here, at least this, I managed to key in the
+ letters and it can guess. And then this part here is a bug. It's not supposed to be you win.
+ You haven't won yet. So at least from brought to specific, I could get a decent game out,
+ though not completely working, missing certain elements. Yeah. So chat dev has some merit.
+ They are able to do this brought to specific steps. But the downfall of chat dev is that they talk
+ too much. All right. So pros and cons. Yeah. Actually, that's more or less the end of the
+ presentation. Before I move on to the questions to ponder, do you have anything you want to add on
+ to what you've just seen? Okay. Now let's talk about the questions to ponder. So the first
+ question is, will a chat dev group of agents be actually much better than just having one single
+ one do the task? So the one single one that does the task is like what I did for the Gomoku game
+ and the Wheel of Fortune. I just asked chat GPT, give me a game of Gomoku in Pygame. So for Gomoku,
+ it worked perfectly first time. Wheel of Fortune, I need to prompt from brought then specific.
+ Right. So the question is, is the group of agents really necessary? So I'm going to give my take on
+ it before they really open up to the floor. I think this is a group of agents only perform better
+ if the group has value. So if it's zero shot prompting, it's actually very little value
+ because in terms of the way of what the agent would do, like you can actually just ask the
+ agent to come up with the, just one single agent to come up with the steps itself because
+ by asking it to come up with steps, like doing chain of thought prompting for one agent is like
+ mimicking multiple roles also because the multiple roles, all the agents are the same agent, you see.
+ So I don't think a group of agents is necessary in chat dev's case because all the agents are the
+ same kind. Okay. With the same kind of tools. In fact, they have no tools. I mean, the same kind
+ of memory. So I don't think it's really needed. Okay. Any comments on this question?
+ Were a group necessarily better than a single person?
+ Okay. Now I'll move on to the next one. Can we replace the entire workflow with just one agent?
+ Okay. I think this one is a yes, potentially. Okay. But one thing that chat dev has taught us is that
+ the process based workflow is useful. So like the waterfall model or sequential steps. Okay.
+ So you generate from broad to specific is very useful to condition the generation in that path.
+ So I think that is a key lesson we can learn from chat dev about this process based workflow.
+ Yeah, of course, MetaGBD does a similar one. In fact, they might do it better. We can cover that
+ next time. But the idea of constraining the generation in each process and having this fixed
+ rigid process to follow is a very useful one to constrain your generation to do more plausible
+ and more useful outputs. Okay. Last question. How can we encode memory for each agent so that
+ they can grow in experience? Okay. So this memory needs to be memory across episodes,
+ memory across conversations, and then we need to like store the memory suitably.
+ So maybe like knowledge graph or something like that. Retrieve memory as well.
+ So maybe the retrieve memory as well can be like something like retrieve augmented generation.
+ So once we get the memory part well, the agents would be able to learn from various experiences
+ and maybe can potentially be better than currently.
+ Okay. That's the end for today. Any last words before I end the session?
+ So let me just end on the chat dev slide. So I think chat dev is a very interesting way of
+ getting the overall flow of generation done from a very broad phase to a very specific phase. The
+ idea is there, right? The idea is good. Execution could use some work because the agents are not
+ well differentiated. The feedback from environment is not really there. Okay. There's also a lack of
+ like a constraint of like, for example, you have different files. How should the files relate to
+ one another? This kind of overview of hierarchy is not there. And yeah, the agents at the bottom,
+ they are not specialized enough to give good enough outputs. So if we can fix all these problems,
+ and perhaps we will find more as we develop the agents framework more, I think this is a very
+ useful process to follow, right? This sequential based model. Okay. What I may not agree with is
+ that you may not need to use conversations each time. You could just prompt the large language
+ model to output a potential action. Okay. So I'd like to end on this. I think this is overall a
+ great paper, quite insightful paper, but a lot still needs to be done for it to do more complicated
+ tasks. All right. And yeah, that's all for today. See ya.

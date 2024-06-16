@@ -1,0 +1,655 @@
+ [MUSIC PLAYING]
+ Hello.
+ Is everyone excited to be here?
+ Woo!
+ Welcome to our first ever Dev Day.
+ I'm really thrilled to have you folks join us.
+ And we are humbled by the community response
+ and are super excited about this amazing turnout.
+ And this week at Snowflake Summit,
+ we talked a lot about our new products,
+ our vision for our future with customers, prospects, partners.
+ But today it's for the builder community.
+ It's for all of you.
+ Snowflake customers are not.
+ We want you to connect, share ideas, and skill up
+ in data and AI.
+ We want you to get inspiration from each other
+ and from the industry luminaries we have lined up this afternoon.
+ I took a picture of myself with Andrew to the side.
+ I was like, oh my God, I'm with the demigod.
+ I'm a developer.
+ I'm a software engineer at heart.
+ And I love the little things that technology can do.
+ I'm genuinely super excited when I check out new things.
+ I wrote my first Streamlit app.
+ It was like all of 10 lines long.
+ And I was like, holy cow, this thing runs inside Snowflake.
+ I don't have to deploy a server.
+ It just works out of the box.
+ And of course, I shared that with Adrian, who was like, oh my God,
+ you're writing a Streamlit app.
+ And I get super inspired when folks like our PM director,
+ Jeff Holland, he made this video.
+ This is like this weird idea that I had.
+ Hey, let's use Container Services to do some video transcriptions
+ and then get structured attributes
+ from those transcriptions.
+ Use Cartex Search to put it in and have a chat box.
+ And he made that happen in a couple of hours.
+ And I could then install an app to do the very same thing also
+ in like 10 minutes.
+ And I could tinker with it.
+ And these are all great things because we
+ are able to grow the community of developers
+ that build on Snowflake.
+ It's a strategic priority for us.
+ So we're evolving and investing to better meet
+ the needs of builders like you.
+ And although we started as a closed source product
+ with an enterprise focus, we are opening up.
+ We are becoming an application platform
+ with a healthy dose of open source
+ and community-led development.
+ And you heard it before.
+ We just concluded our first international AI hackathon
+ featuring Arctic, our own true open LLM.
+ And congrats to the winners.
+ But we began investing in our developer program
+ five years ago to support developers building
+ data-intensive applications.
+ It's our sweet spot.
+ And the growth has been amazing.
+ Thousands of people are powered by Snowflake already.
+ And we partner closely with these companies at every stage
+ to help them build, but also scale their applications
+ with customers, like help them generate revenue.
+ And whether it's providing build and design resources,
+ specialized support, or go to market,
+ we are the partner program.
+ We are aligned with the growth of these partners.
+ On Snowflake, you can have fun building and creating
+ amazing startups that can change the world with our support.
+ And hundreds of startups are building their entire businesses
+ on top of Snowflake with a handful of them,
+ including folks like Maxa, MyDataOutlet, and Relational AI,
+ earning millions from distributing their apps
+ on the Snowflake marketplace.
+ I met Moham earlier yesterday.
+ I was like, dude, Snowflake ran an unpaid commercial for you
+ for 25 minutes.
+ That's what the keynote yesterday was.
+ And we also make equity investments in these startups
+ because we want to align long-term incentives.
+ Earlier today, on this very stage,
+ Big Geo, Scientific Financial Systems, and SignalFlare.AI
+ were the finalists of our fourth annual Startup Challenge.
+ And they competed for up to a million in investment
+ from Snowflake winners.
+ And the big winner is--
+ big congrats to SignalFlare.AI for winning the Startup
+ Challenge.
+ Please give them a big round of applause.
+ [APPLAUSE]
+ And with our Snowflake Native App Accelerator Funding Program,
+ we have partnered with 10 leading VC firms
+ to invest up to $100 million in early-stage startups that
+ are building native apps.
+ We are also investing in training for our builders
+ to help them skill up and grow their careers.
+ Just this week, we launched the North Star Education Program
+ from self-paced online courses and in-person workshops
+ in all regions of the world, all of this for free.
+ And check out the courses.
+ We just dropped on Coursera to start building on Snowflake.
+ I feel very fortunate that we are all at the center stage,
+ where data, AI, technology is still transforming the world.
+ It's a thrill.
+ It's a privilege.
+ It's also a responsibility.
+ And we are very grateful to many of the luminaries--
+ there's no other word for them-- that are driving
+ the transformation and are joining us here today
+ as we kick off our Luminary Talk Series.
+ And I am delighted to welcome our first Luminary speaker
+ on stage, founder and CEO of Landing AI, co-founder
+ and chairman of Coursera, and a formal Google colleague.
+ Please welcome Dr. Andrew Ng.
+ [APPLAUSE]
+ Welcome, welcome.
+ Andrew, it's a privilege.
+ It's an honor.
+ It's a thrill to be on the same stage as you.
+ You've been around AI for way longer than most people.
+ What was your AI aha moment?
+ By the way, I went to grad school at Brown.
+ And everybody then told me-- this was like 20 years ago,
+ 25 years ago--
+ everybody's like, don't touch AI.
+ Nothing will come out of it.
+ Wow.
+ They're wildly wrong.
+ But what was your big aha moment for AI?
+ I remember when I was a teenager,
+ my first job was as an office admin.
+ And I just remember doing so much photocopying.
+ I was just like, photocopying, photocopying, photocopying.
+ And even then as a teenager, I thought, boy,
+ if only we could do something to automate
+ all this photocopying I had to do,
+ maybe I could spend my time on something else.
+ And that's why I wound up pursuing computer science
+ and career in computer science and AI.
+ And in fact, your remarks just now, I've actually forgotten.
+ I saw you operate the Google Ads business.
+ Now you're CEO of a huge company.
+ When you mentioned that you were writing Streamlake code,
+ I got to throw all of that.
+ [LAUGHTER]
+ You know, tech can actually be fun.
+ That Streamlake one was fun.
+ I was so excited to watch the video of Landing AI
+ and Snowflake working together, Landing Lens,
+ that we posted together on LinkedIn.
+ That, to me, is like pure joy.
+ As we are talking about AI, I have to ask,
+ is there a billion-dollar model coming,
+ you think, where people need, I don't know,
+ 50,000 H100s to get started, step one?
+ Yeah, definitely some people are thinking that way.
+ It will be interesting to see if we get there.
+ For me, it feels like there could be cheaper, less capital
+ intensive, less energy-intensive pods as well,
+ to build highly intelligent systems.
+ But on the other hand, I don't think
+ we've squeezed all the juice we can out of sheer scaling laws.
+ So that's also worth pursuing.
+ And I just say, I really appreciate the work
+ that Snowflake's been doing as well on open-sourcing Arctic.
+ I think, yeah, we need more contributors
+ to do that kind of thing.
+ To me, good things happen when technology
+ spreads broadly, when lots of people can do the same thing.
+ Otherwise, it gets-- like naturally falling
+ into the hands of a few mean that we don't get
+ broad-based benefits.
+ So for me, that's the reason why I
+ hope models stay somewhat less expensive,
+ so that more people can develop, more people can tinker and push
+ all of us forward.
+ Couple more questions.
+ You were at the US Capitol recently, where there was this debate
+ over open-source model, AI regulation.
+ Where do you land in this debate?
+ Yeah, at this moment, I'm actually
+ very worried about California's proposed SB 1047,
+ which I think would be very stifling for innovation
+ in open-source.
+ So I feel like there's a technology layer,
+ and technologies are useful for many applications.
+ Then there's an application layer,
+ which tends to be specific instantiations of technology
+ to meet a customer need.
+ And for general purpose, technology like AI
+ is impossible to stop AI from being adapted to potentially
+ harmful use cases.
+ So California's SB 1047 poses a specter of liability
+ if, say, someone opens source as a model,
+ and someone finds some way to adapt it to nefarious means.
+ And I wish we could guarantee AI will never
+ be used for bad things.
+ I wish we could guarantee computers will never
+ be used for bad things.
+ But if you say that any computer manufacturer is liable,
+ if anyone uses your computer for something bad,
+ then the only rational move is that no one
+ should make any more computers, and that would be awful.
+ So I think Washington DC fortunately has gotten smarter.
+ I feel that over the last year, the White House executive
+ order I had some concerns with, but I
+ think the House and Senate have gotten decently smart.
+ The Schumer gang actually figured out AI and is more pro-investing
+ than pro-shutting it down.
+ But I'm actually really worried that here
+ in California, which has been home to so much AI innovation,
+ there's this truly awful proposal on the board.
+ It's just past the Senate vote going to the assembly next.
+ That I think would be awful if it passes.
+ We'll see.
+ All of you, go fight the fight.
+ SB 1047 is an awful idea.
+ People forget.
+ I think it is really important to reiterate
+ what Andrew just said, which is all of us
+ need to understand that AI is a technology.
+ And yes, there'll be good things that come from technology,
+ but there'll also be bad people that use technology.
+ We need to make sure that laws cover those things,
+ but not either make a hero or a villain out of technology.
+ There are going to be all kinds of different use cases
+ that we as a society need to be ready for.
+ OK, one other--
+ Please.
+ And to be clear, I'm pro-thoughtful regulation.
+ That's right.
+ Take out the harms, regularly against harmful applications.
+ I'm pro-thoughtful guardrails.
+ But when regulations put in place impossible requirements,
+ then I think the only thing that we'll do
+ is stifle technology and stifle innovation.
+ And that's the thing to remember,
+ which is premature regulation can be super stifling because it
+ introduces so much risk.
+ OK, topic dessert.
+ We know that language models, whether it's GPT-3, or 4,
+ or the Lama models are arctic.
+ We're big steps forward.
+ But the buzz these days, which I've written about,
+ which I've thought a lot about, is agentic AI.
+ Can you tell us what it's all about?
+ Yeah, so I think AI agents, which I'll
+ tell you about later with the presentation as well,
+ is significantly expanding the set of what can be done with AI.
+ I feel like with a set of AI tools and large language
+ models that are working, and the work on cortex
+ is brilliant, frankly.
+ And I find that when you're built on top of these tools,
+ we can even further expand what is
+ possible of a large language model.
+ And in terms of AI technology trends,
+ I think for any builder, anyone building AI,
+ if I had to pick one thing to keep an eye on,
+ I would say it's AI agents.
+ I think there's more than one thing
+ we should keep an eye out on.
+ But if I had to pick my top one, this might be it.
+ Well, we should all be saying, agents, agents, agents.
+ But we won't.
+ With that, I will leave the floor to you.
+ Andrew's going to do a few remarks.
+ You'll all love hearing from him.
+ As I said, this is an incredible privilege for me
+ to have Andrew and the other amazing guests that
+ are going to be here.
+ I hope all of you have a lot of fun listening to him,
+ learning from him, asking questions, and, of course,
+ doing cool things yourself.
+ Thank you, Andrew.
+ And I just say, I really want to thank Sridhar
+ and the whole Snowflake team.
+ My team, Landing AI, building Landing Lens
+ as a native app on Snowflake.
+ Really thinking about how to hopefully do
+ more things with cortex.
+ It's been such a brilliant platform.
+ We are super excited to be working with you and your team.
+ Thank you.
+ Congratulations.
+ Thank you, sir.
+ Good luck.
+ Woo!
+ Thank you.
+ Thank you.
+ So because this is a developer conference,
+ I want to take this opportunity to share with you
+ some things about AI agents I'm excited about.
+ And I'm actually going to share some things I've
+ never presented before.
+ So there will be new stuff here.
+ So AI agents, what are they?
+ Many of us are used to using large language models
+ with what's called zero-shot prompting.
+ And that means asking it to write an essay or write
+ a response to a prompt.
+ And that's a bit like, if you imagine, going to a person
+ and saying, could you please write an essay on topic X
+ by typing from start to finish all in one go
+ without ever using backspace?
+ And despite the difficulty of writing this way--
+ I can't write that way--
+ despite the difficulty of writing this way,
+ OMS do pretty well.
+ In contrast, an agentic workflow is much more iterative.
+ You may also know, please write an essay on a--
+ write an essay outline and then ask,
+ do you need to do any web research?
+ If so, go search the web, fetch some info,
+ then write the first draft, then read your draft
+ to see if you can improve it, and then revise the draft.
+ So with an agentic workflow, it looks more
+ like this, where the algorithm may do some thinking,
+ do some research, then revise it and do some more thinking.
+ And this iterative loop actually results
+ in a much better work product.
+ And if you think of using agents to write code as well, today,
+ we tend to prompt an OMS to write code.
+ And that's like asking a developer,
+ could you type out the program and have it just run,
+ from typing from the first to last character?
+ And it works surprisingly well.
+ But agentic workflows also allow it to work much better.
+ So my team collected some data that
+ was based on the coding benchmark called HumanEval.
+ HumanEval is a standard benchmark released by OpenAI
+ a few years ago that gives coding puzzles like this.
+ You give it non-empty list of integers, return to some data,
+ and that turns out to be the solution.
+ And it turns out that GPT-3.5, on the evaluation metric,
+ parset K, got it 48% right with zero-shot prompting.
+ Prompting it to just write out the code.
+ GPT-4 does way better, 67% accurate.
+ But it turns out that if you take GPT-3.5 and wrap it
+ in agentic workflow, it does much better.
+ And with GPT-4, that does also very well.
+ And so to me, one thing I hope you take away from this
+ is while there was a huge improvement from GPT-3.5
+ to GPT-4, that improvement is actually
+ dwarfed by the improvement from GPT-3.5
+ with an agentic workflow.
+ And to all of you building applications,
+ I think that this maybe suggests how much promise
+ an agentic workflow has.
+ So my team at Landing AI works on visual AI.
+ And I want to share with you some late-breaking things.
+ I've never presented this before.
+ We just released this as open source a few days ago
+ on what Ami said about building a vision agent.
+ So the lead of this project, Dylan Layard,
+ is an advent surfer.
+ And so he looks a lot at shark videos.
+ That's a shark.
+ And these are a surface kind of swimming around.
+ And Dylan was actually interested with videos
+ like these, how close do sharks get to surface?
+ And this is a video generated like this.
+ The shark was 6.07, 7.2 meters, 9.4.
+ Now it's swum far enough away.
+ So we switched the color from red to green
+ on the surface, more than 10 meters away from the shark.
+ So if you were to write code to do this,
+ you run object detection, do some measures,
+ find the boundary boxes, plot some stuff.
+ You could do it.
+ That's kind of annoying.
+ It would take several hours to write code to do this.
+ So I want to show you the way we built this video, which was--
+ we wrote a prompt.
+ Can you detect any surfboards or sharks in the video?
+ Draw a green line between a shark and a neural surfboard.
+ Assume 30 pixels is one meter.
+ Mark the line red, blah, blah, blah.
+ This was the instruction given to the vision agent.
+ Given this, the LLM, you prompt--
+ writes a set of instructions that breaks the task down
+ into a sequence of steps, extract frames
+ by using the extract frames, too, and so on.
+ This is a sequence of steps to do that task.
+ After that, we've retrieved tools-- tools means function
+ calls.
+ So for example, save video as a utility function
+ that saves the list.
+ And then we retrieve a long description of the save video
+ tool or the save video function.
+ And similarly for the other tools,
+ closest box distance to measure the distance
+ within the shark and the surfer.
+ And then based on that, we end up generating code,
+ fully automatically generated, that when run,
+ results in the video that you just saw.
+ So I'd like to just dive a little bit deeper
+ into how this works.
+ So we built the vision agent to work as follows.
+ You input a prompt.
+ This is a slightly simpler prompt than the one I used just now,
+ but calculate distance between the shark and the near surfboard.
+ And the goal of our vision agent is
+ to write code to carry out the task that you prompted it to,
+ so that you can then feed it a single image
+ and have it generate the desired outcome.
+ And similar to agentic workflows on writing non-image code,
+ we find that this works much better than zero-shot prompting
+ for many applications.
+ Moreover, we found that for a lot of image users--
+ for example, if in Snowflake, you have 100,000 images,
+ then having code that you can very efficiently
+ run on a very large set of images is important, too.
+ Because once you have the code, you
+ can take a large stack of images or make video frames
+ or whatever and run it through a relatively efficient piece
+ of code to process and get the answers.
+ And I want to share with you how our vision agent works.
+ And it's open source.
+ So take a look, give us feedback, maybe help us improve it.
+ But the vision agent is built with two agents-- a code agent
+ and also a test agent.
+ But with a prompt like this, a code agent
+ first runs a planner to build a plan that lists all the steps
+ needed to complete the task.
+ So load the image, use a tool to detect the object,
+ calculate distance, and so on.
+ And then it retrieves a detailed description
+ of each of these tools.
+ Tools means functions.
+ And then finally, generate the code.
+ And I don't know if some of this seems a little bit too magical
+ almost, but all the code is in GitHub.
+ Take a look at it.
+ Take a look at the specific prompts we use.
+ You might be surprised when you look at the details how--
+ all of this stuff seems magical maybe the first time.
+ But look at the code and look at the prompts.
+ And it turns out that when you do this--
+ here are a few other demos.
+ This says, detect every person in this image.
+ Figuration is wearing a mask.
+ I'll put a Python dictionary.
+ So during this bunch of codes, here's a Python dictionary.
+ Eight people are masked.
+ Two people are unmasked.
+ Here's a different prompt to actually generate
+ a visualization, plot the detections, and so on.
+ So this is a new piece of code automatically generated.
+ And I actually missed the unmasked people, the object
+ detection thing.
+ I found the unmasked people.
+ One more example.
+ Oh, this one's kind of fun.
+ Analyze the video every two seconds.
+ Classify if it's a car crash or not.
+ I'll put JSON, showing is there a car crash or not.
+ So car crash videos are always--
+ well, I don't think anyone was hurt.
+ But 16-second video, it's coming.
+ There's a car.
+ Unfortunately, no one was hurt, I think.
+ And if you do that, here's a code on the right.
+ And it processes the video.
+ And I'll post a JSON showing, at this timestamp,
+ there was no car crash.
+ At this timestamp, there was a car crash.
+ And so the feedback I'm hearing from quite a lot of people,
+ from my internal team and some users,
+ is, yeah, I could have written the code myself,
+ but it had taken me a few hours, and you can now get this done.
+ I find that in computer vision, we
+ use lots of different functions.
+ And honestly, I can never remember
+ what functions you use, what's the syntax.
+ And this really makes the process
+ of building visual AI applications much easier
+ when it works.
+ And I want to share just one other thing that
+ makes the performance better, which is use the test agent.
+ So I showed you the code agent.
+ And it turns out that you can prompt an LLM
+ to say, write some tests for this.
+ And it'll write test code.
+ And based on that, it can execute the test code.
+ Right now, our test code is often type checking,
+ so it's a little bit limited, frankly.
+ But even with that, we can execute the test code.
+ And if the test code fails, feed the output back to code agent,
+ have it do a reflection and rewrite the code.
+ And this gives it a further performance boost.
+ Oh, and I should say, in terms of academic literature,
+ the two research papers that we contemplate the most
+ is the Agent Coded Paper by Huang Lao,
+ and then also the Data Interpreter
+ Paper by Huang Lao.
+ So take a look at those papers if you
+ want to learn more about these techniques.
+ And so just to show one last demo,
+ this is Qt-Technicals, a motorbike
+ that is video every two seconds.
+ We wanted it to highlight--
+ so this is actually for CCTV videos kind of put together
+ into a video.
+ Common thing people want is to just highlight
+ the interesting parts to look at.
+ It's a long prompt YouTube link.
+ So it creates instructions like so, retrieves tools.
+ It turns out the code doesn't work, right?
+ So the code-- maybe I'll show you this one.
+ The code actually fails a few times.
+ Here, when running it, there's an index error traced back.
+ So it feeds all of these error messages back to the OOM,
+ fails the second time, fails the third time.
+ And it turns out the third time it fails, no module named PyTube.
+ And so the last thing that fixes it
+ is it's figured out to do pip install PyTube.
+ And then this actually fixes it, runs the code.
+ And then you have this kind of highlighting
+ in the CCTV-agglomerated video which of the four videos
+ has more than 10 vehicles in there you should look at, right?
+ So I'm excited about agentic AI as a direction
+ for many applications, including coding and vision--
+ individual and agent, which is what we've been working on.
+ Just to share some limitations, it's very, very far
+ from working all the time.
+ In our experiments, two failures,
+ probably one of the most common failures,
+ we used a generic object detection system,
+ grounding dyno, that sometimes fails to detect objects.
+ Here it's missed a bunch of yellow tomatoes,
+ common failure.
+ One of the things I was excited about,
+ landing ice collaboration with Snowflake,
+ was we recently built Landing Lens,
+ which is a supervised learning computer vision system,
+ as a Snowflake native app.
+ But I think with supervised learning,
+ we were able to mitigate some of these errors.
+ And then it's not good at complex reasoning.
+ So here, if you say, each bird weighs half a kilogram,
+ how much weight is on the fence?
+ With this example, system naively detects all the birds,
+ but doesn't realize that one of the birds is flying
+ and won't put weight on the fence.
+ But it turns out, if you modify the prompt
+ to say, ignore the flying birds, it actually gets it right.
+ And I feel like today, VisionAgent
+ will release it in beta.
+ It sometimes works, sometimes doesn't work.
+ It's a little bit finicky to the wording of the prompt,
+ and sometimes you do need to tune the prompt
+ to be more specific about the step-by-step process.
+ So I wouldn't say this is brilliant, amazing software,
+ but sometimes it works, and it works.
+ I've been really delighted and amazed by the results.
+ And I just want to mention--
+ oh, hey, guys.
+ Can you stand up?
+ The team that built VisionAgent is actually here today.
+ Dylan's a surfer, standing in the middle, and Asia and Shanghai.
+ [APPLAUSE]
+ So I hope you'll catch them.
+ You'll learn more about this either here
+ or at the Landing AI booth.
+ And it's also online at va.landing.ai,
+ and it's also released a core engine as open source.
+ And I feel like AI agents is a very important, exciting trend,
+ and we're making this small contribution to open source
+ to hopefully help everyone.
+ And I hope that together, we can make agents much better,
+ and this will significantly improve what we could all
+ do as developers.
+ So with that, let me say thank you all very much.
+ [APPLAUSE]
+ Thank you.
+ Let's see.
+ So someone told me that we have a couple minutes.
+ Oh, I think Lucas from Ways and Bias is coming on.
+ I think we have a couple minutes from Q&A.
+ If people have a couple questions,
+ I'll take them quickly, and I should get off stage
+ so we can hear from Ways and Bias.
+ Thank you very much for giving us a very concrete example
+ to explaining the workflow.
+ Really appreciate it, Andrew.
+ Thank you.
+ And I have a very quick question regarding to agentic AI.
+ So do you see--
+ first the question is, other than vision agent,
+ do you see agent can be used in other applications?
+ That's number one.
+ The actual concrete in application, the agent,
+ that's number one question.
+ Number two, would you say agent is just
+ a sort of specialized AI while giving the language model
+ or any other models we're having?
+ It's more like a generic AI.
+ Thank you.
+ Thank you.
+ Yeah.
+ So thanks.
+ So let's see.
+ What I'm seeing is that AI agents are
+ being used for many, many different applications.
+ I feel like some of you may have seen the splash
+ that Devin made on social media, although there
+ are some discussion about the nature of that announcement.
+ But this open Devin is an open source code agent.
+ And it's a lot of research on code agents.
+ I'm seeing teams doing legal work, for example,
+ analyzing complex legal documents,
+ use agents to analyze complex legal documents.
+ I think AI research agents, agents
+ can go onto the internet, do a web search,
+ synthesize lots of information, and write a document
+ with deep research.
+ That's really taken off.
+ I feel like I actually play around quite a lot.
+ I use agentic platforms like Crew AI, Autogen, sometimes
+ LandGraph.
+ And I'm actually seeing lots of people build lots of applications
+ on top of these frameworks.
+ And right now, I find that many agents tend
+ to be built for a specific purpose.
+ But it'd be interesting to see if there's a single, very
+ general purpose agent.
+ I think it's exciting.
+ For a lot of agents, I think that we're just
+ crossing the threshold from toy novelties to being useful.
+ For example, AI research agents, I get around for a lot.
+ Go onto the internet, do a web search,
+ write a research paper for you.
+ I think three months ago, it was great to play with.
+ But just in the last couple months,
+ my friend Monica Lam from Stanford, her research lab
+ released Storm as an open source software.
+ I feel like, yep, this is actually getting to be useful.
+ So I think just in the last few months,
+ I've seen a lot of these applications
+ cross from being fun novelties to being actually
+ pretty darn useful.
+ May I just take one more question that I
+ think I should get off stage?
+ No, OK.
+ I think they're staying on all the time.
+ So thank you all very much.
+ And it's really nice seeing all of you.
+ Thank you.
+ [APPLAUSE]
+ [MUSIC PLAYING]
+ (upbeat music)
+ (soft music)

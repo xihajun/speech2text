@@ -1,0 +1,496 @@
+ (upbeat music)
+ - All right.
+ Hey everyone, my name is Jerry.
+ I'm co-founder and CEO of Llama Index.
+ For those of you who don't know,
+ Llama Index is a data framework
+ for building LLM applications over your data.
+ We use that large enterprises to startups alike.
+ And today I'll be kind of talking
+ about a new set of topics, which is beyond naive RAG.
+ Like how do you add agents to RAG,
+ Retrieval Augmented Generation?
+ This is the first time I'm beta testing these slides.
+ So if I go over, I apologize.
+ I'll share these slides more publicly afterwards,
+ but yeah, here we go.
+ So Llama Index is a framework for connecting your data
+ to LLMs and build a production app, right?
+ And so if you're building like a chatbot,
+ if you're building a workflow automation thing,
+ if you're trying to build like document insight extraction
+ and intelligence, like we provide the core toolkits
+ for you to basically do that right as a developer.
+ And so we provide stuff like data loaders.
+ We provide data indexing.
+ We also provide query orchestration.
+ This includes everything from retrieval
+ to prompt orchestration with LLMs
+ to the subject of the talk today,
+ which is how do you actually kind of craft
+ these higher level abstractions of agents?
+ And what does that really mean?
+ So let's quickly touch on what RAG is, right?
+ I'm pretty sure most of you have probably heard of RAG.
+ A lot of enterprises care about RAG.
+ It's basically this like three letter buzzword.
+ So what exactly is it?
+ Prototyping RAG is basically, you know,
+ you take some documents, chunk it up,
+ put it into a vector database.
+ So you do some like basic lightweight data ingestion.
+ And then once it's in a vector database,
+ you do some sort of retrieval and LLM logic
+ to pull that data out of a database
+ to basically build your application.
+ If you ever built like a chat with your data,
+ like chat GPT over your PDFs or something,
+ this is basically the stack that you follow.
+ And if you follow the Quickstart Tutorial Blom Index,
+ you can do this in five lines of code.
+ But I think one of the main issues
+ is that RAG prototypes are limited, right?
+ If you're a developer and you built RAG in the past year,
+ you probably realize that it works well
+ for simple questions over a small set of documents,
+ but it doesn't really work for a lot of other cases.
+ So it's stuff like, you know,
+ what are some of the risk factors for Tesla?
+ Yeah, sure, it can answer that.
+ What did like this author do
+ at this very specific point in time?
+ It will be able to answer that.
+ But even if it's able to answer the simple questions,
+ it's not gonna be able to answer this entire class
+ of different types of questions you might wanna ask.
+ And it turns out question answering
+ over a large set of documents is a pretty hard problem.
+ So here's some challenges with naive RAG, right?
+ There's certain questions we wanna ask
+ where basic top-K retrieval is gonna fail.
+ Summarization questions.
+ Give me a summary and analysis of this document
+ instead of just looking up a specific piece of this document.
+ Comparison questions.
+ Compare the open source contributions of like candidate A,
+ candidate B if you're doing resume analysis,
+ or basically any sort of compare like apples versus oranges.
+ Right?
+ Structured analytics and semantic search.
+ If you want to ask a question that requires looking up stuff
+ from like a SQL database,
+ but also combine that with information
+ from unstructured texts, how do you actually do that?
+ And general multi-part questions.
+ And this is where we really got into agents,
+ like tell me about this and then tell me about that,
+ and then do like all these sorts of tasks
+ and then try to string them all together
+ to give me back a final result, right?
+ And try to use as many tools as possible
+ that's available to you
+ to try to answer the following question.
+ So the key idea here is we kinda,
+ I kinda wanna move beyond the three-letter buzzword of RAG
+ and more towards just how do I build
+ like a proper question answering system
+ that can handle any type of question, right?
+ So build a dynamic question answering system.
+ And then at the end of the day,
+ that's like really what you guys want to build.
+ If you're in the enterprise,
+ you wanna unlock value from your data
+ and you wanna start by getting some basic trap in place.
+ Each question requires a different pipeline implementation.
+ Like a summarization question, you don't just do top K,
+ you actually wanna return all the information
+ from a document.
+ So your chunk is just inherently different.
+ A comparison question requires breaking down the question
+ into smaller components.
+ And general multi-part questions
+ might require sequential reasoning, planning,
+ so that you can actually plan ahead what you're gonna do,
+ execute it and get back this final response at the end.
+ So let's talk about agents.
+ Many of you probably have heard of agents.
+ We've all seen projects like, you know,
+ auto GPT, GPT researcher, crew AI recently,
+ and a lot of kind of like new agent paradigms
+ and like frameworks like auto-gen, for instance,
+ give you the ability to craft like single agents,
+ multi-agents, but how does that really relate to RAG
+ and what can you do with it, right?
+ How can you basically add on layers to RAG
+ to make it more agentic?
+ So here's RAG, right?
+ You have a user question,
+ you have your RAG black box pipeline
+ and you have an answer, right?
+ You could add agents in the beginning,
+ you can add agents in the middle,
+ you could add agents at the end.
+ And then so I'll talk about what this basically means,
+ but basically you can make any part of your RAG pipeline
+ more agentic, right?
+ To basically make it more sophisticated towards this vision
+ of a dynamic QA system.
+ What exactly is an agent?
+ An agent is using an LLM for automated reasoning
+ and tool selection, right?
+ Everybody has a broad definition of what an agent means,
+ some are quite broad, some are more restrictive
+ and limited to a specific set of like architectures that work.
+ But for our purposes, let's just say,
+ using the LLMs at different stages of this process
+ to basically do more intelligent reasoning
+ over your question and your data.
+ From this point of view, RAG is just one tool, right?
+ RAG is just a lookup tool over a specific data source.
+ And the agents are basically this higher level abstraction
+ that wraps around an existing tool
+ and agents can decide to use RAG as one tool,
+ it can also use other tools as well
+ to try to access data, interface with it,
+ get back a response and synthesize the right answer for you.
+ So the kind of spectrum I wanna think about here
+ is from simple to advanced agents,
+ what does that actually look like?
+ And we'll kind of talk about that in layers
+ from the most simple definition
+ of what an agent possibly could be
+ to something that's a bit more complicated
+ like React, dynamic query planning,
+ some of the recent papers coming out today.
+ So simple stuff includes routing, query planning,
+ tool use in like a single pipeline.
+ And then you move on to more automated reasoning loops
+ like React and query planning.
+ The simple stuff tends to be lower cost, lower latency.
+ It's also less expressive,
+ so you're not gonna be able to do as much stuff,
+ but it's gonna be cheaper.
+ The stuff that's gonna be more sophisticated
+ is gonna be higher cost, higher latency,
+ but of course more powerful.
+ It's gonna be able to handle a broader class of questions
+ and do more things for you.
+ So let's start from the basics.
+ Well, let's talk about routing.
+ Routing is probably the simplest form
+ of agentic reasoning, right?
+ What is routing?
+ Routing is basically given some sort of input task
+ or input string or question and a set of choices,
+ pick the set of choices
+ that you wanna route this question to.
+ So you use an LLM in there, right?
+ You have an LLM like GPT-3, GPT-4, Anthropic,
+ and given a query, you pick the relevant set of choices
+ that this query corresponds to.
+ And why does this like kind of add an initial level
+ of agentic reasoning on top of RAG?
+ It's because you can build something very simple
+ that's a little bit more dynamic
+ than what you have currently.
+ So let's assume you have like a RAG pipeline
+ over your given data.
+ You also have a separate summarization pipeline
+ over your data where the chunks
+ are just completely different, right?
+ You feed in the entire document
+ as opposed to just like little bits of the document
+ to your LLM.
+ Now you add a router at the top layer.
+ Given a question, you can actually decide
+ which of the sub like query engines
+ like the RAG pipelines actually call.
+ You can call the one that fetches smaller chunks
+ for top cave from a, like that does top cave lookup
+ from a vector database,
+ or you could fetch the entire document.
+ And this is dependent on the user question, right?
+ So as a level of like, given this question,
+ I'll dynamically choose
+ what underlying choice corresponds to this.
+ And so yeah, one of the use cases
+ is you can actually combine question answering
+ and summarization in the same flow.
+ The next step here is query planning.
+ So given a question,
+ besides just routing it to an underlying tool
+ or query engine,
+ can we actually break down this query
+ into a parallelizable subqueries?
+ A classic example here is,
+ compare the revenue growth of Uber and Lyft in 2021.
+ This type of question,
+ if you just launch this against a regular RAG pipeline
+ and look up like the top came with similar chunks from this,
+ you're not gonna get back the right results.
+ It's because this really is a multi-part question
+ that can be broken down into two sub questions.
+ Like what is the revenue of Lyft in 2021?
+ And what is the revenue of Uber in 2021?
+ Once you're able to break it down into sub questions,
+ you can launch each sub question as a query
+ against the relevant data source
+ to get back the answer that you're looking for.
+ If you launch the initial question,
+ you are not guaranteed to basically get back
+ the relevant context for your answer, right?
+ And so how can you actually do query decomposition?
+ It's quite simple, it's just a prompt.
+ You have it input question,
+ you feed it into some prompt that tells it,
+ that asks it to break down a question into smaller subtasks
+ over some subset of tools if it's relevant,
+ and then execute the subtasks.
+ You can do this in parallel too,
+ especially if you have multiple parallelizable subtasks,
+ you execute it against each pipeline
+ and you combine the results at the end.
+ This is another definition of something that's agentic,
+ that gives you more query capabilities
+ than just a standard RAG pipeline.
+ And so yeah, the example here is basically,
+ given just some general financial document analysis,
+ given basically any sort of comparison question,
+ query planning is a good way to try to handle
+ these types of multi-part parallelizable questions
+ over your data.
+ (audience mumbling)
+ Another step here, that's another kind of step
+ that builds towards like a full-on agent,
+ is this idea of just calling an arbitrary tool.
+ So the idea of tool use is that you use an LLM
+ to call an API.
+ And the API, right, instead of being called by a human,
+ is called by an LLM that actually decides
+ the parameters to infer in order to actually use
+ a given tool.
+ It turns out that a lot of things that you're building today
+ probably fall within this paradigm, right?
+ Whether you're querying a vector database,
+ whether you're querying a SQL database,
+ or whether you're querying an endpoint,
+ like Google search, Google calendar, like the weather,
+ a lot of these agents that people are building these days
+ involve some aspect of being able to translate
+ a user query into a set of parameters for an agent tool.
+ We can kind of talk about in the future
+ as these tool interfaces evolve,
+ how API interfaces will probably become more agent-oriented
+ as opposed to human-oriented.
+ And so it'll be easier for agents
+ to use these different services
+ and interact with each other through microservices,
+ multi-agent settings.
+ That's probably a topic for a different talk.
+ But in normal RAG, when you have a user question,
+ you basically just launch it against a vector database.
+ You don't do anything to the query,
+ you just directly pass it through to the vector database
+ to look up the most relevant context.
+ If you add just an additional layer in the beginning,
+ instead of directly passing it through to the vector database,
+ you have an LLM try to infer the full set of parameters
+ of the API interface to your data system,
+ then it turns out there's a lot of stuff
+ that falls into this category.
+ One paradigm is auto-retrieval,
+ where instead of just passing through the query,
+ you also pass through the metadata filters.
+ By passing through the metadata filters,
+ you can basically craft a more precise query
+ against your vector DB to get back an answer.
+ This also applies to text to SQL
+ for anyone building structured analytics
+ over a structured database.
+ Translating your query into a SQL statement
+ is basically an example of this.
+ The API interface is a SQL statement,
+ and so the agent is responsible for converting
+ a natural language task into a SQL statement
+ to execute against the DB.
+ And of course, any other API tool as well.
+ If you have an API for Google Calendar,
+ it has a set of ARGs and KWARGs,
+ you can infer the set of parameters that you need
+ to basically hit the store.
+ So we've talked about a basic agentic pipeline,
+ and this is cool, but how can an agent try to tackle
+ more sequential, multi-part problems?
+ We've added some basic reasoning layers
+ that roughly execute in a linear fashion.
+ But how can an agent basically tackle stuff
+ where it needs to iteratively kind of go back and forth
+ to try to arrive at the final answer?
+ And also, how can an agent actually be stateful, right?
+ How can it maintain state over time
+ so it uses past experiences to also influence
+ how it arrives at a final answer?
+ And so some simple, I mean, not simple,
+ but basically some simple concepts
+ is to try to just add a loop.
+ So far, it's been a linear kind of execution like pipeline.
+ Let's just add a loop,
+ and then let's try to add a basic memory module
+ so it maintains state and it can actually call itself
+ so it can loop back and forth.
+ So in Llama Index, we have this concept of a data agent,
+ which is basically just an agent.
+ And then the core components of an agent
+ include some sort of execution pipeline,
+ which can include query planning, tool use, routing,
+ whatever you want, basically.
+ And there's some sort of agentic loop at the top.
+ These agentic loops include React,
+ which has probably been the most popular agent loop so far.
+ It came out as a paper in 2022 and it's been widely adopted.
+ OpenAI, of course, has a function calling endpoint
+ and now an assistance API,
+ which handles some of that stuff for you.
+ Or you could just call the function calling endpoint
+ in a while loop.
+ And so just to talk about React really quick,
+ React is a paradigm where, given a question,
+ it not only just executes stuff in a one-shot setting,
+ you actually execute it in a while loop,
+ where you have some thoughts and then some action
+ that you wanna take, as well as an input to that action.
+ And the thing is you keep executing this in a loop
+ until you're actually done with the task.
+ And so after every intermediate step,
+ where you can break down a question into a smaller task,
+ you get back the intermediate output,
+ append it to the conversation history,
+ and then you keep on going from the beginning
+ until it's actually done.
+ It's been pretty popular.
+ A key concept here is it basically just plans
+ the next step ahead.
+ And so it's like a for loop until it actually finishes.
+ And this is roughly a superset
+ of everything that I just talked about.
+ It includes tool use.
+ You can use tools because it can infer an action
+ and actually how to actually use a tool,
+ like the parameters for that action.
+ It can do decomposition and query planning
+ because it takes in a question
+ and can decompose it into smaller sub problems.
+ It can also do routing, right?
+ Like give in a question,
+ figure out what are the most relevant tools
+ for that question.
+ And the main thing is it can keep on doing this
+ in a while loop until it's done.
+ And so of course we have this implemented in LAM index
+ and it's a pretty popular paradigm for adding an agent.
+ And yeah, it's a superset
+ of routing and query capabilities.
+ The next step here though,
+ and this is something that's interesting
+ and something I imagine
+ that will probably happen more and more this year
+ is people are finding out ways to go beyond React.
+ Can we add better agent architectures, paradigms,
+ that basically enable long-term planning?
+ So instead of just planning out the next step,
+ simulations roll out long-term planning.
+ So you basically aggregate the results at the end
+ and also just optimize system-level components.
+ So it actually ends up kind of being like an operating system.
+ Given any sort of task that it plans out,
+ it actually optimizes it system-wise
+ to reduce both costs, latency,
+ and you're able to get back results as fast as possible.
+ A recent paper that we hosted the authors on the webinar
+ is LLM compiler, which is a cool paper
+ that actually kind of treats this roughly equivalent
+ to a computer architecture, right?
+ Like the LLM OS that Kripathi put out.
+ You have a user question
+ and instead of just sequentially planning out the next step
+ in like a for loop,
+ you actually plan out an entire DAG,
+ like an entire computation graph beforehand.
+ And you plan out like symbolically
+ what variables are gonna need filled out before what.
+ So you have a dependency graph mapped out.
+ And then you basically have an executor
+ that tries to execute everything in parallel when it can.
+ And so it's very systems-like.
+ You have like an architecture that does planning.
+ You have another module that pulls tasks from a queue.
+ It actually tries to execute it in parallel.
+ And then you also have a replanning step
+ where after some number of iterations,
+ you can figure out if your plans
+ are actually going according to plan
+ and replan accordingly.
+ And so you can plan out steps beforehand,
+ replan as necessary.
+ And this is also available
+ as a kind of more experimental feature in BombIndex, right?
+ And so this not only enables all the features
+ that I talked about beforehand,
+ but potentially problems
+ where you can go very high up the level of abstraction,
+ where you give a very vague task to the system
+ and it can figure out all the search and retrieval tasks
+ it needs to handle like under the hood
+ to give you back the answer.
+ And the end goal is just no matter what question you give,
+ it'll literally kind of do research under the hood
+ over your data to get back the right response.
+ Some additional final requirements,
+ just as a closing statement,
+ is as people build agents,
+ and I anticipate that as these models get better
+ and costs go down,
+ more and more people will be building agents,
+ we're gonna need a few things.
+ One is we're gonna need observability
+ so that people can actually see
+ what's going on under the hood.
+ So you basically see the full trace of the agent execution
+ you can basically have transparency of visibility
+ in case something goes wrong.
+ Control, you want to be able to actually guide
+ the intermediate steps of an agent step-by-step.
+ So if you ever played around
+ with like the first iteration of AutoGBT,
+ you basically give some initial human feedback
+ as the agent is doing stuff.
+ And ideally you take that to the next level
+ where you basically work with the agent
+ in an assisted manner to complete a task together.
+ And of course, customizability.
+ All these paradigms right now are just research papers.
+ And so I highly encourage all of you
+ to try to implement your own thing.
+ And as we said, there's basically layers to agents
+ at the simplest level, it's just an LLM and prompt.
+ And then it just extends to a for loop
+ and you add more prompts.
+ And this is all possible via the query syntax
+ that we put out in Lama index.
+ It's basically a declarative way to just put out,
+ string together a bunch of modules,
+ compose in a for loop and you get out of the box ability
+ to execute stuff step-by-step,
+ inject intermediate user inputs
+ and get full observability over everything.
+ So I think that's basically it.
+ Thank you.
+ You can't, I mean, there's no way
+ you can actually see the links for this,
+ but I'll share this publicly.
+ And yeah, check out our documentation.
+ Thank you.
+ (upbeat music)
+ (upbeat music)
+ (upbeat music)
+ (upbeat music)

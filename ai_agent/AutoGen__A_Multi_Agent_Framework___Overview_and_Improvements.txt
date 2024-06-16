@@ -1,0 +1,3529 @@
+ Hi semua dan selamat datang ke sesi hari ini.
+ Jadi hari ini kita akan bercakap tentang sesuatu yang sangat keren.
+ Jadi anda boleh lihat ini adalah Autogen.
+ Autogen adalah sebuah framework yang dikeluarkan oleh Microsoft
+ yang membuat interaksi multi-agent.
+ Jadi anda boleh melihat di sini.
+ Anda boleh menggunakan program agen anda sendiri.
+ Anda boleh meminta agen untuk menghubungkan fungsi yang berbeza.
+ Anda boleh dapat agen untuk memindahkan cara kustom kepada agen lain dan sebagainya.
+ Dan anda boleh mempunyai agen yang berinteraksi dalam setting grup juga.
+ Jadi bukan hanya seorang agen dan seorang agen.
+ Tetapi dalam setting grup.
+ Jadi mari kita lihat apa yang berlaku.
+ Sesuatu yang sangat-sangat sederhana untuk Autogen.
+ Seperti yang anda lihat, ada 20,000 belajar di sini.
+ Itu mengagumkan.
+ Ada banyak orang menggunakan ini.
+ Jadi, ini adalah notebook sampel.
+ Saya telah menggunakan beberapa contoh yang terkenal
+ daripada sesejumlah notebook Autogen.
+ Anda boleh lihat notebook ini.
+ Jadi, pertama, hanya melakukan perkara yang sangat sederhana.
+ Jadi, perkara pertama yang akan saya lakukan adalah
+ meminta Autogen memberi saya 3 keuntungan sendiri.
+ Jadi, untuk menggunakan ini, anda perlu menandatangani list konfig ini.
+ Dan anda boleh menandatangani lebih daripada satu model language yang besar di sini.
+ Dan jika model pertama gagal, anda akan pergi ke model kedua dan sebagainya.
+ Tetapi di sini, kita hanya menggunakan satu model.
+ Kerana ChartGBT secara general berfungsi baik-baik saja.
+ Jadi, mari kita lakukan ini.
+ Apa yang saya buat adalah, saya mempunyai agen asisten dan agen proxy pengguna.
+ Jadi, bagaimana ini berfungsi, nanti saya akan menjelaskan lebih banyak dalam bahagian ini.
+ Agen proxy pengguna biasanya adalah pengguna seperti anda sendiri.
+ Dengan betul, anda sepatutnya menggunakan kod sendiri dan segala-galanya.
+ Tetapi anda boleh menciptakan agen untuk menggunakan kod untuk anda.
+ Itulah sebabnya agen proxy pengguna.
+ Ia mengganggu anda.
+ Jadi, anda boleh menggunakan kod menggunakan agen proxy pengguna.
+ Agen asisten biasanya tidak menggunakan kod.
+ Tetapi anda juga boleh menghubungkannya dengan fungsi pengguna.
+ Anda boleh menggantikan fungsi pengguna
+ supaya agen asisten juga boleh menggunakan kod jika anda mahu.
+ Ini adalah dua jenis kelas utama yang Autogen mempunyai.
+ Ada juga tiga jenis yang merupakan jenis pengurus.
+ Saya akan menjelaskan tentangnya dalam bahagian ini.
+ Jadi, bagaimana kita melakukan ini adalah sangat mudah.
+ Kami hanya menentukan agen kita.
+ Anda juga boleh menambahkan sesuatu seperti mesej sistem dan sebagainya jika anda mahu.
+ Untuk mengedit kegunaan agen ini.
+ Tetapi hal utama adalah, setelah anda menentukan agen ini,
+ anda perlu memulakan chat.
+ Jadi, seorang agen perlu memulakan chat dengan seorang agen lain.
+ Dalam kesusahan ini, pengguna memulakan chat dengan seseorang asisten.
+ Ini adalah sesuatu yang serupa dengan bagaimana anda bercakap dengan chat jpt.
+ Anda sebagai pengguna bercakap dengan interface chat jpt.
+ Dan seseorang asisten akan memberi anda reply,
+ kemudian anda boleh teruskan dan sebagainya.
+ Jadi, mari kita lihat.
+ Beri saya 3 keuntungan Autogen.
+ Saya akan menggunakan ini.
+ Kemudian anda dapat melihat di sini.
+ Autogen adalah dua kekuatan yang boleh digunakan.
+ Anda boleh minta untuk melakukan sesuatu lagi. Seperti, beri saya 3 keuntungan agen multi.
+ Kemudian kita dapat melihat...
+ Adakah ia menghasilkan?
+ Tunggu sebentar.
+ Jadi, anda dapat melihat di sini.
+ Ia adalah kolaborasi, kombinasi dan sebagainya.
+ Jadi, kode ini memanfaatkan interface chat jpt.
+ Maksud saya, ia tidak mempunyai apa-apa.
+ Anda juga boleh melakukan coding di sini.
+ Tetapi, saya akan menghantar coding ke showcase seterusnya.
+ Ini adalah cara anda bercakap dengan chat jpt.
+ Jadi, mari kita keluar.
+ Ini adalah agen penting yang saya ingin menunjukkan kepada anda.
+ Ini adalah agen yang dapat menghasilkan chart dan imaj dan sebagainya.
+ Dalam langkah dalam interface Python.
+ Saya amat suka implementasi ini.
+ Sebenarnya, kode akan dikeluarkan dalam IPython dan anda dapat melihat pemandangan secara langsung.
+ Contohnya, saya ingin melatih chart y=x^2.
+ Jadi, mari kita lihat.
+ Jadi, dalam kes ini, kita mempunyai agen proxy IPython.
+ Dalam kes ini, kita tidak mempunyai input manusia.
+ Kami hanya mengelakkan ini dan melihat jawaban.
+ Tetapi, jika anda ingin meletakkan input manusia, anda boleh meletakkan di sini.
+ Selalu atau sesuatu.
+ Jadi, di sini, anda dapat melihat bahawa selama sesuatu telah berakhir,
+ kita akan berakhir dengan pembicaraan.
+ Jadi, agen untuk Autogen telah diprogramasikan
+ untuk meletakkan termina ketika mereka telah melakukannya dengan apa-apa tugas yang mereka telah menghasilkan.
+ Jadi, anda boleh menggunakan termina ini untuk meletakkan pembicaraan.
+ Jadi, mari kita lihat bagaimana ini berkesan.
+ Meletakkan chart y=x^2.
+ Jadi, mari kita melihat.
+ Dan anda dapat melihat.
+ Pertama, saya sebagai pengguna, agen pengguna yang seperti proxy untuk saya.
+ Kami akan mengatakan, meletakkan chart y=x^2.
+ Dan kemudian, ada juga mesej system yang lain.
+ Jika anda menunjukkan kod, kod akan dilakukannya dalam IPython.
+ Oleh sebab keadaan default dilakukannya pada terminal y=x^2.
+ Jadi, kita ingin melihat bagaimana kod dilakukannya.
+ Jadi, kita ingin melihatnya dalam IPython.
+ Jadi, pengguna akan mengatakan,
+ "Hei, untuk meletakkan, anda boleh gunakan matplotlib.
+ Ini kod untuk dilakukannya."
+ Jadi, ini kod.
+ Jadi, ia memberi kod matplotlib.
+ Jadi, ia cukup keren kerana jika anda perlu menghasilkan chart atau apa-apa dengan matplotlib,
+ anda tidak perlu meletakkan kod ini sendiri.
+ Anda boleh melakukannya Autogen dan meminta untuk meletakkan kod untuk anda.
+ Dan anda boleh melakukannya.
+ Jika anda menunjukkan fungsi reply, anda boleh melakukannya.
+ Setelah kod telah dilanjutkan, fungsi reply akan mengekalkan.
+ "Hei, ada kod blok di dalam?"
+ Jika ya, jika ada kod blok, lakukannya.
+ Jadi, ini cukup keren.
+ Jadi, anda lihat? Sekarang ada kod blok.
+ Agen itu sendiri, agen asisten, mengatakan,
+ "Hei, ada kod. Saya akan melakukannya."
+ Jadi, saya akan melakukannya.
+ Dan tada, ini dia.
+ Kami memiliki chart.
+ Dan anda dapat melihat bahawa
+ kami telah melakukannya menggunakan agen IPython dan agen asisten
+ setelah mendapatkan keputusan daripada agen IPython,
+ mengatakan, "Hei, bagus. Tidak ada kesalahan."
+ Jika anda memerlukan agen asisten, sila meminta.
+ Jadi, agen asisten mengatakan, "Selesai." dan kita berakhir dengan komponensi.
+ Jadi, dalam kes ini, anda juga boleh meletakkan agen lain.
+ Seperti, dalam bahagian kemudian, kita akan melihat,
+ anda boleh meletakkan agen lain seperti Kritik,
+ Engineer dan sebagainya untuk meletakkan kod.
+ Jadi, anda dapat meletakkan agen lain untuk meletakkan kod sendiri.
+ Sekarang, ini agen ini sedikit terbatas
+ kerana dalam keputusan agen dua seperti ini,
+ jika anda perlu meletakkan kod, boleh.
+ Anda boleh meletakkan di dalam sini.
+ Jika kod ada kesalahan, sila meletakkan sendiri.
+ Anda boleh melakukannya juga dalam agen satu.
+ Jadi, ini adalah show case untuk agen meletakkan kod.
+ Ya, Derek, anda menghantar tangan.
+ Ya, ya, tuan.
+ Saya hanya mahu bertanya,
+ saya tidak yakin ini adalah soalan untuk anda
+ atau mungkin para penerjemah nanti,
+ tetapi, adakah itu mungkin untuk menghantar agen
+ dari setiap LLM dan menutupkannya dalam kod?
+ Atau adakah itu di luar daerah skop?
+ Saya tidak yakin itu mungkin.
+ Ia mungkin.
+ Jadi, seperti contohnya, anda melihat di sini,
+ listan konfig ini,
+ setiap agen mempunyai listan konfig seperti ini.
+ Jadi, anda sebenarnya boleh menentukan,
+ selain dari user proxy agen,
+ saya juga rasa anda boleh meletakkan listan konfig.
+ Jadi, anda sebenarnya boleh mempunyai listan konfig separa untuk setiap agen.
+ Jadi, seperti satu agen, anda boleh menggunakan open source.
+ Satu agen, anda boleh menggunakan GPD dan sebagainya.
+ Ya, anda tidak perlu menggunakan setiap set LLM untuk semua agen.
+ Ya, saya harap mereka menjawab soalan ini.
+ Ya, tuan, betul. Terima kasih.
+ Ya, jadi listan konfig ini, anda boleh menetapkan lebih daripada satu LLM untuk menjawab soalan ini.
+ Itulah apa yang saya cakapkan tadi.
+ Baiklah, jadi ini autogen.
+ Jadi, ini adalah kemampuan menggunakan listan konfig.
+ Dan anda boleh lihat, ia agak keren.
+ Anda boleh menggunakan kod.
+ Apa yang mereka akan lakukan ialah mereka akan melihat kod blok ini,
+ mengeluarkan kod blok ini menggunakan Regex, menggunakan kod,
+ dan ini boleh menjadi bagian dari perbicaraan.
+ Baiklah.
+ Jadi, bagaimana dengan grup chat?
+ Jadi, ada dua agen di masyarakat yang biasa.
+ Mereka bercakap satu-satunya bersama anda.
+ Kadang-kadang, kita tidak mempunyai ekspertis yang penting untuk menyelesaikan masalah.
+ Jadi, mengapa tidak menjemputkan lebih ramai orang dalam perbicaraan
+ supaya kita boleh bercakap dengan satu sama lain?
+ Jadi, di sini, kita mempunyai agen pengguna.
+ Jadi, pada dasarnya, ia mengganggu saya juga.
+ Jadi, saya, dalam kes ini, akan menjadi admin.
+ Dan, pada dasarnya, orang ini akan mengkoordinasi...
+ Mereka akan mengatakan bahawa saya telah melakukan segala-galanya dengan betul.
+ Jadi, ini adalah untuk memeriksa apakah agen...
+ Semua agen telah melakukannya.
+ Jadi, kita mempunyai agen pengguna, yang merupakan agen bantuan,
+ yang akan menghasilkan kod.
+ Di sini, pengurus produk ini...
+ Jika anda ingin menghasilkan produk,
+ anda boleh mempunyai perkara sebegini.
+ Tetapi, di sini, anda juga boleh melakukan perkara lain.
+ Jadi, untuk mempunyai agen secara fleksibel,
+ ia cukup mudah.
+ Anda hanya meletakkan nama anda.
+ Dan, berdasarkan nama ini,
+ perangkaan ini boleh diterima daripada nama.
+ Tetapi, jika anda ingin memastikan bahawa...
+ Anda boleh menghasilkan sesuatu.
+ Anda juga boleh meletakkan mesej sistem.
+ Di sini, pengurus produk...
+ Mungkin saya lupa untuk mengubahnya.
+ Sebenarnya, ia sepatutnya menjadi sesuatu yang lain.
+ Kerana mesej itu sendiri hanya tentang...
+ Mencari kertas terbaru dalam Archive.
+ Baiklah, anda boleh lihat bagaimana ini berjalan.
+ Jadi, kita mempunyai agen kod.
+ Agen pengurus produk.
+ Dan kemudian, kita boleh menyiapkan chat kumpulan.
+ Ia seperti bagaimana anda melakukan chat zoom.
+ Anda akan mempunyai semua agen anda bersama.
+ Anda mempunyai agen pengguna saya,
+ yang seperti untuk memikirkan diri saya.
+ Anda mempunyai agen kod.
+ Dan anda mempunyai agen pengurus produk.
+ Jadi, semua tiga ini boleh menjadi agen yang sama.
+ Anda boleh menandatangani apa yang telah berlaku pada mesej sebelum ini.
+ dan sebagainya jika anda mahu.
+ Tetapi, secara umum, anda boleh mempunyai ini.
+ Anda boleh menandatangani jumlah perundangannya.
+ Dan apa yang kita lakukan.
+ Ini agak menarik.
+ Kerana mereka tidak mempunyai interphase separa untuk chat kumpulan.
+ Chat kumpulan sebenarnya adalah agen juga.
+ Jadi, agen chat kumpulan hanya mempunyai fungsi registrasi lain.
+ untuk menggunakan conversasi chat.
+ Tetapi, chat kumpulan sendiri sebenarnya adalah agen.
+ Jadi, dalam kes ini.
+ Kami menandatangani chat kumpulan dengan agen ini.
+ Dan apa yang akan kita lakukan.
+ Kita akan menggunakan agen pengurus ini.
+ Dan apa yang akan kita lakukan.
+ Agen pengurus ini akan.
+ Adakah anda di sini?
+ Agen pengurus ini sebenarnya agen sendiri.
+ Anda sendiri.
+ Anda boleh bercakap dengan agen pengurus.
+ Dan ini akan membuat chat kumpulan.
+ Jadi, secara esenial.
+ Semua framework autogen ini.
+ Semuanya kaitkan dengan chat inisiat.
+ Jadi, anda sendiri.
+ Agen akan meminta agen lain untuk berbincang.
+ Tetapi, seperti itu, agen lain yang kita minta adalah agen kumpulan.
+ Jadi, itulah cara kita melakukan chat kumpulan untuk autogen.
+ Ia agak berlaku di sini.
+ Kerana mereka menggabungkan agen chat kumpulan dengan satu agen.
+ Jadi, idea ini adalah.
+ Anda boleh melakukan chat kumpulan dengan agen pengurus.
+ Jadi, mari kita lihat bagaimana ini berfungsi.
+ Mari kita menggunakan kod ini.
+ Cari kertas terbaru tentang autogen di Archive.
+ Dan menilai kekuatan dan kemampuan.
+ Jadi, kita boleh lihat di sini.
+ Ini adalah pengguna sendiri.
+ Dan kemudian kita akan lihat apa yang berlaku.
+ Jadi, setiap orang akan berbincang dengan pengurus chat.
+ Dan pengurus ini akan memberikan mesej kepada orang yang berkaitan.
+ Jadi, di sini.
+ Pengurus produk, dalam kes ini, agak tidak berguna untuk kes kita.
+ Jadi, mungkin kita harus mengubah ini menjadi sesuatu yang lain.
+ Jadi, apa yang akan kita lakukan adalah kod ini akan...
+ Jadi, anda akan lihat ia berlaku beberapa kali.
+ Dan kemudian...
+ Sebenarnya, di sini, apa yang akan kita lakukan adalah.
+ Agen pengurus akan berdasarkan tugasan di tangan atau konteks di tangan.
+ Menentukan agen yang berguna untuk menjawab.
+ Jadi, ini bukan sesuatu yang berdasarkan tugasan.
+ Ini adalah pilihan LOM.
+ Jadi, LOM akan memilih agen terlebih dahulu.
+ Berdasarkan konteksnya.
+ Berdasarkan konteks istri mesej.
+ Dan kemudian agen akan menjawab.
+ Jadi, Eversight memilih pengurus produk.
+ Tetapi, itu tidak benar-benar berjaya.
+ Baiklah.
+ Jadi...
+ Ya, jadi...
+ Jika anda bertanya apa adalah autoreply.
+ Autoreply adalah...
+ Anda dapat menggambarkan fungsi tertentu kepada agen.
+ Dan jika beberapa tugasan digantung.
+ Macam...
+ Jika dari agen yang anda inginkan.
+ Atau ia mempunyai konten tertentu.
+ Anda dapat menjawab.
+ Macam...
+ Contohnya, jika anda agen math.
+ Hanya apabila ada kualiti math, anda akan menjawab.
+ Ya.
+ Jadi, autoreply ini seperti itu.
+ Anda dapat menetapkan fungsi yang telah digantarkan.
+ Apabila agen tertentu...
+ Dibawah kepada agen ini.
+ Ya, jadi...
+ Jika anda melakukannya.
+ Seperti...
+ Anda tahu sistem komputer seperti itu.
+ Di mana anda dapat semuanya.
+ Ya.
+ Anda boleh...
+ Anda hanya akan menjawab secara selektif.
+ Jadi, fungsi autoreply boleh menjawab mesej tersebut.
+ Baiklah, jadi...
+ Agen agen bertugas, anda lihat.
+ Baiklah.
+ Jadi, sekarang apa yang akan kita lakukan adalah...
+ Akhirnya agen kode akan datang.
+ Baiklah, jadi anda boleh lihat di sini.
+ Di sini, ada sedikit kebalan.
+ Baiklah, saya akan bercakap lebih tentang ini. Baiklah.
+ Jadi, agen bertugas tidak sempurna.
+ Anda boleh lihat.
+ Terdapat satu loop besar.
+ Namun, agen pengurus produk di sini.
+ Kami mempunyai seseorang yang tidak berguna di sini.
+ Agen pengurus produk.
+ Baiklah.
+ Jika anda tukar ini kepada seseorang yang berguna.
+ Mungkin ini akan lebih baik.
+ Jadi, di sini, kami mempunyai kode.
+ Dan kode akhirnya berkata, "Hei, saya mempunyai blok kode ini."
+ Anda boleh menggunakan kode ini untuk memeriksa archif.
+ Baiklah.
+ Untuk bapak apapun yang berguna pada autogen.
+ Baiklah.
+ Jadi...
+ Jadi, anda lihat.
+ Hei, bagaimana kode ini diterjemahkan lagi?
+ Jadi, anda dapat melihat...
+ Ada sesuatu yang tidak berfungsi tentang autogen. Baiklah.
+ Maksud saya, setelah kode ini selesai, kita harus menggunakan kode ini.
+ Agen pengurus patut menggunakan kode ini.
+ Baiklah.
+ Tetapi ia kembali ke kode ini lagi.
+ Baiklah.
+ Saya tidak ada di sini untuk menjelaskan autogen.
+ Tetapi saya hanya mengatakan bahawa ada sesuatu yang tidak berfungsi di sini.
+ Jadi, anda lihat, sudah selesai.
+ Kami boleh menggunakan kode ini.
+ Tetapi, mengapa kita kembali ke chat ini lagi dengan kode ini?
+ Baiklah.
+ Jadi, untuk mengatakan bahwa ini tidak berfungsi.
+ Sebenarnya, autogen mempunyai perkara ini dipanggil 'limit konsumsi maksimal'.
+ Seperti, satu agen hanya boleh mengatakan 'x' sejumlah kali.
+ Supaya anda bergerak ke agen lain.
+ Baiklah.
+ Jadi, di sini, anda dapat melihat bahawa kami menggunakan kode ini.
+ Baiklah. Kami mempunyai sejumlah HTML ini kembali.
+ Kemudian, apa yang boleh kita lakukan adalah...
+ Berdasarkan HTML ini, kita boleh mengeluarkan maklumat yang penting.
+ Dan di sini, anda lihat, kode ini yang melakukan ini.
+ Baiklah. Jadi, mungkin jika kita telah mengubah seorang agen untuk menjadi analis,
+ maka analis akan dapat melakukan kerja ini.
+ Baiklah. Jadi, inilah limit kedua untuk autogen.
+ Agen ini sangat, sangat serupa. Baiklah.
+ Kerana, walaupun anda mungkin menandatangani mereka dengan peran spesifik.
+ Peran spesifik ialah 'system prompts'.
+ Baiklah. Kecuali anda menambahkan peran spesifik kepada setiap agen,
+ maka mereka akan berbeza.
+ Baiklah. Jadi, ini adalah versi naif.
+ Jika anda menambahkan peran spesifik dan sebagainya,
+ anda mungkin akan membedakan agen lebih baik.
+ Sebenarnya, sekarang dalam implementasi ini, kode dan pengurus produk sama saja.
+ Itulah kenapa anda lihat kode juga memberi kekuatan dan kelemahan.
+ Baiklah.
+ Jadi, anda dapat melihat bahawa, pada akhirnya, itu sahaja.
+ Dan kita telah menghubungi chat kumpulan.
+ Tetapi, anda boleh melihat bahawa kami mempunyai kekuatan dan kelemahan di sini.
+ Anda tahu, kita dapat melihat bahawa idea sepenuhnya menghasilkan kode,
+ melakukan kode, menilai kode.
+ Begitu berfungsi. Baiklah.
+ Mari kita lihat, kerana saya sangat tertarik.
+ Jika kita mengubah produk ini kepada pengurus produk lain,
+ mungkin seperti analis.
+ Analisasi kekuatan dan kelemahan.
+ Atau kode.
+ Mari kita cuba untuk melakukan ini.
+ Kode live. Saya belum pernah mencubanya sebelum ini.
+ Mari kita lihat apakah ini berfungsi.
+ Jadi, apa yang kita akan lakukan adalah,
+ kita akan menemukan kode pada Autogener Archive.
+ Dan mari kita lihat apakah ini berfungsi atau tidak.
+ Jadi, dalam versi lebih awal ini,
+ anda dapat menambahkan bahan-bahan.
+ Anda dapat menambahkan Retriever Augmented Generation,
+ dan sebagainya.
+ Anda dapat menambahkan fungsi lain seperti calculator dan sebagainya
+ kepada setiap agen ini sendiri.
+ Kemudian, anda letakkan mereka dalam chat bersama dan lihat apa yang berlaku.
+ Jadi, ya, kode itu berkata,
+ "Okey, saya akan menemui ini. Ini kode yang harus dilanjutkan."
+ "Okey, bagus."
+ Analis akan berkata,
+ "Okey. Sekarang saya menilainya sebagai analis,
+ Autogen pilih analis sekarang
+ untuk menilai kekuatan dan kelemahan. Lihatlah.
+ Dan itu sahaja.
+ Dan kemudian, bagaimana respon kode di sini? Lihatlah.
+ Jadi, ada beberapa kelemahan di sini juga, ya?
+ Jadi, saya minta maaf. Blah, blah, blah.
+ Lihatlah.
+ Adakah anda melihat sesuatu?
+ Ada sesiapa yang boleh memberitahu saya
+ apa yang merupakan kesalahan paling biasa agen di sini?
+ Berdasarkan chat jpd.
+ Apa yang paling biasa yang anda lihat di sini?
+ Ada sesiapa?
+ Apologize. Ya, ada.
+ Baiklah, anda tahu mengapa apologize datang?
+ Baiklah.
+ Baiklah.
+ Kerana RRLHF, Reinforcement Learning from Human Feedback.
+ Seperti, kami mahu agen chat jpd untuk meminta maaf
+ supaya ia lebih baik untuk manusia.
+ Baiklah.
+ Jadi, pada akhirnya, anda lihat,
+ apa yang berlaku adalah kita mempunyai jenis maaf
+ atau jenis terima kasih.
+ Ini adalah sesuatu yang cukup biasa di chat jpd.
+ Jadi, mari kita memperbaikinya lebih lagi.
+ Kode ini hanya terus berdekatan
+ pada masa yang salah.
+ Baiklah, mari kita lihat apakah kita boleh memperbaikinya.
+ Jadi, mari kita lakukan sesuatu.
+ Baiklah, kami mengubah mesej sistem di sini.
+ Jadi, kerana mesej sistem akan muncul
+ apabila agen chat jpd memilih,
+ mari kita lihat apakah kita boleh
+ membuat kode untuk menerima
+ kertas daripada Archive.
+ Baiklah, mari kita membuatnya sangat spesifik.
+ Dan lihat apakah,
+ dalam kes ini, agen kode atau jenis kode
+ lebih baik digunakan.
+ Kerana kami tidak mahu jenis kode terus masuk.
+ Anda melihat, ia menggunakan bandwidth.
+ Jadi, anda lihat,
+ sekarang langsung, jenis kode tahu apa yang perlu dibuat.
+ Kerana anda telah memberi petunjuk di sini.
+ Baiklah, nama ini penting.
+ Dan mesej sistem ini penting.
+ Kerana semua ini akan menjadi
+ petunjuk sistem agen.
+ Dan semua ini akan menentukan kegiatannya.
+ Berdasarkan bahasa sendiri.
+ Dan juga ketika kita mempunyai group chat di sini,
+ pengurus juga akan menggunakan semua nama dan mesej ini
+ untuk memilih apa yang akan berlaku.
+ Jadi, anda lihat kode di sini.
+ Dan analis langsung masuk.
+ Baiklah, saya boleh analis kekuatan dan kemampuan kode seperti itu.
+ Dan oh, ada sesuatu yang tak kena.
+ Ada kode yang ditutup.
+ Oh tidak.
+ Kemudian kode akan mengatakan.
+ Baiklah, saya minta maaf.
+ Ia kelihatan seperti kode tidak dapat mengeluarkan detail kode.
+ Mari kita berikan kode yang diubah.
+ Baiklah.
+ Dan kemudian, eh, kode masuk lagi.
+ Jadi, ia masih tidak begitu efisien.
+ Baiklah.
+ Jadi, anda lihat, ada masalah.
+ Ada masalah.
+ Ada masalah.
+ Oh.
+ Nampaknya sekarang kita mempunyai masalah.
+ Baiklah, kami tidak mempunyai libri ini.
+ Dan mereka tidak dapat mengeluarkan kode.
+ Jadi, itu masalah yang anda boleh mempunyai.
+ Kerana, anda tahu.
+ Sesuatu yang tak kena.
+ Baiklah.
+ Jadi, mari kita menciptakan agen lain.
+ Baiklah.
+ Mari kita menciptakan agen lain.
+ Live kreasi agen lain.
+ Mari kita menciptakan seorang anginer sekarang.
+ Baiklah.
+ Jadi.
+ Baiklah.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, ini adalah masalah yang kita lakukan.
+ Baiklah.
+ Jadi, "send" adalah cara anda hantar mesej yang anda hantar kepada agen lain.
+ Jadi, contohnya, anda hantar contoh ini, "Block a chart of Meta & Tesla stock price change".
+ Agen, agen asisten, akan menerima mesej anda.
+ Ia akan menghasilkan jawapan.
+ Jadi, basicnya, jawapan akan seperti, "If it's cold, generate a cold block", dan sebagainya.
+ Dan hantar jawapan kepada perbicaraan.
+ Baiklah.
+ Dan kemudian selepas itu, agen proxy pengguna akan melakukan perkara yang sama.
+ "Receive", "Generate Reply" dan "Send".
+ Jadi, di sini, jika anda ingin memberi lebih fungsi.
+ Dengan menambah fungsi pengguna yang lebih biasa.
+ Jadi, ini adalah cara anda mengawal workflow Autogen.
+ Dan sebagainya.
+ Anda akan terus melakukan dan melakukan dan melakukan sehingga anda tahu.
+ Sehingga akhirnya.
+ Baiklah.
+ Jadi, itulah bagaimana pramanya Autogen.
+ Baiklah.
+ Untuk dua agen, juga untuk agen multi.
+ Atau, sekitar yang sama.
+ Baiklah.
+ Jadi, ia cukup versitil.
+ Anda boleh melakukan banyak perkara.
+ Anda boleh melakukan seperti "Math Problem Solving".
+ Walaupun saya tidak mempercayai LLM untuk melakukan math.
+ Math tidak benar-benar adalah titik kuat LLMs.
+ Baiklah.
+ "Retriever Augmented Chat".
+ Sebenarnya, apabila sesuatu memerlukan lebih banyak data.
+ Anda boleh meminta agen untuk meminta.
+ Baiklah.
+ Jadi, ini agen yang cukup keren.
+ "Elf Chat" adalah agen berdekatan. Saya akan menutupi ini nanti. Baiklah.
+ "Multi-agent Coding". Saya akan menutupi ini nanti juga.
+ Jadi, anda mempunyai tim merah dan tim putih.
+ Satu melakukan kod.
+ Satu mempunyai kritik kod.
+ Pastikan tiada kesalahan.
+ "Dynamic Group Chat" adalah agen pengurus kumpulan yang sebenarnya memilih.
+ Kami melihat demonstrasi itu tadi di notebook.
+ Memilih agen mana untuk pergi ke depan.
+ Baiklah.
+ Dan tentu saja, anda mempunyai perkara lain seperti.
+ Bahkan "Chessboard".
+ Baiklah.
+ Ia boleh menjadi agen berdekatan.
+ Mereka akan memberitahu pemain, "Hei, ini agen berdekatan. Ini bukan agen berdekatan."
+ Jadi, anda dapat menentukan "Rule-based Check" sebagai agen juga.
+ Jadi, ini adalah mesej sistem key untuk kelas pembicaraan.
+ Dan, anda dapat melihat.
+ Saya hanya mahu menunjukkan ini kepada anda.
+ Sebab ini adalah apa yang mereka lakukan.
+ Untuk membuat agen pembicaraan.
+ Tidak ada apa-apa yang menarik.
+ Tetapi, hal utama adalah.
+ Anda adalah agen AI yang bermanfaat.
+ Jika ada apa-apa.
+ "Suggest Python Code" dalam blok "Python Coding".
+ Mereka menggunakan blok coding untuk memberi anda blok code.
+ Dan, anda menggunakan kode untuk menerima maklumat yang anda perlukan.
+ Mereka mengesan bagaimana untuk melakukan tugas.
+ Jadi, anda perlu mengumpulkan maklumat.
+ Menggunakan kode untuk menerima maklumat.
+ Anda perlu melakukan tugas dengan kode.
+ Menggunakan kode untuk melakukan tugas.
+ Mereka menambahkan sesuatu yang lucu juga.
+ Anda boleh menolong tugas sendiri.
+ Saya rasa mereka ingin membuatnya lebih efisien.
+ "Finish the task smartly".
+ Jika anda telah melakukan "LM Prompting", anda akan tahu bahawa perkara ini tidak berjalan lancar.
+ Kerana ini tidak menjelaskan "LM" apa yang perlu dilakukan.
+ "Solve the task step-by-step".
+ "Chain of thought".
+ Mereka mencoba untuk menggunakan "Chain of thought".
+ Jika rancangan tidak dilanjutkan, jelaskan rancangan anda.
+ Mereka sedang mencoba untuk memberi langkah.
+ Ketika menggunakan kode, inginkan kode dalam blok kode.
+ Jangan menggunakan blok kode jika ia tidak dilanjutkan oleh agen.
+ Anda dapat melihat bahawa anda dapat menggunakan kode dalam blok kode.
+ Jika ada kesalahan, "Fix the error" dan "Output the code" lagi.
+ Ketika anda mencari jawapan, "Verify the answer".
+ Mereka juga melakukan "Chain of verification".
+ Mereka mencoba untuk melakukan semuanya.
+ Mereka mencoba untuk melakukan semuanya.
+ "Chain of thought".
+ "Code as skills".
+ Mereka mencoba untuk melakukan semuanya di sini.
+ Dan pada akhirnya, "Terminate".
+ Saya ingin mengatakan sesuatu tentang mesej sistem ini.
+ Ia terlalu lama.
+ Biasanya, sesiapa yang menggunakan LLMs akan tahu bahawa limitnya adalah length token.
+ Dan untuk LLMs yang berjalan lebih dari 2,000 atau 3,000 token,
+ secara general, performa akan berkurang.
+ Kerana ia tidak dapat menerima begitu banyak mesej.
+ Mesej sistem ini terlalu lama.
+ Jadi ini mungkin disebabkan daripada banyak kegagalan otogen.
+ Jika saya mahu, saya akan menerjemahkannya menjadi dua atau tiga kata.
+ Sebenarnya, saya mempunyai framework ini yang dipanggil "Straight JSON".
+ Mereka menggunakan mesej sebagai JSON.
+ Dan salah satu mesej yang dapat digunakan adalah "Code Block".
+ Jadi anda tidak perlu menulis semua kode dalam format ini.
+ Anda boleh menerjemahkan semuanya sebagai JSON, dan kemudian anda boleh menggunakan kode.
+ Jadi ini adalah apa yang mereka lakukan.
+ Kode sebagai bagian daripada pembicaraan.
+ Dan anda menggunakan Regex untuk menggunakan Code Block.
+ Ini juga adalah apa yang digunakan dalam Appagent.
+ Saya telah menutupkannya dua minggu lepas.
+ Appagent juga mempunyai kode.
+ Maaf, Appagent tidak menggunakan kode.
+ Appagent mempunyai bahan-bahan yang berlainan seperti "Thoughts", "Action", dan "Observation".
+ Atau dalam teks bebas dan menggunakan Regex.
+ Tetapi sebenarnya jika anda hanya meletakkan semua dalam JSON, ia akan menjadi lebih jelas.
+ Dan anda akan memastikan bahawa anda akan mendapat bahan-bahan itu juga.
+ Jadi ini adalah sesuatu yang saya rasa otogen boleh meningkatkan.
+ Berdasarkan mesej sistem ini.
+ Baiklah.
+ Mari lihat. Ada beberapa chat di sini.
+ Ernest, anda bertanya.
+ Adakah mesej sistem yang biasa diletakkan oleh pengguna menentukan mesej sistem atau diperlukan?
+ Jadi, jika anda menentukan mesej sistem sendiri.
+ Saya percaya anda akan menentukan yang ini.
+ Sekali lagi, Saka, anda boleh menghubungi saya jika saya bersalah.
+ Tetapi saya rasa mesej sistem akan diperlukan.
+ Ya, ia diperlukan.
+ Terima kasih. Dan anda bertanya.
+ Ini sebenarnya adalah bagian yang saya ingin menjelaskan.
+ Adakah anda akan mengatakan bahawa lebih baik anda memasukkan prom base untuk menjadi suksin?
+ Ya, saya akan mengatakan bahawa anda harus memasukkannya.
+ Saya tidak rasa ini adalah prom terbaik.
+ Tetapi ia berfungsi cukup baik.
+ Orang menggunakannya.
+ Ia seperti Chain Length.
+ Chain Length mempunyai banyak prom yang sangat lengkap dan berfungsi.
+ Saya tidak suka apapun.
+ Tetapi orang menggunakannya kerana ia adalah kit yang bagus.
+ Jadi, ini terlalu lama.
+ Sebenarnya, ini terlalu lama.
+ 2 atau 3 kata lebih atau kurang cukup untuk mesej sistem ini.
+ Tetapi ia mendapatkan kerja.
+ Ia melakukan perkara dalam blok kode dan anda boleh menggunakan kode.
+ Baiklah, mari kita lihat yang seterusnya.
+ Baiklah, beberapa aplikasi tentang bagaimana auto-gen boleh digunakan.
+ Jadi, anda sebenarnya boleh mengatakan dalam sistem prom
+ bahawa jika anda tidak mempunyai maklumat yang mencukupi.
+ Reply, update konteks.
+ Jadi, mari kita katakan bahawa konteks ini adalah ini.
+ Di Januari ini, siapa yang mempunyai tanda USA?
+ Baiklah.
+ Astros memenangkan Yankees pada malam itu.
+ Anda tahu, salah kan?
+ Ini tiada kaitan dengan tanda USA.
+ Jadi, agent pengguna bisa mengatakan,
+ "Tidak ada apa-apa yang boleh menjawab soalan untuk saya."
+ Baiklah, menggunakan konteks update.
+ Dan kemudian, kita kembali ke agent pembantu.
+ Agen pembantu akan pergi dan melakukan beberapa
+ "Retriever Augmented Generation" di sini.
+ Untuk menambahkan konteks.
+ Dan kemudian, anda akan mengadakan konteks yang penting di sini.
+ Dan kemudian, pengguna boleh menjawab soalan.
+ Baiklah.
+ Jadi, ini adalah "Retriever Augmented Generation"
+ menggunakan agen sebagai cara untuk mengatakan bahawa
+ agen pengguna, agen pembantu, akan seperti filter,
+ mengatakan bahawa, anda tahu, apakah konteks pembantu penting atau tidak?
+ Jika tidak penting, kemudian anda memberitahu agen pembantu,
+ "Hei, salah. Bro, bro, anda salah. Konteks anda salah."
+ Kemudian, agen akan berkata,
+ "Tidak risau, bro. Saya akan periksa untuk anda.
+ Saya akan periksa database saya untuk anda.
+ Beri anda satu lagi dan kemudian,
+ saya akan beri anda kembali kepada pengguna dan pengguna
+ dan pengguna akan berkata,
+ "Bagus, saya dapat jawapan saya sekarang."
+ Jadi, anda boleh melihat bahawa
+ antara agen pembantu dan pengguna,
+ atau pada dasarnya, antara agen pembantu dan pengguna,
+ agen pembantu dan pengguna
+ menghasilkan sesuatu jenis periksaan dan balans
+ kerana pengguna boleh periksa agen pembantu
+ dan pengguna dapat memberi maklumat yang penting juga.
+ Jadi, ada beberapa keuntungan untuk
+ mempunyai jenis periksaan dalam kes ini
+ kerana banyak kertas telah menunjukkan,
+ jenis periksaan, anda boleh melanjutkan langkah-langkah.
+ Agen pembantu ini juga boleh menjadi agen
+ untuk membuat perkara ini lebih jelas.
+ Maaf, bukan lebih jelas,
+ anda boleh melanjutkan jenis periksaan yang panjang.
+ Anda juga boleh melakukan refleksi sebagai agen.
+ Jadi, dengan berkumpul dengan satu sama lain,
+ anda sebenarnya mempunyai refleksi di mesej sebelum anda
+ dan kemudian, jika anda mempunyai agen periksaan
+ atau jika anda mempunyai agen periksaan dan sebagainya,
+ atau agen periksaan agen ini,
+ jika anda mempunyai sistem yang betul,
+ anda boleh menggunakannya untuk melakukan periksaan,
+ melakukan periksaan untuk penggunaan yang panjang,
+ melakukan periksaan untuk banyak hal yang berbeza.
+ Jadi, ada keuntungan kepada arkitektur agen pembantu ini,
+ tetapi limitnya akan menjadi
+ berapa baik LLM dapat melakukan periksaan.
+ Jadi, jika anda menggunakan LLM,
+ anda akan menyedari bahawa ia tidak melakukan periksaan semuanya dengan betul.
+ Baiklah.
+ Ini adalah generasi jenis periksaan berikutnya
+ dan kadang-kadang ia gagal melakukan perkara yang tertentu.
+ Jadi, berhati-hati apabila anda menggunakan jenis periksaan
+ dan periksaan dengan model LLM.
+ Tetapi, jika anda mencari jenis periksaan,
+ apabila informasi itu bergantung,
+ saya rasa itu adalah penggunaan yang bagus
+ kerana model LLM
+ agak bagus dengan periksaan semantik
+ dan ini adalah kes periksaan semantik.
+ Baiklah,
+ penggunaan dalam keadaan,
+ itu adalah kes penggunaan kedua yang akan saya bincangkan.
+ Jadi, ada periksaan yang dipanggil Alph World,
+ A-L-F-W-O-R-L-D.
+ Ini adalah sesuatu yang agak keren
+ kerana ia adalah permainan RPG,
+ permainan bermainan,
+ yang merupakan teks yang bersifat
+ seperti anda berada di tengah bilik.
+ Melihat sekeliling anda,
+ anda melihat sebuah katil,
+ sebuah desk,
+ sebuah desk lain,
+ sebuah safe,
+ sebuah drawer,
+ sebuah drawer lain,
+ dan sebagainya.
+ Jadi, tajam anda adalah untuk mencari jenis periksaan
+ di bawah jenis periksaan.
+ Jadi, anda seperti,
+ "Hmmm, saya perlu mencari jenis periksaan,
+ jadi saya perlu pergi mencari jenis periksaan."
+ Jadi, di mana jenis periksaan terlebih dahulu?
+ Jadi, anda perlu pergi ke jenis periksaan, kan? Ya, dan sebagainya.
+ Jadi, ini tidak begitu jelas, okey?
+ Kerana anda perlu menghubungkan jenis periksaan ke jenis periksaan,
+ dan kemudian anda perlu pergi di bawah jenis periksaan.
+ Jadi, ada pelbagai perbuatan yang anda boleh lakukan.
+ Dan, ya, jika anda hanya menggunakan metode 2 agen naif seperti itu,
+ okey, ia gagal.
+ Kerana LLMs terlalu menghalusiniasi sedikit.
+ Anda perlukan sedikit periksaan ke dalam alam.
+ Dan, secara menarik,
+ mereka melakukan periksaan ini sebagai agen periksaan.
+ Dan agen periksaan berbasis mengatakan,
+ anda mesti menemukan dan mengambil objek sebelum anda dapat menilai.
+ Okey, kerana banyak kali agen menemui objek,
+ tetapi ia tidak mengambil.
+ Ia hanya, seperti, kerana dalam kes LLM,
+ jika anda menemui objek, ia seperti mengambilnya.
+ Tetapi dalam alam ini, anda perlu menemui dan anda perlu mengambil.
+ Jadi, agen periksaan ini membantu pengelakannya menemui dan mengambil, okey?
+ Jadi, menemui dan mengambil.
+ Ya, jadi, inilah idea ini.
+ Baiklah, idea ini adalah menemui agen periksaan ini
+ untuk mengingatkan agen terus.
+ Anda perlu menemui dan anda perlu mengambil objek.
+ Jadi, okey, apa pendapat saya mengenai ini?
+ Keadaan saya mengenai ini seperti,
+ ia seperti refleksi atau seperti,
+ sebuah langkah mengajar.
+ Baiklah, itu, secara basis,
+ dapat membantu memperbaikkan performa agen.
+ Ya, itu bagus.
+ Efficient?
+ Ya.
+ Bayangkan anda perlu terus
+ terus mempunyai agen periksaan
+ untuk mengingatkan anda, okey?
+ Ia tidak begitu bagus, bukan?
+ Ya, jadi,
+ biar saya memberi anda contoh.
+ Mari kita katakan anda perlu melakukan tugas yang tertentu.
+ Dan kemudian anda mempunyai seorang guru yang terus berkata,
+ ingatlah untuk menemui dan mengambil.
+ Kemudian anda melakukan tugas lain,
+ kemudian agen periksaan itu akan mengatakan, ingatlah untuk menemui dan mengambil.
+ Kemudian anda melakukan tugas lain, ingatlah untuk menemui dan mengambil.
+ Ia agak mengganggu, bukan?
+ Jika anda boleh
+ menggunakan sistem periksaan untuk agen periksaan,
+ anda tidak memerlukan agen periksaan ini.
+ Baiklah.
+ Saya akan mengatakan bahawa agen periksaan ini adalah sebuah pertimbangan.
+ Saya tidak fikir ini adalah
+ sebuah keselamatan yang baik.
+ Tetapi mereka pastikan agen periksaan ini berfungsi untuk
+ alpha, berfungsi untuk chest juga.
+ Saya memberi ia kepada mereka.
+ Saya tidak fikir ini berguna.
+ Saya tidak fikir ini memerlukan.
+ Ernest, anda bertanya,
+ "Saya rasa kita perlu menambahkan elemen tertentu yang berguna
+ dalam sistem periksaan, apabila
+ kita menggunakan agen periksaan melalui
+ sistem periksaan?"
+ Jadi jawapan saya adalah, jika saya boleh menambahkan
+ dalam sistem periksaan, saya akan melakukannya.
+ Ini hanya cara untuk melakukannya,
+ kerana anda perlu mempunyai agen lain
+ untuk mengingatkan apa yang perlu dilakukan.
+ Saya tidak setuju dengan ia.
+ Ada perkara ini yang dipanggil framework react.
+ Ini adalah
+ respon dan aksi.
+ Biasanya, anda mempunyai
+ tekanan, aksi, dan perhatian.
+ Jadi, LLM sendiri,
+ seorang LLM yang boleh melakukannya
+ dan ia boleh melakukannya.
+ Jadi, jika, katakan,
+ dalam sistem periksaan anda, anda harus menambahkan dan mengambil
+ objek, saya sangat yakin, mereka juga
+ akan melakukannya. Saya harus menambah dan mengambil objek.
+ Anda boleh mempunyai satu agen
+ untuk menambah
+ seluruh sekuensnya
+ hanya dengan satu agen, anda tidak perlu mempunyai agen periksaan.
+ Tetapi dalam kertas,
+ mereka menunjukkan bahwa
+ band say react adalah respon dan aksi.
+ Terima kasih kerana mengingatkan saya.
+ Jadi, perkara utama adalah
+ mereka mengatakan bahawa
+ ini sebenarnya melakukan lebih baik daripada react.
+ Jadi mungkin kerana dalam framework react,
+ sistem periksaan mungkin terlalu jauh
+ ke atas. Mungkin ia tidak akan
+ berhubung dengan
+ apa yang perlu dilakukan.
+ Jadi, agen periksaan ini boleh
+ mengingatkan agen
+ mengingatkan
+ agen
+ mengingatkan
+ sistem periksaan
+ terbaru. Jadi mungkin ada
+ gunanya untuk ini.
+ Tetapi ia sangat jauh.
+ Saya tidak suka jalan ini untuk melanggar ini.
+ Baiklah.
+ Salah satu perkara adalah
+ mungkin setiap kali,
+ daripada agen periksaan, mungkin setiap kali
+ anda boleh memanfaatkan
+ struktur pengulangan.
+ Jadi, jika alam anda
+ memerlukan anda untuk
+ melakukan sesuatu,
+ seperti sistem periksaan
+ untuk setiap mesej,
+ jadi, sebaliknya anda mempunyai agen periksaan,
+ anda boleh mempunyai cara untuk
+ mengingatkan reputasi untuk setiap agen. Mungkin anda
+ akan menambahkan ini kepada setiap fungsi
+ reputasi untuk agen anda
+ yang terus mengingatkan mereka untuk melakukan ini.
+ Kemudian, anda tidak perlu mempunyai agen periksaan
+ di sini. Sebab masalah agen periksaan
+ ini adalah anda
+ bergantung kepada LLM untuk
+ memilih agen ini. Dan
+ anda tidak boleh memilih selama-lamanya. Jadi, saya tidak rasa ini adalah
+ sebuah jalan yang bagus.
+ Ya. Derek, anda menghantar tangan anda.
+ Ya, anda ingin mengatakan sesuatu?
+ Ya, saya hanya mempunyai satu
+ fikiran. Jadi, mengenai masalah
+ efisiensi dan kita menghadapi agen
+ periksaan, bagaimana rasmi
+ anda rasa ia akan menjadi, bagaimana
+ anda katakan, menginspirasi sesuatu seperti
+ CLEAN (Continue Learning Language Agent)
+ ke dalam sistem periksaan
+ auto-gen seperti ini?
+ Kerana anda akan memerlukan memori
+ untuk menjaga semua memori
+ untuk menginspirasi agen seperti
+ CLEAN (Continue Learning Language Agent) ke sesuatu seperti ini.
+ Ya, saya setuju. Jadi, saya juga
+ fikir agen periksaan lanjut adalah bagus.
+ Namun, langkah konteks ini perlu
+ dilanjutkan dengan baik kerana anda tidak mahu meletakkan semua
+ pelajaran anda. Apa yang mungkin anda
+ patut lakukan adalah anda mempunyai sub-sumer
+ untuk meletakkan kesulitan penting.
+ Dan kemudian, mungkin kesulitan penting ini
+ akan memenuhi tiga atau empat sentensi.
+ Dan, ya, saya maksudkan, bergantung kepada
+ penggunaan. Dan kemudian anda boleh menerima
+ pelajaran sebelumnya kepada alam baru.
+ Sebenarnya, ia akan lebih baik jika anda mempunyai
+ pelajaran bergantung pada konteks. Jadi, seperti
+ bahagian yang tertentu, anda menyimpan pelajaran yang berbeza.
+ Dan ini akan dikembangkan oleh konteks.
+ Mungkin seperti Retriever Augmented Generation,
+ anda menerima memori yang bergantung
+ dan kemudian anda mengundangnya.
+ Ya, sangat penting untuk mengundang
+ kerana LLMs
+ tidak berjalan lancar dalam konteks yang panjang.
+ Jadi, anda mengatakan agen yang belajar
+ untuk meletakkan
+ fungsi yang berbeza seperti
+ Role atau apa-apa pun. Ya, jadi mungkin berdasarkan
+ alam baru, ia menggantung
+ dengan memory bank yang berlalu dan memilih hanya
+ memori yang menggantung pada alam itu.
+ Kemudian anda mengundangkan mereka menjadi satu.
+ Ia sangat menyenangkan.
+ Ya, kerana anda boleh meletakkan
+ memori yang bergantung. Saya belum mempunyai
+ tetapi dalam framework agen saya, ia akan mempunyai
+ sesuatu seperti itu. Ya, anda boleh meletakkan
+ masalah konteks dengan sesuatu
+ seperti Mamba atau arhitektur yang berkembang
+ yang mereka kerjakan.
+ Ya, Mamba adalah mengubah semua arhitektur
+ dan saya bercakap tentang lebih banyak
+ menggunakan arhitektur LLM.
+ Tetapi seperti yang anda katakan,
+ anda boleh
+ masuk ke
+ config list.
+ Anda boleh mengubah API dan
+ koneksi yang berbeza. Jadi, anda mungkin boleh membuat sesuatu
+ biasa untuk ini dan menghubungkan diri.
+ Itu cuma pendapat saya.
+ Ya, terima kasih.
+ Jadi, saya perlu cepatkan sedikit. Jika tidak, Saka tidak akan mempunyai
+ masa untuk perkara itu. Baiklah, mari kita lanjutkan.
+ Keadaan lain adalah teaming berwarna merah dan biru.
+ Jadi, apa yang boleh kita lakukan adalah
+ kita boleh mempunyai sistem agen. Satu agen akan menulis kod
+ untuk menjawab soalan pengguna.
+ Selepas itu, komanda akan mengatakan, "Hei,
+ bodyguard atau safeguard,
+ adakah kod ini boleh digantung? Adakah kod ini
+ boleh digantung? Adakah ia
+ akan menyebabkan masalah kepada saya?" Lelaki ini akan mengatakan, "Hei,
+ ada beberapa masalah dengan kod dan sebagainya. Jika ada masalah,
+ kemudian anda akan kembali kepada komanda dan kemudian
+ komanda akan mengatakan, "Hei, anda tahu ada masalah.
+ Pergi menolaknya." Dan penulisannya akan
+ menolak kod ini, kembali ke komanda
+ dan kemudian komanda akan mengatakan,
+ "Hei, adakah kod ini boleh digantung?"
+ "Bagus untuk digantung."
+ Kemudian kembali kepada komanda dan kemudian saya akan mengatakan,
+ "Ya, saya akan menolak kod saya sekarang."
+ Jadi, anda boleh melakukannya
+ berseparasi dari proses. Jadi, saya rasa ini adalah pergerakan yang sangat
+ bijak. Berseparasi
+ dengan agen blue team
+ adalah bijak kerana
+ jika keduanya
+ dari agen yang sama,
+ ada bias.
+ Jadi, idealnya,
+ apa yang anda patut lakukan adalah, anda patut melepaskan semua
+ sejarah kod yang dihasilkan
+ untuk agen
+ yang dihasilkan.
+ Jadi, tiada bias.
+ Jadi, ini seperti
+ pergelangan baru untuk melihatnya.
+ Jika anda menggunakan agen yang sama untuk melakukannya,
+ mungkin agen yang sama ada bias.
+ Dan, ya, saya maksudkan,
+ anda juga boleh mengubah sejarah untuk agen yang sama
+ dan melakukannya juga.
+ Jadi, ada cara yang berbeza untuk melakukannya.
+ Tetapi, idea ini adalah pergelangan baru
+ untuk melihat kod.
+ Tetapi, ada satu masalah dengan jenis perjalanan ini.
+ Baiklah.
+ Barangkali penulis
+ dan penyelidik
+ masih bergantung pada agen LLM.
+ Maksud saya, tidak kira berapa banyak pembicaraan yang anda mahu menambah
+ agen LLM tidak dapat menghasilkan kod
+ atau agen LLM tidak dapat mencari kesilapan dan menolak kesilapan,
+ tidak banyak
+ agen sistem seperti itu dapat menolaknya.
+ Baiklah. Tetapi, idea
+ untuk melakukannya menjadi satu agen red dan satu agen blue,
+ saya rasa itu idea yang bagus.
+ Baiklah.
+ Topik perkembangan
+ Jadi,
+ biasanya hanya satu orang berbicara.
+ Bagaimana kita tahu untuk berbicara?
+ Bagaimana kita tahu untuk menolak agen LLM?
+ Itu soalan yang sangat menarik
+ kerana dalam contoh real world,
+ seperti yang saya beri sekarang,
+ bagaimana kita tahu untuk berbicara?
+ Seperti anda menghantar tangan untuk mengatakan, "Ya, anda berubah untuk berbicara."
+ Tetapi, dalam bidang kumpulan yang lebih informasi,
+ seperti anda di kumpulan projek,
+ bagaimana anda tahu siapa yang berubah seterusnya?
+ Baiklah. Jadi, mereka telah melakukannya
+ dengan agen pengurus kumpulan ini,
+ yang saya tidak suka mengenai,
+ kerana saya rasa ini sepatutnya menjadi sebuah template, bukan agen.
+ Agen pengurus kumpulan ini
+ akan berdasarkan konteks untuk menolak suara seterusnya.
+ Baiklah. Ada juga
+ metode berdasarkan tangan ini, yang anda boleh pilih secara deterministik.
+ Anda akan melalui,
+ agen 1, anda menolak, agen 2, anda menolak,
+ agen 3, anda menolak, dan terus menolak lagi,
+ kemudian agen 1, agen 2, agen 3, sehingga
+ selesai. Baiklah.
+ Atau ia mungkin seperti mencoba untuk melakukannya
+ dengan memilih berdasarkan konteks
+ dan berdasarkan deskripsi agen,
+ siapa yang patut pergi ke depan.
+ Baiklah. Jadi, kata-kata, pengurus kumpulan ini
+ telah dipilih. Baiklah.
+ Pengurus kumpulan ini akan meminta
+ pengurus kumpulan ini untuk menjawab. Baiklah. Kata-kata, dia telah memilih Bob.
+ Baiklah. Bob akan menjawab
+ kepada pengurus kumpulan ini, kemudian pengurus kumpulan ini
+ akan berdasarkan fungsi respons dan sebagainya,
+ menolak, baiklah. Tetapi, perangkat default
+ adalah untuk menolak kepada agen yang tersisa.
+ Baiklah. Atau anda boleh memasukkan
+ pengurus kumpulan ini hanya untuk satu agen.
+ Baiklah. Jadi, pengurus kumpulan ini agak
+ terkumpul di sini kerana
+ pengurus kumpulan ini memasukkan kepada semua agen.
+ Tetapi, kadang-kadang anda hanya mahu menolak kepada satu agen.
+ Dan, anda tahu, bagaimana anda
+ tahu siapa yang berada di dapur? Baiklah.
+ Jadi, semua ini agak sulit
+ untuk mengubah
+ kerana original autogen,
+ jika saya tak salah,
+ sebenarnya dibina untuk hanya dua agen. Baiklah.
+ Dan extension ini membuatnya agak
+ gelap. Baiklah. Jadi, saya tidak suka
+ pemimpinan ini dan sebagainya. Saya rasa anda
+ sepatutnya menjadi agen multi native dari awal. Setiap agen
+ sepatutnya dapat membicara kepada setiap agen
+ dengan pilihan sendiri. Baiklah.
+ Jadi, solusi ini sekarang,
+ kita ada agen pengurus untuk memilih agen seterusnya.
+ Saya rasa itu berkesan.
+ Tetapi, seperti yang anda lihat dalam demo sebelumnya, ia menyebabkan
+ banyak kelemahan dan sebagainya.
+ Saya rasa ini dapat diubah. Baiklah.
+ Jadi, ini
+ sekitar bagaimana ia berkesan. Baiklah.
+ Bolehkah lebih banyak agen melakukan lebih baik?
+ Mari kita lihat persembahan. Baiklah. Dan mereka
+ melakukan lebih daripada 12 tugas dan secara umum,
+ seperti yang dikatakan oleh kebanyakannya,
+ metode mereka berkesan lebih baik. Baiklah.
+ Jadi, lebih banyak agen dapat membantu. Maksud saya, grup chat
+ memperbaikkan persembahan atau lebih banyak tugas,
+ seperti menyelesaikan lebih banyak tugas.
+ Anda dapat melihat seperti, wah, ada perkembangan besar
+ dalam GBT-4. GBT-4 melancarkan lebih baik. Baiklah.
+ Jadi, jumlah agen
+ LM untuk grup chat juga
+ berkurang. Baiklah. Seperti metode dua agen.
+ Baiklah. Jadi, menarik.
+ Lebih banyak agen yang mempunyai kemampuan spesialisasi
+ dapat melakukannya lebih baik. Baiklah.
+ Tapi,
+ ada kemampuan spesialisasi
+ seksualisasi, yaitu
+ meminta pengurus grup
+ untuk memilih siapa lagi agen.
+ Dan itu berpengaruh lebih kurang
+ daripada metode dua agen natif.
+ Dan apa maksudnya ini?
+ Maksudnya jika anda meminta LM
+ untuk membuat pilihan agen,
+ ia mungkin memilih agen tertentu.
+ Dan kemudian, anda tidak akan memilih agen yang betul untuk melakukannya.
+ Seperti yang anda lihat dalam contoh terlebih dahulu,
+ saya mahu mendapatkan kertas dari Archive.
+ Tetapi, analis
+ hanya memasukkannya tanpa kata-kata diserangkan.
+ Jadi, itu yg salah.
+ Jadi, LM
+ mungkin tidak dapat melakukannya
+ dengan baik dan memilih agen yang salah.
+ Jadi, jika anda melakukannya dengan grup chat
+ seperti agen 1, agen 2, agen 3.
+ Jadi, grup chat ini adalah flow deterministik.
+ Jika anda melakukannya dengan flow deterministik,
+ ia memilih agen satu demi satu
+ dan anda pasti bahawa agen yang betul anda memilih.
+ Jadi, ini lebih baik
+ daripada meminta LM untuk memilih.
+ Jadi, ini menunjukkan
+ bahawa kita tidak tahu
+ bagaimana untuk melakukannya dengan baik
+ dan juga
+ anda mungkin tidak mempunyai yang cukup.
+ Conteks mungkin terlalu rumit untuk LM
+ memilih dengan betul.
+ Jadi, ini menunjukkan satu perkara.
+ Anda perlu menggabungkan LM
+ dengan determinisme
+ untuk efek terbaik.
+ Jadi, anda perlu menggabungkan rule-based
+ dan LM.
+ Anda perlu menggabungkan rule-based
+ dan LM.
+ Jadi, anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Jika anda memilih,
+ anda perlu menggabungkan rule-based
+ dan LM.
+ Ya. Sebenarnya, apa yang saya suka lakukan
+ dan ketika saya bercakap dengan banyak
+ pekerja lain yang memanfaatkan
+ strategi JNI
+ pada hari ini,
+ mereka mencoba menggunakan
+ lancang untuk melakukannya
+ secara elabirasi.
+ Perjalanan pertama akan melakukannya, perjalanan kedua akan melakukannya
+ dan mereka sedang mencoba menggunakan chain of thought.
+ Anda boleh memilih chain of thought dan satu-singgung
+ inferensi dengan JSON.
+ Kerana setiap periukannya adalah
+ sebuah periukannya sendiri.
+ Perjalanan pertama, perjalanan kedua dan perjalanan ketiga adalah dalam satu schema JSON.
+ Jadi, itu adalah sesuatu yang saya cuba
+ menggunakan dan melakukannya.
+ Ya, ini adalah sesuatu yang
+ saya ingat.
+ Jika anda melakukannya dalam framework GroupChat,
+ anda mempunyai agen reflektor,
+ anda mempunyai lima atau enam agen,
+ tetapi sebenarnya satu agen yang mempunyai schema JSON
+ adalah cukup untuk melakukannya.
+ Ya.
+ Jadi, ini adalah kritik saya tentang Autogen.
+ Jadi, saya nampak bahawa ini adalah sesuatu yang saya suka
+ yang anda lakukan.
+ Adakah anda memasukkannya di sistem Prom
+ untuk memasukkannya untuk melakukannya dengan JSON?
+ Ya, betul.
+ Itulah.
+ Ini sebenarnya agen JSON.
+ Saya telah menambahkan jenis respons juga.
+ Jadi, dalam Autogen,
+ secara netif, ia tidak mempunyai JSON
+ di luar kotak. Anda perlu memasukkannya
+ dalam package opening. Dan kemudian memasukkannya
+ dan mengubahkannya kepada yang terbaru
+ untuk mendukung jenis respons untuk JSON.
+ Biasanya untuk JSON.
+ Baiklah.
+ Jadi, untuk jenis JSON asian
+ yang saya buat, semuanya akan menjadi JSON.
+ Jadi, ini adalah netif.
+ Ya, saya sangat teruja untuk mencubanya.
+ Sejujurnya.
+ Saya akan mencubanya.
+ Ya, saya maksudkan
+ jenis web search mempunyai cara yang berbeza
+ tapi ini adalah jenis web search yang sangat mudah
+ seperti permission calls.
+ Ia melakukannya dan satu hal
+ yang anda mungkin menikmati
+ yang menarik adalah jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis
+ dan anda akan melihat bagaimana ia memperlu
+ menjelaskan. Jadi, kualiti pertama
+ adalah jenis terbaru,
+ dan kemudian ia mengelakkan web search.
+ Jadi, ia seperti
+ serp, API,
+ dan kemudian mendapatkan link dan mengekalkannya,
+ dan kemudian ia mendapatkan sesuatu
+ dan ia akan dikeluarkan banyak kerana
+ anti-block, anti-bot
+ jadi anda akan menemukan
+ bahawa ia tidak mendapatkan
+ beberapa data dan itu sebenarnya
+ menyebabkan banyak masalah dengan agen kritik.
+ Di mana agen kritik seperti
+ ia menerima tiga hasil.
+ Namun, hasilnya berbeza dengan
+ keterlaluan, dekat konten yang diberikan
+ oleh Xenros. Result pertama
+ adalah panggilan tersebut,
+ yang tidak memberikan pengetahuan.
+ Result ketiga, itu mengenai
+ hal yang berlaku dengan Xenros. Jadi, ia tidak sangat
+ senang dengan respons dari web search.
+ Jadi, ia menerima kritik.
+ Jadi, agen kritik saya juga jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis jenis
+ ia melakukan perhatian, kritik, dan kemudian
+ keputusan
+ dan keputusan. Dan kemudian
+ ia meminta
+ untuk mencipta
+ untuk mereka. Jadi, kualiti seterusnya
+ adalah kualiti recent funding dari Xenros.
+ Jadi, ia menerima lebih jauh
+ kualiti dari web search.
+ Dan sekarang, ia mencoba untuk mendapatkan ini.
+ Sekali lagi.
+ Sekarang, anda akan melihat bahawa ada banyak kegagalan yang terjadi di sini juga.
+ Ia tidak dapat menerima.
+ Sementara itu, okey, sementara itu
+ berlaku, sementara
+ web research berjalan lancar,
+ crmengine.world
+ dan ia mencari
+ untuk perusahaan yang dipanggil Xenros,
+ apakah ia ada di CRM atau tidak.
+ Dan ini adalah sesuatu yang anda akan mengetahui apabila
+ anda membangun agen, iaitu bahawa mereka akan berpura-pura
+ mempunyai banyak asumpsi dan
+ mereka akan berpura-pura mengelucina, okey,
+ apakah ini berjalan lancar, apakah itu berjalan lancar?
+ Saya melihat bahawa jika saya tidak
+ menyebutkan logik yang tertentu,
+ ia akan hanya mengambilkan perut
+ atau ia akan membuat perut.
+ Jadi, saya benar-benar perlu mengambil logik ini,
+ ini klc, bahwa saat
+ Jika anda mempunyai kuih, pastikan bahawa anda akan menemuinya dalam database.
+ Jika ia tidak ada, maka hanya anda akan membuatnya.
+ Jadi inilah bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bagaimana bag
+ Ini adalah bagaimana perangkat berdasarkan peraturan tersebut datang ke dalam permainan ini. Anda harus mempunyai tanda-tanda dan kata-kata. Atau ia tidak mempunyai konteks itu. Ia tidak tahu apa operasi CRM yang sepatutnya. Saya mengkodek itu ke dalam promp.
+ Ia menemui, ia menemui, tidak ada respons mencari Zendos. Sekarang ia tahu Zendos tidak ada dalam CRM saya, saya boleh membuatnya.
+ Selepas itu, agent kritik terdapat dihubungkan lagi untuk sesuatu dan saya tidak tahu mengapa.
+ Adakah anda menggunakan chat flow dllm atau chat flow dllm?
+ Jadi, ini adalah chat flow dllm yang berdasarkan di mana pengurus group chat autoselect dan itu adalah masalah lain yang saya ada dalam chat group chat.
+ Anda juga melihat dalam kertas, ketika mereka membuat pilihan dllm yang berdasarkan untuk membuat perangkat peraturan tersebut.
+ Ya, saya mempunyai kebaikan dalam planner saya. Saya akan berbincang tentang itu.
+ Satu lagi hal, jika pengurus group chat berdasarkan 3.5, ia akan melakukan lebih teruk dan akan menghubungkan agen bertiga kali.
+ Sebenarnya, saya akan mempunyai situasi di mana agen CRM dihubungkan untuk melakukan penyelidikan web. 3.5 menjadikan lebih teruk.
+ Sebelum anda datang, saya menunjukkan bagaimana agen dapat mengeluarkan kertas dari Archive dan agen yang lebih tua yang diperlukan untuk melakukan analisis.
+ Ya, betul, betul, betul, betul. Jadi, anda dapat melihat fungsi yang berlaku. Ia mencipta syarikat dan pada masa yang sama, ia menawarkan ID dan GTS kepada syarikat.
+ Dan agen kritik, lagi, agen kritik akan datang setelah agen CRM melakukan operasi, yang seharusnya, tetapi agen group chat.
+ Sebenarnya, adakah ada cara untuk menandatangani hanya agen untuk menjawab satu jenis agen?
+ Ya, ya, jadi anda boleh menggunakan fungsi "request reply" dan itu akan menggunakan agen untuk, ok, saya hanya mahu respons dari agen ini atau ini adalah agen yang hanya akan menjawab.
+ Jadi, anda boleh menandatangani agen kritik anda untuk menjawab hanya kepada agen tertentu, kemudian anda boleh mengelakkan ini.
+ Betul, ya. Sebenarnya, ada satu lagi cara untuk melakukannya, tetapi PR tidak pernah ditambah.
+ Ia adalah agen group chat, di mana anda dapat mencipta agen untuk berbincang, jadi anda boleh mempunyai agen group chat bersama dengan node berdasarkan agen.
+ Jadi, planet akan datang dan menawarkan mesej kepada satu node yang akan menambah agen lain, tetapi PR tidak pernah ditambah. Saya rasa otogenTV sedang bekerja untuk memperbaikinya.
+ Bagus, bagus.
+ Jadi agen kritik, ok. Sekarang agen web search lagi datang dan sekarang perkhidmatan akan menjadi lebih kompleks, yaitu Zanggo menambahkan perkhidmatan tentang VTLs dan pengetahuan yang akan datang.
+ Jadi, ini bagus. Agen kritik sebenarnya memperbaikkan perkhidmatan web. Ia mencipta agen secara iteratif dengan lebih baik.
+ Jadi, ini adalah sesuatu yang kita harus menjelaskan dan ini akan berlaku.
+ Jadi, ini lagi melakukan perkara yang sama.
+ Mereka mempunyai VTLs, tetapi anda akan melihat agen kritik.
+ Banyak kali, ia mengerangkan kerana agen web search sedang ditutupi.
+ Jadi, apabila saya mencoba untuk mengekalkan konten, pastinya saya tidak dapat mengekalkannya. Saya sedang menyerang apabila saya mencoba untuk mengekalkannya.
+ Dan agen kritik tidak memahami bahawa page ini tidak boleh ditutupi dan seharusnya berhenti.
+ Dan saya benar-benar membuat komentar di server, menurut saya. Agen kritik boleh mengerangkan agen tersebut.
+ Agen kritik adalah agen tersebut yang mengerangkan agen tersebut. Ia mencoba untuk memperbaikkan keputusan dengan serangan tersebut.
+ Tetapi ia tidak tahu bagaimana untuk berhenti dan itulah masalahnya.
+ Ia tidak seperti dalam RL, anda mengoptimisasi untuk penghargaan yang tertentu.
+ Tetapi ia tidak dapat sampai ke tempat itu.
+ Jadi, saya rasa itu adalah sesuatu yang perlu kita lakukan untuk mengetahui jalan terbaik.
+ Tetapi sebagai konsep, kebaikan agensi adalah baik.
+ Tetapi sekarang, tidak ada cara untuk menciptakan jalan terbaik.
+ Saya mempunyai suatu cadangan untuk ini.
+ Itu adalah anda boleh mengekalkan kritik sebagai panggilan fungsi.
+ Jika hanya diperlukan oleh agen lain, dan anda mempunyai sebuah filter yang mungkin akan berkaitan dengan LLM.
+ Untuk melihat apakah kritik yang diperlukan.
+ Jika ya, maka anda menganggap agen kritik ini sebagai fungsi.
+ Jadi, anda mempunyai agen kritik yang diperlukan untuk agen tersebut yang anda inginkan kritik untuk.
+ Betul, betul.
+ Ya, maksud saya, itu satu perkara yang saya menjelaskan.
+ Satu perkara yang saya menjelaskan adalah menganggap lebih banyak perangai.
+ Sebenarnya, menjelaskan agen, "Helo, jika anda..."
+ Baiklah, saya mencuba menganggap agen untuk mengharapkan suatu perangai.
+ Anda akan gagal di sini. Ini adalah periksaan web.
+ Ada teknologi Antibot yang akan gagal di sana.
+ Kami akan dikunci dari beberapa syarikat, mengharapkan perangai seperti itu.
+ Dan mempunyai beberapa percobaan sebelum anda menganggap, "Okey, ia tidak akan menjadi lebih baik."
+ Saya tidak tahu bagaimana itu akan berjaya di selama jangka panjang.
+ Sekarang dalam iterasi yang sedang saya lakukan, ia okey.
+ Tetapi saya rasa suatu cadangan anda juga boleh memperbaikinya.
+ Saya mempunyai suatu cadangan lain.
+ Dan itu adalah untuk menjelaskan agen group chat.
+ Seperti, banyak kali dalam perbicaraan, sebenarnya tidak perlu mempunyai agen.
+ Agen itu sendiri sebenarnya mengetahui agen mana untuk dipanggil.
+ Seperti, setelah web chat ini selesai, anda boleh panggil CRM secara langsung.
+ Ya, betul.
+ Saya akan menunjukkan perkembangan saya pada perancangan itu.
+ Oh, baiklah. Saya berfikir jika anda memberikan agen seperti ini kepada siapa yang dianggap.
+ Mereka dapat memilih siapa yang merupakan target mereka sendiri.
+ Ya, saya akan tunjukkan. Saya telah memanfaatkan itu sebenarnya.
+ Jadi agen web search menerima...
+ Okay, jadi kualiti ini, "Funding Zendros untuk perkembangan perkembangan perangai."
+ Saya benar-benar suka interplay antara critic dan web search.
+ Kita dapat melihat perkembangan berkembang lebih baik.
+ Ia bermula dengan berita terbaru Zendros dan berakhir di sini,
+ yang sangat keren.
+ Tetapi pada masa yang sama, anda mempunyai banyak token lagi.
+ Banyak token lagi, banyak waktu lagi, seperti yang anda boleh bayangkan.
+ Seperti yang saya tunggu 5 minit untuk ini.
+ Oh, 5 minit untuk satu?
+ Ya, 100 peratus.
+ Zendros telah dibuat, jadi anda dapat melihat di sini.
+ Tidak ada apa-apa di sini, dan ia digunakan di sini.
+ Tetapi ia dapat sesuatu dan...
+ Pada masa ini, agen critic ini benar-benar menakutkan dan ia benar-benar hanya berputus asa.
+ Saya tidak menyerah, ia hanya berputus asa.
+ Dan kemudian, node ini dibuat.
+ Dan sekarang anda dapat melihat bahawa ia mencipta node ini.
+ Jadi secara keseluruhannya, ya, ada hiccups.
+ Tetapi ini seperti... Ia adalah perkara magis, kan?
+ Saya benar-benar memasukkannya.
+ Dan ia melakukan penelitian, mencipta node, menyatakan ia menjadi node,
+ mencipta rekod dalam CRM saya, dan menambahkan node ke rekod itu.
+ Ini luar biasa. Ini luar biasa.
+ Apa jika saya beritahu anda bahawa saya boleh lakukan apa yang anda lakukan dengan hanya 3 perbincangan?
+ Seperti, anda hanya mempunyai tajam.
+ Kemudian anda meluncurkan tajam ke dalam web anda.
+ Kemudian anda meluncurkan ke dalam CRM anda.
+ Jadi ia seperti 1, 2, 3, 3 langkah workflow tanpa perbincangan.
+ Ya, ini boleh dibuat dengan mudah dalam 3 langkah.
+ Saya rasa ia boleh dibuat dengan 2 langkah, sejujurnya.
+ Sebab beberapa tajam-tajam ini boleh diluncurkan.
+ Anda tidak perlu menunggu antara tajam-tajam.
+ Contohnya, mencari perusahaan untuk perusahaan dan menciptakan perusahaan.
+ Ia boleh berlaku secara paraleli atau mungkin menciptakan perusahaan,
+ lalu menciptakan objek node sebelum anda meluncurkan.
+ Anda boleh menciptakan langkah perusahaan dan membuatnya jauh lebih kurang.
+ Ini adalah sesuatu yang saya sedang bekerjasama dengan dan apa topik yang anda bercakap tentang sebelumnya.
+ Maksudnya, membuat agen memilih yang seterusnya.
+ Itulah yang berlaku di dalam gambar ini juga.
+ Jadi, ia telah dibuat.
+ Saya akan cepat-cepat tunjukkan tombol yang telah diubah, bukan?
+ Bagus.
+ Jadi, di sini...
+ Jadi, ini, saya rasa, di antara soal soalan yang terakhir,
+ dia bertanya, "Apa agen yang perlu dilakukan untuk menjawab Json?"
+ Ya, sudah tentu.
+ Jadi, secara basis,
+ anda beri sebuah schema,
+ anda hanya menandatangani schema.
+ Satu cara untuk menandatangani schema adalah,
+ anda boleh menambah komentar ini setelah setiap parameter untuk menjelaskan apa yang seharusnya.
+ Adakah ia berfungsi untuk menandatangani schema?
+ Ya, iya, ia berfungsi.
+ Saya telah mencoba ini.
+ Ini berfungsi.
+ Saya rasa saya akan membuat ini lebih...
+ Sekejap. Ya, jadi, saya telah menambahkan ini.
+ Ini agak terlalu banyak.
+ Jangan berpikir,
+ dan setelah setiap langkah.
+ Dan saya akan menambahkan,
+ apa yang anda panggil,
+ tip.
+ Jika anda melakukan ini dengan betul, saya akan memberikan 200 dolar.
+ Dan saya akan menambahkan bahawa saya tidak mempunyai jari.
+ Jadi, saya akan menambahkan semua jari yang berbeza.
+ Tetapi ini berfungsi.
+ Saya boleh mengatakan bahawa ia berfungsi.
+ Ini adalah jari yang berfungsi.
+ Ya, iya, jari yang berfungsi.
+ Ya, ini adalah sesuatu yang menguasai LLM untuk memikir lebih kritis.
+ Sebab biasanya, ketika manusia berterus terang, mereka biasanya melakukan perkara dalam cara lebih tertekan.
+ Jadi, mereka belajar bahawa manusia ini berfungsi.
+ Ini adalah apa yang berlaku ketika
+ anda tidak mempunyai langkah tepat untuk mereka mengekalkan.
+ Sebab jika anda mempunyai langkah tepat untuk mereka mengekalkan,
+ anda tidak perlu mempunyai langkah tepat untuk menggunakan semua promosian ini.
+ Anda boleh melakukan langkah tepat untuk mengekalkan.
+ Ya, saya rasa itu akan menentukan banyak masalah dalam perbicaraan.
+ Tetapi, ya, saya maksudkan,
+ menarik untuk melihat apa yang anda lakukan.
+ Ya, menarik.
+ Tetapi, ok, jadi,
+ ini adalah instruksi untuk,
+ mari kita lihat rancangan, ini adalah rancangan planer.
+ Jadi, instruksi adalah mengakses HubSpot,
+ mengakses peraturan ini,
+ kemudian menghasilkan Vistanobe.
+ Jadi, Vistanobe mengakses hubspot ini.
+ Dan rancangan ini akan mengakses hubspot ini.
+ Dan saya telah mencubanya sedikit.
+ Tetapi,
+ saya akan tunjukkan kepada anda titik utama
+ bahawa saya rasa ia boleh mempunyai chat grup.
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.
+ [Titik utama]
+ Ya.

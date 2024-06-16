@@ -1,0 +1,851 @@
+ [MUSIC]
+ >> Hello, and welcome to this session on
+ building agentic AI applications with the Autogen framework.
+ My name is Nithya Narsaman.
+ I'm a Senior AI Advocate on
+ the Developer Relations team at Microsoft,
+ and I'm joined today by Eric. Hi, Eric.
+ >> Hi, Nithya. My name is Eric,
+ and I'm a Senior Researcher at Microsoft Research.
+ I'm also a Core Maintainer of the Autogen project.
+ >> This talk is also featuring
+ a third member of the Autogen team,
+ Jingya Chen. You'll see her a little bit later.
+ Let's get started with what we want to talk about today.
+ Our goal is really to get you
+ familiar with this notion of agentic AI applications.
+ If you are a developer,
+ you've probably heard the term agentic AI
+ in the context of generative AI applications.
+ By the end of this talk, you should be able to
+ understand what agentic AI applications are.
+ We'll introduce the Autogen framework.
+ We'll do a couple of demos.
+ In the first, you'll get a sense of how you can go
+ exploring the Autogen framework without
+ code using the Autogen Studio tool.
+ Then we'll dive into a code-first approach,
+ where you will be able to see
+ complex conversational patterns and learn how to
+ build this with the Autogen Python libraries.
+ Last but not least, we have a surprise.
+ Stay through to the end, but you'll get a sneak preview of
+ some upcoming features and design from the Autogen team.
+ But let's get started with an introduction to agentic AI.
+ You might be wondering what exactly is that?
+ To set the stage, let's talk about generative AI first.
+ We know generative AI applications
+ are taking the world by storm.
+ We are seeing them in everything,
+ in enterprise and consumer space.
+ We're building applications and
+ the pace of innovation is exhausting.
+ Building solutions with it can be challenging.
+ We're using large language models,
+ not custom models anymore.
+ These are trained on massive quantities of data.
+ When we use this, we also need
+ to think about things like prompt engineering.
+ Our applications are now using
+ conversational interactions that are driven by natural language.
+ That's a whole new set of challenges because our prior tools
+ are really used to more
+ discrete request-response style patterns.
+ Last but not least, we're going to find there's
+ a ton of different things we need to do to orchestrate
+ these end-to-end workflows from
+ ideation all the way to operationalization.
+ The opportunity and problem with
+ generative AI applications is that
+ chat-based experiences require humans in the loop.
+ It's a human user that puts in the prompt and it's
+ a human user that gives the instructions that ask
+ the model to build or execute a task for them.
+ That's a challenge when you want to
+ automate and scale these applications.
+ This is where agentic AI application development can help.
+ If you're familiar with agent applications,
+ not AI but just agentic applications,
+ traditionally, what it consists of is autonomous agents.
+ Agents that are capable of planning and executing
+ decisions on their own with minimal user involvement.
+ They do this by knowing what task to run and
+ what tools to use to execute particular tasks so they can do
+ this asynchronously and autonomously and then
+ return the executed results to the user.
+ But when we think about generative AI,
+ we now also have to think about conversational workflows.
+ Not only do we have to do this,
+ we need to coordinate these actions across the agents,
+ the user, and the environment.
+ This requires new tools and practices.
+ That mindset is what helped us get towards looking at autogen.
+ When you think about agentic AI with frameworks like autogen,
+ you really think about three things.
+ First, conversational agents.
+ A conversational agent is one that can communicate with
+ other agents and with the user and
+ the environment using natural language.
+ It should be configurable so it can use a large-language model.
+ It should be customizable so we can engineer the prompts.
+ It should be chainable so it can plan
+ and execute in collaboration with others.
+ Execution workflows are also going to get interesting because
+ now this agent needs to look at
+ natural language and infer what skill it needs to use.
+ It then needs to execute the relevant tool,
+ but it needs to do it responsibly because we want to
+ make sure that that code is executed in a safe way.
+ Last but not least, there are
+ many ways in which we can have conversational patterns,
+ agent-to-agent, agent-to-user, agent-to-environment.
+ This requires new best practices and design patterns that help you
+ figure out how to take a complex application
+ use case and build it out with agents.
+ That brings me to the next step of this is all great,
+ but I'm a developer.
+ How do I actually translate this abstract concept into practice?
+ This is where I reached out to my friend Eric,
+ who's on the Autogen team.
+ Autogen is a framework for building agent-to-GIFs.
+ Eric offered to come and tell us a little bit about Autogen.
+ Eric, do you want to tell me a little bit
+ about what Autogen framework does?
+ >> Yes. Autogen framework will provide you with two things.
+ First, it'll give you
+ a very customizable way to define your agent.
+ The agent can be backed by a large language model,
+ it can be backed by tools or code executor,
+ and also can be backed by a human user.
+ The second thing that Autogen provide
+ is how to make the agent talk to each other.
+ Essentially, we provide the conversation patterns that allow
+ you to orchestrate multiple agents conversation.
+ The Autogen framework is an open-source project.
+ It contains a lot of notebooks to get you started.
+ It also has research projects going on in open-source codebase.
+ These research projects focus on how to automate
+ the orchestration and also how to
+ discover new conversation patterns.
+ The next, in this example,
+ we show a simple two-agent setup.
+ We have two agents here.
+ One is the assistant agent,
+ the other one is user proxy agent.
+ The assistant agent represents a large language model
+ where the user proxy agent represent a human user.
+ The user proxy agent, in this case,
+ start a conversation with the assistant,
+ so the user proxy is a sender in this conversation,
+ and the assistant is a receiver.
+ The task here is to simply plot
+ a stock price chart comparing NVIDIA and Tesla stocks.
+ One thing to take a look at here is that you can see how simple
+ it is to create the agents and how
+ simple it is to just have them
+ talk to each other with a single function call.
+ I really like this example because it gives us
+ the fundamental building block of
+ building agent-based applications in Autogen,
+ which is to understand that you just need to configure
+ your large language model, whatever you want to use.
+ Then you need to decide what agents you want to
+ have communicate to get the task done.
+ This particular example I like because it also gave me
+ an intuitive sense of how
+ your agent can execute tasks in that environment.
+ I believe this was for a local execution example,
+ but I've seen that your documentation
+ also shows you how to execute it in Docker for
+ a much safer environment for execution.
+ Was that right?
+ >> Yes.
+ >> Awesome. Where do I go next?
+ I think one of the things I noticed here was at the end,
+ you mentioned that there's both a no-code and a code-first approach,
+ and I'm starting new in Autogen.
+ You are the expert, so I think you're telling
+ me I should get started by looking at no-code. Is that right?
+ >> Yeah, that's right. In fact,
+ we also build a local environment,
+ it's called Autogen Studio.
+ It provides developers a way to
+ get started with Autogen without writing any code.
+ The cool thing is that it actually maps
+ very neatly to the basic concepts of Autogen,
+ and so you can learn about Autogen without
+ knowing how to use the Python SDK first.
+ >> Go ahead.
+ >> Yeah. In the Autogen Studio,
+ you can define the skills which are
+ reusable functions and tools that the agent can use.
+ You can also define the models that you use by the agents.
+ Moreover, you can also define
+ the orchestration of multiple agent workflows.
+ In the Notebooks, you can create a new session,
+ and in the session, you can test and validate your agent workflows.
+ Last but not least,
+ you can publish your workflow sessions into a gallery,
+ so that you can revisit those sessions later and
+ share it to your coworkers and friends.
+ >> Yeah. Once Eric told me about this,
+ I knew I had to go try it out.
+ Before I go dive into the demo,
+ let me actually take a minute to share
+ with you the blog post that you must read.
+ It's at the bottom of those slides,
+ and also shout out to Victor Dibea,
+ who's the lead on building Autogen Studio.
+ If you go read this blog post,
+ this was published in December,
+ it'll give you a really good sense of
+ the different elements of Studio,
+ but I also want to tell you that this is
+ a tool that is actively in development.
+ What that means is by the time you see this,
+ there might be a newer version with
+ newer features and lots more coming, so stay tuned.
+ But let me get back to what Eric just said,
+ and let's walk through this tool.
+ Intuitively, if you're a developer,
+ you want to intuitively build your sense for how to build
+ an agent in the app, let's figure out what that is.
+ To get started, I actually run this in Codespaces,
+ because I love Codespaces.
+ But you can also just run this by setting up the environment.
+ All you need to do is install Autogen Studio.
+ Autogen Studio is a Python library.
+ It's currently, I think, around v0.056,
+ so very early stages.
+ But it's a great way for you to intuitively explore
+ this in your local development environment.
+ Pip install Autogen Studio,
+ and then validate your install by doing Autogen Studio version,
+ and it'll tell you what version you're running.
+ Before you get started,
+ I'm actually running it right now,
+ as you can see, and we'll look at that in a minute.
+ But before you get started,
+ remember that in order for you to build an agentic AI app,
+ you need an LLM,
+ you need a large-language model,
+ so you need to actually have some provider in mind.
+ By default, Autogen has a ton of examples
+ using OpenAI and Azure OpenAI,
+ but it also has blog posts and samples that show you how to
+ use local models and servers,
+ use Olama or anything you like,
+ or use an open-source model from Honeyface.
+ Over here, what I've done is I've actually set up
+ my Autogen Studio to use an OpenAI key,
+ and just a handy tip,
+ if you're using Codespaces like I am,
+ you can actually just set up your OpenAI key,
+ and you can see I've set it up for Azure and for OpenAI,
+ set it up one time in GitHub Codespaces,
+ and then just associate it with
+ every Codespace you want to use and you never have to
+ remember that again and you'll never leak your keys.
+ Here we are, I've set up my OpenAI key,
+ I'm all ready to go, so let's get started with Autogen.
+ You'll notice here that I'm actually running Autogen Studio.
+ It's Autogen Studio UI.
+ I've given it a particular port,
+ and when I do this within Codespaces,
+ it'll actually launch a tab and let me open it up in a new tab.
+ This is what Autogen Studio looks like.
+ We're going to take a quick tour and I'm going to keep in
+ mind the different things Eric mentioned.
+ Let's start with skills.
+ First, I want to have you look at
+ the big picture and see that this version,
+ which is slightly older,
+ there's a newer version where the gallery is not as visible,
+ but this version has three tabs,
+ a "Build" tab, and the "Build" tab is where you would go as
+ a developer to actually build
+ up the components of your agent application.
+ The "Playground" is where you would then activate a session,
+ attach a workflow with a particular task, and execute it.
+ You can test it out interactively in your local environment,
+ and then use that as a way to iterate on
+ your different components, prompts, models, etc.
+ Last but not least, this version has a gallery feature,
+ where what you can do is when you finished
+ building something and you've tried the session out,
+ you can publish it for a local gallery.
+ I found this super useful as a way to go back and
+ see how my application evolved version by version.
+ But let's start with a "Playground".
+ The "Playground" is where you would start off a new session.
+ I've done a few that I want us to look at,
+ but just to give you a sense of how this works,
+ we can start by seeing what a new session does.
+ When you start up a new session,
+ it's going to give you an option to begin with an agent workflow.
+ You have to have an agent workflow.
+ Now, this particular version has
+ two agent workflow templates available by default.
+ If you were to go ahead and create
+ a new workflow that would show up here as well.
+ Over here, I can say go ahead and give me
+ a general agent workflow and I can go ahead and create it.
+ When I do that, you will see that
+ this new one is just created here as a general agent workflow.
+ I like to rename these things just so I remember,
+ so I'm going to call it live demo,
+ just so we remember which one this is.
+ Now, we can take a look at what this looks like.
+ All right. Once I've renamed the session,
+ I can go ahead and look inside it to see what's happening.
+ Now, this is just a general agent workflow.
+ I can go into the build,
+ go into workflows, and understand
+ what this general agent workflow does.
+ You can see that it has a user proxy agent.
+ A user proxy agent is the one that
+ represents the user in these agentic applications.
+ In other words, I tell it what I would have said,
+ the prompt I would have put in,
+ and I can walk away and it can execute it on its own.
+ The receiver of the message in
+ the conversation is a primary assistant,
+ and you can see in here that the primary assistant
+ is set up to have two different tasks.
+ It can find papers with archive and it can generate images.
+ It has a system message that tells
+ you what it's capable of doing.
+ We'll look at that in just a minute.
+ It's provisioned with a GPT-4 model,
+ the temperature is set,
+ and it's set up to say never have human input.
+ In other words, this particular agent is told,
+ you can't interrupt the user and ask for any decisions.
+ You got to take care of everything yourself.
+ With this in mind, we now have this particular general workflow,
+ and it's used for general purpose tasks.
+ Notice that I just set it up here. What can I do?
+ I can pretty much do anything.
+ Let's go in there and say,
+ hey, what do I want this agent to do?
+ I want this agent to find the latest,
+ or let's do this this way, summarize.
+ The Taylor Swift biography page on Wikipedia in one paragraph.
+ Let's see what happens.
+ When I do this, I have not told it how to do it.
+ I have not told it what model to use,
+ what the prompt should be, nothing.
+ I've given it a task as a user.
+ The agent is going off and working on it,
+ and this is the value of autonomous agents.
+ If we look under the covers,
+ this agent, and I can actually switch into
+ my CLI over here because you can see what it's doing.
+ Once it's done there, we can go back and look at it.
+ I've gone ahead and said,
+ please summarize the Taylor Swift biography page.
+ The primary assistant, the user proxy,
+ I'm the one who submitted it.
+ The primary assistant says, great, I got to figure out.
+ To summarize this, I will first need to
+ and notice how it's beginning to plan its actions.
+ I will need to fetch the content.
+ I will use Python to scrape the Wikipedia page.
+ I will summarize it,
+ and then I will send that answer to you.
+ I need to start by first fetching that content.
+ It goes ahead, figures out the right Python packages to use,
+ executes it, it has a fetch Wikipedia intro
+ Python code that it's written,
+ executes it, and then retrieves that information.
+ If I go in here, that agent is still working on the task.
+ We'll come back and check on it.
+ Meanwhile, let's go and see.
+ Notice that it figured out what task to write,
+ wrote the code, ran the script,
+ and then now it has the output.
+ It says there was no output that says
+ the script did not successfully extract the text.
+ I need to go fix this.
+ It goes ahead and it actually tries to go
+ fix the issues that it found,
+ and now it's able to succeed and get the output.
+ No interruption or intervention from me whatsoever.
+ Once it's done, it takes that summary,
+ posts it to the page, and puts
+ a terminate message to say my task here is done.
+ If I look at this now,
+ you will see that in the agent, there we go,
+ it's passed out the summary of what I asked for,
+ terminated it, and I can now walk through and see
+ the entire flow of actions that it took.
+ Isn't this amazing? I have to do
+ absolutely nothing other than submit a prompt,
+ but it was able to figure out or infer
+ the right tools, execute them,
+ get the responses back,
+ put it together, and deliver the response to me,
+ and anytime it saw issues in the middle,
+ it took care of them.
+ Let's now look at the next thing.
+ We've looked at skills.
+ Now we're going to look under the covers of what
+ the different components are, skills,
+ models, agents, and workflows.
+ We're doing the demo right now anyway.
+ Let's go back and look at the studio.
+ If I go to the "Build" tab,
+ first, let's talk about skills.
+ Skills are nothing but
+ Python functions that an agent can use to solve tasks.
+ If you're familiar with OpenAI and
+ you're familiar with function calling,
+ think about this very similar to how
+ you would write a function for function calling.
+ Here, for example, is a skill that helps you generate images.
+ It defines what that method is,
+ gives you a description of what it does,
+ tells you what the arguments are,
+ and writes the code that would actually
+ process that incoming request and send back a response.
+ These skills are reusable functions.
+ Next, I can go in and create a new skill and when I do,
+ it gives me a boilerplate that I can use,
+ that I can then change, save,
+ and I can create myself new skills.
+ Next, models. Models are what you're going to
+ use when you configure your agent
+ that will actually process that prompt.
+ Over here, you can go ahead and use OpenAI models,
+ and you can see that there's an example for
+ a GPT-4 model from Azure OpenAI,
+ one for GPT-4 from OpenAI.
+ There's even models that you can use
+ that are from hugging face using local servers.
+ You can go ahead and create a new model.
+ Once you have a model in your studio,
+ you can attach it to a agent when you construct it.
+ Agents. There are two examples we'll start with.
+ The user proxy agent is the one that stands in for
+ the user in these conversational patterns.
+ The primary agent is the one that actually executes the task.
+ We already took a look at it,
+ but you can see how an agent is created.
+ You can go through this and create your own.
+ Last but not least, workflows.
+ What does a workflow do?
+ So far, you have skills where you can
+ define all the things that will help the agent execute tasks
+ and talk to various environment or service endpoints.
+ You know models that's going to actually process your inputs,
+ and you know the agent is
+ the entity that's going to put all this together.
+ But a workflow is when you have a task that needs to occur,
+ that needs to have these agents work together,
+ and we saw two examples here.
+ But I'm going to come back to the second one in just a minute.
+ Let me point out that the playground,
+ every single workflow you run,
+ you can go back and look at this.
+ You remember we saw an archive agent?
+ Here is me running a very simple prompt with the default agent saying,
+ "Find me a paper not a gen and summarize it in
+ one paragraph with a list of three benefits."
+ I can go back at any point and see how it actually broke this down.
+ It'll tell you the steps it took,
+ it'll tell you any issues it encountered,
+ and then it'll give you the result.
+ Now, once I've got this agent working,
+ I can simply go ahead and publish it to the gallery,
+ and it will show up here as
+ something that was previously published and tried by me.
+ At this point, I'm going to leave you with one last example.
+ If I look at the slides,
+ we now know what skills are,
+ we know what models are,
+ we know what agents and workflows are.
+ We also created a session and published it.
+ What else do I need to talk about?
+ Well, when I looked at the example that I showed you,
+ it was for a really simple agent with user interaction.
+ As the user said, "I want you to do a task,"
+ a single agent got it done.
+ But what if that was a complex task and I needed specialized agents?
+ It's possible I might have fine-tuned
+ launch language models that are good at
+ specific tasks that I can create agents on
+ that will do that particular thing really well.
+ Rather than having a Uber general-purpose agent.
+ How could I do that? If you want to play with that,
+ go ahead into the "Build" tab and
+ look at the travel agent group chat workflow.
+ I'm going to look at that really quickly and then walk you
+ through the example that I've already run,
+ so you see that in action.
+ Over here, you can see that it's basically
+ saying the user proxy, the one that gives the request.
+ But now you have a group chat manager.
+ This is one of the important concepts when you're
+ thinking about multi-agent applications.
+ Not only does every agent have the ability to take
+ its input and figure out or infer what tools it needs,
+ what tasks it should run,
+ how it should approach prompting the model.
+ But when you have multiple agents that need to work together,
+ you have things like planners, managers that get together.
+ Over here, this group chat manager says, "I have four agents.
+ I'm going to book a trip to Spain."
+ I have a travel planner, an assistant,
+ a local assistant agent,
+ a language assistant agent, and each of them will go
+ specialize that task, come back to me
+ with responses and I will put them together.
+ I'm going to really quickly just look at the one I've already run,
+ so you can get a sense of how that works.
+ Then I want to tell you something interesting,
+ which Eric's going to talk about.
+ Here's what happens when I say, "Hey,
+ please plan me a four-day trip to
+ Spain with stops in Madrid and Barcelona."
+ I actually did this.
+ Then I'm vegetarian, so I'm saying,
+ "Please identify cultural places to visit
+ and vegetarian food options to try."
+ When we look at this, you'll see that
+ immediately the group chat manager says,
+ "Okay, I think I'm going to need the help from
+ a local assistant and a language assistant."
+ Gives them each the task with this prompt and says,
+ "Come back to me with your responses."
+ They come back with their responses.
+ It then puts it together and you will see that it got
+ travel assistance from the travel agent and
+ it got language assistance from
+ the language aids and put it together and gave it to you.
+ But if you want to see what happened under the covers,
+ expand on the agent message and you will literally
+ see how each agent went through,
+ processed its bit of the task,
+ gave the results back to the group manager,
+ and it published them. With that in mind,
+ that's a really rapid review of Autogen Studio.
+ It's not on the tip of the iceberg,
+ so definitely go check out the blog post and try it yourself.
+ But you'll notice that
+ this is not giving me complex conversation patterns.
+ I can't see all the capabilities of
+ Autogen and Autogen has so many more things.
+ I asked Eric, "Is there a better way?"
+ Eric said, "There's an SDK."
+ Eric, do you want to take it away and tell us a little bit
+ about how we build code first on Autogen?
+ >> Yeah, sure. Let's take a look into the SDK.
+ We have already talked about the basic concept
+ of Autogen using the Autogen Studio.
+ There are models, agents, skills, and workflows.
+ We have also built a mini application using Autogen Studio.
+ Now let's move to the concept of conversation patterns,
+ which are building blocks of the multi-agent workflows.
+ We can dive into these concepts using the Autogen Python SDK.
+ What are conversation patterns?
+ Conversation patterns are the basic building blocks
+ for multi-agent workflows.
+ They define how agents in
+ a workflow communicate and pass messages to each other.
+ Different conversation patterns are
+ suitable for different types of a workflows.
+ But you can also concatenate
+ and nest them to create more complex ones.
+ Autogen Studio currently provides four conversation patterns.
+ Two-agent chat is the most basic conversation pattern in
+ which the two agents work on the same thread of conversation.
+ Sequencer chat is a sequence of two-agent chats.
+ Each chat has its own thread.
+ It provides a carryover mechanism to pass
+ information from one conversation thread to the next.
+ Group chat provides a way to set for
+ a set of agents to work on the same conversation thread.
+ Nested chat packages a sequence of conversation thread into
+ a single agent to add
+ a system two-like thinking process into its response generation.
+ Let's focus on the two-agent chat and group chat in this video.
+ Let's start with the simplest conversation pattern two-agent chat.
+ We can take a look at the diagram.
+ The two-agent chat is initialized with an input message.
+ This could be a message from the user along with
+ some other parameters on how to run the chat.
+ In this chat, the two agent takes
+ turn to contribute to the same conversation thread.
+ Lastly, the conversation thread is passed to
+ a summarizer to produce a chat result object.
+ This code illustrate an example of two-agent chat in which
+ an assistant agent generates code blocks
+ using large language model GPT-4 turbo.
+ The executor agent runs the code and
+ generate reply using a code execution results.
+ For safety, code execution actually
+ happens inside a Docker container
+ to avoid direct impact to the host platform.
+ The code executor writes each code block to a file and
+ execute it inside a Docker container and then
+ reads the output to formulate an agent response.
+ Two-agent chat is very useful for solving
+ simple tasks with the limited goal that can be
+ achieved with a few iterations between the two agents.
+ When you have more and more complex tasks,
+ however, the two-agent chats will start to lose
+ track of the process of the progress and get confused.
+ When the two-agent chat setup is no longer cut it,
+ you can try a group chat.
+ A group chat has a set of
+ participant agent and a group chat manager agent.
+ All agent in a group chat works
+ together on the same thread of conversation,
+ much like a group chat in
+ your favorite message app like Teams or Slack.
+ The group chat manager selects the next agent to speak.
+ The select agent generates a response and the message
+ is broadcasted to every other agents in a group chat.
+ Let's take a look at the code.
+ First, you might have noticed that we put
+ the programming assistant and programming executor agent
+ from the previous two-agent chat into the group chat.
+ Second, we also added a research assistant and
+ research tool agent to perform research with a web search tool.
+ Third, this is the most important one,
+ we added planner agent.
+ The planner agent has a system manager that says,
+ "You're a planner for complex tasks,
+ you come up with the plan and
+ assign sub-tasks to different agents.
+ You'll also check for the completion
+ of the task and provide feedback to the agents."
+ This system prompt gives the planner the capability to
+ decompose a complex task into multiple sub-tasks,
+ and this allow it to guide other agents to
+ complete the sub-tasks and check for the progress.
+ Last but not least, we also added
+ an admin agent to the mix
+ to allow human feedback when necessary.
+ When your task gets even more complex
+ beyond a single group chat that can handle,
+ you can bring in nested chats to
+ implement a participant agent in a group chat.
+ You can also further nest a group chat into it, and so on.
+ This is the power of conversation patterns.
+ They can be composed to create
+ new ones that are capable of handling more complex tasks.
+ This composability allows you,
+ the application developer,
+ to encode your domain knowledge into
+ the building of your multi-agent workflows
+ and differentiate your products from others.
+ Given that, let's jump into some code.
+ In this Notebooks, I set it up with
+ AutoGen library and also install a small web search tool library.
+ First, we import the external dependencies,
+ and then we set up our large language model,
+ which is a GPT for Turbo.
+ This is the only one we're using for this notebook.
+ This is interesting. We're going to start with a research team.
+ The research team in this case contains two agents.
+ One is a research assistant agent,
+ and another one is a tool agent.
+ The research assistant agent is set up
+ a system prompt to teach us how to use the research tool.
+ The research tool agent is registered
+ with a research tool function,
+ which simply performs a web search
+ to find raw information from the web.
+ Register function essentially register the search tool to the executor,
+ which is the research tool agent,
+ and to the caller, which is the research assistant agent.
+ In this setup, you can see the research assistant is going to
+ call the search tool and
+ the research tool agent is going to execute the search tool.
+ Let's execute this self, and now we can test our research team.
+ We test the research team with a simple question,
+ what is the address of the building
+ hosting Microsoft Research Inventment?
+ You can see that we have a reflection with our M studying for
+ the summary so that once the chat completes between the two agents,
+ it is going to use history to summarize and generate a response for this message.
+ You can see the research assistant,
+ given the input question,
+ it first calls the search tool with the query Microsoft Research Inventment Address,
+ and the search tool returns the result in the raw text,
+ and the research assistant is able to read the raw text and
+ summarize and extract the information from the search result.
+ The chat terminates and we can take a look at the result summary.
+ It says the address of the building hosting
+ Microsoft Research Inventment is Microsoft Building 99,
+ it's at 14820 Northeast 36th Street.
+ This is the result for the chat.
+ We have tested our research team.
+ Let's move on to our programming team.
+ The programming team, again, it's a setup of two agent chat.
+ In the programming team,
+ we have a programming assistant agent.
+ The programming assistant agent is taught how to use code to solve problems.
+ The code is always generated inside a markdown blocks
+ with a Python language specified.
+ One thing to pay attention to is that we use a local command line executor in this notebook,
+ but in production, you do want to use a Docker-based command line executor so that you
+ can provide a layer of safety on top of your host platforms.
+ The programming executor agent, again,
+ is responsible executing the code generated by
+ the assistant agent and is assigned with a code executor setting,
+ so that this code executor is corresponding to the local command line code executor.
+ Let's run this and we can test our program.
+ The task we assigned to this programming team is simply
+ say a very famous math problems about rabbits and chickens.
+ There are some rabbits and chickens in a barn and there are 532 legs and 172 heads.
+ How many rabbits and chickens are there?
+ This requires the model to know how to use
+ a simple SimPy library to solve for equations.
+ As you can see, it generates a code block in Python and uses
+ a SimPy library to formulate the equation for the heads and legs,
+ and it will cause a star function to generate the answer.
+ We just talked about the programming team.
+ Let's move on to the group chat.
+ Here, we use the programming team and the research team to
+ assemble a group chat and also add a planner agent and admin agent.
+ The planner agent, as we have seen before,
+ is able to decompose the task and provide feedback and chip progress.
+ It's important to note that we also add descriptions for each of the agents so
+ that the group chat managers know which agent to call next.
+ Now we set up the group chat.
+ In the group chat, we put all the agents in the group chat,
+ adding the admins, and add the transitions.
+ The transitions is basically a rule-based transition rules that says,
+ given the current speaker,
+ what are the allowed next speakers?
+ Now we have set up the group chat with a group chat manager containing the group chat.
+ Let's have the admin agent initiate chat with the group chat manager with a new task.
+ Notice that task is different from the task task that we have used from before.
+ The task is that found top five countries by
+ GDP per capita and create a plot and save it to a file.
+ You can see it's getting to work and the planner agents
+ first come up with the plan,
+ decompose the task into sub-tasks,
+ and assign each task to an agent in the group chat.
+ Then the research assistant agent calls the tools to search for
+ one of the top countries by GDP per capita,
+ and then given the result from the research tool agent,
+ a research assistant agent gets the result for the first sub-task,
+ the top five countries.
+ Then the planner said,
+ "Okay. Now it's your turn for
+ programming assistant agent to generate a code to create a visualization."
+ The programming assistant agent wrote the code using
+ map polyg and it's going to be executed by
+ the programmer executor agent and you generate a figure.
+ The figure is saved here.
+ Then we can go here to take a look at
+ the result and you can see the visualization is generated.
+ This is the code.
+ Let's take a look at what's going to
+ happen next for Autogen and Autogen Studio.
+ For Autogen Studio, we are working on a redesign,
+ and this allows us to give a much more streamlined workflow
+ creation with drag and drop interaction.
+ We're also going to add a lot more conversation pattern
+ to more than the group chat that we have in Autogen Studio currently,
+ and we allow users to design
+ their own composition patterns using the canvas.
+ We're also going to double down on a community-driven learning by
+ engaging with the gallery to share and learn
+ different creation created by the Autogen Studio.
+ Let's take a look at the video that Jinya created to show what's next for Autogen Studio,
+ and we would like to get your feedback on our next step.
+ >> Hi, everyone. I will give you
+ a brief walkthrough of the upcoming Autogen Studio experience.
+ In developing this new experience,
+ we focused on three key design principles.
+ First, we aim to reduce complexity and enhance productivity,
+ allowing users to accomplish more with less effort and time.
+ Second, we're empowering users with a flexible and intuitive interface,
+ enabling them to create diverse conversation patterns easily.
+ Third, we're integrating testing and experimentation features,
+ and we encourage active community participation in the Autogen Gallery.
+ Next, let's look into an example of workflow creation experience step-by-step.
+ The first thing is the simplified entry and start from examples.
+ This is a dashboard of the build section for a first-time user.
+ Here, you can see that there are four main options to build something new.
+ You can build a workflow which is a multi-agent system.
+ You can also choose to build an agent first and then contribute it to a workflow later.
+ For first-time users,
+ they can start with an example we provided below rather than build something from scratch.
+ For the returning users,
+ besides the entries of building new things,
+ they are able to find all the things they have created before using the Autogen Studio,
+ including workflows, agents, skills, or models.
+ You can still see some of the examples on the right if you need.
+ Next, let's look into what would happen if you choose to build a new workflow.
+ You will start with a very simple setting of a workflow by giving it a name and a description.
+ In the advanced settings,
+ you can come in and select a default model to apply across the entire agent workflow.
+ And if you want to use some existing patterns,
+ you could choose one template to start with,
+ for example, the group chat workflow,
+ and you will enter the canvas with a group chat template to continue.
+ Next, let's see how we achieve quick customization and reusability in this canvas.
+ On the left-hand side, you have a library with all the components
+ to create a comprehensive workflow, including the agents, skills, and models.
+ If you create a new agent,
+ you can easily drag and drop an existing agent into the containers.
+ For example, if you drag the group chat agent,
+ it will add this group of agents into the canvas for you to continue.
+ You can also drag an existing skills or models under each agent,
+ or create new skills and models easily from here.
+ And when you select an individual agent,
+ then on the right-hand side, you will get all the individual settings of that agent.
+ So you can go in and tweak all the settings in this scenario.
+ You can also select individual model to configure,
+ or an individual skill to edit.
+ Next, let's see how would you test the workflow you just created.
+ When you click on the Test button in the right-button corner,
+ a test panel opens up where you can quickly test out and chat with this workflow
+ without waiting to go to the playground to test.
+ And when you hit the Debug Insights,
+ another panel opens up a site where you could view all the agent messages
+ and how they interact so as to observe what's happening and what's going wrong.
+ In the end, I would love to show you the new playground and gallery of Origin Studio.
+ As the end user in the playground, you could use all the workflow you have created
+ or try out some other popular workflows from the community.
+ You could initiate many sessions as you want using different workflows.
+ And even more, we would have this beautiful gallery
+ collecting all the ideas from the community including workflows, agents, skills, and even sessions
+ so people could share, learn, and collaborate with each other from here.
+ So this is a brief intro of what you can expect from AutoGen Studio in the coming months.
+ Stay tuned for updates, and we warmly invite you to contribute to this community.
+ Thank you.
+ Well, that was awesome. I cannot wait to see that new design.
+ But I think that brings us to the end of the session.
+ Thank you so much for having us.
+ And before we kind of wrap up, just a quick summary of what we covered.
+ Hopefully, if we did our jobs right, you now know what agent-agent applications are,
+ what the AutoGen framework does.
+ You got a sense of how the AutoGen Studio works for low-code, no-code development.
+ You got a sense of how you can use the AutoGen SDK for a code-first approach
+ to building multi-agent collaborative applications.
+ And you got a sneak peek at the upcoming design.
+ So Eric, where should they go if they want to contribute or converse with the community?
+ So on the bottom left corner, you can see we have the link to the AutoGen role maps.
+ If you want to contribute to the project, please take a look at the role maps.
+ Also, we welcome you to join the very vibrant AutoGen community on Discord.
+ It already has 20,000 members and daily active members about 2,000.
+ So a lot of people are asking questions and getting help on how to use AutoGen
+ and also explore ideas and potentially find new collaborators to work on your projects
+ using AutoGen.
+ We can't wait to see what you will build.
+ And do come share your creations on Discord or on the AutoGen gallery.
+ Thank you and have fun at build.
+ Thank you.
+ Can't wait to see what you're going to build with AutoGen.
+ [BLANK_AUDIO]
+ [BLANK_AUDIO]
+ [BLANK_AUDIO]
+ [BLANK_AUDIO]
+ [BLANK_AUDIO]
+ [BLANK_AUDIO]

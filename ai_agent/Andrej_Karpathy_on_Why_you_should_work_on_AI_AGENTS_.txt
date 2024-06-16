@@ -1,0 +1,156 @@
+ [INAUDIBLE]
+ OK.
+ Hi, everyone.
+ Microphone is working.
+ So I was recruited to say some words of inspiration
+ on the topic of AI agents.
+ So I actually wanted to begin with a story.
+ I think AI agents are near and dear to my heart
+ to some extent.
+ Because this is a story from very early OpenAI,
+ back when it was likely to be a dozen people.
+ And this was 2016 or so.
+ And the zeitgeist of the day, actually, were RL agents.
+ And so everyone was really interested in building agents.
+ But very much at the time, it was in the context of games,
+ primarily.
+ So it was the height of excitement
+ around Atari and all the game playing and so on.
+ And so my project at OpenAI was trying
+ to focus the RL agents not on games, on Montezuma's Revenge
+ and so on, but on using computers,
+ using keyboard and mouse.
+ And so I wanted to make them useful.
+ I wanted to make them do lots of tasks.
+ And this project was called World of Bits.
+ And I worked on it together with Tenshi and Jim Fan.
+ There's someone here I think I saw him.
+ And so the three of us ended up publishing a paper.
+ It's not a super amazing paper.
+ Because basically, at the time, all you had as a hammer
+ was reinforcement learning.
+ And so we had these very simple webpages
+ that we were trying to order a flight or order something
+ to eat, and very simple webpages.
+ And we were mashing buttons and mouse clicks and so on.
+ And we were trying to stumble our way into the higher worlds.
+ And obviously, it didn't work.
+ So the technology was just not ready.
+ And it was not the right thing to work on at the time.
+ And so it turns out that the right thing to do at the time
+ was actually to forget about AI agents altogether
+ and start building language models.
+ And the language models, now we're back here.
+ Five years later, I got distracted with self-driving
+ for a bit there.
+ But it looks like AI agents are cool again.
+ But the treatment has changed completely.
+ And so the way you would approach these problems today
+ is completely different.
+ In fact, all of you are working on AI agents,
+ but you're not using any reinforcement learning probably.
+ And so that's so crazy.
+ And I don't think we would have anticipated it at the time.
+ It's just the way this played out is very interesting.
+ So I want to spend a bit of time on, OK,
+ what is causing all this hype?
+ I think, obviously, the reason that all of you
+ are interested in this topic is that I
+ think it's very obvious to a lot of people
+ that AGI will take the fall factor of some kind of an AI
+ agent.
+ And it's not just going to be a single agent thing.
+ There's going to be many agents.
+ Maybe they're going to be in organizations or civilizations
+ of digital entities.
+ And I think it's just extremely inspiring to sort of go crazy.
+ I also want to pour some water on this, too, though.
+ I think there is a large class of problems
+ that I think are very easy to imagine,
+ very easy to build demos for, but actually extremely hard
+ to make a product out of.
+ And I think many things fall into this category.
+ I would say self-driving is an example of it, actually.
+ Self-driving is very easy to imagine,
+ very easy to build a demo of a car driving around a block.
+ But making it into a product takes a decade.
+ And the same is true, I think, for example, VR.
+ Very easy to imagine, build demos.
+ But getting it to work, again, takes a decade.
+ And I think agents are kind of like that, as well.
+ Very easy to imagine, get excited about, build demos off.
+ But I think if you're in it, you should be in it for a decade
+ and actually make it work.
+ One other thing I wanted to say is that I
+ think it's kind of interesting to go back to neuroscience now
+ and take inspiration from it, again, in some ways.
+ I think this was true in the early days of deep learning,
+ but it's now true also, again, for human agents.
+ So it's been kind of interesting for me
+ to think about sort of all the equivalents.
+ So in particular, I think a lot of us,
+ it's clear that the language model is part of a solution.
+ But how do you build an entire digital entity
+ that has all of the cognitive tools that humans have?
+ So obviously, we all think we need some kind of a potential
+ system, too, to actually plan ahead and think through
+ and reflect on what we're doing.
+ And there's a lot more that you can take inspiration from.
+ So for example, the hippocampus is important.
+ What is the equivalent of the hippocampus for AI agents?
+ Well, it's somehow like recording memory traces
+ and maybe indexing them using embeddings
+ and retrieving from them, something like that.
+ So maybe that's kind of like the retrieval kind of thing in the brain.
+ We, I think, understand how to build visual auditory cortex,
+ roughly, but there's many still things that are--
+ like, what are the equivalents of them in AI agents?
+ What is the visual gang we are doing?
+ What does it look like in an AI agent?
+ What is the thalamus doing?
+ The thalamus sort of integrates all this information together.
+ It's kind of like potentially the seat of consciousness,
+ and it's got this very interesting neural circuit
+ where if you think of your brain as sort of like multiple entities
+ fighting for the microphone as to what you're going to do,
+ the thalamus is probably where that happens.
+ It's kind of interesting.
+ So I actually brought a book that I liked in neuroscience.
+ It's called Brain and Behavior by David Eagleman,
+ and I found this very interesting and inspirational,
+ so I'll leave it here if you'd like to go through it and page through it.
+ And I just think that there's some interesting inspiration
+ to, again, draw from neuroscience.
+ Just like we did early on with respect to how we design an individual neuron,
+ we can do that again today.
+ Maybe.
+ Finally, I wanted to end with some words of inspiration.
+ What's interesting and not obvious is that you guys building AI agents
+ are actually at the forefront of capability of the AI agent today.
+ And all the big labs, like LLM labs, OpenAI and Define and so on,
+ I suspect are not at the edge of the capability.
+ You are at the forefront of it.
+ So OpenAI, for example, is very good at training
+ massive transponder learning models.
+ So as an example, one way to put it is if a paper comes out
+ that proposes some different way of training a transformer.
+ The internal socket opening out is something along the lines of,
+ oh, yeah, someone tried that 2 and 1/2 years ago,
+ and here's what happened, and here's why it didn't work.
+ And it's very well understood and very well mapped out.
+ But when a new agent paper comes out, we're all interested,
+ and we look at it, and we're like, oh, that's really cool.
+ That's novel.
+ And that's because the team didn't have five years to spend on it,
+ and it's competing now with all of you, and the entrepreneurs,
+ and hackers, and so on.
+ It's really hard to do.
+ So yeah, I think it's really inspiring
+ that you are at the edge of capability
+ and on something that is obviously
+ very important in transformation.
+ And so with those words, I think it would be great to see
+ what you guys built.
+ [APPLAUSE]
+ (audience applauds)
+ (audience applauds)

@@ -1,0 +1,853 @@
+ [MUSIC PLAYING]
+ Welcome, everyone.
+ I am really excited to be doing this with Sir Demis, who,
+ as you may know, recently got his knighthood.
+ Have you gone to be daubed yet by the--
+ Oh, yes.
+ Oh, yes.
+ OK, that's still to come.
+ Well, there is so much that I want to talk about.
+ And it's really great that we're doing this here in London,
+ where you grew up, where you founded DeepMind,
+ and where you are now CEO of Google DeepMind,
+ running Google's AI efforts around the world.
+ So maybe let's start with that.
+ So obviously, it must be quite a weird experience for you,
+ having started DeepMind in 2010, when, to put it mildly,
+ AI was not obvious.
+ There were not international summits on AI.
+ There were not trillions of dollars pouring into it.
+ And now, all those things are true.
+ So when you look back on the last--
+ I guess it's now 14 years since you started it.
+ What's been most surprising, both about what has worked
+ and what hasn't?
+ Well, look, I mean, it's great to be here.
+ And thanks, everyone, for coming.
+ And it's great to be here in the heart of London, thinking
+ about these kinds of things.
+ And you're right.
+ When we started 15 years ago, virtually no one
+ was talking about AI.
+ In fact, certainly no one in industry.
+ And even in academia, I remember Shane Leggan, myself.
+ We were both post-docs at Gatsby at UCL at the time.
+ We couldn't really tell our professor,
+ because he would have just definitely, at best,
+ laughed us out of the room.
+ At worst, thought we'd sold out and gone away from research.
+ And what I was trying to do was show that cutting edge research
+ could be done in a company, deep research.
+ And also, we felt that there were enough new ideas in AI
+ that we could make very fast progress,
+ kind of like an Apollo program effort, really, for AI.
+ And I've been thinking about it for actually at least 15,
+ 20 years even before that.
+ But I felt that around 2010, I could
+ see we had the right ingredients.
+ So deep learning-- well, they're called deep belief networks,
+ actually.
+ Jeff Hinton and Co. had just sort
+ of invented some foundational papers in 2006, 2007.
+ But it hadn't been really widely adopted yet.
+ GPUs were becoming sort of widely available.
+ And we had some understanding of neuroscience
+ and how the brain's algorithms worked.
+ And bringing that all together was
+ what made us feel like really fast progress could be made.
+ What was your starting point back then?
+ Because it wasn't-- I mean, today, there's
+ lots of people-- actually, not that many people,
+ because it's so expensive.
+ But there are some people that are like, oh, you know,
+ we're going to build an LLM.
+ We're going to raise--
+ Sure.
+ But that wasn't on the table then.
+ Where did you start?
+ Yeah, we were just trying to scrape together, frankly,
+ our first seed round.
+ It was almost impossible.
+ I didn't pay myself a salary for the first couple of years,
+ things like that.
+ But we knew this was our life's work
+ and certainly been my life's work.
+ And I felt that finally, maybe the time had come.
+ So it was so exciting to try and get that going.
+ And we managed to find enough people to just get the seed
+ round done and actually just start making progress
+ towards this overall goal, which seemed monumental at the time.
+ We had a kind of 20-year roadmap.
+ Everyone has a 20-year roadmap for a deep tech company.
+ But the interesting thing is usually, the joke is,
+ it stays 20 years away as the years progress.
+ But actually, we're more or less on track, unbelievably.
+ So perhaps that's the most surprising thing
+ is that all these hypotheses we have, I guess,
+ came out to be true.
+ So certainly, on the research side and the algorithm side,
+ betting on learning and generality very early on,
+ things like reinforcement learning and deep learning,
+ obviously the core of our very first work in our Atari work
+ and we sort of invented the field of deep reinforcement
+ learning, turned out to be the right approach.
+ And then we also knew that if it did work,
+ it should become the biggest thing ever,
+ because you should be able to apply
+ this kind of general intelligence
+ to almost any field of human endeavor.
+ And I think what's happened in the last couple of years
+ is everyone has sort of realized that now, what we knew maybe
+ 20-plus years ago.
+ So a lot of people will have seen or heard
+ about some of the stuff you demoed last week at Google I/O.
+ But from your perspective, what were the highlights?
+ What is AI capable of today?
+ Well, look, it was a fantastic event, and it was very exciting.
+ For me, the highlight was probably
+ this thing called Project Astra that we showed,
+ which is our vision for what I'm calling
+ a kind of universal assistant or universal AI agent could be like
+ and how it could help in your everyday life.
+ And the main key thing about it is its multimodality,
+ so its ability to understand all the different modalities we
+ operate in as human beings in the context we're in.
+ So I think that was what's missing from the language
+ agents is they didn't understand the spatial context you were in
+ and the environment you were in.
+ So that limits their usefulness in the end.
+ And we always had this vision of something
+ that could understand the world around you through vision,
+ eventually audio and all the other senses as well.
+ And that's why we built Gemini, our large model,
+ to be a series of models, to be multimodal from the beginning,
+ able to cope with any kind of input
+ and eventually produce any kind of output.
+ And that's, I think, the vision that we
+ have for maybe the next year or two
+ of having truly smart assistants, which I think
+ will be a pretty big game changer.
+ Yeah, if you haven't seen the Astra demo video,
+ I do encourage you to watch it.
+ I don't want to spoil it, but there's
+ a bit right at the end which I think
+ shows that these systems, shows the power of actually having
+ a very long context on the video side, right?
+ That's right.
+ So that was one of the innovations
+ we came out with with Gemini 1.5 series,
+ is this million-token long context.
+ Actually, we extended it to 2 million tokens now,
+ and maybe we can go a lot further than that.
+ And that means you can now ingest all of "War and Peace,"
+ or even like an hour-long video, and then ask questions
+ of the system about it, and it can answer back intelligently.
+ And that opens up whole new possibilities
+ for as an analysis tool or a sort of research assistant,
+ but also for then with Astra, our streaming live video,
+ obviously, and then doing things like remembering--
+ I think the thing you're referring
+ to is remembering something that happened a long time ago
+ ambiently in the video stream.
+ And it could be super useful, I think,
+ for an elderly person to remember where their medicine is
+ or where your car keys are or something like that.
+ So I just think that we've barely scratched
+ the surface of what I can imagine
+ these things will be useful.
+ So one thing that I think a lot of people
+ would be interested to get your take on is,
+ you already mentioned that over the next couple of years,
+ we can expect to have things like more powerful personal
+ assistant, kind of artificially intelligent assistants.
+ How do you think about, what are the big remaining
+ sort of unsolved challenges that we
+ might see progress in over the next couple of years?
+ Yeah, I mean, it's pretty clear to me--
+ and I've said this publicly a few times--
+ that what's missing from the current systems--
+ so obviously, multimodality, memory,
+ these are things that we're working on and making
+ good progress.
+ But it's missing like planning and actions.
+ And it has some form of reasoning, but not really complex.
+ What does planning mean in this context?
+ Well, sort of the ability to break down
+ the ability to achieve a goal that you might set a system.
+ So it has to be able to act in the world, take actions.
+ So more like the game agents we're
+ famous for and we sort of built in the past.
+ I mean, it's take out the goal.
+ There's some objective that you give it as the user.
+ And then, obviously, in games, it's
+ normally to win the game or to maximize the points.
+ And then it's got to--
+ if the objective is pretty complicated or abstract,
+ it has to have the ability to break that down
+ into a set of steps that are achievable,
+ set of interim goals, interim plans,
+ and then that to build up overall into this bigger plan.
+ And that involves needing to do things
+ like maybe tree search over a planning trajectory,
+ perhaps imagine in 3D, in the mind's eye,
+ like what might happen in a certain scenario
+ in order to evaluate it.
+ So it implies a lot of extra capabilities
+ that the current systems don't have.
+ And I think what we need, and I think the next big advance,
+ will be combining the sorts of things
+ we did in planning for programs like AlphaGo with--
+ but instead of it just being limited to a game environment,
+ obviously, instead, you connect that to all of language
+ and perhaps all of multimodal context around you
+ and that model and then do planning over that.
+ I think that's the next big advance we're
+ going to see.
+ Well, this is quite important, isn't it?
+ Because I think clearly one of the reasons that particularly
+ large language and now multimodal models have got
+ so good over the last few years is just
+ the enormous amounts of compute that
+ are being invested in training and also in inference.
+ And so some people like to say, scale is all you need.
+ But it sounds like, from what you were saying there,
+ actually, there are some new ideas that won't just
+ come from scaling these things.
+ I think that's right.
+ I mean, look, I think scaling is definitely required.
+ And these large models are going to be part of an overall solution
+ to, say, AGI.
+ So I think there's not much doubt there.
+ Now, the question is, is scaling enough?
+ And it could be that some of these properties
+ that we're talking about might just emerge.
+ But I find it hard-- some of these other things
+ we're discussing, like planning, feel slightly different
+ in-kind computations.
+ So my guess is that there's still maybe
+ a small handful of breakthroughs still
+ required to get us all the way to human-level AI.
+ Maybe that's a good segue into talking about a very different
+ sort of paradigm of AI, if you like,
+ from the large multimodal models, which
+ is AI for science, which I think, in a Google deep mind,
+ probably has a unique strength.
+ And so a couple of weeks ago-- seems like forever in AI.
+ It feels like in AI, it's like every week,
+ there's a generation of progress.
+ But two or three weeks ago, you released Alpha Fold 3,
+ which, for a lot of scientists that I know,
+ they describe as revolutionary.
+ Can you describe what it is for people that don't know biology?
+ Yeah, so maybe we start with Alpha Fold 2,
+ which was the program we released a few years ago now,
+ which essentially solved one of the grand challenges
+ in biology, a 50-year grand challenge called
+ protein folding.
+ And essentially, what it is is a protein--
+ they're the workhorses of biology.
+ Everything in your body, everything depends in biology,
+ depends on proteins for their function.
+ And proteins described by its amino acid sequence.
+ So you can think of it, roughly, as the genetic sequence
+ for the protein.
+ And the protein folding problem is,
+ can you predict the 3D shape that that sort of string
+ of beads, if you like, folds up into in the body just
+ from the genetic sequence, the amino acid sequence?
+ And the reason that's important is the 3D shape kind of tells
+ you a lot about the function that that protein does
+ in the body.
+ So if you want to understand disease,
+ or you want to design a drug to target something,
+ you need to understand the 3D shape of the protein.
+ And then usually, in the past, experimentally, it's
+ been extraordinarily difficult to get that experimentally.
+ It takes like five years.
+ The rule of thumb is one PhD student, their entire PhD,
+ to do one structure.
+ But there's 20,000 proteins in humans,
+ and then there's 200 million known
+ to science in all of nature.
+ So it would just take forever to do it like that.
+ So we want a computational solution to it.
+ And that's what AlphaFold2 was, and it sort of essentially
+ solved that problem.
+ And then we spent a year folding all 200 million proteins.
+ So that would have taken equivalent
+ of like a billion years of PhD time,
+ which is incredible, done in one year.
+ So that's, I think, the power of computational methods.
+ And then AlphaFold3, which we just released,
+ we said last couple of weeks, takes that one step further
+ now.
+ And biology is not a static system.
+ It's a dynamic, emergent system.
+ And so to really understand biology,
+ you want to understand the dynamics.
+ So in effect, AlphaFold2 was the static picture of a protein.
+ And then AlphaFold3 now allows you
+ to understand how proteins interact
+ with other biomolecules.
+ So of course, other proteins, but also strands of DNA, RNA,
+ and also things like ligands, chemical compounds,
+ effectively useful for like drug discovery.
+ So it's sort of another huge leap.
+ And where we're going with this is eventually
+ I would like to model an entire virtual cell, the workings
+ of an entire virtual cell, really accurately,
+ so that one could do experiments in silico
+ on the cell, the virtual cell.
+ And that would be informative of what would actually
+ happen in the real lab.
+ And so what do you want to do with this?
+ Because I think everyone here will have obviously
+ heard of deep-bind.
+ But they may be less familiar with isomorphic labs.
+ What is isomorphic, and what's your plan?
+ Right, so we span out isomorphic after AlphaFold2 was done.
+ And the idea was always to-- the reason
+ we were interested in protein folding
+ is eventually to revolutionize the way we design drugs.
+ And the first step is understanding
+ the surface of the protein.
+ The next step, which I think isomorphic is doing,
+ is designing a drug compound that will bind
+ to the right part of the protein.
+ And ideally, not bind to anything else,
+ because that would be a side effect.
+ So you want to minimize the off-target binding.
+ And so isomorphic's moving into-- well,
+ we're improving AlphaFold all the time
+ to make it more dynamic, but also building other modules,
+ like chemistry modules, more going into biochemistry,
+ which is a perfect-- I think also another perfect area
+ for generative AI, to design molecules that
+ will bind to the right place.
+ So I think the hope is that-- well, of course,
+ AlphaFold's being used for millions of things now,
+ fundamental biology, and disease understanding, and so on,
+ but also especially revolutionizing drug design
+ and drug discovery, and taking it down
+ from years to maybe months.
+ I think what's particularly cool,
+ apart from the sort of impacts that it can have on people's
+ lives, one of the things from an AI perspective
+ I really like about the stuff that you and your team
+ have done on the science side is that it does sort of show
+ that AI isn't this monolithic thing.
+ It's not just this large language models.
+ One of the things that you put out,
+ I think earlier this year, maybe it
+ was the very end of last year, was this paper, Alpha Geometry,
+ about solving problems from the International Mathematical
+ Olympiad, which, if you are not familiar,
+ is extraordinarily difficult mathematical problems.
+ And sort of people often talked about this
+ as one of the problems that would be the last things
+ before we got AGI.
+ But Alpha Geometry solves, basically,
+ to almost gold medal standard geometry problems.
+ Yeah.
+ No, it does.
+ Obviously, only the geometry problems
+ are only around one third of the IMO,
+ usually, in an average Olympiad set of problems.
+ But we're making progress also on the non-geometry side, too.
+ So yeah, I think that maths is actually
+ quite well suited to these sorts of systems and exploring--
+ you almost can think of it as moves in a game, right?
+ If you convert a function into another function,
+ you do a mathematical operation, that's
+ almost like making a move in a game.
+ And then you have to assess whether the new state
+ of the equation is--
+ you're making progress towards solving something.
+ So I think there's just almost limitless
+ what we can apply it to.
+ And I think we will be able to be gold level soon at IMO.
+ And then that can probably translate
+ to other things like reasoning, coding.
+ You often find, with these systems,
+ is if you build it to be better in a certain direction,
+ that actually improves-- you can kind of port that back
+ into the main system and improve that.
+ But you're right.
+ There's a lot more going on than just large language models.
+ And I think, for a long while yet,
+ the specialized systems will be able to do
+ very interesting things like alpha
+ fold for specific domains.
+ Eventually, when we have AGI, we'll
+ have one system that can do everything to a very high level.
+ But for now, I think that with the next few years,
+ I think there's going to be needs for both.
+ The interesting thing is that the general system can call
+ the specialized system as a tool.
+ So there's this sort of hybrid notion
+ that we're investigating in others, too,
+ like whether the general system learns to do tool use
+ and then can use these specialized systems
+ to improve whatever that is.
+ It's maths ability.
+ It's coding ability or playing things like chess.
+ Yeah.
+ Well, I think that was one of the things
+ I found cool about that paper was
+ that it combined a language model
+ and a more traditional symbolic reasoning engine.
+ We talked about games a lot, so let's talk about games.
+ You were a very serious chess player.
+ You then, obviously, very famously
+ beat Go with AlphaGo.
+ And lots of people have seen the documentary.
+ I think that's well known, although it
+ is in the public domain, is that Demis is also
+ a champion diplomacy player.
+ I don't know if you know what diplomacy is,
+ but it is a game of alliances and betrayal.
+ It's very open ended.
+ There's no sort of like--
+ it's not like chess, where there's a limited number of moves.
+ And like, slightly-- well, hugely to my surprise,
+ that is also an area where AI has made a lot of progress.
+ So when you think about games, what is AI not yet able to win?
+ And how do you think about that?
+ Yeah, I mean, I think we've got--
+ games have always been-- so that was
+ part of the founding thesis of DeepMind,
+ was to use games as a convenient testing ground.
+ So I think that's the issue always, actually,
+ with if you're starting on a very ambitious deep tech
+ company-- and maybe many of you in the audience
+ are working on deep tech companies--
+ you have this enormous 20-year ambitious goal.
+ But you've got to be able to break that.
+ One of the key things is actually
+ choosing the right interim milestones to prove to,
+ obviously, your backers and investors
+ that you're making progress in your team, but also
+ your team and yourself, that you're actually
+ in the right direction.
+ And I think that's one thing we did well with DeepMind,
+ is pick the right interim goals, whether that's
+ Atari games to go, or protein folding.
+ And games was always the thing I had in mind,
+ partly because of my background, obviously,
+ playing a lot of games and using games,
+ and also training my own mind on games.
+ I guess you could call it playing chess
+ from a very young age as very formative for me.
+ And I think that it has all the right attributes to test out
+ your AI algorithms on.
+ But I think we have got to the point in the last few years
+ where AI can pretty much play almost any game now
+ to a very high standard.
+ And for us, AlphaZero was the pinnacle
+ of that, which was an evolution of AlphaGo,
+ but that could play any two-player perfect information
+ game.
+ Of course, there are other challenges
+ like poker and diplomacy, where other things come into it.
+ In diplomacy, there's language.
+ In poker, there's hidden information.
+ But even in those domains, I think the current AI systems
+ are getting pretty good.
+ Although it always surprises me that the language
+ models are terrible at playing even a simple game of chess.
+ That's really annoying, actually, and needs to be fixed,
+ and we're working on.
+ But it's interesting that it has that issue.
+ It's interesting what it says about those kind
+ of language models.
+ They don't really have a board state, an active board state
+ that they can maintain, certainly not implicitly.
+ So it's interesting, actually, that they fail at that currently.
+ Do you think that will go away with scale?
+ Because I remember reading that paper about Othello,
+ which is a much simpler game.
+ And there is some evidence that it
+ has some representation of what's going on in Othello.
+ It does.
+ It does have some representation,
+ but the hallucinations are especially bad at something
+ as precise as a game.
+ So if you've ever tried to play chess against it,
+ then if you get it out of the normal openings,
+ so it's not pattern matching anymore,
+ it starts taking its own pieces and things like that.
+ It just forgets where things are.
+ So there's something clearly missing.
+ I think it's quite important, actually, probably
+ what that's telling us.
+ So I think that's-- going back to your earlier question,
+ that's a big hole in the capabilities
+ of our current systems.
+ I'm sure it will get fixed, but it suggests to me
+ something's missing, not just scale.
+ You touched on a topic I wanted to dive
+ into a bit, which is entrepreneurship,
+ and especially entrepreneurship in the UK.
+ I mean, when you start DeepMind, there
+ are very few people actually starting companies
+ in the UK relative to today, and certainly
+ deep tech companies like that.
+ You ended up having to raise a lot of your capital
+ from outside the UK.
+ What's your take on where the UK is today as an entrepreneur?
+ Well, my feeling is it's like night and day
+ from how it was back in 2010.
+ It was hard to start anything, but especially--
+ I think it was really hard to start a deep tech company.
+ Very little understanding of that in the UK investment
+ community, and also appetite for funding something
+ that potentially would have that long a payoff,
+ and even though, obviously, the payoff would be enormous.
+ So I did end up going to the US to find--
+ actually, even there, it wasn't really the VCs.
+ It was more individual entrepreneurs
+ who had made it themselves and understood
+ what a journey like that would be like, that we're backing it.
+ But the one reason I stayed in the UK was--
+ I mean, first, obviously, I love it here growing up here.
+ But I do think we have enormous talent here, always have.
+ I mean, I don't know how many-- it's
+ like three or four of the top 10 universities in the world
+ are in the UK, and it's always been that way.
+ And so we produce amazing talent.
+ And then I used to think--
+ and then why I started in DeepMind in London
+ was that if you didn't want to go back then,
+ if you didn't want to go and work for HedgeFund,
+ and you say you had a PhD in physics from Cambridge
+ or something, then there weren't that many options,
+ and you wanted to stay in the UK.
+ So I felt there was a sort of competitive advantage
+ by being here and actually making
+ the most of that talent pool almost unopposed in the UK,
+ and actually for most of Europe, if you
+ look at the big technical universities in Switzerland
+ and Germany and so on.
+ And so it worked fantastically well for the first five, six,
+ seven years, I would say, then people caught on.
+ And now it's great to see all of the multinationals
+ have got their London bases here,
+ and also all the VCs sort of, I think, stood up and noticed.
+ So I like to think that DeepMind had a non-negligible part
+ to play in that, putting the UK on the map for deep tech,
+ but also showing that it could be successful here.
+ There was the talent base to the VC world,
+ and hopefully that's made it a lot easier
+ for companies that have followed since.
+ And we've got so many strengths here in the UK
+ in biotech and fintech and other places where I think quantum,
+ where we've got great university departments and great talent,
+ and we just need to have that ambition.
+ And then I think there is now a much better funding environment.
+ Yeah, I mean, we first got to know each other now
+ quite a long time ago, back in 2017,
+ when our mutual friend Reid Hoffman introduced us,
+ and you invested alongside Reid in Entrepreneur First Series A.
+ And two things I'd say on what you just said.
+ One, it's amazing the impact-- because no one had heard
+ of DeepMind because you were in stealth as well, weren't you?
+ I remember when you sold to Google,
+ the impact that had on particularly graduate students
+ in UK universities saying, I don't actually necessarily
+ have to do this 10-, 20-, 30-year journey
+ to being a principal investigator in a lab.
+ I could actually start something.
+ And we saw an explosion of AI startups around that time.
+ But also this point that it really
+ was the case that nearly all the computer science
+ grads that we met-- and our job is to go into universities
+ and find these people-- they wanted to go work in banks.
+ I mean, that was back in 2011, 2012.
+ And I do think that's changed beyond recognition.
+ Something that we're both involved in
+ is ARIA, the Advanced Research and Invention Agency,
+ which Emily mentioned in her introduction.
+ And you kind of joined the advisory board.
+ I'm the chair of the board.
+ I think that is a great example of something
+ where the UK is actually sticking its hand up and saying,
+ we're going to go all in on not just being a software
+ capital, but actually trying to do the really hard stuff that's
+ going to change the world.
+ How do you think about that stuff?
+ Yeah, I think it's fantastic.
+ And I think it's amazing what you've done with EF
+ and encouraging these technical founders to start things.
+ I think ARIA is amazing, too, and actually what the UK
+ government's doing in general to encourage science
+ and technology, including things like hosting the AI summits,
+ safety summits.
+ And I know, of course, you've been heavily involved with that
+ and Ian earlier as well.
+ And just encouraging that technology base.
+ And I really think that Britain needs
+ to lean into that from several viewpoints, really,
+ from an economic perspective to--
+ I think that's one of our superpowers
+ is that we have this really deep technical base.
+ And I think now is the time to start
+ deep technical companies that produce really amazing
+ new technologies.
+ And we can build not just a company around that,
+ but whole industries around that.
+ And I think that's what we're seeing with AI.
+ That's what we may see in the years
+ to come in many other areas, too.
+ And I think it's great to see us embracing that as a nation.
+ And what it also means is that gives us
+ more influence on the global stage to then influence
+ the societal impacts of this and how it will go,
+ the ethics of it, and so on.
+ And I think if you're not at the forefront of the technology,
+ then you lose your moral authority
+ to lead an influence in that way and have a seat around the table.
+ And also, you'll be blindsided by the advances.
+ The only way to not be blindsided
+ is to be at the forefront or have
+ advisors or companies and things and universities
+ that are at the forefront that can then advise government.
+ And I think it's fantastic experiments like ARIA
+ to pursue that even further and, in this case,
+ change academia a bit, too, to be more forward thinking,
+ more risk taking, more interdisciplinary,
+ go more ambitious.
+ Perhaps like the old DARPA or AIARPA or what ARPA was,
+ I think that's what it was modeled on.
+ Well, of course, they had that line.
+ DARPA had that line in their founding mission,
+ which was to avoid and create technological surprise,
+ and to this point that if you're not doing the science,
+ you're not going to know what's coming.
+ Well, I mean, look, I always imagine an alternate universe
+ timeline where Alan Turing, as you know,
+ is one of my all-time heroes, scientific heroes.
+ But imagine, instead of persecuting him,
+ the government had unlocked all of the kind of secrets that
+ were kind of way past their sell-by date,
+ frankly, after the war, with the Enigma machine numbers,
+ we could have had Silicon Valley in Manchester, right?
+ That's what should have happened.
+ Turing should have been at the head of some new mega startup.
+ I will say, just as a side note, because you've already
+ mentioned the AI safety summits, when
+ I was co-leading the work on the preparation for that last year,
+ I went to China and went to sort of do the diplomatic work
+ with them about them coming, which they did do.
+ And honestly, I think one of the reasons
+ that they were so engaged is that their minister of science
+ and technology also had Alan Turing as one of his heroes.
+ And we did this whole meeting in Mandarin in translation.
+ And then he broke into English to tell me
+ that he'd been to Alan Turing's house
+ and to the Manchester Industrial Museum.
+ So if that's not soft power, I don't know what it is.
+ Oh, exactly.
+ I mean, look, I've always said this about the UK.
+ Obviously, we've got world-class universities today.
+ I hope DeepMind has helped to stimulate an AI industry here
+ and what the work people like you
+ have done with the funding environment.
+ But we've also got an incredible heritage
+ with people like Turing and Babbage even before that.
+ And we've always been at the forefront
+ of this kind of technology, information theory.
+ So I think it's sort of fitting that we're
+ helping to be in the vanguard of that.
+ So as you mentioned, there's now a lot
+ of international interest in AI.
+ Just today, I think you were on a call
+ with a group of world leaders for the second AI Safety
+ Summit, which has been hosted in the Republic of Korea.
+ One thing that I've always admired about you
+ and your co-founder, Shane, is that you've
+ been very, very consistent in how you've talked about AI safety
+ for long before anyone was talking about AI safety.
+ How do you think about it today?
+ Yeah, the reason we were thinking
+ that from the very inception of DeepMind and even before.
+ And then we've infused that into Google.
+ And you can see our original ethics charter became--
+ it was the first draft really for Google's AI principles,
+ which then became public several years ago--
+ is that we plan for success.
+ So we had this mad, crazy, ambitious scheme roadmap
+ for how AI could be reached.
+ But then if we really believed that it was possible in 20
+ years, then we also knew that the impact that would have.
+ And therefore, it would need to be done very responsibly
+ with ethics and safety at the forefront of our minds
+ at all times.
+ And I think that's also transpired
+ with the way the technology has gone
+ and the impact it's already had, which I think
+ is just a fraction of what we're going to see.
+ And of course, I spent my whole life working on AI,
+ because I believe it's going to be the most beneficial
+ technology ever invented.
+ But only if we apply it in the right way
+ and build it in the right way.
+ And that means the next 10 years, let's say, 5, 10 years,
+ is going to be very critical what happens from here.
+ And I think what's great is I think
+ it's great that maybe the good part of all the language models
+ becoming super sort of mainstream is that the governments have
+ sort of woken up to that.
+ And I think that's useful.
+ And I've been pleasantly surprised, actually,
+ by their receptiveness, but also their smartness
+ around getting their heads around both the opportunities
+ and the challenges for these technologies.
+ And I think it's great that we are having that debate now
+ and with these summits.
+ And you obviously helped organize the UK,
+ played a major part in helping organize the UK one.
+ It's good that we're doing that now
+ ahead of time of when these things become
+ extraordinarily powerful in the next few years.
+ Yeah, and I think one thing that you and I have talked about
+ in the past that personally I find really important
+ to emphasize is that caring about this topic
+ doesn't come from being anti-tech.
+ It comes from a position of really wanting
+ to see amazing tech built.
+ And something that I know we both agree on
+ is the way you deal with the risks of any technology--
+ not just AI-- isn't just about banning things and regulating
+ things.
+ It's also about building safety into what you do.
+ You've done a ton of that from the beginning at DeepMind.
+ As you and I were discussing the other day,
+ I've just started a program at EF
+ dedicated to building defensive technologies, which
+ I think is the way I see acceleration and safety going
+ hand-in-hand.
+ What do you think is missing?
+ What would you like to see people build?
+ Yeah, that's awesome that you're doing that,
+ so emphasizing the defensive capabilities.
+ I think it's great to try and make that asymmetric.
+ It would be amazing.
+ I think we need a lot more research on benchmarking
+ and testing.
+ Because what we really want to be testing
+ is when new capabilities arrive, and then evaluating
+ if those are dangerous or not capabilities.
+ I know this is something the UK Safety Institute is working on,
+ and we're collaborating on, and many others.
+ But it's a very hard space.
+ In some ways, coming up with the right benchmarks
+ is maybe even harder than coming up
+ with the right algorithms, surprisingly.
+ I think we need a lot more analysis tools,
+ maybe analogous to neuroscience analysis tools for real brains,
+ to analyze these virtual brains.
+ And there's great work folks like Anthropic
+ do on understanding the representations that
+ are built up in these neural networks.
+ And we do a lot of work on that as well
+ with a lot of computational neuroscientists on our team.
+ But that needs accelerating.
+ I just think there's--
+ and then beyond that, we need to think about building things
+ like safe sandboxes that are safe from cybersecurity
+ perspective, from outside breaking in,
+ but also the AI systems potentially breaking out.
+ And so we need to evaluate-- a lot of these things
+ are uncertain.
+ It may turn out that a lot of these things
+ are much easier to deal with than we expected.
+ And that would be great.
+ But some of them may be much more challenging or much more
+ risky than we know today.
+ So I think in a situation where there's
+ a high degree of uncertainty, then one
+ must proceed with cautious optimism, in my view,
+ is the correct way to proceed until you get more evidence.
+ That's the scientific method.
+ That's the thoughtful and, I guess, intentional way.
+ We've always tried to advance the frontier.
+ It gets hard when you're in the middle of a commercial frenzy
+ like we seem to be at the moment with AI.
+ But at the core of it, we try and-- at least for us,
+ we try to move--
+ we try to be bold and responsible,
+ I think is the way we call it, rather than, say,
+ moving fast and breaking things.
+ Which I think, obviously, is amazing
+ for making the fastest progress.
+ And that's the sort of value mantra.
+ But I think is not appropriate for something as transformative,
+ as powerful as AI can potentially--
+ is potentially going to be.
+ I think that something like the scientific method
+ is a much more suitable approach.
+ And the funny thing is we talk about is you probably
+ couldn't meet two more techno-optimists than I am.
+ I'm unbelievably techno-optimist in the sense
+ of, like, I've always thought AI would
+ be the ultimate tool for science, scientific discovery,
+ and thereby advance all of humanity
+ and solve many, many of the big grand challenges that
+ are facing society and humanity today,
+ from climate to disease to economic output.
+ But what I sort of maybe kind of find
+ amusing about the people who've come to this space a lot later,
+ maybe in the last year or so--
+ you know, perhaps they were doing crypto last year
+ or something, and then this year it's AI.
+ You know, and they're, like, you know, accelerationists
+ or whatever it is.
+ And they don't understand-- what is amusing
+ is they don't actually fully understand the enormity
+ of what's coming.
+ Because if they did, they would understand that that's--
+ I'm very optimistic we can get this right.
+ But only if we do it carefully and take the time needed
+ to do it and don't rush headlong blindly into it.
+ I think we've got to treat it with the respect
+ that the technology deserves.
+ And if we do that, I have no doubt we'll end--
+ you know, in 10 years' time, we'll
+ be in an amazing flourishing society powered by AI.
+ One minute left.
+ I want to ask you a completely different question.
+ Something, again, people might know about you,
+ not know about you, is you are a very avid reader.
+ You read a lot of things that have nothing to do with AI.
+ So if you're going to recommend one non-AI-related book
+ to the audience, what would it be?
+ Oh, wow.
+ There's so many to choose from.
+ Look, I think one of my all-time favorite books on just the--
+ it would be "The Fabric of Reality" by David Deutsch.
+ I think that's the best book on trying to sort of understand
+ the nature of reality, which ultimately is what I'd
+ like to try and do with AI.
+ And then maybe one of the books that, in the last year,
+ I've read that I've enjoyed most is
+ "When We Cease to Understand the World" by Laberdu.
+ He's an amazing writer.
+ It's an unbelievable book.
+ One of the best insights to what genius is.
+ Yeah, and scientific discovery and how amazing it is,
+ but also what it's like to be at the frontiers of knowledge.
+ Yeah.
+ Fantastic.
+ Well, Demis, this has been great fun.
+ Thank you for being here.
+ And I think to wrap up the day, we
+ have Mark Fryer, who leads "Stroke" in the UK.
+ Thanks.
+ Great.
+ [APPLAUSE]
+ [MUSIC PLAYING]
+ Thank you so much.
+ That was wonderful.
+ Thank you.
+ OK.
+ Thank you so much.
