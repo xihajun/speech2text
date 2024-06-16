@@ -1,0 +1,120 @@
+ One of the most exciting developments with sequence-to-sequence models has been
+ the rise of very accurate speech recognition.
+ We're nearing the end of the course, but I want to take just a couple videos to
+ give you a sense of how these sequence-to-sequence models
+ are applied to audio data, such as the speech.
+ So what is the speech recognition problem? You're given an
+ audio clip X, and your job is to automatically find a text transcript
+ Y. So an audio clip, if you plot it, looks like this.
+ The horizontal axis here is time, and what a microphone does is it really
+ measures minuscule changes in air pressure. And the way you're
+ hearing my voice right now is that your ear is detecting little
+ changes in air pressure, probably generated either by your
+ speakers or by a headset. And so an audio clip like this
+ plots, you know, basically air pressure against time.
+ And if this audio clip is of me saying the quick brown fox, then
+ hopefully a speech recognition algorithm can input that audio clip
+ and output that transcript. And because even the human ear doesn't process
+ raw waveforms, but the human ear has physical structures that measures
+ the amount of intensity of different frequencies there is,
+ a common pre-processing step for audio data is to
+ run your raw audio clip and generate a spectrogram.
+ So this is a plot where the horizontal axis is time,
+ and the vertical axis is frequencies, and the intensity of different colors
+ shows the amount of energy. So how loud is
+ the sound at different frequencies at different times? And so
+ these types of spectrograms, or you might also hear people talk about
+ filter bank outputs, is often commonly applied pre-processing step
+ before audio is passed into a learning algorithm. And the human ear
+ does a computation pretty similar to this pre-processing step.
+ So one of the most exciting trends in speech recognition
+ is that once upon a time, speech recognition
+ systems used to be built using phonemes. And these were, I want to say,
+ hand-engineered basic units of sound. So the quick brown fox
+ we represented as phonemes. I'm going to simplify a bit, but say
+ "the" has a "d" and "e" sound, and "quick" has a "k"
+ and "w" sound. And linguists used to write out these basic units of sound
+ and try to break language down into these
+ basic units of sound. So brown, these aren't the official phonemes which are
+ written with more complicated notation, but
+ linguists used to hypothesize that writing down
+ audio in terms of these basic units of sound called phonemes
+ would be the best way to do speech recognition.
+ But with end-to-end deep learning, we're finding that
+ phoneme representations are no longer necessary. But instead you can
+ build systems that input an audio clip and directly
+ output a transcript without needing to use
+ hand-engineered representations like these.
+ One of the things that made this possible was going to
+ much larger datasets. So academic datasets on speech recognition
+ might be as 300 hours, and in academia, a 3,000 hour
+ datasets of transcribe audio would be considered reasonable size. So a lot of
+ research has been done. A lot of research papers have been written
+ on datasets that are several thousand hours, but
+ best commercial systems are now trained on
+ over 10,000 hours and sometimes over 100,000 hours of audio,
+ and it's really moving to much larger audio datasets, transcribe audio datasets
+ with both x and y, together with deep learning
+ algorithms that has driven a lot of progress in speech recognition.
+ So how do you build a speech recognition system?
+ In the last video, we'll talk about the attention model.
+ So one thing you could do is actually do that, where on the horizontal axis
+ you take in different time frames of the audio input
+ and then you have an attention model try to output the transcribe, like
+ the quick brown fox or what was said. One other method that seems to work well
+ is to use the CTC cost for speech recognition. CTC stands for
+ connectionless temporal classification and is due to Alex Gray,
+ Santiago Fernandez, Faustina Gomez, and Jurgen Schmidhuber.
+ So here's the idea. Let's say the audio clip was of someone saying
+ the quick brown fox. We're going to use a
+ we're going to use a neural network structured like this with an equal
+ number of input x's and output y's and I've drawn a
+ simple of one unidirectional forward only
+ RNN for this, but in practice this will usually be a bi-directional LSTM or
+ bi-directional GIU and usually a deeper model. But notice
+ that the number of time steps here is very
+ large and in speech recognition usually the number of
+ input time steps is much bigger than the number of output time steps.
+ So for example if you have 10 seconds of audio
+ and your features come at a hundred hertz, so a hundred samples per
+ second, then a 10 second audio clip would end up with a thousand
+ inputs, right? So this 100 hertz times 10 seconds ends up with a thousand
+ inputs. But your output might not have a thousand
+ alphabets, might not have a thousand characters.
+ So what do you do? The CTC cost function allows the RNN to generate an output
+ like this. TTT, there's a special character called
+ a blank character which I'm going to write as an underscore here.
+ H blank, E E E blank blank blank.
+ And then maybe a space I'm going to write like this so that's a
+ space and then blank blank blank q q q blank
+ blank. And this is considered a correct output
+ for the first part of the space quick with the q. And the basic rule for the
+ CTC cost function is to collapse repeated characters not
+ separated by blank. So to be clear I'm using this
+ underscore to denote the special blank character and that's different
+ than the space character. So there is a space here
+ between the and quick so it should output a space.
+ But by collapsing repeated characters not separated by blank
+ it actually collapsed the sequence into T H E
+ and then space and q and this allows the neural network to have
+ a thousand outputs by repeating characters a lot of times or inserting a
+ bunch of blank characters and still end up with a much shorter
+ output text transcript. So this phrase here the quick brown fox
+ including spaces actually has 19 characters
+ and if somehow the neural network is forced to output a thousand characters
+ by allowing the network to insert blanks and repeated characters it can still
+ represent this 19 character output with this one thousand outputs
+ values of y. So this paper by Alex Gray's as well as
+ Baidu's deep speech recognition system which
+ I was involved in used this idea to build
+ effective speech recognition systems. So I hope that gives you a
+ rough sense of how speech recognition models work.
+ Attention light models work and ctc models work and present two different
+ options for how to go about building these systems. Now today building
+ a effective or a production scale speech recognition system
+ is a pretty significant effort and requires a very large data set
+ but what I'd like to do in the next video is share with you
+ how you can build a trigger word detection system or a keyword detection
+ system which is actually much easier and
+ can done with even a smaller or more reasonable amounts of data.
+ So let's talk about that in the next video.

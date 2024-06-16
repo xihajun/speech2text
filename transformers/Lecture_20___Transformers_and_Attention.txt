@@ -1,0 +1,1426 @@
+ Hey everyone, welcome back.
+ We're gonna talk today about our kind of third element
+ of architectures in deep learning.
+ And this is gonna be two lectures now
+ on transformers and attention.
+ In particular, we're first gonna sort of,
+ in this lecture today,
+ we're gonna talk about the basic self-attention
+ and transformer architecture.
+ And the next lecture,
+ we're gonna look at implementing this,
+ again, using NumPy to sort of clone a version
+ of a transformer that we see in PyTorch.
+ So this lecture today has three parts.
+ We'll first talk about what I'm calling two approaches
+ to time series modeling.
+ So transformers in general are much more generic
+ than just time series modeling or sequence prediction,
+ but they first were developed
+ in the context of sequence prediction.
+ And so we're gonna introduce them as a technique
+ and tool for modeling time series.
+ But to do that,
+ we need to focus on the two different ways
+ we can model time series in deep networks.
+ The first being the recurrent neural network
+ kind of paradigm,
+ or more formally the latent state paradigm
+ that we saw last time in the last two lectures.
+ And then what we call the direct prediction approach,
+ which is going to,
+ of which transformers will be one instantiation.
+ We'll then talk about self-attention and transformers.
+ And finally, we'll talk very briefly,
+ just touching on some key aspects
+ of applications of transformers beyond time series,
+ which to be honest makes up an equally large portion
+ of their application these days.
+ All right, so let's jump in to start off with though,
+ and talk about the two approaches to time series modeling.
+ So let's recall from last time or from two lectures ago,
+ our basic time series prediction task.
+ So what we have here is we have some sequence of inputs,
+ X1, X2, X3, et cetera.
+ And they produce some outputs, Y1, Y2, Y3, et cetera.
+ And typically the task of time series prediction
+ is to predict the outputs from the inputs.
+ And these arrows here,
+ again, just like last time,
+ this is not a formal sort of dependency diagram,
+ but these arrows here just sort of indicate the fact
+ that these variables are not independent from each other,
+ these inputs are not independent from each other.
+ They actually come in some sequential form,
+ and our goal is to predict the outputs
+ given the whole time series up until that point.
+ But more fun, so we talked last time
+ about the recurrent neural network approach to this,
+ but more fundamentally,
+ we can kind of abstract a lot of that away
+ and just say that a time series prediction task
+ is just a problem of predicting some sequence of outputs,
+ Y1 to T, so we're predicting all our time outputs
+ as some function of X1 through T, right?
+ And it's gonna be kind of any function here.
+ As long as it is sort of a valid function
+ that predicts outputs and inputs, we're okay.
+ But with one important restriction here,
+ which is that YT, our prediction at time little t here,
+ can only depend on the Xs we've seen up until that time.
+ So we can't use Xt plus one to predict Yt.
+ And that's sort of formally
+ the kind of causal time series prediction problem.
+ Now, of course, there are multiple methods for doing this.
+ And what we saw last time was the RNN approach doing so,
+ which seems to be in some of this kind of the natural,
+ a natural way of doing this.
+ So, but it's not the only way.
+ But let's first look at this RNN formulation.
+ And in particular, what I'm focusing on here
+ is the nature of RNNs as kind of a latent state approach.
+ And what I mean by that is the RNN approach
+ to time series prediction
+ is that we take our whole input sequence
+ up until some time, say X3 here,
+ and we summarize that or embed that kind of inside
+ a latent state, H3 or in general, HT,
+ that as we discussed last time,
+ the notion of these latent states
+ is they summarize all the information
+ we've seen up until that point.
+ Right, and this is the core aspect of RNNs
+ is they represent the entire time series
+ via this latent state H.
+ And there are some notable sort of benefits to this, right?
+ For example, RNNs can capture infinitely long history, right?
+ In theory, it doesn't matter how long your state input is
+ or input sequence is.
+ This hidden state here is capable
+ of representing kind of the entirety
+ of everything that's seen up until that point.
+ And that can be very useful potentially
+ for making long sequence
+ or long time series prediction tasks.
+ Now, the con of this approach
+ or the challenge of the approach
+ is kind of actually the same thing though.
+ Because you are required to filter your entire history
+ through this latent state,
+ in practice, it's often harder than you may expect
+ to incorporate information from the long past
+ into this hidden state.
+ The sort of the compute chain or the compute path from X1
+ to this hidden state has to go through
+ a lot of different elements here.
+ It has to go through H1, then H2, then H3, et cetera.
+ And along this path, you have the vanishing
+ or exploding gradients problem, right?
+ And that means these networks are hard to learn,
+ they're hard to perform inference
+ that sort of keeps an appropriate amount
+ of past history around.
+ And this makes latent state approach though,
+ it kind of works in theory.
+ In practice, this makes it rather brittle.
+ And so this is kind of the core,
+ arguably the core challenge with RNNs,
+ this maintenance of a latent state
+ that summarizes the entire history up until now.
+ And so in contrast to this,
+ we can think of another approach to time series prediction,
+ which we'll just call the direct prediction approach.
+ And the idea here is we're going to, again,
+ predict, make some function that predicts each yt
+ as a function of the xts up until that point.
+ But we're going to design the architecture in a way
+ such that we just directly map that input sequence
+ to the desired output.
+ And so what this figure here is showing
+ is that to make our prediction y1,
+ we just use the variable x1.
+ To make our prediction y2,
+ we somehow will use the predictions x1 through x2.
+ To make our prediction y3,
+ we'll use x1 through x3 and et cetera, okay?
+ So this approach, obviously in some sense,
+ it's sort of the simpler approach
+ you could use for this in some sense.
+ But I haven't defined what I mean by this function yet.
+ The challenge of this direct prediction approach
+ is that we need a way to actually specify
+ what this function is that can map
+ any arbitrary sequence x1 through xt
+ to some fixed size output yt.
+ But this is the sort of notion of designing architecture
+ that can directly predict an output
+ from an arbitrary length input sequence
+ forms the basis for architectures like transformers,
+ but also others.
+ In fact, I'll start by highlighting
+ a different architecture
+ that's not a transformer architecture.
+ So the pros of this is that oftentimes
+ this direct prediction approach,
+ of which we'll see a few examples in a second,
+ it can often map more easily from past history
+ to a future prediction.
+ So for example, depending on the functional form
+ that I choose here,
+ and again, we'll sort of see one in a second,
+ but if I wanna predict y4,
+ I could design my prediction function
+ such that there's the same length path, say,
+ from all my points here,
+ compute path from all my input points
+ to the output y4, right?
+ Well, again, we'll see an example in a second.
+ And so thinking about this as a direct prediction approach
+ oftentimes leads to architectures
+ that are more efficient in actually capturing
+ temporal information in practice.
+ Now, the downside to this direct prediction approach
+ is that there's also what the positive,
+ or the opposite of what the positive was for RNNs.
+ There is no notion of a state representation.
+ Right, remember in RNNs before,
+ we had this value h3 there.
+ So if I wanted to add one more input, right, x4,
+ if I wanted to add on x4 over here,
+ I wouldn't need to keep around my whole sequence, right?
+ I could throw away all my past inputs,
+ just form a new hidden state by keeping around h3
+ and using that to make h4.
+ In direct sequence prediction,
+ we don't have this ability, right?
+ Every time we make a prediction of yt,
+ we need to sort of feed in our entire sequence
+ up until that point.
+ And this sort of difference is gonna play,
+ I would say arguably the key role
+ in terms of the pros and cons between RNNs
+ and methods like transformers for time series prediction.
+ But, so hopefully that gives a rough sense
+ of kind of these two different approaches,
+ the latent state approach to time series prediction
+ and the direct prediction approach to time series prediction.
+ But before I jump into transformers as an example
+ of the direct prediction approach,
+ I wanna emphasize that it's not by any means
+ the only such possibility here.
+ So another very classical method
+ for direct time series prediction
+ are actually just using convolutional neural networks.
+ And so in fact, I would argue in some sense,
+ the most straightforward way,
+ at least given what we've seen so far,
+ to specify a function like f.
+ Remember f has taken kind of a whole,
+ ideally you wanna take in a whole time series x1 through t
+ and really produce ideally all the output predictions.
+ That should be y5 here.
+ Ideally you wanna take in a whole time series
+ and produce sort of the entire set of output sequences.
+ Again, with this condition that the output y at yt
+ gonna depend on the inputs up until that point.
+ But it turns out that a convolutional network
+ with certain forms of the convolutions,
+ these are called causal convolutions often
+ and the resulting architecture
+ is frequently called a temporal convolutional network.
+ The idea of this form here
+ is that we can define a convolutional network
+ that obeys these exact temporal constraints
+ that we wanted to satisfy
+ in our time series prediction task.
+ So let's just look, for example,
+ at a convolutional network like the following here.
+ So I'm unrolling through several layers here,
+ but let's just look at like a little,
+ a small sort of aspect like this portion right here.
+ So this is sort of one layer of our network.
+ We start with two inputs, x1, x2,
+ and from that we form say this hidden state here
+ by applying a convolution.
+ Now, one important thing to note
+ is that the arrows in this network
+ only go kind of forward in time.
+ So they're only kind of going either that way,
+ which is sort of deeper in the network or this way,
+ I guess it would really be kind of this way,
+ which is sort of saying one step forward in time
+ and also deeper in the network.
+ All right, so if we think about a normal convolutional network,
+ what we would normally do on a convolutional network,
+ and this is a network with say no things
+ like max pooling or striding or like that,
+ just sort of a fully,
+ it's called a fully convolutional network.
+ What we would normally do in this case
+ is sort of take these three elements, say,
+ and convolve them with some filter
+ to produce this next point.
+ But of course we can't do this here,
+ because if we did this,
+ then we would have a state z subscript 2,
+ which would depend on x3.
+ In other words, we'd have some latent,
+ or no, I shouldn't say latent state,
+ we have some hidden state at time 2
+ that depends on the future.
+ We can't have that here.
+ So the restriction we have to impose
+ on a temporal convolutional network
+ is that all these convolutions,
+ again, are what are called causal convolutions,
+ and that just means that they cannot have any influence.
+ They can only have arrows that go kind of
+ from previous time steps to the current time step,
+ or from the current time step to the current time step.
+ All right, so you could of course have deeper arrows,
+ so for example, this would be an okay connection to have,
+ but you cannot have connections
+ that go backwards in time like this.
+ And that's what a temporal convolutional network is.
+ And so formally speaking,
+ the constraint of a temporal convolutional network
+ is that our hidden state at time t at layer i plus one
+ can only depend on the hidden state on layer i.
+ I guess you could have skipped connections too, that's fine,
+ but in general, sort of a single layer
+ will only depend on the previous state i.
+ But importantly, it can only depend on some previous states
+ in the previous layer up until that point.
+ Okay, and there are actually very many
+ temporal convolutional networks
+ that have achieved very good performance.
+ For example, the WaveNet network
+ for generating speech from text
+ uses a temporal convolutional network
+ and has very, very long time dependencies.
+ Now this network itself that I'm showing here
+ is a bit simplistic, of course, right?
+ But I also actually wanna use it to highlight
+ some of the key limitations of these networks here.
+ So let's think about sort of the challenges
+ that a network like this might have
+ with predicting time series.
+ So one sort of obvious notion here
+ is that in order to make a prediction at time five, say,
+ in order to sort of, let's just assume for now
+ that actually this is our actual network.
+ So there's one layer here,
+ but there aren't repeated layers here.
+ What we see is that state y five
+ through this chain of dependencies does depend on x one.
+ But if we have the next element of the sequence here, y six,
+ that would only, and I won't draw all the arrows here,
+ but that would only actually depend
+ on the inputs up until x two, right?
+ There's no path that has any influence from x one to y six.
+ And this using this sort of same pattern
+ mirrored over again, right?
+ So this same kind of pattern here.
+ And what this means is that
+ this time series prediction network or architecture
+ has relatively limited what's called receptive field, right?
+ And this brings us to the sort of the main challenge
+ with CNNs for dense prediction,
+ which is that the receptive field
+ or sort of how far back in the past
+ they can look to make a prediction
+ is inherently limited by the choice of convolutions
+ and the depth of the network, right?
+ If you have a simple set of convolutions like this
+ where each state only depends on
+ the current state and the past state, right?
+ So, you know, it depends on this state here
+ depends on the input at that time
+ and then the input of the previous time.
+ Then your receptive field size
+ is only going to be as large as your depth of your network.
+ And that seems very limited, right?
+ If we sort of potentially want networks
+ that can look very, very far in the past.
+ This was supposed to be the whole benefit of RNNs, right?
+ As they could contain potentially an infinite time history.
+ And it seems like we're giving up a whole lot
+ if we're gonna use a network
+ on architecture like CNNs for this.
+ Fortunately though, there are some ways
+ of dealing with this problem
+ even in convolutional networks.
+ What an obvious thing we could do
+ to sort of make this problem
+ is just increase the kernel size, right?
+ We could just sort of increase the size of our kernel.
+ And this would, you know, have instead of having
+ just depends on the previous time step
+ and the current time step,
+ we could depend on the previous two time steps,
+ the previous three,
+ but it's decreasing our kernel size.
+ We could add pooling layers and stuff like this,
+ or we could use dilated convolutions.
+ But each of these has some negative side effects
+ associated with it too, which seemed kind of odd, right?
+ So for example, if we wanna increase the kernel size,
+ that seems like a good thing
+ but it also increases the parameters of our network, right?
+ So every time we increase our receptive field,
+ because our, because we are then adding
+ sort of an additional set of filter weights
+ to our convolutional kernels,
+ we have to increase the parameters of our network
+ every time we wanna have a larger and larger
+ receptive field size.
+ So if you wanted to reset the field size of
+ in the thousands perhaps,
+ this doesn't seem that practical here, right?
+ Or we need a very, very deep network to do so
+ with a large kernel size, et cetera.
+ You can also add things like pooling layers, right?
+ That's how we kind of captured longer,
+ longer spatial temporal dependencies in images.
+ But pooling layers often are not as well suited
+ to these dense prediction tasks, right?
+ Remember, 'cause we want to predict
+ all of our output sequence from our input sequence,
+ ideally kind of all at once, right?
+ And so methods like pooling layers
+ are less well suited somehow to this operation.
+ We can also use dilated convolutions, right?
+ So remember this before was sort of this case where
+ when you form, if you have some sequence like this
+ to form the next sequence or to form our prediction
+ rather than just taking every single,
+ rather than every single element here,
+ we would take only every say two elements, right?
+ And spread out kind of the filter points
+ of our convolutional filter.
+ But this is also a bit odd, right?
+ Because maybe this work and to be clear,
+ people do all of these things,
+ especially dilated convolutions and larger kernel sizes
+ when you implement temporal convolutional networks
+ in practice, so that these are all done in practice,
+ but they also have these downsides, right?
+ So dilations like skip over parts of the input.
+ Do you really want to skip over parts of the inputs
+ and sort of not look at this piece
+ when looking at the next layer
+ or sort of only do it indirectly
+ because you have some smaller denser
+ or undiluted convolutions, some dilated ones.
+ It raises a lot of sort of architectural questions
+ that have a lot of trade-offs involved.
+ This is gonna bring us to an alternative approach
+ for doing something very similar here,
+ which is called the self-attention operation
+ leading to the architecture of what we call a transformer.
+ This architecture was relatively recent in deep learning.
+ The paper that proposed it came out in 2017,
+ but since then it's become kind of one of the,
+ I would say the most dominant architectures
+ in all of deep learning, right?
+ And we're gonna talk about transformers
+ as applied to time series right now,
+ but it really is not an exaggeration to say
+ that we are kind of in the age of transformers
+ when it comes to kind of deep networks
+ for computer vision, for natural language processing,
+ for audio processing,
+ all these sorts of things right now.
+ Transformers tend to be at least,
+ if compute and sort of training costs
+ and inference time costs are no concern,
+ these seem to be the best performing architecture
+ that we currently have.
+ And so we are currently kind of in this age
+ where the best models right now, at least,
+ tend to be some form of transformer architecture.
+ We're gonna talk about it, as I said,
+ in sequence prediction, but this is now also true.
+ I do want to emphasize in virtually every domain
+ that's going on right now.
+ Okay, so what is self-attention and what are transformers
+ and how do we sort of get from this motivation
+ of direct prediction and receptive field size
+ to this notion of transformer?
+ And to start off with, I actually want to introduce
+ the notion of attention in deep learning
+ or deep networks generally separate from self-attention
+ as it is used in transformers.
+ So this name attention is, again, a great marketing term.
+ It sparks all sorts of notions about networks
+ that pay attention to certain things
+ or attend to certain sections of the input, stuff like that.
+ A very anthropomorphized term, certainly.
+ But attention in deep networks basically means
+ any mechanism where individual components or states
+ in this network are weighted and then combined together.
+ That's maybe a overly broad definition,
+ but I think it covers,
+ I think it's actually a pretty good definition.
+ It covers kind of the majority of what we mean
+ when we say attention in deep networks.
+ And in fact, attention in deep networks
+ was originally proposed in a different,
+ using a different sort of architectural form
+ than self-attention that is currently used
+ or commonly used now in transformers.
+ And it was introduced in the context actually
+ of recurrent neural networks.
+ So to give a bit of context here,
+ remember we talked about last lecture
+ how if you want to take, or we also just talked about it too,
+ if you sort of want to take an entire input sequence,
+ showing X1 to X3 here, but of course this will keep going.
+ You want to take an entire input sequence
+ and in some sense kind of make a single prediction
+ over that entire sequence.
+ Say you wanted to take a text document
+ and classify whether it was a positive
+ or negative sentiment in this text document.
+ What's typically done,
+ or the typical way we think about doing this
+ is we know that in RNN the last state
+ is the last hidden state in the sequence
+ is of course this summary state
+ of our entire sequence so far, right?
+ So H3 here in some sense summarizes
+ all our inputs X1 to X3.
+ And of course Ht would summarize all our inputs X1 to Xt.
+ And so the common thing to do
+ if you want to make a classifier
+ based upon this entire sequence
+ is you would just take this state here
+ and bid it to some, right?
+ Bid it to some like next one layer classifier, right?
+ So I don't know, W transpose times H3t.
+ That's not transpose that one.
+ I meant to say K.
+ And this would be your prediction of the logits
+ of how likely you thought this was to be a positive sentiment
+ for this text or whatever.
+ So typically, again, the key point being here
+ is that you're taking this whole sequence
+ and you're summarizing it only with the last state here.
+ But it's also true that this,
+ for all the reasons we talked about,
+ is very imperfect, right?
+ No matter how good LSTMs and all these fancy mechanisms
+ for RNNs get, this last state will ultimately depend less
+ on X1 than it will depend on X3, right?
+ Just the compute chain to get here
+ is just longer than the chain to get there.
+ And this is especially true
+ if you go out to very long time sequences, right?
+ The influence of the first points fade.
+ This was the whole problem
+ of exploding or vanishing gradients.
+ And so making your prediction
+ just based upon the very last element in the sequence
+ tends to favor the content later on in the sequence, right?
+ And that's often something you don't really want it to have.
+ And so to avoid this,
+ what was devised was this mechanism called attention, okay?
+ So attention message says,
+ we're gonna take our hidden states,
+ but we're not just gonna take our last hidden state, right?
+ Normally, we just take this last hidden state here,
+ use that for your classifier.
+ Instead, we're gonna take all our hidden states
+ that we've produced over all time,
+ and we're going to combine them according to some weights.
+ And so in particular, we're gonna combine them
+ into this variable H here, H bar here.
+ And the way we do that,
+ and I'll kind of write these equations now
+ kind of in reverse order here,
+ but the way we do that is we take H bar,
+ just going to equal sort of the weighted sum
+ with some weights of sum from equals one to T
+ of our sum weights, WT times HT in our last layer.
+ So we're just going to basically take out form H bar
+ as a weighted combination
+ of all the hidden states over our whole network.
+ And if we do this properly,
+ there's the potential to have a much more direct path
+ of influence from say X one to our predictions,
+ because we're combining this term here, right?
+ We're also including H one in our weighted sum.
+ And so if the weight on this term is high enough,
+ then we're going to have a lot of information about X one.
+ Now, the question of course is how do we go about,
+ how do we go about actually computing these things?
+ How do we go about really understanding
+ how do we find these weights, the relative weights?
+ And the answer here is,
+ well, we don't have to pre-define how we're going to use it.
+ You could just like take their average or something like this,
+ but oftentimes you want to sort of weight them
+ in a way that depends on something about that term,
+ about how important that term is.
+ So what's common is to use
+ kind of some sort of sort of self-weighting mechanism here,
+ where you form say some ZT,
+ which would be something like a vector theta,
+ transpose HTK.
+ And that would sort of be a relative weight
+ or like kind of a logit of the weight.
+ And W would just be the soft max of the Zs.
+ So the Zs basically are the pre soft max weights
+ of each term.
+ And then you take a soft max to convert that
+ to a set of positive weights that sums to one.
+ And this mechanism here is one way of combining
+ the elements that we've seen
+ over our entire time sequence, time series,
+ in a manner that sort of treats every time point the same.
+ But this mechanism of self-attention, and it does work.
+ I mean, to be clear, these methods do work better
+ than typically sort of just looking at the last state,
+ but they're also kind of an addition to an RNN.
+ And just by themselves, they seem kind of like,
+ a nice addition to an RNN,
+ but not really a whole brand new architecture
+ in and of themselves.
+ So this leads us next to the self-attention mechanism,
+ which is a very specific form of tension mechanism
+ that's going to play a foundational role in transformers.
+ Okay, so what is self-attention?
+ Self-attention just refers to a very particular form
+ of attentional mechanism.
+ Again, meaning you form weighted combinations
+ of some inputs where those weights
+ are themselves determined by the inputs.
+ It's going to be a very particular form
+ of attention mechanism,
+ which has some very nice properties.
+ So the way that tension is usually thought of,
+ the self-attention block here is usually thought of
+ as a function that takes three arguments, K, Q, and V.
+ K, Q, and V are all matrices within,
+ and they're in RT by D,
+ and they are called keys, queries, and values.
+ Now, I am of the personal belief,
+ and I've stated this many times publicly,
+ so this is not new information.
+ I'm on record as saying this.
+ I think this naming convention
+ is actually one of the least helpful semantic designations
+ that we have in deep learning.
+ I get very little intuition
+ out of calling these things keys, queries, and values.
+ It seems way overly dependent on information retrieval
+ mechanisms and doesn't respect the symmetries
+ that are actually there in this whole thing,
+ and it's just a very, very bizarre sort of nomenclature here.
+ If you have read some other posts about transformers
+ and really find this key query value designation
+ to be helpful and helps your intuition about it,
+ that that's great.
+ I'm very happy for you.
+ I find them utterly unhelpful,
+ and I find it much easier to understand self-attention
+ just as a set of sort of matrix operations, right?
+ This is linear algebra operations is what they are.
+ But let's sort of think about this.
+ So I will from now on very sparingly use the terms,
+ keys, queries, and values,
+ but nonetheless, these are actually very common terms.
+ These are sort of the terms that are used there.
+ So I will still just use the terms K, Q, and V,
+ because those are the standard terminology
+ people use for self-attention.
+ I just am not going to give any analogies
+ to database lookups and stuff like this.
+ I think they are entirely unhelpful.
+ So what are K, Q, and V, though?
+ So K, Q, and V, the way to think of them,
+ and shortly actually what we're gonna do
+ is we're gonna form all of these
+ as a function of the same input.
+ We'll talk about that in a second.
+ But K, Q, and V, the way to think of them
+ is they are just three different matrices
+ that all have D rows, and each row is D dimensional.
+ So I'll call it K1 there will be the first row
+ in this matrix, K2 will be the second row
+ in this matrix, et cetera, all the way down to K big T,
+ 'cause I'm using T for transpose also,
+ which I have to figure out when I'm using T
+ for sequence length and when for transpose.
+ I think in the slides I use the appropriate top designation,
+ but you can just come across very well in writing.
+ Okay, so, and Q is the same, so Q is the same here,
+ so you use your first row, Q1, transpose, et cetera,
+ and V is the same way, V1, transpose, first row, et cetera.
+ And again, these all have D columns,
+ so each row is D dimensional and they have T of them,
+ big T of them.
+ All right, now, what we're going to do in a moment
+ is we're going to form these K, Q, and V actually
+ by just applying a linear transformation
+ to the inputs to self-attention.
+ So if we have some input X, say,
+ in the very first layer of the network,
+ we're going to apply some matrix WK to get X, to get K.
+ All right, so we're gonna have this sort of as our,
+ as our firm rule in a second.
+ And remember, sort of the notation to keep in mind here
+ is that X itself is a matrix, all right,
+ so X itself is a matrix here where the first row
+ is the input at time one, the next row is the input
+ at time two, et cetera.
+ And so what we're doing when we do this,
+ we're just taking each individual row in that matrix
+ and we're just multiplying it by some weight matrix WK
+ to form some corresponding row K.
+ And we're doing that to every row kind of independently.
+ That's what we're doing, right?
+ We're basically just taking all these things
+ and forming a linear transformation of the input
+ to form a bunch of different rows here
+ where the key point is that K one depends only
+ on the row X one, Q one depends only on the row X one
+ and V one depends only on the row X one.
+ There's sort of no mixing in time here.
+ Each row depends only on its corresponding input.
+ And then we apply the self-attention operator.
+ The self-attention operator is defined as self-attention
+ between this K, Q and V is equal to the soft max
+ of K times Q transpose over square root D all times V.
+ And that's just the definition of the self-attention operation.
+ But let's dive into that a bit deeper
+ and really kind of see what's going on here.
+ So what self-attention does ultimately
+ is it will finally mix together
+ the different values over different times
+ to produce outputs that are kind of exactly
+ these mixed together values.
+ But let's see how this works.
+ So we know, let's just look at sizes first, right?
+ So we know that K is T by D.
+ And so Q transpose would be D by T, right?
+ And so that means that this whole matrix in the inside here,
+ maybe I'll erase this for now.
+ This whole matrix on the inside,
+ this matrix before we apply the soft max
+ is also a T by T matrix, right?
+ So it corresponds essentially,
+ there are different elements for each.
+ There's a corresponding element corresponding
+ to each sort of time point on the rows
+ and time point in the columns.
+ And in fact, we can even sort of think about
+ what that matrix is in more detail here.
+ So let's just take kind of this matrix here
+ and think about like what the individual entries are.
+ So the entry, like the ij entry,
+ so the ij entry in this matrix here,
+ would be equal to Ki, the inner product of Ki and Qj, right?
+ That's just by definition of matrix multiplication here, right?
+ What that means is this entry corresponds in some sense
+ to computing a similarity between the Ki term
+ and the Qj term, whatever those terms are.
+ But the more similes are, the higher this inner product will be
+ and the more dissimilar the larger negative it will be, right?
+ Then we are going to, I'll erase this for a second here.
+ Then we're going to take a soft max of this whole thing.
+ So the soft max operation here
+ is actually going to be a soft max applied by row.
+ That means we're gonna take each row of this matrix
+ and we're going to apply a soft max operation to it,
+ meaning we're going to exponentiate it
+ and then normalize it to have sum equal to one.
+ This is still gonna be a T by T matrix here,
+ but now each row of this matrix will be a set of weights
+ that sums to one.
+ And then finally, we do our sort of last combination,
+ which is multiply this by V.
+ V is gonna be T by D.
+ So of course, I can fit it here.
+ The final argument is gonna be T by D, right?
+ So in other words, the output of this thing
+ is gonna be the same as all the input sizes.
+ But importantly, what's happening here is the following.
+ So we form this weighted matrix here, right?
+ This soft max matrix here.
+ We form this matrix here.
+ And then we multiply that by V.
+ And remember, each row of that matrix is normalized to one.
+ So what is the final output of this thing going to be?
+ Well, the first output of this whole thing,
+ the first row, this output,
+ will just be equal to the entire V matrix
+ weighted by the first row of this soft max matrix, right?
+ This one here we talked about, I guess, after the soft max.
+ Okay?
+ And so each row of the output of our attention matrix
+ is a linear combination of all the rows of V.
+ In other words, this is now mixing together
+ elements of different points in time, okay?
+ So this first row here, right, this first row,
+ if the terms in this matrix here,
+ again, using a little bit weird notation here,
+ whatever this first row of this matrix is here,
+ it will be a set of weights that weight each, sorry,
+ yeah, the first row, it'll weight,
+ apply that weight to each of the rows of V,
+ you know, the V1 and V2 and V3, et cetera.
+ All right, so this means this first output here
+ can contain information from all the rows of V.
+ Same with the second, right?
+ Where which rows it contains will just depend
+ on what the actual weights are that you form here.
+ All right, so that's the last set of scribbles I know,
+ but hopefully that kind of made a high level sense.
+ I'm gonna now kind of take a step back
+ and highlight what the main high level properties
+ of this overall operation are.
+ You know, again, highlighting that this is a softmax
+ applied row-wise, a T by T weight matrix that you form,
+ I guess, after the softmax becomes a weight matrix,
+ et cetera, but there are a few key properties
+ that I just really wanted to highlight here in this operation
+ and we'll implement the operation next time.
+ And again, it's one line of Python code.
+ But there's some really important properties
+ to self-attention that are worth mentioning.
+ The first property is that it is invariant
+ or really equivariant to permutations of the matrices.
+ Okay, what do I mean by that?
+ What I mean by that is if I take the matrix K, for example,
+ so let's say if I take K, that has a bunch of rows.
+ K1, K2, et cetera.
+ And if I permute all those rows,
+ so I sort of mix them up in some order, some permutation,
+ I can apply them whenever it wants.
+ If I apply a permutation to that and to also Q and V,
+ the same permutation, then the output of my self-attention
+ is just going to be the permuted form,
+ the same permutation applied to my original output.
+ And you can just sort of get that set up by inspection, right?
+ So that's sort of all of these operations.
+ You'll just form kind of a permuted version of this weights
+ and you'll apply those same permuted weights now
+ to the permuted form of V
+ and you get the exact same sort of permuted set of outputs.
+ It's actually called, this is not called invariant,
+ technically it's called equivariance
+ because it means that if you apply a permutation
+ to the inputs, you get the same permutation,
+ the output is the same output permuted
+ with that same permutation.
+ So that's sort of one nice, I would argue nice property,
+ but maybe that's not so nice, right?
+ Think about time series, is that a nice thing or not?
+ The other sort of important property
+ is that it allows influence over all times.
+ And this is sort of hopefully also apparent
+ from what I said before,
+ is that basically you get a certain amount of mixing
+ between time with V
+ and this allows, what we're gonna,
+ I mean, what you can kind of imagine maybe
+ is that when you have something
+ like direct series sequence prediction
+ where you sort of want to be able to predict
+ sometimes in any other times,
+ including potentially very long in the past,
+ this can be a very nice property.
+ I should also mention something here
+ which I didn't state, but it was important
+ to sort of also emphasize.
+ Is that this allows influence over all times
+ without increasing the parameter count.
+ Okay, so think about like with convolutional networks,
+ if you wanted to have a temporal convolutional network
+ that had more and more influence over previous time,
+ you would need to have like a larger kernel size
+ or something like that,
+ and that would involve more parameters for your network.
+ Whereas self-attention,
+ it mixes together the entire sequence,
+ no matter how long that sequence is,
+ it provides kind of a single layer mixing
+ of the entire sequence without any additional parameters.
+ In fact, I mean, there are gonna be parameters
+ of these layers, namely the parameters we use to form KQMV,
+ but treated as an operation of KQMV itself,
+ self-attention has no parameters.
+ It is just a non-linearity that's able to mix
+ over all time with sort of no favoritism
+ for sort of the current time versus previous times, right?
+ Because it's permutationally invariant
+ or potentially echo-variant.
+ And it can do that without increasing parameter count.
+ That's a really sort of nice property.
+ Now, one notable downside is that there's sort
+ of this unavoidable cost that we have
+ of the naive self-attention module,
+ which is that it involves this T by T weight matrix.
+ And there's no obvious way to get around that.
+ You kind of can't get away from that
+ because you're applying a non-linearity to it.
+ And so you can't just sort of treat that as like a,
+ you can't optimize that away, right?
+ You can actually form and store
+ and compute this whole T by T weight matrix.
+ And actually, this should really be a compute cost.
+ This should actually be here, T squared times D, not S.
+ This is the memory size, not the compute size.
+ The compute size actually involves forming T by T matrix
+ and each element is D squared,
+ is involves a D by D inner product.
+ So actually the compute cost here
+ would be O of T squared times D.
+ And this cannot easily be reduced with,
+ due to this non-linearity that we have involved in.
+ All right, so armed with that sort
+ of self-attention mechanism,
+ we're now gonna turn to the transformer architecture.
+ And what the transformer architecture is going to be,
+ and this slide's been just like a sort of,
+ sometimes a content-less preview,
+ but we'll get to the details,
+ the sort of the gritty details in the next slide.
+ But what a transformer is going to do
+ is going to take a series of inputs
+ and it's gonna transform them
+ to a series of sort of hidden states
+ up until we finally get our output.
+ Using this mechanism called a transformer,
+ which is in turn is going to be a particular construct
+ of an architecture which uses the self-attention layer.
+ Now, one thing I want to emphasize,
+ which I will come back to in a moment,
+ is that as I'm going to present this right now,
+ this architecture will not preserve
+ that causal necessity that we want
+ from a time series prediction problem.
+ So in self-attention as I presented it so far,
+ there's this matrix here can be a dense matrix.
+ And so every output,
+ if you think of these sort of as elements in time,
+ every output can depend on,
+ or the output at every time can depend on the inputs
+ at all other times, right?
+ This is sort of by definition what this mixing is doing.
+ And we'll see in a moment how you avoid this
+ for the sake of maintaining this causal property
+ of time series prediction.
+ But for now, I'm going to actually introduce transformers
+ without this notion of temporal causality,
+ because really the basic transformer block
+ doesn't have this property of being temporally causal.
+ It just is a mapping that transforms rows,
+ one row to the next row to the next row,
+ and we'll have to actually inject later on
+ some elements that will make it, in fact,
+ have these causal properties.
+ Well, let's just define for now
+ what a transformer block is.
+ So a transformer block is the following,
+ and I'm going to now define it in terms of sort of my,
+ as a mapping from my previous layer zi to zi plus one, right?
+ Like we had in this previous slide,
+ zi is some function of a transformer,
+ which is applied to my previous input.
+ So whatever I wanna do,
+ I wanna show how we map between my previous layer
+ and my next layer.
+ And this little diagram here
+ gives us sort of a common diagram
+ for how people think about transformers,
+ but let's just write out the actual equations.
+ Okay, so the first thing we're gonna do
+ in a transformer block is we're going to form,
+ I guess I'll call it like,
+ we're gonna form a few intermediate elements.
+ So I'll form like the first intermediate element z tilde,
+ I'll call it z tilde one,
+ and that's going to be equal to self-attention.
+ Self, self-attention applied to k, q, and v,
+ where k, q, and v are just gonna be
+ three different linear transformations of the input.
+ So we're gonna have zi times w, k,
+ zi times w, q, oops, times w, q,
+ and zi times w, v,
+ which by the way, just equal to softmax
+ of zi w, k, w, q transpose,
+ zi transpose over square root d times v,
+ which is zi times w, v.
+ And one thing you'll notice immediately here
+ is we probably could actually abbreviate some things
+ because we're going to do things like,
+ well, we're like, there's a multiplication here
+ of w, k times w, q transpose,
+ like couldn't we just simplify that?
+ The answer actually is no, you can't always do that
+ because oftentimes the rank of these things
+ actually makes it so you really do wanna first form this,
+ then form that, but let's not worry too much about that,
+ just know.
+ So this is the form of it.
+ Now we just do a few more things.
+ So we first applied self-attention to all our inputs,
+ but that's not the end of a transformer block.
+ The transformer block also has a few residual connections
+ and layer norms and additional feed-forward element in here.
+ So these next things are, they're a bit arbitrary,
+ but this is just how this block was designed.
+ And so we, and it's become prominent enough
+ and it's worth just knowing what these things are.
+ So we form our, I guess I'll call it like our next
+ intermediate output, z tilde two.
+ Now it's gonna equal layer norm
+ between z of like a residual layer,
+ z i, our initial input, plus z tilde one.
+ So we apply kind of a layer norm to a residual connection
+ of our original input plus the output of self-attention.
+ And then finally, we're ready to produce our output.
+ So z i plus one is equal to again, a layer norm,
+ but now apply to, well, first of all, actually
+ our new kind of feed-forward residual connection,
+ z tilde two, plus a two layer,
+ or one hidden layer, ReLU network
+ applied to the outputs of z two here, z tilde two.
+ All right, so that in particular takes the form of a,
+ so z tilde two times w one, we apply a ReLU to that,
+ and we apply some other matrix w two,
+ and we apply layer norm to the whole thing.
+ Okay, so this seems a bit complex,
+ but what it really is is just a self-attention layer
+ which mixes together the different components in time.
+ So because of its nature, right?
+ Because of its nature, you know,
+ the inputs at time t has like each row in that matrix, z i,
+ or sort of corresponds to a hidden state
+ representing information at time t.
+ The self-attention operation mixes these all together.
+ So in this term here, the t-th row
+ will potentially contain information from all time steps
+ kind of mixed together
+ according to these attentional weights.
+ And then after this, we apply an independent,
+ deep or two layer network
+ to each row independently of that.
+ So remember, like this thing here,
+ the way to think of this is you can just think of this
+ as like a two-layer network applied to z
+ as if like the rows of z
+ were the different elements in a mini-batch, right?
+ And this is in fact exactly the mini-batch form
+ of a two-layer network we talked about way back
+ and when we talked about MLPs.
+ And so what we're doing here is we're supplying
+ a independent ReLU network
+ to each individual output
+ followed by some normalization
+ to stop things from blowing up.
+ And where the normalization goes actually
+ is under some amount of debate.
+ People can debate, like you get better performance
+ sometimes not by doing this exact thing
+ but by putting it in a little different place,
+ the layer norm.
+ But this is how the default transformer in PyTorch works.
+ So I'm gonna follow that convention here.
+ And in fact was the original transformer as well.
+ And so I'm going to state that.
+ And again, some things seem arbitrary here
+ but the high level is you are using self-attention
+ to mix together different times
+ and you're applying an independent feed-forward network,
+ two-layer feed-forward network
+ plus some layer norm thrown in
+ to each time step independently.
+ And that is what a transformer block is.
+ Now, there are a few sort of challenges that come up
+ which you may have already identified
+ if you sort of were thinking about time series prediction
+ and thinking about kind of this figure here.
+ Namely, this figure here, as I said before, does not obey.
+ And with this format here, with these formula here
+ does not obey that constraint that I mentioned before
+ that the past time steps cannot depend
+ on future time steps in their input.
+ So if you just implement a transformer like this,
+ things wouldn't actually work.
+ This would not be correct.
+ It would give, yeah, it would give an incorrect result
+ because each self-attention layer could mix together points
+ from sort of all times to produce the output.
+ And so this is sort of nice for time series
+ for some reason, right?
+ So that like the nice elements are, you know,
+ the fact that we can get a full receptive field
+ within a single layer.
+ So, you know, going back to like
+ temporal convolutional networks,
+ we have to stack many of these things together
+ in order to get a large receptive field.
+ Whereas the beautiful thing about self-attention
+ is that with a single application of self-attention,
+ you can mix all the points in time together.
+ Additionally, mixing over time
+ does not increase parameter count.
+ This is what I mentioned before, right?
+ So you get within a single layer,
+ you get mixing over the whole time series,
+ but without any increase in parameter count,
+ no matter how long your time series is, right?
+ That you can apply this, whatever length you want,
+ you'll have full mixing over the whole sequence
+ and it will not increase the parameter count.
+ But there is some downsides to this.
+ So again, all outputs can depend on all inputs.
+ This is not what we wanted for temporal sequences, right?
+ We wanted outputs to only depend on the input
+ up until that point in time.
+ Disadvantage sort of number one.
+ And disadvantage number two is that
+ there's no ordering of the data.
+ So remember, we just sort of talked about how
+ transformers or self-attention was permutation equivalent.
+ And what that means is the outputs of prediction
+ on a time series would look the exact same
+ whether or not you shuffle that time series.
+ I mean, it'll look like the shuffled output
+ of the time series,
+ which is often not what you want in time series, right?
+ In time series, the order really does matter.
+ And so you want the way of actually encoding order
+ into this thing.
+ And so the next two additions we're going to make
+ to transformers are, and really to self-attention,
+ to be clear, are exactly the elements
+ that kind of fix this problem here
+ or fix these two problems here.
+ So let me first talk about the idea
+ of these a-causal dependencies.
+ So the problem with our transformer, right,
+ is that this matrix here,
+ so look at this matrix here after the softmax.
+ This is a dense matrix.
+ Okay, so this is some dense matrix here
+ that each row corresponds to the weight, right,
+ it corresponds to the weight of the corresponding sum of V.
+ So this is V, this is our, call this like A.
+ Oftentimes the attentional weights are called matrix A.
+ So each element here corresponds to the weight
+ of the different times.
+ So this means that the output at time one
+ can depend on time two, time three, time four,
+ time five, et cetera.
+ And this is a bad thing, right?
+ We often don't want this.
+ We don't want the output on time one to depend on anything,
+ but time one.
+ And so what we can do to overcome this
+ is to ensure that all the elements above the diagonal
+ in the A matrix were all equal to zero.
+ So if we could ensure that,
+ if we could ensure that all the elements were equal to zero,
+ then we actually would respect temporal consistency
+ within our matrix.
+ So the first output would only depend on the first input,
+ so it would always just be the same as the first input,
+ 'cause it has to be one to take a softmax there.
+ Then these two, the next element would depend
+ only on the first element, second element,
+ then the first, third would depend on the first
+ three elements, et cetera.
+ And so this actually would,
+ if we were able to force our softmax output
+ to look like this,
+ then we actually can achieve what we wanna achieve.
+ And so the way we do this is we just,
+ I mean, you can't just sort of take,
+ multiply by all zeros on the upper triangular
+ and then renormalize,
+ but I'll tell you a nicer way of doing it
+ is to write this as our softmax is going to be our softmax
+ of our original kind of inner product of the K and Q matrices,
+ but then minus some mask matrix,
+ where the mask here is going to be equal to
+ an element that's all zeros here,
+ and on the upper diagonal is all infinity.
+ Okay, because again, if you subtract off infinity,
+ remember softmax has an exponential in it.
+ So the exponential of negative infinity is always zero.
+ And this essentially converts this thing here,
+ converts this matrix here to this form
+ without having to sort of normalize it once
+ and normalize again.
+ So this is sort of a nice way to sort of run that,
+ run that normalization.
+ And that's how, what it means to,
+ or mask self-attention, right?
+ So you form this mask here,
+ and this form of mask is exactly what it's sort of typically
+ input into something like PyTorch.
+ Now, one thing to keep in mind is that,
+ what this mask means is that because we know
+ that all these terms are going to be zero,
+ they're going, it doesn't matter what K and Q are
+ for the upper elements here,
+ 'cause we're gonna subtract off negative,
+ we're gonna subtract off infinity anyway.
+ So it's gonna be negative infinity
+ regardless of what the actual output
+ of this inner product is.
+ So in theory, we actually don't need to do
+ a lot of our inner products.
+ We could just do, compute the inner products
+ for the lower triangular portion.
+ However, again, given what you know now
+ about matrix multiplication
+ and how this is done efficiently with tiling,
+ it perhaps is no surprise
+ that this is not that big a win.
+ And it turns out that in practice it's way more common
+ just to do the whole matrix multiplication
+ and then mask out and then just zero out
+ or infinity out the elements that we don't need.
+ So do it and then throw it away that computation
+ just because matrix multiplication is so fast
+ and it's just better to do these things
+ for big rectangular matrices
+ and try to come up with special cases
+ that handle lower triangular blocks only.
+ The second aspect of transformers
+ that is sort of ill-suited to time series prediction
+ is the fact that these things are, as I said,
+ positionally invariants.
+ The output of the network, if I permute all the inputs,
+ will just be that same output now also permuted.
+ This is not a good thing for time series, right?
+ We don't want to read the sentence the same way
+ regardless of the ordering of the words
+ or things like this.
+ And so to do this, what's done is that we need a way
+ of embedding sequence information
+ into our raw input series.
+ So if we have our series, you know, X one through X big T,
+ we need a way of actually injecting information
+ about where in the time sequence
+ each of these points actually is.
+ And so the way this is typically done
+ is with what's called a positional encoding.
+ And all positional coding is,
+ it's just sort of a matrix that tells each row
+ kind of where it is in the sequence.
+ And the common thing to do for,
+ at least for sequential positional encodings
+ is to use something that looks a bit like a Fourier series
+ if you're familiar with those things.
+ What all they really are is some function
+ like sine of omega one times the time step,
+ which in this case is one.
+ The sine function sort of encodes, you know,
+ this would be different, for example,
+ than the sine of omega one times two.
+ And so it would encode the fact
+ that these two are in fact different.
+ And at this point here occurs at time one,
+ this point here occurs at time two,
+ all the way down to sine of omega one times big T.
+ Of course, just doing this for one frequency
+ is not enough because, you know, sine is periodic
+ and it's kind of a loop background on itself,
+ stuff like that.
+ Like this is not sufficient to differentiate all the points.
+ And so what's actually done is use a number
+ of these different additional encodings
+ with different frequencies.
+ So omega two, again, this is actually very, very similar
+ to a Fourier basis for those that are familiar with that.
+ But if you're not, don't worry about that.
+ Times one, sine omega two times two,
+ sine omega two times T, et cetera,
+ all the way up to say sine of omega n times one,
+ if there were n dimensions here,
+ sine omega n times two, sine omega n times T.
+ Now, oftentimes this is actually not applied
+ and the omegas here are just frequency terms
+ and they're typically chosen according
+ to the logarithmic schedule.
+ Again, the only reason for these terms there
+ is to introduce some sort of differentiation
+ so that the network knows, hey,
+ this point here is not just XT,
+ but it's XT that occurs at time T.
+ And this is X2 that occurs at time two.
+ And so that's the nature of these additional encodings.
+ They're just sort of additional information that we add.
+ And we do just add them.
+ We just add it because in high dimensional space vectors
+ we're all kind of orthogonal.
+ And so you can kind of add these things together.
+ Doesn't make sense, don't worry about that.
+ It's a bit, I'm being a bit cavalier here
+ with my definitions.
+ But you just add this information on
+ so that each input kind of knows
+ where in the sequence it actually occurs.
+ Now, typically you also don't do this to the input itself.
+ You do it to like a projection of the input.
+ So you have one more projection
+ before you actually apply these additional encodings,
+ but that's the basic idea.
+ But now with these two properties,
+ you really have found a way to largely address
+ the two challenges that we had.
+ So we no longer have the fact that outputs depend
+ on all inputs.
+ By masking, we're able to avoid that.
+ And by using additional encodings,
+ we're able to actually avoid the bad side of the fact
+ that there's no ordering of data
+ and get only the good parts,
+ which like the fact that there's the same length
+ compute chain from any point of input to the output
+ over all the time that there is.
+ And so for all these reasons,
+ and just through practice and experimentation,
+ people have found that for most time series problems
+ that we care about, these sorts of networks do a lot better
+ than either recurrent networks or temporal
+ convolutional networks.
+ There are debates of whether this requires more data
+ because there's less,
+ and sometimes there's sort of less structure built
+ into these networks.
+ You might need more data to learn good parameters
+ for these things.
+ But the idea and just what's born out empirically
+ is that for even seemingly reasonable sizes of data,
+ these sorts of time series methods just,
+ these methods just do better
+ when it comes to time series prediction
+ than other approaches that we have,
+ that we've seen before.
+ Okay, that actually is all I'm going to say
+ mostly today about transformers.
+ Next time we will of course implement one of these things.
+ I just want to briefly mention that there's no,
+ although transformers were developed for,
+ actually for translation was their first application
+ they were used for,
+ which is sort of a sequential prediction task
+ was they have a generation component of translation.
+ Although they were first developed
+ for these time series prediction tasks,
+ the reality is this mechanism,
+ meaning combine data points via self-attention
+ plus maybe some additional masking
+ or something other interesting notion.
+ Plus then apply independent deep networks MLPs
+ to each sort of location in our time series
+ or in our image or whatever individually.
+ This paradigm has essentially prevailed these days
+ as the dominant paradigm
+ for most high performing architectures,
+ I would say in deep learning.
+ It's incredibly simple.
+ I actually think it's much simpler in a lot of ways
+ than things like LSTM.
+ So I'm sort of okay with this progress, right?
+ Like this notion of a mixing unit
+ other than those horrible names
+ of keys, queries and values.
+ This is actually a very sort of elegant way
+ of combining together information across all time
+ with easy sort of masking,
+ with easy ways of encoding additional information
+ and that kind of stuff.
+ And it's actually quite nice in some sense
+ that it's become the dominant approach,
+ both for time series,
+ but also for other domains as well.
+ So people have applied transformers to vision tasks
+ where you apply a transformer to,
+ so sort of the points in time,
+ the analog of points in time
+ are just locations in the image.
+ And for large data sets,
+ this seems to work better
+ than convolutional neural networks
+ even on image classification tasks.
+ Similarly, graph transformers,
+ what you can do is in the attention matrix
+ or like in the mask,
+ you can embed the graph structure as part of the mask
+ or even like a distance along the graph
+ as sort of an addition to the pre-softmax self-attention
+ and stuff like that.
+ And so doing this allows you to embed
+ a substantial amount of information
+ and prior knowledge into the self-attention operation
+ in a manner that lets you sort of effectively
+ exploit all those properties and knowledge of the system.
+ Now, to apply it here, there are some challenges.
+ For example, as I mentioned before,
+ self-attention is inherently like a T-squared operation,
+ form a T by T matrix.
+ So if your T was going to be sort of a neutral row
+ in your matrix for every single pixel in your image,
+ that probably wouldn't work
+ 'cause then you have 25, I guess, yeah,
+ 256 by 256 squared different points
+ in your actual attention matrix,
+ and that's just gonna be too large
+ to even form in GPU memory.
+ So there have to be some tricks that are made.
+ The trick that's used typically in vision transformers
+ is you first sort of look at patch embedding.
+ So you look at sort of small patches
+ as kind of a single unit,
+ and you apply your transformer not to every pixel,
+ but to sort of every patch in the image.
+ That's just like end-by-end groupings of pixels.
+ You also have to figure out how to form positional embeddings.
+ So typically, actually, in images,
+ you just ignore it entirely, just make them random.
+ But with graphs and stuff,
+ you wanna take some care for that.
+ And then you also wanna know how to form the mask matrix.
+ So again, in images, actually,
+ you usually don't work with this at all.
+ All you have to deal with is this problem,
+ which is solved by patches.
+ But for graphs, I mean,
+ you wanna take into account what can influence what, right?
+ If you have causal structure in a graph,
+ maybe if it's a directed graph,
+ maybe you wanna respect that directionality
+ when it comes to these edges and stuff like that.
+ So these are all challenges that come up
+ when trying to figure out
+ how to fit a transformer architecture to your problem.
+ But again, in general, over time,
+ what we have found is that this relatively simple,
+ I think, architecture has really prevailed
+ in terms of setting the bar
+ for the best performance of deep networks
+ across a number of different domains.
+ And so it's a very, very powerful architecture.
+ We've only covered it at a high level here so far.
+ And I should even cover it in its full glory
+ because there are things
+ like multi-head attention, stuff like that.
+ But we will cover that next lecture
+ when we talk about how to implement these things.
+ We'll actually, we'll implement
+ a very simple transformer architecture,
+ which will include self-attention,
+ include all these things, include masking,
+ all kinds of stuff.
+ And again, as you're used to in this class,
+ it will only involve a relatively small number
+ of lines of code.
+ All right, so I'll see everyone next time.

@@ -1,0 +1,173 @@
+ In this video you learn about the beam search algorithm.
+ In the last video, you remember how for machine translation,
+ given an input French sentence, you don't want to output a random English translation.
+ You want to output the best, the most likely English translation.
+ The same is also true for speech recognition, where given an input audio clip,
+ you don't want to output a random text transcript of that audio.
+ You want to output the best, maybe the most likely text transcript.
+ Beam search is the most widely used algorithm to do this,
+ and in this video you see how to get beam search to work for yourself.
+ Let's describe beam search using our running example of the French sentence,
+ "J'ai une visite le fric en septembre",
+ hopefully being translated into "J'ai une visite l'Afrique en septembre".
+ The first thing beam search has to do is try to pick the first word
+ of the English translation that it's going to output.
+ So here I've listed all, say, 10,000 words in the vocabulary,
+ and to simplify the problem a bit, I'm going to ignore capitalization,
+ so I'm just listing all the words in lowercase.
+ So in the first step of beam search, I'll use this network fragment
+ with the encoder shown in green and the decoder shown in purple
+ to try to evaluate what is the probability of that first word.
+ So what's the probability of the first output Y, given the input sentence X,
+ given the French input.
+ So whereas greedy search will pick only the one most likely word
+ and move on, beam search instead can consider multiple alternatives.
+ So the beam search algorithm has a parameter called B,
+ which is called the beam width,
+ and for this example I'm going to set the beam width to be equal to 3,
+ and what this means is beam search will consider not just one possibility,
+ but consider three at a time.
+ So in particular, let's say evaluating this probability over different choices
+ of the first word, it finds that the choices in, Jane, and September
+ are the most likely three possibilities for the first word in the English output.
+ Then beam search will store away in computer memory
+ that it wants to try out all three of these words,
+ and if the beam width parameter was set differently,
+ if the beam width parameter was set 10,
+ then it would keep track of not just three,
+ but 10 most likely possible choices for the first word.
+ So to be clear, in order to perform this first step of beam search,
+ what you need to do is run the input French sentence through this encoder network,
+ and then this first step of the decoder network,
+ if this is a softmax output over all 10,000 possibilities,
+ then you would take those 10,000 possible outputs
+ and keep in memory which were the top three.
+ Let's go on to the second step of beam search.
+ Having picked in Jane and September as the three most likely choices of the first word,
+ what beam search will do now is for each of these three choices,
+ consider what should be the second word.
+ So after in, maybe the second word is a, or maybe it's Aaron,
+ I'm just listing words from the vocabulary or from the dictionary,
+ or somewhere down the list will be September,
+ somewhere down the list is visit,
+ and then all the way to Z, maybe the last word is Zulu.
+ So to evaluate the probability of the second word,
+ it will use this neural network fragment where there's the encoder in green,
+ and for the decoder portion, when trying to decide what comes after in,
+ remember the decoder first outputs Y hat 1,
+ so we're going to set this Y hat 1 to the word in and feed this back in,
+ so this is the word in, because we decided for now that,
+ because we're trying to figure out that the first word was in,
+ what is the second word, and then this will output, I guess, Y hat 2.
+ And so by hard-wiring Y hat 1 here, really the input here to be the first word in,
+ this network fragment can be used to evaluate what is the probability
+ of the second word given the input French sentence,
+ and that the first word of the translation has been the word in.
+ Now notice that what we ultimately care about in this second step of beam search
+ is to find the pair of the first and second words that is most likely,
+ so not just the second word that's most likely,
+ but the pair of the first and second word that's most likely,
+ and by the rules of conditional probability,
+ this can be expressed as P of the first word times P of probability of the second word,
+ which you are getting from this neural network fragment.
+ And so if for each of the three words you've chosen in Jane and September,
+ you save away this probability, then you can multiply them by this second probability
+ to get the probability of the first and second words.
+ So now you've seen how if the first word was in,
+ how you can evaluate the probability of the second word.
+ Now if the first word was Jane, you'd do the same thing.
+ The sentence could be Jane A, Jane Aaron, and so on,
+ down to Jane Is, Jane Visits, and so on.
+ And you would use this neural network fragment,
+ and let me draw this in as well, where here you would hardwire Y1 to be Jane,
+ and so with the first word Y1 had hardwired as Jane,
+ then this neural network fragment can tell you what's the probability of the second word
+ given the input action, given that the first word was Jane.
+ And then same as above, you can multiply with P of Y1
+ to get the probability of Y1 and Y2
+ for each of these 10,000 different possible choices for the second word.
+ And then finally you do the same thing for September.
+ All the words from A down to Zulu, and use this network fragment,
+ I'll just draw this in as well, to see if the first word was September,
+ what are the most likely options for the second word.
+ So for this second step of beam search,
+ because we're continuing to use a beam width of 3, and because there are 10,000 words in the vocabulary,
+ you'd end up considering 3 times 10,000 or 30,000 possibilities,
+ because there are 10,000 here, 10,000 here, 10,000 here,
+ so there's a beam width times the number of words in the vocabulary.
+ And what you do is you evaluate all of these 30,000 options
+ according to the probability of the first and second words,
+ and then pick the top three.
+ So we're going to cut down these 30,000 possibilities down to three again,
+ down to the beam width parameter again.
+ And so let's say that of these 30,000 choices,
+ the most likely were in September, and say Jane Is, and Jane Visits.
+ Sorry, that's a bit messy, but if those are the most likely three out of the 30,000 choices,
+ then that's what beam search would memorize away and take on to the next step of beam search.
+ So notice one thing.
+ If beam search decides that the three most likely choices
+ for the first and second words are in September, or Jane Is, or Jane Visits,
+ then what that means is that it is now rejecting September
+ as a candidate for the first word of the output English translation.
+ So we're now down to two possibilities for the first word,
+ but we still have a beam width of three,
+ keeping track of three choices for pairs of Y1, Y2.
+ Before going on to the third step of beam search,
+ just want to notice that because the beam width is equal to three,
+ at every step you instantiate three copies of the network
+ to evaluate these partial sentence fragments in the output.
+ And it's because the beam width is equal to three
+ that you have three copies of the network with different choices for the first word.
+ But these three copies of the network can be very efficiently used
+ to evaluate all 30,000 options for the second word.
+ So just don't instantiate 30,000 copies of the network.
+ You need only three copies of the network
+ to very quickly evaluate all 10,000 possible outputs
+ at that softmax output, say, for Y2.
+ Let's just quickly illustrate one more step of beam search.
+ So we said that the most likely choices for the first two words
+ were in September, Jane Is, and Jane Visits.
+ And for each of these pairs of words,
+ we should have saved away in computer memory
+ the probability of Y1 and Y2 given the input X,
+ given the French sentence X.
+ So similar to before, we now want to consider what is the third word.
+ So is it in September, A, in September, Erin,
+ all the way down to is in September, Zulu.
+ And to evaluate possible choices for the third word,
+ you use this network fragment where you hardwire the first word here to be in,
+ the second word to be September.
+ And so this network fragment allows you to evaluate
+ what's the probability of the third word
+ given the input French sentence X
+ and given that the first two words are in September,
+ in the English output.
+ And then you do the same thing for the second fragment,
+ like so, and same thing for Jane Visits.
+ And so BeamSearch will then, once again, pick the top three possibilities.
+ Maybe it thinks in September, Jane is a likely outcome
+ or Jane is Visiting is likely, or maybe Jane Visits.
+ Africa is likely for the first three words, and then it keeps going.
+ And then you go on to the fourth step of BeamSearch
+ and add one more word, and on it goes.
+ And the outcome of this process, hopefully,
+ will be that adding one word at a time,
+ that BeamSearch will decide that Jane Visits Africa in September,
+ will be terminated by the end of sentence symbol,
+ and using that in the system, which is quite common,
+ that will find that this is a likely output English sentence.
+ And you see more details of this for yourself
+ in this week's programming exercise as well,
+ where you get to play with BeamSearch yourself.
+ So with a beam width of three, BeamSearch considers three possibilities at a time.
+ Notice that if the beam width was set to be equal to one,
+ so it considers only one,
+ then this essentially becomes the greedy search algorithm,
+ which we had discussed in the last video.
+ But by considering multiple possibilities,
+ say three or ten or some of the number at the same time,
+ BeamSearch will usually find a much better output sentence than greedy search.
+ You've now seen how BeamSearch works,
+ but it turns out there's some additional tips and tricks and refinements
+ that help you to make BeamSearch work even better.
+ Let's go on to the next video to take a look.

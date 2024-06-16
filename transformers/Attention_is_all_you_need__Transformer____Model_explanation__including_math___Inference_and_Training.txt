@@ -1,0 +1,651 @@
+ Hello guys, welcome to my video about the transformer and this is actually the version 2.0 of my series on the
+ Transformer I had a previous video in which I talked about the transformer
+ But the audio quality was not good and as suggested by my viewers as the video was really had a huge success
+ The viewers suggested me to to improve the audio quality. So this this is why I'm doing this video
+ You don't have to watch the previous series because I would be doing basically the same things
+ But with some improvements, so I'm actually compensating from some mistakes. I made or from some improvements that I could add
+ After watching this video. I suggest watch my watching my other video about
+ How to code a transformer model from scratch?
+ So how to code the model itself how to train it on a data and how to inference it?
+ Stick it with me because it's gonna be a little long journey, but for sure worth
+ Now before we talk about the transformer. I want to first talk about recurrent neural networks
+ So the networks that were used before they introduced the transformer for most of the sequence to sequence jobs
+ Tasks, so let's review them
+ Recurrent neural networks
+ Existed a long time before the transformer and they allowed to map one sequence of input to another sequence of output
+ In this case our input is X and we want an input sequence Y
+ What we did before is that we split the sequence into single items
+ So we gave the recurrent neural network the first item as input so X1
+ Along with an initial state usually made up of only zeros and the recurrent neural network produced an output
+ Let's call it Y1 and this happened at the first time step
+ Then we took the hidden state. This is called the hidden state of the network of the previous time step
+ Along with the next input token so X2 and the network had to produce the sec the second output token
+ Y2 and
+ Then we did it the same procedure at the third time step in which we took the hidden state of the previous time step
+ along with the input state
+ The input token at the time step 3 and the network had to produce the next output token
+ Which is Y3 if you have n tokens you need n time steps to map a n sequence
+ input into an n sequence output
+ This worked fine for a lot of tasks, but had some problems. Let's review them
+ The problems with recurring neural networks first of all are that they are slow
+ For long sequences because think of the process we did before
+ We have kind of like a for loop in which we do the same operation for every token in the input
+ so if you have the longer the sequence the longer this computation and
+ This made the the network not easy to train for long sequences
+ The second problem was the vanishing or the exploding gradients
+ Now you may have heard these terms or expression on the internet or from other videos
+ But I will try to give you a brief
+ Insight on what does what do they mean on a practical level so as you know?
+ Frameworks like pytorch they convert our networks into a computation graph
+ So basically suppose we have a computation graph. I this is not an error network
+ Yeah, I will making I will be making a computational graph that is very simple has nothing to do with the neural networks
+ But we'll show you the problems that we have so imagine. We have two inputs X and another input. Let's call it Y
+ Our computational graph first let's say multiplies these two numbers, so we have a first function
+ Let's call it F of X and Y
+ That is X multiplied by Y
+ let me
+ multiplied and
+ The result let's call it
+ Z is
+ Map is given to another function. Let's call this function G of
+ Z is equal to let's say Z
+ squared
+ What our pytorch for example does it's that pytorch want to calculate?
+ The usually we have a loss function pytorch calculates the derivative of the loss function with respects to its each weight
+ In this case, we just calculate the derivative of the G function so the output function with respect to all of its inputs
+ so derivative of G
+ with respect to X let's say is equal to the derivative of G with respect to F and
+ Multiplied by the derivative of F with respect to X
+ These two should kind of cancel out. This is called the chain rule now as you can see
+ The longer the chain of computation so if we have many nodes one after another the longer this multiplication chain
+ So here we have two because the distance from this node and this is two but imagine you have one hundred or one thousand
+ now imagine this number is
+ 0.5 and this number is
+ 0.5 also the resulting numbers when multiplied together is a number that is smaller than the two initial numbers
+ It's gonna be 0.25 because it's one to one half multiplied by one half is 1/4
+ So if we have two numbers that are smaller than one and we multiply them together
+ They will produce an even smaller number and if we have two numbers that are bigger than one and we multiply them together
+ They will produce a number that is bigger than both of them
+ so if we have a very long chain of computation it eventually will either become a very big number or a very small number and
+ This is not desirable first of all because our CPU of our GPU can only
+ Represent numbers up to a certain precision. Let's say 32-bit or 64-bit
+ And if the number becomes too small the contribution of this number to the output will become very small
+ So when the pytorch or our automatic, let's say our framework will calculate how to adjust the weights
+ the weight will move very very very slowly because the contribution of this product is will be a very small number and
+ this means that we have the gradient is vanishing or in the other case it can explode become very big numbers and
+ This is a problem. The next problem is difficulty in accessing information from long time ago
+ What does it mean? It means that as you remember from the previous slide
+ We saw that the first input token is given to the recurrent neural network along with the first state
+ Now we need to think that the recurrent neural network is a long graph of computation
+ it will produce a new hidden state then we will use the
+ The new hidden state along with the next token to produce the next output if we have a very long sequence
+ of input sequence the last token
+ Will have a hidden state whose contribution from the first token has nearly gone because of this long chain of multiplication
+ So actually the last token
+ Will not depend much on the first token and this is also not good because for example we know as humans
+ That in a text in a quite long text the context that we saw
+ Let's say 200 words before still relevant to the context of the current words
+ And this is something that the RNN could not map and this is why we have the transformer
+ So the transformer solved these problems with the recurrent neural networks, and we will see how
+ the structure of the transformer we can
+ Divide into two macro blocks the first macro block is called encoder, and it's this part here
+ The second macro block is called a decoder, and it's the second part here
+ The third part here you see on the top
+ It's just a linear layer, and we will see why it's there and what it is function
+ so and the two
+ Layers so the encoder and the decoder are connected by this connection you can see here in
+ which some output of the encoder is sent as input to the decoder and we will also see how
+ Let's start first of all with some
+ Notations that I will be using during my
+ Explanation and you should be familiar with this notation
+ Also to review some maths, so the first thing we should be familiar with is matrix multiplication
+ So imagine we have a input matrix
+ Which is a sequence of let's say words so
+ Sequence by D model, and we will see why it's called sequence by D model, so imagine we have a matrix that is 6 by
+ 512 in which each row is a word and
+ This word is not made of characters, but by
+ 512 numbers so each word is represented by
+ 12 numbers okay like this imagine you have 512 of them along this row
+ 512 along this other row etc etc 1 2 3 4 5 so we need another one here
+ Okay, the first word we will call it a the second B the C D
+ E and F
+ If we multiply this matrix by another matrix, let's say the transpose of this matrix
+ So it's a matrix where the rows becomes columns
+ so 3
+ 4
+ 5 and 6
+ This word will be here B C D E and F and then we have
+ 512 numbers along each Column because before we had them on the rows now they will become on the column so here
+ We have the 512th number
+ etc etc
+ This is a matrix that is
+ 512 by 6 so let me add some brackets here if we multiply them we will get a new matrix that is
+ We cancel the inner dimensions and we get to the outer dimension so it will become 6 by 6
+ So it will be 6 rows by 6 rows so let's draw it
+ How do we calculate the values of this output matrix? This is 6 by 6
+ This is the dot product of the first row with the first column so this is a multiplied by a
+ This the second value is the first row with the second column the third value is the first row with the third column
+ until the last
+ Column so a multiplied by f etc
+ What is the dot product is basically you take the first number of the first row so here?
+ We have 512 numbers here
+ We have 512 numbers
+ So you take the first number of the first row and the first number of the first column you multiply them together
+ second value of the first row second value of the first column you multiply them together and
+ Then you add all these numbers together, so it will be let's say
+ This number multiplied by this plus this number multiplied by this plus this number multiplied by this plus
+ This number multiplied by this plus you sum all this number together, and this is the a dot product a
+ So we should be familiar with this notation because I will be using it a lot in the next slides
+ Let's start our journey with of the transformer by looking at the encoder
+ so the encoder
+ Starts with the input embeddings, so what is an input embedding?
+ First of all let's start with our sentence. We have a sentence of in this case six words
+ What we do is we tokenize it we transform the sentence into tokens. What does it mean to tokenize?
+ We split them into single words
+ It is not necessary to always split the sentence using single words. We can even split the sentence in
+ Smaller parts that are even smaller than a single word so we could even split this sentence into let's say 20 tokens
+ By using the each by splitting each word into multiple words. This is usually done in most modern
+ Transformer models, but we will not be doing it. Otherwise, it's really difficult to visualize
+ So let's suppose we have this input
+ Sentence and we split into tokens and each token is a single word
+ the next step we do is we map these words into numbers and
+ These numbers represent the position of these words in our vocabulary
+ So imagine we have a vocabulary of all the possible words that appear in our training set
+ Each word will occupy a position in this vocabulary
+ So for example the word your will occupy the position 105 the word cat will occupy the position
+ 6500 etc and
+ As you can see this cat here has the same number as this cat here because they occupy the same position in the vocabulary
+ We take these numbers which are called input IDs and we map them into a vector of size
+ 512
+ This vector is a vector made of 512 numbers
+ And we always map the same word to always the same embedding
+ However, this number is not fixed. It's a parameter for our model
+ So our model will learn to change these numbers in such a way that it represents the meaning of the word
+ So the input IDs never change because of our vocabulary is fixed
+ But the embedding will change along with the training process of the model
+ So the embeddings numbers will change according to the needs of the loss function
+ So the input embedding are basically mapping our single word into an embedding of size 512
+ And we call this quantity 512 D model because it's the same name that it's also used in the paper
+ Attention is all you need
+ Let's look at the next layer of the encoder which is the positional encoding
+ So
+ What is positional encoding?
+ What we want is that each word should carry some information about its position in the sentence
+ Because now we built a matrix of words that are embeddings
+ But they don't convey any information about how where that particular word is inside the sentence
+ And this is the job of the positional encoding. So what we do
+ We want the model to treat words that appear close to each other as close and words that are distant as distant
+ So we want the model to see this information about the spatial information that we see with our eyes
+ So for example when we see this sentence, what is positional encoding?
+ We know that the word "what" is more far from the word "is" compared to encoding
+ Because we have this spatial information given by our eyes, but the model cannot see this
+ so we need to give some information to the model about how the words are spatially distributed inside of the sentence and
+ We want the positional encoding to represent a pattern that the model can learn and we will see how
+ Imagine we have our original sentence "your cat is a lovely cat" what we do is we
+ First convert into embeddings using the previous layer
+ So the input embeddings and these are embeddings of size 512
+ Then we create some special vectors called the positional encoding vectors that we add to these embeddings
+ So this vector we see here in red is a vector of size
+ 512 which is not learned. It's computed once and not learned along with the training process
+ it's fixed and this word this vector represents the position of the word inside of the sentence and
+ This should give us a output that is a vector of size again
+ 512 because we are summing this number with this number
+ This number with this number so the first dimension with the first dimension the second dimension with the same
+ So we will get a new vector of the same size of the input
+ Vectors, how are these position embedding calculated? Let's see
+ Imagine we have a smaller sentence. Let's say "your cat is" and
+ You may have seen the following expressions from the paper
+ what we do is we
+ Create a vector of size D model so 512 and
+ For each position in this vector we calculate the value using these two expressions
+ Using these arguments so the first argument indicates the position of the word inside of the sentence
+ so the word "your" occupies the position 0 and
+ we use the for the even
+ Dimension so the 0 the 2 the 4 the 510 etc. We use the first expression so the sign and
+ for the other positions of this vector we use the second expression and
+ We do this for all the words inside of the sentence
+ So this particular embedding is calculated PE(1,0) because it's the first word
+ Embedding 0 so this 1 represents the argument pause and this 0 represents the
+ argument 2i and
+ PE(1,1) means that the first word
+ Dimension 1 so we will use the cosine
+ given the position 1 and 2i will be equal to 2i plus 1 will be equal to 1 and
+ We do this for this third word etc. If we have another sentence
+ We will not have different positional encodings. We will have the same vectors even for different
+ Sentences because the positional encoding are computed once and reused for every sentence that our model will see
+ During inference or training so we only compute the positional encoding once when we create the model
+ We save them and then we reuse them
+ We don't need to compute it every time we feed a sentence to the model
+ So why the authors chose the cosine and the sine
+ Functions to represent positional encodings because let's watch the plot of these two functions
+ The you can see the plot is by position. So the position of the word inside of the sentence and this depth is the
+ Dimension along the vector so the 2i that you see so before in the previous expressions
+ And if we plot them we can see as humans a pattern here and we hope that the model can also
+ See this path. Okay, the next layer of the encoder is the multi-head attention
+ We will not for go inside of the multi-head attention first
+ We will first visualize the single head attention. So the self-attention with a single head and let's do it
+ So what is self-attention self-attention is a mechanism that existed before they introduced the transformer
+ The authors of the transformer just changed it into a multi-head attention
+ So how did the self-attention work?
+ The self-attention allows the model to relate words to each other
+ Okay, so we had the input embeddings that capture the meaning of the word
+ then we had the positional encoding that give the
+ Information about the position of the word inside of the sentence. Now we want this self-attention to relate words to each other
+ now imagine we have
+ an input sequence of six word with the D model of size 512
+ Which can be represented as a matrix that we will call Q, K and V
+ So our Q, K and V are the same matrix representing the input
+ So the input of six words with the dimension of 512
+ So each word is represented by a vector of size 512
+ we basically apply this formula we saw here from the paper to calculate the
+ Attention the self-attention in this case
+ Why self-attention because it's the each word in the sentence related to other words in the same sentence. So it's self-attention
+ So we start with our Q matrix, which is the input sentence. So let's visualize it for example
+ So we have six rows and on this
+ On the columns we have 512 columns now. They are really difficult to draw but let's say we have 512 columns
+ And here we have six
+ Okay. Now what we do according to this formula we multiply it by the same sentence
+ But transposed so the transposed of the K which is again the same input sequence
+ We divide it by the square root of 512 and then we apply the softmax
+ The output of this as we saw before in the initial
+ matrix and notations we saw that when we multiply 6 by 512
+ With another matrix that is 512 by 6
+ We obtain a new matrix that is 6 by 6 and each value in this matrix
+ Represents the dot product of the first row with the first column
+ This represents the dot product of the first row with the second column, etc
+ The values here are actually randomly generated. So don't concentrate on the values
+ What you should notice is that the softmax makes all these values in such a way that they sum up to one
+ So this row for example here some sums up to one this other row also sums up to one, etc, etc
+ and this
+ Value we see here. It's the dot product of the first word with the embedding of the word itself
+ This value here. It's the dot product of the embedding of the word your
+ with the embedding of the word cat and
+ This value here is the dot product of the word the embedding of the word your with the embedding of the word is
+ The next thing and this value represents somehow a score that how intense is the relationship?
+ Between one word and another let's go ahead with the formula
+ So for now, we just multiply the Q by K divided by the square root of DK applied to the softmax
+ But we didn't multiply by V
+ So let's go forward. We multiply this matrix by V and we obtain a new matrix which is 6 by
+ 512 so if we multiply a matrix that is 6 by 6 with another that is 6 by 512
+ We get a new matrix that is 6 by 512
+ And one thing you should notice is that the dimension of this matrix is exactly the dimension of the initial matrix
+ from which we started
+ This what does it mean?
+ That we obtain a new matrix that is 6 rows. So let's say 6 rows
+ with
+ 512 columns in which each
+ These are our words. So we have six words and each word has an embedding of dimension 512
+ So now this embedding here
+ Represents not only the meaning of the word which was given by the input embedding
+ Not only the position of the word which was added by the positional encoding
+ But now somehow this special embedding so these values represent a special embedding that also captures the
+ relationship of this particular word with all the other words and
+ This particular embedding of this word here also captures not only its meaning not only its position
+ Inside of the sentence, but also the relationship of this word with all the other words
+ I want to remind you that this is not the multi-head attention. We are just watching the self attention
+ So one head we will we will see later how this becomes the multi-head attention
+ Self attention has some properties that are very desirable
+ First of all, it's permutation invariant. What does it mean to be permutation invariant?
+ it means that if we have a matrix, let's say
+ First we had a matrix of six words in this case, let's say just four words
+ so A B C and D and
+ Suppose by applying the formula before this produces this particular matrix in which the there is new special embedding
+ For the word A and new special embedding for the word B and new special embedding for the word C and D
+ So let's call it A prime B prime C prime D prime if we change the position of these two rows
+ The values will not change the position of the output will change accordingly
+ So the values of B prime will not change
+ It will just change in the position and also the C will also change position
+ But the values in each factor will not change and this is a desirable properties
+ Self-attention as of now requires no parameters. I mean, I didn't introduce any parameter that is learned by the module
+ I just took the initial sentence of in this case six words
+ We multiplied it by itself. We divide it by a fixed quantity, which is the square root of 512
+ And then we apply the softmax, which is not introducing any parameter
+ so for now the self-attention really didn't require any parameter except for the
+ embedding of the words
+ This will change later when we introduce the multi-head attention
+ Also, we expect because the each value in the self-attention in the softmax
+ Metrics is a dot product of the word embedding with itself and the other words
+ we expect the values along the diagonal to be the maximum because it's the dot product dot product of each word with itself and
+ There is another
+ property of this matrix that is
+ Before we apply the soft softmax if we replace the value in this matrix
+ Suppose we don't want the word your and cat to interact with each other or we don't want the word
+ Let's say is and the lovely to interact with each other
+ What we can do is before we apply the softmax we can replace this value with minus infinity and also this value with
+ minus infinity
+ And when we apply the softmax the softmax will replace minus infinity with zero
+ Because as you remember the softmax is e to the power of x if x is going to minus infinity
+ He will be to the power of minus infinity will become very very close to zero. So
+ basically zero
+ This is a desirable property that we will use in the decoder of the transformer now
+ Let's have a look at what is a multi-head attention
+ So what we just saw was the self attention and we want to convert it into a multi-head attention
+ You may have seen these expressions from the paper, but don't worry. I will explain them one by one. So let's go
+ Imagine we have our encoder. So we are on the encoder side of the
+ Transformer and we have our input sentence, which is let's say 6 by 512
+ So 6 word by 512 is the size of the embedding of each word. In this case, I call it sequence by D model
+ so sequence is the sequence length as you can see on the legend in the
+ bottom left of the slide and the D model is the size of the embedding vector, which is
+ 512 what we do just like the picture shows
+ We take this input and we make four copies of it one will be sent
+ Wait one will be sent along this connection
+ We can see here and three will be sent to the multi-head attention
+ With three respective names
+ So it's the same input that becomes three matrices that are equal to input one is called query
+ One is called key and one is called value
+ So basically we are taking this input and making three copies of it one we call Q K and B
+ They have of course the same dimension
+ What does the multi-head attention do? First of all, it multiplies these three matrices by three parameter matrices called
+ W Q W K and W V
+ These matrices have dimension D model by D model
+ So if we multiply a matrix that is sequenced by D model with another one that is D model by D model
+ We get a new matrix as output that is
+ sequenced by D model. So basically the same dimension as the starting matrix and
+ We will call them Q prime K prime and V prime
+ Our next step is to split these matrices into smaller matrices. Let's see how
+ We can split this matrix Q prime by the sequence dimension or by the D model dimension
+ In the multi-head attention, we always split by the D model dimension
+ So every head will see the full sentence, but a smaller part of the embedding of each word
+ So if we have an embedding of let's say
+ 512 it will become smaller
+ embeddings of 512 divided by 4 and we call this quantity
+ D K so D K is D model divided by H where H is the number of heads in our case
+ We have H equal to 4
+ We can calculate the attention between these smaller matrices
+ so Q1 K1 and V1 using the expression taken from the
+ paper and
+ This will result into a small matrix called head 1 head 2 head 3 and head 4
+ the dimension of head 1 up to head 4 is
+ sequenced by D V
+ What is D V is basically it's equal to D K. It's just called the D V because the last
+ Multiplication is done by V and in the paper they call it D V. So I am also sticking to the same names
+ our next step is to
+ combine these
+ matrices these small heads
+ by concatenating them along the D V dimension
+ Just like the paper says so we can cut all this head together and we get a new matrix that is
+ sequenced by H
+ multiplied by D V
+ Where H multiplied by D V as we know D V is equal to D K
+ So H multiplied by D V is equal to D model so we get back the initial
+ Shape so it's sequenced by D model here
+ The next step is to multiply the result of this concatenation by W O and
+ W O is a matrix that is H multiplied by D V so D model
+ Multiplied with the other dimension being D model and the result of this is a new matrix
+ That is the result of the multi head attention, which is sequenced by D model
+ so the multi head attention instead of calculating the attention between
+ these matrices here so Q prime K prime and V prime
+ splits them along the D model dimension into smaller matrices and
+ Calculates the attention between these smaller matrices so each head is watching the full sentence
+ But a different aspect of the embedding of each word
+ Why we want this because we want the each head to watch different aspect of the same word
+ For example in the Chinese language, but also in other languages
+ One word may be a noun in some cases may be a verb in some other cases
+ Maybe a adverb in some other cases depending on the context
+ so what we want is that one head maybe
+ Learns to relate that word as a noun another head
+ Maybe learns to relate that word as a verb and another head learned to relate that verb as an objective or adverb
+ So this is why we want a multi head attention
+ now you may also have seen online that the
+ Attention can be visualized and I will show you how
+ When we calculate the attention between the Q and the K matrices so when we do this operation
+ So the softmax of Q multiplied by the K divided by the square root of DK
+ We get a new matrix just like we saw before which is sequence by sequence and this represents a score
+ That represents the intensity of the relationship between the two words
+ we can visualize this and
+ This will produce
+ Visualization similar to this one which I took from the paper in which we see how the all the heads work
+ So for example if we concentrate on this work making this word here
+ We can see that making is related to the word difficult
+ So this word here by different heads, so the blue head the red head and the green head
+ but
+ The violet let's say the violet head is not relating this to work together
+ So making and difficult is not related by the violet or the pink head
+ The violet head or the pink head they are relating the word making to other words for example to this word
+ 2009
+ Why this is the case because maybe this pink head could see the part of the embedding that this other heads could not see
+ That made this interaction possible between these two words
+ You may be also wondering why these three matrices are called query keys and values
+ Okay, the terms come from the database terminology or from the Python like dictionaries
+ But I would also like to give my interpretation of my own making a very simple example. I think it's quite easy to
+ Understand
+ So imagine we have a Python like dictionary or a database in which we have keys and values
+ The keys are the category of movies and the values are the movies belonging to that category in my case
+ I just put one value
+ So we have romantics
+ Category which includes Titanic we have action movies that include the Dark Knight, etc
+ Imagine we also have a user that makes a query and the query is love
+ Because we are in the transformer world. All these words actually are represented by embeddings of size
+ 512 so what our transformer will do he will convert this word love into an embedding of
+ 512 all these queries and values are already
+ embeddings of 512 and it will calculate the dot product between the query and all the keys
+ Just like the formula. So as you remember the formula is a softmax of query multiplied by the transpose of the keys divided by the
+ Square root of the model. So we are doing the dot product of all the queries with all the keys
+ in this case the word love with all the keys one by one and
+ This will result in a score that will amplify some values or not amplify other values
+ In this case our embedding may be in such a way that the word love and romantic are
+ Related to each other the word love and comedy are also related to each other
+ But not so intensively like the word love and romantic
+ So it's more how to say less less strong relationship
+ But maybe the word horror and love are not related at all. So maybe their softmax score is very close to zero
+ Our next
+ Layer in the encoder is the add and norm and to introduce the add the norm. We need the layer normalization
+ So, let's see. What is the layer normalization?
+ layer normalization is a layer that okay, let's make a
+ Practical example imagine we have a batch of n items and this case n is equal to 3
+ Item 1 item 2 item 3 each of these items will have some features. It could be an embedding
+ So for example, it could be a feature of vector of size 512
+ But it could be a very big matrix of thousands of features doesn't matter
+ what we do is we calculate the mean and the variance of each of these items independently from each other and
+ We replace each value with another value that is given by this expression
+ So basically we are normalizing so that the new values are all in the range 0 to 1
+ Actually, we also multiply this new value with
+ parameter called gamma and then we add another parameter called beta and this gamma and beta are learnable parameters and
+ The model should learn to multiply and add these parameters
+ So as to amplify the value that it wants to be amplified and not amplify the value that it doesn't want to be amplified
+ So we don't just normalize we actually introduce some parameters and
+ I found a really nice visualization from paperswithcode.com
+ In which we see the difference between batch norm and layer norm
+ So as we can see in the layer normalization, we are calculating if n is the batch dimension
+ We are calculating all the values belonging to one item in the batch
+ while in the batch norm we are calculating the
+ Same feature for all the batch so for all the items in the batch
+ So we are mixing let's say values from different items of the batch while in the layer normalization
+ We are treating each item in the batch independently, which will have its own mean and its own variance
+ Let's look at the decoder now now
+ In the encoder we saw the input embeddings in this call in this case
+ They are called output embeddings, but the underlying working is the same
+ Here also, we have the positional encoding and they are also the same as the input as the encoder
+ The next layer is the musket multi-head attention and we will see it
+ now we also have the multi-head attention here with the
+ here we should see that the
+ There is the encoder here that produces the output and is sent to the decoder in the forms of
+ keys and
+ values
+ While the query so this connection here is the query coming from the decoder
+ So in this multi-head attention, it's not a self attention anymore
+ It's a cross attention because we are taking two sentences one is sent from the encoder side
+ So let's write encoder in which we provide the output of the encoder and we use it as a query as keys and values
+ While the output of the musket multi-head attention is used as the query in this multi-head attention
+ And the musket multi-head attention is a self attention of the input
+ Sentence of the decoder. So we take the input sentence of the decoder. We transform into
+ Embeddings we add the positional encoding
+ We give it to this multi-head attention in which the query key and values are the same input sequence
+ We do the add and norm then we send this as the
+ Queries of the multi-head attention while the keys and the values are coming from the encoder then we do the add and norm
+ I will not be showing the feed forward, which is just a fully connected layer
+ We then send the output of the feed forward to the add and norm and finally to the linear layer
+ Which we will see later
+ So let's have a look at the musket multi-head attention and how it differs from a normal multi-head attention
+ What we want our goal is that we want to make the model causal
+ It means that the output at a certain position can only depend on the words on the previous position
+ So the model must not be able to see future words. How can we achieve that?
+ as you saw the the output of the softmax in the attention calculation formula is
+ This metric sequence by sequence if we want to hide the interaction of some words with other words
+ We delete this value and we replace it with minus infinity before we apply the softmax so that the softmax will
+ Replace this value with zero and we do this for all the interaction that we don't want
+ So we don't want your to watch future words
+ So we don't want your to watch cat is a lovely cat and we don't want the word cat to watch future words
+ But only all the words that come before it or the word itself
+ So we don't want this this this this also the same for the other words, etc
+ So we can see that we are replacing all the word all these values here that are above this
+ Diagonal here. So this is the principal diagonal of the matrix
+ And we want all the values that are above this diagonal to be replaced with minus infinity so that
+ So that the softmax will replace them with zero
+ Let's see in which stage of the multi-head attention this mechanism is introduced. So when we calculate the
+ attention between these smaller matrices, so q1 k1 and v1
+ Before we apply the softmax we replace these values
+ So this one this one this one this one this one, etc
+ With minus infinity, then we apply the softmax and then the softmax will take care of
+ Transforming these values into zeros. So basically we don't want these words to interact with each other
+ And if we don't want this interaction the model will learn to not make them interact because the model will not get any
+ Information from this interaction. So it's like this word cannot interact now
+ Let's look at how the inference and training works for a transformer model as I so
+ Said previously we are dealing with it. We will be dealing with the translation tasks
+ So because it's easy to visualize and it's easy to understand all the steps
+ Let's start with the training of the model. We will go from an English sentence
+ "I love you very much" into an Italian sentence "Ti amo molto". It's a very simple sentence. It's easy to
+ describe
+ Let's go
+ we start with
+ description of the
+ Of the transformer model and we start with our English sentence, which is sent to the encoder
+ So our English sentence here on which we prepend and append two special tokens
+ One is called start of sentence and one is called end of sentence. These two tokens are
+ Taken from the vocabulary. So there are special tokens in our vocabulary that tells the model
+ What is the start position of a sentence and what is the end of a sentence? We will see later why we need them
+ For now, just think that we take our sentence. We prepend a special token and we append a special token
+ Then what we do as you can see from the picture we take our inputs. We transform into input embeddings
+ We add the positional encoding and then we send it to the encoder
+ So this is our encoder input sequence by D model. We send it to the encoder
+ It will produce an output which is encode a sequence by D model and it's called the encoder output
+ So as I saw we saw previously the output of the encoder is another matrix that has the same dimension as the input
+ matrix in which
+ The embedding we can see it as a sequence of embeddings in which this embedding is special because it captures
+ Not only the meaning of the word which was given by the input embedding we saw here
+ So by this not only the position which was given by the positional encoding, but also the interaction of
+ Every word with every other word in the same sentence because this is the encoder. So we are talking about
+ Attention, so it's the interaction of each word in the sentence with all the other words in the same sentence
+ We want to convert this sentence into Italian so we prepare the input of the decoder
+ which is start of sentence ti amo molto as you can see from the picture of the
+ Transformer the outputs here you can see shifted right. What does it mean to shift right? Basically
+ It means we prepend a special token called S O S start of sentence
+ You should also notice that these two
+ sequences actually
+ They in when we code the transformer. So if you watch my other video on how to code the transformer you will see that we
+ Make this sequence of fixed length so that if we have a sentence that is ti amo molto or a very long sequence
+ Actually when we feed them to the transformer, they all becomes become of the same
+ Length how to do this we add padding words to reach the length the desired length
+ So if our model can support, let's say a sequence length of 1000 in this case, we have a force tokens
+ we will add
+ 996 tokens of padding to make this sentence long enough to reach the sequence length
+ Of course, I'm not doing it here because it's not easy to visualize otherwise
+ Okay, we prepare this input for the decoder. We add transform into
+ Embeddings we add the positional encoding then we send it first to the multi head
+ attention so the musket multi head attention so along with the causal mask and
+ then we take the output of the encoder and we send it to the decoder as
+ keys and values while the
+ Queries are coming from the musket
+ So the queries are coming from this layer and the keys and the values are the output of the encoder
+ This the output of all this block here. So all this big block here
+ Will be a matrix that is sequenced by the model just like for the encoder
+ However, we can see that this is still an embedding because it's a D model. It's a vector of size
+ 512 how can we relate this?
+ Embedding back into our dictionary. How can we understand? What is this word in our vocabulary?
+ That's why we need a linear layer that will map
+ Sequence by D model into another sequence by vocabulary size
+ So it will tell for every embedding that it sees what is the position of that word in our vocabulary?
+ So that we can understand what is the actual token that is output by the model
+ After that we apply the softmax and
+ Then we have our label what we expect the model to output given this English
+ Sentence
+ we expect the model to output this
+ Tiamo molto and of sentence and this is called the label or the target
+ What we do when we have the output of the model and the corresponding label
+ We calculate the loss in this case is the cross entropy loss and then we back propagate the loss to all the weights
+ Now let's understand why we have these special tokens called SOS and us
+ Basically, you can see that here the sequence length is 4 actually. It's 1000 because we have the embedding
+ But let's say we don't have any padding. So it's 4 tokens start of sentence Tiamo molto
+ And what we want is the Tiamo molto end of sentence
+ So our model when it will see the start of sentence token it will output
+ The first token as output T when it will see T. It will
+ output Tiamo when it will see Tiamo it will output Tiamo molto and when it will see
+ Tiamo molto it will output end of sentence which will indicate that okay the translation is done
+ And we will see this mechanism in the inference
+ Ah this all happens in one time step just like I promised at the beginning of the video
+ I said that with recurrent neural networks. We have n time steps to map n
+ Input sequence into an output sequence, but this problem would be solved with the transformer
+ Yes, it has been solved because you can see here. We didn't do any
+ For loop we just did all in one pass
+ We give an input sequence to the encoder an input sequence to the decoder. We produced some outputs
+ We calculated the cross entropy loss with the label and that's it
+ It all happens in one time step and this is the power of the transformer because it made it
+ very easy and very fast to train very long sequences and
+ With the very very nice performance that you can see in chat GPT you can see in GPT in BERT, etc
+ Let's have a look at how inference works
+ Again we have our English sentence. I love you very much. We want to map it into an Italian sentence "ti amo molto"
+ We have our usual transformer we prepare the input for the encoder which is start of sentence
+ I love you very much end of sentence
+ We convert into input embeddings. Then we add the positional encoding
+ We prepare the input for the encoder and we send it to the encoder
+ The encoder will produce an output which is sequenced by the model and we saw it before that it's a sequence of special embeddings that
+ Captured the meaning the position but also the interaction of all the words with other words
+ What we do is for the decoder we give him just the start of sentence and
+ Of course, we keep the we add enough embedding
+ Padding tokens to reach our sequence length. We just give the
+ model the start of sentence token and we again we for this single token we convert into
+ Embeddings we add the positional encoding and we send it to the decoder as decoder input. The decoder will take this
+ his input as a query and the key and the values coming from the encoder and
+ We will produce an output which is sequenced by the model
+ Again, we want the linear layer to project it back to our vocabulary and this projection is called logits
+ What we do is we apply the softmax which will select
+ given the logits will give
+ The position of the output word will have the maximum score with the softmax
+ This is how we know what words to select from the vocabulary and this hopefully should produce the first
+ output token, which is T
+ If the model has been trained correctly
+ This however happens at time step one
+ So when we train the model transformer model it happens in one pass
+ So we have one input sequence one output sequence. We give it to the model
+ We do it one time step and the model will learn it when we inference
+ However, we need to do it token by token and we will also see why this is the case
+ At time step two, we don't need to recompute the
+ encoder output
+ again because the
+ Our English sentence didn't change. So we hope we the the encoder should produce the same
+ Output for it. And then what we do is we take the output of the previous sentence. So
+ T we append it to the input of the decoder and then we feed it to the decoder
+ Again with the output of the encoder from the previous step
+ which will produce an output sequence from the decoder side, which we again project back into our vocabulary and
+ We get the next token which is ammo
+ so as I saw
+ As I said before we are not recalculating the output of the encoder for every time step because our English sentence didn't change
+ At all. What is changing is the input of the decoder because at every time step
+ We are appending the output of the previous step to the input of the decoder
+ we do the same for the time step 3 and
+ we do the same for the time step 4 and
+ Hopefully we will stop when we see the end of sentence token because that is that's how the model tells us to stop
+ Inferencing and this is how the inference works. Why we needed four time steps
+ When we inference a model
+ Like the in this case the translation model there are many strategies for inferencing what we used is called greedy strategy
+ so for every step we get the word with the maximum softmax value and
+ However, this strategy works
+ Usually not bad, but there are better strategies
+ And one of them is called beam search in beam search instead of always greedily
+ So this is that's why it's called greedy instead of greedily taking the maximum soft value
+ we take the top B values and
+ Then for each of these choices we inference. What are the next possible?
+ Tokens for each of the top B values at every step and we keep
+ Only the one with the B most probable sequences and we delete the others
+ This is called beam search and generally it performs better
+ So, thank you guys for watching. I know it was a long video, but it was really worth it to go through each
+ Aspect of the transformer. I hope you enjoyed this journey with me
+ so please subscribe to the channel and don't forget to watch my other video on how to code a
+ Transformer model from scratch in which I describe not only again the structure of the transformer model
+ while coding it, but I also show you how to train it on a
+ Datasette of your choice how to inference it and I also provided the code on github and the
+ colab
+ Notebook to train the model directly on colab
+ Please subscribe to the to the channel and let me know what you didn't understand so that I can give more
+ Explanation and please tell me what are the problems in this kind of videos or in this particular video that I can improve for the next
+ Videos. Thank you very much and have a great rest of the day

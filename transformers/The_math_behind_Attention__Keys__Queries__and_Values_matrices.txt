@@ -1,0 +1,588 @@
+ [MUSIC]
+ Hello, my name is Luis Serrano, and in this video, you're going to learn about the math
+ behind attention mechanisms in large language models.
+ Attention mechanisms are really important in large language models.
+ As a matter of fact, they're one of the key steps that make transformers work really well.
+ Now in a previous video, I showed you how attention works in very high level with words
+ flying towards each other and gravitating towards other words in order for the model
+ to understand context.
+ In this video, we're going to do an example in much more detail with all the math involved.
+ Now as I mentioned before, the concept of a transformer and the attention mechanism
+ were introduced in this groundbreaking paper called Attention Is All You Need.
+ Now this is a series of three videos.
+ In the first video, I showed you what attention mechanisms are in high level.
+ In this video, I'm going to do it with math.
+ And in the third video that is upcoming, I will put them all together and show you how
+ a transformer model works.
+ So in this video in particular, you're going to learn about some concepts, similarity between
+ words and pieces of text is one of the concepts.
+ One way to do this is with dot product and another one with cosine similarity.
+ So we'll learn both.
+ And next, you're going to learn what the key query and value matrices are as linear transformations
+ and how they have an involvement in the attention mechanism.
+ So let's do a quick review of the first video.
+ First we had embeddings, and embeddings are a way to put words or longer piece of text.
+ In this case, it's the plane, but in reality, you put it in a high dimensional space in
+ such a way that words that are similar get sent to points that are close.
+ So for example, these are fruits.
+ There's a strawberry, an orange, a banana, and a cherry, and they're all in the top corner
+ of the image because they're similar words, so they get sent to similar points.
+ And then over here, we have a bunch of brands.
+ We have Microsoft, we have Android, then we also have a laptop and a phone.
+ So it's the technology corner.
+ And then the question we had in the previous videos, where would you put the word apple?
+ And that's complicated because it's both a technology brand and also a fruit.
+ So we wouldn't know.
+ In particular, let's take a look at this.
+ The orange is on the top right and the phone is in the bottom left.
+ Where would you put an apple?
+ Well, then you need to look at context.
+ So if you have a sentence like, "Please buy an apple and an orange," then you know you're
+ talking about the fruit.
+ If you have a sentence like, "Apple unveiled a new phone," then you know you're talking
+ about the technology brand.
+ So therefore, this word needs to be given context.
+ And the way it's given context is by the neighboring words.
+ In particular, the word orange is the one that helps us here.
+ So what we do is that we look at where orange is and then move the apple in that direction.
+ And then we're going to use those new coordinates instead of the old ones for the apple.
+ So then now the apple is closer to the fruits.
+ So it knows more about its context given the other words, the word orange, in the sentence.
+ Now for the second sentence, the word that gives us the clue that we're talking about
+ a technology brand is the word phone.
+ Therefore, what we do is we move towards the word phone and then we use those coordinates
+ in the embedding.
+ So that apple in the second sentence knows that it's more of a technology word because
+ it's closer to a word phone.
+ Now another thing we saw in the previous video is that not just the word orange is going
+ to pull the apple, but all of the other words are going to pull the apple.
+ And how does this happen?
+ Well, this happens with gravity or actually something very similar to gravity.
+ Words that are close like apple and orange have a strong gravitational pull.
+ So they move towards each other.
+ On the other hand, the other words don't have a strong gravitational pull because they're
+ far away.
+ Actually, they're not far away, but they're dissimilar.
+ So we can think of distance as a metric, but in a minute I will tell you exactly what I'm
+ talking about here.
+ But we can think of the words as being far away.
+ And as I said, words that are close get pulled together and words that are far away get pulled,
+ but not very much.
+ And so after one gravitational step, then the word apple and orange are much closer.
+ And the other words in the sentence, well, they may move closer, but not that much.
+ And what happens is that context pulls.
+ So if I've been talking about fruits for a while and I said banana, strawberry, lemon,
+ blueberry and orange, and then I say the word apple, then you would imagine that I'm talking
+ about a fruit.
+ And what happens here in space is that we have a galaxy of fruit words somewhere and
+ they have a strong pull.
+ So when the word apple comes in, it gets pulled by this galaxy.
+ And therefore now the apple knows that it's a fruit and not a technology brand.
+ Now remember that I told you that words are far away, but that's not really true.
+ In reality, what we need to look is at the concept of similarity.
+ So what is similarity?
+ Well, as humans, we have an idea of words being similar to each other's or dissimilar.
+ And that's exactly what similarity measures.
+ So before we saw, for example, that the words cherry and orange are similar and they're
+ different than the word phone.
+ And we kind of have the impression that there's a measure of distance like cherry and orange
+ are close.
+ So they have a small distance in between and cherry and phone are far.
+ So they have a large distance.
+ But as I mentioned, what we want is the opposite, a measure of similarity, which is high when
+ the words are similar and low when the words are different.
+ So next I'm going to show you three ways to measure similarity that are actually very
+ similar at the end.
+ The first one is called dot product.
+ So imagine that you have these three words over here, cherry, orange, and phone.
+ And as we saw before, the axis in the embedding actually means something.
+ It could be something tangible for humans or maybe something that the computer just knows
+ and we don't.
+ But let's say that the axis here measure tech for the horizontal axis and fruitness for
+ the vertical axis.
+ So the cherry and the orange have high fruitness and low tech.
+ That's why they're located in the top left.
+ And the phone has high tech and low fruitness.
+ That's why it's located in the bottom right.
+ Now we need a measure that is high for these two numbers, cherry and orange.
+ So the measure of similarity is going to be the following.
+ We look at their coordinates, 1, 4 for cherry and 0, 3 for orange.
+ And remember that one of them is the amount of tech and the other one is the amount of
+ fruitness.
+ Now if these words are similar, we would imagine that they have similar amounts of tech and
+ similar amounts of fruitness.
+ In particular, they both have low tech.
+ So therefore, if we multiply these two numbers, it should be a low number.
+ That's 1 times 0.
+ But they both have high fruitness.
+ So if we multiply those two numbers, 4 times 3, we get a high number.
+ And when we add them together, that's the product of the tech and the product of the fruitness,
+ we get a high number, which is 12.
+ Now let's do the same thing for cherry and phone.
+ So the similarity should be a small number.
+ Let's see.
+ Between 1, 4, and 3, 0, what is the dot product?
+ Well, it's 1 times 3, the product of the tech values, plus 4 times 0, the product of the
+ fruitness values.
+ And that's 1 times 3 plus 4 times 0, which is a small number, which is 3.
+ Notice that the reason is because if one of the words has low tech, the other one has
+ high tech.
+ And if one of them has low fruitness, the other one has high fruitness.
+ So we're not going to get very high by multiplying them and adding.
+ And the extreme case is orange phone.
+ This orange phone, the coordinates are 0, 3, and 3, 0.
+ So when we multiply 0 times 3, we get 0, plus 3 times 0 equals 0.
+ And so we get 0.
+ Notice that these two words are actually perpendicular.
+ Respect to the origin.
+ And when two words are perpendicular, they're always going to have dot product equals 0.
+ So dot product is our first measure of similarity.
+ It's high when the words are similar or close in the embedding and low when the words are
+ far away.
+ And notice that it could be negative as well.
+ The second measure of similarity is called cosine similarity.
+ And it looks very different from dot product, but they're actually very similar.
+ What we do here is we use an angle.
+ So let's calculate the cosine similarity between orange and cherry.
+ We look at the angle that the two vectors made when they are traced from the origin.
+ This angle is 14.
+ If you want to calculate it, it's actually the arctangent of 1/4.
+ And here it is.
+ So that number is 0.97.
+ That means that the similarity between cherry and orange, the cosine similarity, is 0.97.
+ Now let's calculate the one between cherry and phone.
+ The angle is 76, because it's the arctangent of 4 divided by 1.
+ And that number is 0.24.
+ So the similarity between cherry and orange is 0.24, which is much lower than 0.97.
+ And finally, guess what that third one is going to be?
+ The similarity between orange and phone is going to be the cosine of this angle, which
+ is 90.
+ And that is again 0, so the similarity of 0.
+ Same similarity, since it's a cosine, it is between 1 and minus 1.
+ So 1 is for words that are very similar, and then 0 and negative numbers are for words
+ that are very different.
+ Now I told you that dot product and cosine similarity are very similar, but they don't
+ look that similar.
+ Why are they so similar?
+ Well, because they're the same thing if the vectors have length 1.
+ More specifically, if I were to draw a unit circle around the origin, and I take every
+ point and I draw a line from the center to the point and put the word where the line
+ meets the circle, that means I scale everything down so that all the vectors have length 1,
+ then cosine similarity and the dot product are the exact same thing.
+ So basically, if all my vectors have norm 1, then cosine similarity and dot product
+ are the same thing.
+ So at the end of the day, what we are saying is that dot product and cosine similarity
+ are the same up to a scalar.
+ And the scalar is the product of the two lengths of the vector.
+ So if I take the dot product and divide it by the product of the lengths of the vectors,
+ then I get the cosine similarity.
+ Now there is a third one called scale dot product, which as you can imagine, it's another
+ multiple of the dot product, and that's actually the one that gets used in attention.
+ So let me show you quickly what it is.
+ It is the dot product just like before, so here we get 12, except that now we divide it
+ by the square root of the length of the vector, and the length of the vector is 2, because
+ these vectors have two coordinates, and so we get 8.49 for the first one.
+ For the second one, we had a 3 divided by root 2 is 2.12, and for the third one, well,
+ we had a 0, and that divided by root 2 is also 0.
+ Now the question is why are we dividing by this square root of 2?
+ Well, that is because when you have very long vectors, for example, with a thousand coordinates,
+ you get really, really large dot products, and you don't want that, you want to manage
+ these numbers, you want these numbers to be small, so that way you divide by the square
+ root of the length of the vectors.
+ Now as I mentioned before, the one we use for attention is the scale dot product, but for
+ this example, just to have nice numbers, we're going to do it with cosine similarity, but
+ at the end of the day, remember that everything gets scaled by the same number.
+ So let's look at an example.
+ We have the sentences an apple and an orange and an apple phone, and let's calculate some
+ similarity.
+ So first, let's look at some coordinates.
+ Let's say that orange is in position 0, 3, phone is in position 4, 0, and this ambiguous
+ apple is in position 2, 2.
+ Now embeddings don't only have two dimensions, they have many, many, many.
+ So to make it more realistic, let's say we have three dimensions.
+ So there's an other dimension here, but all the words we have are at 0 over that dimension,
+ so they're in that flat plane by the wall.
+ However, the sentences have more words, the words and and and, so let's say that and and
+ and are over here at coordinates 0, 0, 2, and 0, 0, 3.
+ Now let's calculate all the similarities between all these words, that's going to be this table
+ here.
+ The first easy step to notice is that the cosine similarity between every word and itself
+ is 1.
+ Why?
+ Well, because every angle between every word and itself is 0, and the cosine is 0 is 1.
+ So all of them are 1.
+ Now let's calculate the similarity between orange and phone.
+ We already saw that this is 0 because the angle is 90.
+ Now let's do between orange and apple.
+ Angle is 45, same thing between apple and phone, and the cosine of 45 degrees is 0.71.
+ Finally let's look at phone and and, or actually any word between orange, apple, and phone
+ makes an angle of 90 degrees with and and and, so all these numbers are actually 0.
+ And finally between and and and the angle is 0, so therefore the cosine is 1.
+ So this is our entire table of similarities between the words.
+ And we're going to use this table of similarities to move the words around.
+ That's the attention step.
+ So let's look at this table but only for the words in this sentence, an apple and an orange.
+ We have the words orange, apple, and an and, and we're going to move them around.
+ So we're going to take them and change their coordinates slightly.
+ Each of these words would be sent to a combination of itself and all the other words.
+ And the combination is given by the rows of this table.
+ So more specifically let's look at orange.
+ Orange would go to 1 times orange, which is this coordinate over here, plus 0.71 times
+ apple, which is this coordinate over here, plus 0 times and plus 0 times and, which means
+ nothing else.
+ Now let's look at where apple goes.
+ Apple goes to 0.71 times orange plus 1 times apple plus 0 times and plus 0 times and.
+ Now let's look at and and and.
+ They go to 0 times orange plus 0 times apple plus 1 times and plus 1 times and.
+ And the same thing happens with the word and.
+ It goes to 0 times orange plus 0 times apple plus 1 times and plus 1 times and.
+ So basically what we did is we took each of the words and sent it to a combination of
+ the other words.
+ So now orange has a little bit of apple in it, and apple has a little bit of orange in
+ it, etc. etc.
+ So we're just moving words around and later I'm going to show you graphically what this
+ means.
+ Now let's also do it for the other sentence.
+ An apple phone.
+ This one I'm going to do it a little faster.
+ Phone goes to 1 times phone plus 0.71 times apple plus 0 times and.
+ Apple goes to 0.71 times phone plus 1 times apple plus 0 times and.
+ And goes to 1 times and.
+ So itself, however, there are some technicalities I need to tell you.
+ First of all, let's look at the word orange.
+ It goes to 1 times orange plus 0.71 times apple.
+ But these are big numbers.
+ Imagine doing this many times.
+ I end up being sent to 500 times orange plus 400 times apple.
+ I don't want to have these big numbers.
+ I want to be scaling everything down.
+ So in particular, I want these coefficients to always add to one.
+ So that no matter how many transformations I make, I'm going to end up with some percentage
+ of orange, some percentage of apple, and maybe percentages of other words, but I don't want
+ these to blow up.
+ So in order for the coefficients to add to one, I would divide by their sum, 1 plus 0.71.
+ So I get 0.58 orange plus 0.42 times apple.
+ So that process is called normalization.
+ However, there's a small problem.
+ Can you see it?
+ Well, what happens is this.
+ Let's say that I have orange goes to 1 times orange minus 1 times motorcycle.
+ Because remember that cosine distance can be a negative number.
+ So if I want these coefficients to add to one, I would divide by their sum, which is
+ 1 minus 1.
+ And dividing by 0 is a terrible thing to do.
+ Never, ever, ever divide by 0.
+ So how do I solve this problem?
+ Well, I would like these coefficients to always be positive.
+ And a way to take these coefficients and turn them into something positive, I'm good.
+ However, I still want to respect their order.
+ One is a lot bigger than minus 1.
+ So I want the coefficient that 1 becomes to be still a lot bigger than the coefficient
+ that minus 1 becomes.
+ So what is the solution?
+ Well, a common solution here is instead of taking a coefficient x, take the coefficient
+ e to the x.
+ So raise e to all the numbers you see here.
+ And what do we get?
+ Well, if I take every number and turn it into e to that number, then I have e to the 1 times
+ orange plus e to the 0.71 times apple divided by e to the 1 plus 0.71.
+ The numbers change slightly.
+ Now they're 0.57 and 0.43.
+ But what happens in the bottom one?
+ Well, 1 becomes e to the 1, negative 1 becomes e to the minus 1, and now I add them.
+ And the bottom becomes e to the 1 plus e to the minus 1.
+ And that becomes 0.88 orange plus 0.12 motorcycle.
+ So we effectively turn the numbers into positive ones respecting their order.
+ So we do this step for the coefficients to always add to 1.
+ This step is called softmax, and it's a very, very popular function in machine learning.
+ So now when we go to the tables and how those tables created these new words, then we can
+ change the numbers to the softmax numbers and get these actual new numbers.
+ So this is what's going to tell us how the words are going to move around.
+ But actually, before I show you this geometrically, I have to admit that I've been lying to you.
+ Because softmax doesn't turn a 0 into a 0.
+ In fact, these four numbers get sent to e to the 1, e to the 0.71, e to the 0, and e
+ to the 0.
+ And e to the 0 is 1.
+ So this combination of words, when you normalize it, it actually becomes 0.4 orange plus 0.3
+ apple plus 0.15 and plus 0.15 and.
+ So those and and and are not that hard to get rid of.
+ But as you may imagine in real life, they will have such small coefficients that they're
+ pretty much negligible.
+ But at the end of the day, you have to consider all the numbers when you do softmax.
+ But let's go back to pretending that and and and are not important.
+ In other words, let's go back to the original equations.
+ Apple goes to 0.43 orange plus 0.57 of apple.
+ And apple goes to 0.43 phone plus 0.57 of apple.
+ So if we forget about the words and and and, let's actually go back to the plane here,
+ where the three words are nicely fit in the plane.
+ So let's look at the equations again.
+ Also going to 43 percent of orange plus 57 percent of apple really means that we're taking
+ 43 percent of the apple and turning it into orange.
+ Geometrically, this means that we're taking the line from apple to orange and moving the
+ word apple 43 percent along the way.
+ That gives us the new coordinates 1.14 and 2.43.
+ For the second sentence, we do the same thing.
+ We take 43 percent away from the apple and turn it into the word phone.
+ That means we trace this line from apple to phone and locate the new apple 43 percent
+ along the way.
+ That means it's in the coordinates 2.86 and 1.14.
+ So what does this mean?
+ That means that when we're going to talk about the first sentence, we're not going to use
+ the coordinates 2, 2 for apple.
+ We're going to use the coordinates 1.14 and 2.43.
+ And we're in the second sentence, we're not going to use the coordinates 2, 2.
+ We're going to use the coordinates 2.86 and 1.14.
+ So now we have better coordinates because these new coordinates are closer to the coordinates
+ of either orange or phone, depending on which sentence the word apple appears.
+ And therefore, we have a better version of the word apple.
+ Now this is not much, but imagine doing this many times in a transformer.
+ The attention step is applied many times.
+ So if you apply it many times, at the end the words are going to end up much, much closer
+ to what is dictating the context in that piece of text.
+ And in a nutshell, that is what attention is doing.
+ So now we're ready to learn the keys, queries, and values matrices.
+ If you look at the original diagrams for scale dot product attention on the left and multi-head
+ attention on the right, they contain this k, q, and v.
+ Those are the key, query, and value matrices that we're going to denote by keys, queries,
+ and values.
+ Actually, let's first learn keys and queries, and we're going to learn values later in this
+ video.
+ So let me show you how I like to see keys and queries matrices.
+ Now recall from previously in this video that when you want to do the attention step, you
+ take the embedding, and then you move this ambiguous apple towards the phone or towards
+ the orange depending on the context of the sentence.
+ Now in the previous video, we learned what a linear transformation is.
+ It's basically a matrix that you multiply all the vectors by, and you can get something
+ like this, another embedding, or maybe something like this.
+ A good way to imagine linear transformations is send that square to any parallelogram,
+ and then the plane follows because the square tessellates the plane, so therefore you just
+ continue tessellating the plane.
+ You print parallelograms, and you get a transformation from the plane to the plane.
+ So these two examples over here are linear transformations of the original embedding.
+ Now let me ask you a question.
+ Out of these three, which one is the best one for applying the attention step, and which
+ one is the worst one, and which one is so-so?
+ Feel free to pause the video and think about it, and I'll tell you the answer.
+ Well, the first one is so-so because when you apply attention, it kind of separates
+ the fruit apple from the technology apple, but not so much.
+ The second one is awful because you apply the attention step, and it doesn't really
+ separate the two words, so this one's really bad.
+ It doesn't really add much information.
+ And the third one is great because it really spaces out the phone and the orange, and therefore
+ it separates the technology apple and the fruit apple very well, so this one's the best
+ one.
+ And the point of the keys and queries matrix is it's going to help us find really good
+ embeddings where we can do attention and get a lot of good information.
+ Now how do they do it?
+ Well, through linear transformations, but let me be more specific.
+ Remember that attention was done by calculating the similarity.
+ Now let's look at how we did it.
+ Let's say you have the vector for orange and the vector for phone.
+ In this example, they have three coordinates, but they could have as many as we want.
+ And we want to find the similarity, so the similarity is the dot product.
+ It actually was the scaled dot product, or the cosine distance, but at the end of the
+ day it's the same up to a scalar, so we're just going to take them all similarly.
+ And the dot product can be seen as the product of the first one times the transpose of the
+ second one.
+ This is a matrix product.
+ And as I said before, if we don't care so much about scaling, we can think of it as
+ the cosine distance in that particular embedding.
+ Now how do we get a new embedding?
+ Well, this is where the keys and queries matrices come in.
+ When we look at the keys and queries matrices, what they do is they modify the embeddings.
+ So instead of taking the vector for orange, we take the vector for orange times the keys
+ matrices, and instead of taking the vector for phone, we take the vector for phone times
+ the queries matrix.
+ And we get new embeddings, and when we want to calculate the similarity, then it's the
+ same thing.
+ It's the product of the first one times the transpose of the second one, which is the
+ same as the transpose of queries times the transpose of phone.
+ And this over here is a matrix that defines a linear transformation.
+ And that's the linear transformation that takes this embedding into this one over here.
+ So the keys and queries matrices work together to create a linear transformation that will
+ improve our embedding to be able to do a tension bed.
+ And therefore, what we're doing is that we're modifying the similarity in one embedding
+ and taking the similarity on a different embedding.
+ And we're going to make sure that this is a better one.
+ Actually, we're going to calculate lots of them and find the best ones, but that's coming
+ a little later.
+ But imagine keys and queries matrices as a way to transform our embedding into one that
+ is better suited for this attention problem.
+ And now that you've learned what the keys and queries matrices are, let me show you what
+ the values matrix is.
+ Recall that the keys and queries matrices actually turn the embedding into one that is best for
+ calculating similarities.
+ However, here's the thing.
+ That embedding on the left is not where you want to move the words.
+ You only want it for calculating similarities.
+ Let's say that there's an ideal embedding for moving the words, and it's the one over
+ here.
+ So what do we do?
+ Well, using the similarities we found on the left embedding, we're going to move the words
+ on the right embedding.
+ And why is that the case?
+ Well, what happens is that the embedding on the left is actually optimized for finding
+ similarities, whereas the embedding on the right is optimized for finding the next word
+ in a sentence.
+ Why is this?
+ Because a transformer, what it does, and we're going to learn this in the next video, but
+ a transformer finds the next word in a sentence, and it continues finding the next word until
+ it builds long pieces of text.
+ So the embedding when you want to move the words around is one that's optimized for finding
+ the next word.
+ And recall that the embedding on the left is found by the keys and queries matrices,
+ and the embedding on the right is found by the values matrices.
+ And what does the values matrix do?
+ Well, it's the one that takes the embedding on the left and multiplies every vector to
+ get the embedding on the right.
+ So when you take the embedding on the left, multiply it by the matrix V, you get another
+ transformation because you can concatenate these linear transformations, and you get
+ the linear transformation that corresponds to the embedding on the right.
+ Now, why is it that the embedding on the left is the best one for finding similarities?
+ Well, this one is one that knows the features of the words.
+ For example, it would be able to pick up the color of a fruit, the size, the amount of
+ fruitness, the flavor, the technology that is in the phone, etc., etc., it's the one
+ that captures features on the words, whereas the embedding for finding the next word is
+ one that knows when two words could appear in the same context.
+ So for example, if the sentence is I want to buy a blank, the next word could be car,
+ could be apple, could be phone, in the embedding on the right, all those words are close by
+ because the embedding on the right is good for finding the next word in a sentence.
+ So recall that the keys and queries matrices can capture the high level and the low level
+ granular features of the words.
+ Embedding on the right doesn't have that, it's optimized for the next word in a sentence.
+ And that's how the key, query, and values matrices actually give you the best embeddings to apply
+ attention in.
+ Now just to show you a little bit of the math that happens in the value matrix, imagine that
+ these are your similarities that you found after the softmax function, then that means
+ apple goes to 0.3 orange plus 0.4 apple plus 0.15 and plus 0.15 and, that's given the second
+ row of the table, and when you multiply this matrix by the value matrix, then you get some
+ other embedding like that.
+ Now everything here is of length 4, it could be length completely different because the
+ value matrix doesn't need to be a square, it can be a rectangle.
+ And then the second row tells us that instead apple should go to v21 times orange plus v22
+ times apple plus v23 times and plus v24 times and, so that's how the value matrix comes
+ in and transform the first embedding into another one.
+ Well that was a lot of stuff, so let's do a little summary.
+ On the left you have the diagram for scale dot product attention and the formula.
+ So let's break it down step by step.
+ First you have this step over here where you multiply k and q transposed, what is that?
+ Well that is the dot product.
+ And you're dividing by the square root of dk, dk is the length of each of the vectors.
+ Remember that this is called scale dot product.
+ So what we're doing here is finding the similarities between the words.
+ I'm going to denote the similarities by angles with cosine distance, but you know that I'm
+ talking about scale dot product instead.
+ So now that we found the similarities we move to the step over here with the softmax, which
+ is the one where we figure out where to move the words, in particular the technology apple
+ moves towards the phone and the fruit apple moves towards the orange.
+ But we're not going to make the movements on this embedding because this embedding is
+ not optimal for that, this embedding is optimal for finding similarities.
+ So we're going to use the values matrix to turn this embedding into a better one, v is
+ acting as a linear transformation that transforms the left embedding into the embedding on the
+ right.
+ And in the embedding on the right is where we move the words because this embedding over
+ here is optimized for the function of the transformer which is finding the next word
+ in a sentence.
+ So that is self-attention.
+ Now what's multi-head attention?
+ Well it's very similar, except you use many heads, and by many heads I mean many, key,
+ and query, and value matrices.
+ Here we're going to show three, but you could use eight, you could use twelve, you could
+ use many more, and the more you use the better.
+ Obviously the more you use the more computing power you need, but the more you use the more
+ likely you'll be finding some pretty good ones.
+ So these three k and q matrices, as we saw before, they form three embeddings where you
+ can apply attention.
+ Now k and q are the ones that help us find the embeddings where you find the similarities
+ between the words.
+ Now we also have a bunch of value matrices, as many as key and query matrices, always
+ the same number.
+ And just like before, these value matrices transform these embeddings where you find
+ similarities into embeddings where we can move the words around.
+ Now here is the magic step.
+ How do we know which ones are good and which ones are bad?
+ Well right now we don't.
+ We concatenate them first.
+ What does concatenating mean?
+ Well if I have a table of two columns and another table of two columns and another table
+ of two columns and I concatenate them, I get a table of six columns.
+ Geometrically that means if I have, let's say, an embedding of two dimensions and another
+ one and another one, I concatenate them, then I get an embedding of six dimensions.
+ Now I can't draw in six dimensions, but imagine that this thing over here is a really high
+ dimensional embedding of six dimensions, so something with six axes.
+ In real life, if you have a lot of big embeddings, you end up with a very high dimensional embedding.
+ Which is not optimal, so that's why we have this linear step over here.
+ The linear step over here is a rectangular matrix that is going to transform this into
+ a lower dimensional embedding that we can manage, but there's more.
+ This matrix over here learns which embeddings are good and which embeddings are bad.
+ So for example, the best embedding for finding the similarities was the third one, so this
+ one gets scaled up.
+ And the worst embedding was the one in the middle, so this one gets scaled down.
+ So this matrix over here, this linear step, actually does a lot.
+ And now, if we know what matrices are better than others, and the linear step actually
+ scales those well and scales the bad ones by a small amount, then we end up with a really
+ good embedding.
+ And so we end up doing attention in a pretty optimal embedding, which is exactly what we
+ want.
+ Now I've done a lot of magic here, because I haven't really told you how to find these
+ key query and value matrices.
+ I mean, they seem to do great jobs, but finding them is probably not easy.
+ Well, that's something we're going to see more in the next video, but the idea is that
+ these key query and value matrices get trained with the transformer model.
+ Here's a transformer model, and you can see that multi-head attention appears several
+ times.
+ I like to simplify this diagram into this diagram over here, where you have several steps, tokenization,
+ embedding, positional encoding, then a feedforward and an attention part that repeats several
+ times, and each of the blocks has an attention block.
+ So in other words, imagine training a humongous neural network, and the neural network has
+ inside a bunch of key query and value matrices that get trained as the neural network gets
+ trained to guess the next word.
+ But I'm getting into the next video.
+ This is what we're going to learn on the third video of this series.
+ So again, this was the second one.
+ Attention mechanism is math.
+ The first one had a high-level idea of attention.
+ And the third one is going to be on transformer models.
+ So stay tuned.
+ When that is out, I will put a link in the comments.
+ So that's all, folks.
+ Congratulations for getting until the end.
+ This was a bit of a complicated video, but I hope that the pictorial examples were helpful.
+ Now time for some acknowledgments.
+ I would have not been able to make this video if not for my friend and colleague Joao Araujo,
+ who is a genius and knows a lot about attention and transformers.
+ And he actually helped me go over these examples and help me form these images.
+ So thank you, Joao.
+ And some more acknowledgments, Jay Alomar was also tremendously helpful in me understanding
+ transformers and attention.
+ We had long conversations where he explained this to me several times.
+ And my friend Omar as well, Omar Flores, was very helpful too.
+ I actually have a podcast where I ask him questions about transformers for about an
+ hour.
+ And I learned a lot from this podcast.
+ It's in Spanish, but if you do speak Spanish, check it out.
+ The link is in the comments and it's also in my Spanish YouTube channel, serrano.academy.
+ And if you like this material, definitely check out llm.university.
+ It's a course I've been doing at Cohere with my very knowledgeable colleagues, Meor Amer
+ and Jay Alomar, the same Jay as before.
+ This is a very comprehensive course and it's taught in a very simple language.
+ It talks about all the stuff in this video, including embedding, similarity, transformers,
+ attention.
+ It has a lot of labs where you can do semantic search, you can do prompt engineering, many
+ other topics.
+ And so it's very hands-on and it also teaches you how to deploy models.
+ Basically, it's a zero to 100 course on LLMs and I recommend you to check it out, llm.university.
+ And finally, if you want to follow me, well, please subscribe to the channel and hit like
+ or put a comment.
+ I love reading the comments.
+ It's serrano.academy.
+ You can also tweet at me at serrano.academy or check out my page where I have blog posts
+ and a lot of other stuff.
+ The page is also serrano.academy and I have a book called Rocking Machine Learning in
+ which I explain machine learning in this way in a simple and pictorial way with labs that
+ are on GitHub.
+ So check it out.
+ There's a 40% discount code serranoyt if you want to take a look.
+ The link and information is on the comments.
+ So thank you very much for your attention and see you in the next video.
+ (upbeat music)

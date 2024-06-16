@@ -1,0 +1,148 @@
+ For most of this week,
+ you've been using a encoder decoder architecture for machine translation,
+ where one RNN reads in a sentence, and then a different one outputs a sentence.
+ There's a modification to this called the attention model that makes all this
+ work much better.
+ The attention algorithm, the attention idea has been one of the most influential
+ ideas in deep learning.
+ Let's take a look at how that works.
+ So given a very long French sentence like this,
+ what we are asking this green encoder neural network to do is to read in the whole
+ sentence and then memorize the whole sentence and store it in the activations
+ conveyed here.
+ And then for the purple network, the decoder network,
+ to then generate the English translation.
+ Jane went to Africa last September and enjoyed the culture,
+ met many wonderful people.
+ She came back raving about how wonderful her trip was,
+ and it's tempting me to go too.
+ Now, the way a human translator would translate a sentence is not to first
+ read the whole French sentence and then memorize the whole thing,
+ and then regurgitate an English sentence from scratch.
+ Instead, what a human translator would do is read the first part of it,
+ maybe generate part of the translation, you know,
+ look at the second part, generate a few more words,
+ look at a few more words, generate a few more words, and so on.
+ You kind of work part by part through the sentence,
+ because it's just really difficult to memorize the whole long sentence like that.
+ And so what you see for the encoder-decoder architecture above
+ is that it works quite well for short sentences,
+ so you might achieve a relatively high blue score.
+ But for very long sentences, maybe longer than 30 or 40 words,
+ you know, the performance comes down.
+ So the blue score might look like this as the sentence length varies.
+ And short sentences are just hard to translate,
+ hard to get all the words right.
+ And long sentences, it doesn't do well on,
+ because it's just difficult to get a neural network
+ to memorize a super long sentence.
+ So in this and the next video, you'll see the attention model,
+ which translates maybe a bit more like humans might,
+ looking at part of a sentence at a time.
+ And with an attention model, machine translation systems performance
+ can look like this, because by working one part of a sentence at a time,
+ you don't see this huge dip,
+ which is really measuring the ability of a neural network
+ to memorize a long sentence,
+ which maybe isn't what we most badly need a neural network to do.
+ So in this video, I want to just give you some intuition
+ about how attention works,
+ and then we'll flesh out the details in the next video.
+ The attention model was due to Zimitri Badenu,
+ Kim Koon Cho, and Yosha Wenjio.
+ And even though it was originally developed for machine translation,
+ it spread to many other application areas as well.
+ And this is really a very influential,
+ I think very seminal paper in the deep learning literature.
+ So let's illustrate this with a short sentence,
+ even though these ideas were maybe developed more for long sentences,
+ but it'll be easier to illustrate these ideas with a simpler example.
+ We have our usual sentence, "J'ai envisite la fille qu'on s'entend."
+ And let's say that we use a RNN,
+ and in this case, I'm going to use a bidirectional RNN
+ in order to compute some set of features for each of the input words.
+ And here I've drawn the standard bidirectional RNN
+ with outputs Y1, Y2, Y3, and so on, up to Y5,
+ but we're not doing a word-for-word translation.
+ So let me get rid of the Ys on top.
+ But using a bidirectional RNN, what we've done is for each of the words,
+ or really for each of the five positions in the sentence,
+ you can compute a very rich set of features
+ about the words in the sentence
+ and maybe surrounding words in every position.
+ Now, let's go ahead and generate the English translation.
+ We're going to use another RNN to generate the English translation.
+ So here's my RNN node as usual.
+ And instead of using A to denote the activation,
+ in order to avoid confusion with the activations down here,
+ I'm just going to use a different notation.
+ I'm going to use S to denote the hidden state in this RNN up here.
+ And so instead of writing A1, I'm going to write S1.
+ And so we hope in this model that the first word it generates will be "jane,"
+ to generate "jane visits Africa in September."
+ Now, the question is, when you're trying to generate this first word, this output,
+ what part of the input French sentence should you be looking at?
+ Seems like you should be looking primarily at this first word,
+ maybe a few other words close by,
+ but you don't need to be looking way at the end of the sentence.
+ So what the attention model would be computing is a set of attention weights.
+ And we're going to use alpha 1, 1 to denote when you're generating the first word,
+ how much should you be paying attention to this first piece of information here?
+ And then we'll also come up with a second, let's call it attention weight,
+ alpha 1, 2, which tells us when we're trying to compute the first word,
+ hopefully "jane," how much attention should we be paying
+ to this second word from the input, and so on.
+ And we need alpha 1, 3, and so on.
+ And together, this will tell us what is exactly the context,
+ we want to know the C, that we should be paying attention to,
+ and that is input to this RNA unit to then try to generate the first word.
+ So that's one step of the RNN.
+ We'll flesh out a lot of these details in the next video.
+ For the second step of this RNN,
+ we're going to have a new hidden state S2,
+ and we're going to have a new set of attention weights.
+ So we're going to have alpha 2, 1 to tell us when we're generating the second word.
+ I guess this would be visits maybe, that would be the ground truth label.
+ How much should we be paying attention to the first word in the French input?
+ And also alpha 2, 2, and so on.
+ How much should we be paying attention to the word visits?
+ How much should we pay attention to "le fric," and so on.
+ And of course, the first word we generated, "jane," is also an input to this,
+ and we have some context that we're paying attention to in the second step,
+ there's also an input, and that together will generate the second word,
+ and that leads us to the third step, S3, where this is an input,
+ and we have some new context C that depends on the various alpha 3
+ for the different time steps that tells us how much should we be paying attention
+ to the different words from the input French sentence, and so on.
+ So some things I haven't specified yet, but that we'll go further into detail
+ in the next video is how exactly this context defined,
+ and the goal of the context is for the third word, it really should capture
+ that maybe it should be looking around this part of the sentence, right?
+ And the formula you use to do that will defer to the next video,
+ as well as how do you compute these attention weights.
+ And you'll see in the next video that alpha 3t,
+ which is when you're trying to generate the third word,
+ because this would be Africa, we're just getting the right output,
+ the amounts that this RNN step should be paying attention
+ to the French word at time t, that depends on the activations
+ of the bidirectional RNN at time t.
+ So I guess it'll depend on the forward activations
+ and the backward activations at time t,
+ and it will depend on the state from the previous step,
+ so it depends on S2.
+ And these things together will influence how much you pay attention
+ to a specific word in the input French sentence.
+ But we'll flesh out all these details in the next video.
+ But the key intuition to take away is that this way,
+ the RNN marches forward generating one word at a time
+ until eventually it generates the EOS,
+ and at every step there are these attention weights,
+ alpha t t prime, that tells it when you're trying to generate
+ the tth English word, how much should you be paying attention
+ to the tth prime French word.
+ And this allows it on every time step to look only maybe within
+ a local window of the French sentence to pay attention to
+ when generating a specific English word.
+ So I hope this video conveys some intuition about the attention model
+ and that you now have a rough sense of maybe how the algorithm works.
+ Let's go on to the next video to flesh out the details of the attention model.

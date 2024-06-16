@@ -1,0 +1,53 @@
+ Congratulations on making it this far.
+ I just want to wrap up and leave you with a few final thoughts.
+ We've been on quite a journey together.
+ But if you've taken the whole specialization,
+ then you've learned about neural networks and deep
+ learning, how to improve deep neural networks,
+ how to structure machine learning projects,
+ convolutional neural networks.
+ And then in this most recent course, sequence models.
+ And I know you've worked really hard.
+ And I also hope you feel very proud of yourself
+ for your hard work and for how much you've done.
+ So I want to leave you one maybe important thought,
+ which is that I think deep learning is a superpower.
+ With deep learning algorithms, you can make a computer see.
+ You can have a computer synthesize novel art
+ or synthesize music.
+ You can have a computer translate from one language
+ to another, maybe have it look at the radiology image
+ and render a medical diagnosis or build pieces of a car that
+ can drive itself.
+ And if that isn't a superpower, I don't know what is.
+ And as we wrap up this sequence of courses,
+ as we wrap up this specialization,
+ I hope that you will find ways to use these ideas
+ to further your career, to pursue your dreams,
+ but perhaps most important, to do whatever you think
+ is the best work you can do for humanity.
+ The world today has challenges.
+ But with the power of AI and power of deep learning,
+ I think we can make it a much better place.
+ And now that you have this superpower,
+ I hope you will use it to go out there and make
+ life better for yourself, but also for other people.
+ And of course, I also hope you feel
+ very proud of your accomplishments
+ and of how far you've come and of all that you've learned.
+ And when you complete this sequence of courses,
+ you should also share it on social media,
+ like Twitter or Facebook, and let your friends know.
+ And finally, the very last thing I want to say to you
+ is congratulations on finishing the course.
+ I hope you feel great about your accomplishment.
+ But also, I want to thank you very much.
+ I know that you have a busy life, but despite that,
+ you spent a lot of time watching these videos
+ and maybe spent a lot of time also
+ working on the quizzes and the programming exercises.
+ I hope you enjoyed it and you got a lot of the process.
+ But I'm also very grateful for all your time you spent
+ and for all your hard work you put
+ into learning these materials.
+ So thank you very much.

@@ -1,0 +1,58 @@
+ You've now learned so much about deep learning and sequence models that we can actually describe
+ a trigger word system quite simply, just on one slide, as you see in this video.
+ But with the rise of speech recognition, there have been more and more devices you can wake
+ up with your voice, and those are sometimes called trigger word detection systems.
+ So let's see how you can build a trigger word system.
+ Examples of trigger word systems include Amazon Echo, which is woken up with the word Alexa,
+ the Baidu Duo OS pod devices woken up with the phrase "Xiao Du, Ni Hao" Apple Siri, woken
+ up with Hey Siri and Google Home, woken up with OK Google.
+ So it stands to trigger word detection that if you have, say, an Amazon Echo in your living
+ room, you can walk to your living room and just say, "Alexa, what time is it?" and have
+ it wake up or be triggered by the word Alexa and answer your voice query.
+ So if you can build a trigger word detection system, maybe you can make your computer do
+ something by telling it "computer activate".
+ One of my friends also works on turning on and off a particular lamp using a trigger
+ word, kind of as a fun project.
+ But what I want to show you is how you can build a trigger word detection system.
+ The literature on trigger word detection algorithm is still evolving, so there isn't wide consensus
+ yet on what's the best algorithm for trigger word detection.
+ So I'm just going to show you one example of an algorithm you can use.
+ Now you've seen RNNs like this, and what we really do is take an audio clip, maybe compute
+ spectrogram features and that generates features, X1, X2, X3, audio features, X1, X2, X3 that
+ you pass through an RNN.
+ And so all that remains to be done is to define the target labels Y.
+ So if this point in the audio clip is when someone just finished saying the trigger word,
+ such as "Alexa" or "Xiaoli nǐ hǎo" or "Hey Siri" or "OK Google", then in the training
+ sets you can set the target labels to be zero for everything before that point, and right
+ after that to set the target label of one.
+ And then if a little bit later on, you know, the trigger word was said again, and the trigger
+ word was said at this point, then you can again set the target label to be one right after
+ that.
+ Now this type of labeling scheme for an RNN, you know, could work, actually this will actually
+ work reasonably well.
+ One slight disadvantage of this is it creates a very imbalanced training set with a lot
+ more zeros than ones.
+ So one other thing you could do, that's again a little bit of a hack, but could make the
+ model a little bit easier to train, is instead of setting only a single time step to output
+ one, you could actually make it output a few ones for several times, or for a fixed period
+ of time before reverting back to zero.
+ So that slightly evens out the ratio of ones to zeros, but this is a little bit of a hack.
+ But if this is when in the audio clip a trigger word is said, then right after that you can
+ set the target label to one, and if this is the trigger word said again, then right after
+ that is when you want the RNN to output one.
+ So you get to play more of this as well in the programming exercise, but I think you
+ should feel quite proud of yourself that you've learned enough about deep learning that it
+ just takes one picture and one slide to describe something as complicated as trigger word detection.
+ And based on this, I hope you'll be able to implement something that works and allows
+ you to detect trigger words, but you'll see more of this in the programming exercise.
+ So that's it for trigger words, and I hope you feel quite proud of yourself for how much
+ you've learned about deep learning that you can now describe trigger words in just one
+ slide in a few minutes, and that you can hopefully implement it and get it to work, maybe even
+ make it do something fun in your house, like turn on or turn off, or you could do something
+ on your computer when you or when someone else says a trigger word.
+ This is the last technical video of this course, and to wrap up in this course on sequence
+ models, you learned about RNNs, including both GRUs and LSTMs, and then in the second
+ week you learned a lot about word embeddings and how to learn representations of words,
+ and then in this week you learned about the attention model as well as how to use it to
+ process audio data, and I hope you have fun implementing all of these ideas in this video.
+ Let's go on to the last video.

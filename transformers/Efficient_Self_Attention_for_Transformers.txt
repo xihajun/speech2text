@@ -1,0 +1,186 @@
+ Hello everyone, today's video is an essential part of our Transformers and attention mechanism
+ series. We are going to delve into optimizing the attention mechanism to make it more efficient.
+ As you may know, the memory and computational demands of the original attention mechanism
+ increase quadratically as sequence length grows, rendering it impractical for longer sequences.
+ However, various methods have been developed to streamline the attention mechanism's complexity.
+ In this video, we'll explore some of the most prominent models that address this challenge.
+ So first, let's have a quick recap of the attention mechanism. We start with three
+ matrices Q, K, and V, each having size N times D. We first perform dot product between Q and K,
+ so that is Q K transpose. Then we apply a scaling factor as well as the softmax function
+ to the result. This will give us the attention weights. Finally, we perform another dot product
+ between these attention weights and the matrix V. So now let's see the complexity of these operations.
+ The main operation is Q K transpose, which has arithmetic complexity of big O of N squared D.
+ And the memory requirement for all these matrices and their intermediate results
+ is in order of N squared plus N times D. So that means both complexities with respect to
+ the sequence length N are quadratic. Let's see what are the techniques that we can use
+ to make attention more efficient. Note that there are some general optimization techniques
+ that are commonly used for training and inference of transformers. These include half precision,
+ mixed precision, gradient checkpointing, etc. While these methods are very effective,
+ they do not change the underlying complexity of the model. Therefore, in this video, we do not
+ cover these methods, as this video is focused on algorithms and models that have lower complexity
+ than the original attention mechanism. This table shows eight different methods that we are going
+ to cover in this video. Except for the first two algorithms in this table, all others have linear
+ complexity. Sparse factorization reduces the complexity to N square root of N and reformers
+ attention has order of N log of N complexity. Let's go through all these papers and see how
+ each one works. Our first paper is titled "Generating long sequences with sparse transformers".
+ The idea of this paper is based on the fact that the attention matrix is typically sparse,
+ meaning that in each row, only a few tokens have high weights and the rest have weights close to
+ zero. So this paper introduces several sparse factorizations for the attention matrix.
+ In the original attention mechanism shown in the right, we compute the attention weights for each
+ token attending to all the tokens in the sequence. So we compute the dot product of Qi with all the
+ keys. In factorized attention, we can limit that and say that token i can only attend to this subset
+ of tokens. And therefore, we only need to compute dot product of Qi with the keys in that subset
+ only. This is done by adding S sub i to the attention equation that defines the connectivity
+ patterns for the ith token. Let's look at the connectivity patterns in the full attention
+ and the sparse attention. In the case of full attention, token i attends to all the tokens that
+ come before i. So we can say that S sub i is the set of all the j's that are less than i.
+ And it is the same for all the heads in multi-head attention. With sparse attention, however,
+ we can have different connectivity patterns at different heads. So we show them with S superscript
+ one and S superscript two for head one and head two. For defining the connectivity patterns,
+ it's important to make sure that the signal can be propagated from any position to any other position
+ within a constant number of steps. Sparse attention proposes two schemes to define
+ connectivity patterns. The first scheme is called a strided pattern as shown in the middle. As you
+ can see, if you select any arbitrary positions i and j, we can reach from i to j with maximum two
+ steps. One step for traversing horizontally and the other step for traversing vertically.
+ Such a strided sparse attention is suitable for data that have a periodic structure such as images.
+ For other types of data that lack such periodic structure, they define fixed patterns as shown
+ in the right. In this paradigm, we have dedicated positions that summarize information from their
+ previous locations and then propagate it to all future positions. The complexity of the sparse
+ attention is order of n times the pth root of n, where p is related to the size of the connectivity
+ patterns in S. Our next algorithm is called reformer, which instead of pre-setting the
+ connectivity patterns, it proposes to determine connectivity patterns using the similarities of
+ queries and keys based on locality-sensitive hashing. The dot product qi kj transpose is a
+ measure of similarity. So we get the similarities of qi with all the keys kj and then softmax will
+ normalize them to get the attention rates. The higher the similarity, the higher the weight.
+ And that means we only care about the ij pairs that have higher similarities than others.
+ So the general idea is that we can use a locality-sensitive hashing or LSH
+ to group similar pairs together and define the connectivity patterns among each group.
+ To understand how this method works, let's understand LSH first.
+ We say that function h of x is a locality-sensitive hash function, which means that it
+ has a high probability of mapping similar points to the same bucket, while the distant points
+ are placed in different buckets with high probability as well. So with that definition,
+ this paper uses the following LSH scheme. First, we define a random but fixed matrix R
+ of size D times B over 2, where B is the number of buckets. Next, we perform dot product between
+ vector X and the matrix R. And finally, we compute the argmax of XR and negative XR concatenated
+ together. This LSH scheme is actually adapted from this other paper titled Practical and
+ Optimal LSH for angular distances. For LSH attention, we have to use identical
+ queries and keys. We map each query to a bucket by applying the LSH function h, that is h of qi
+ will map qi to a bucket. After mapping all the queries to buckets, we define the connectivity
+ patterns based on these buckets so that we compute the dot product between qi and kj
+ only for the pairs within each bucket. The overall scheme of determining the
+ connectivity patterns is shown in this figure. After obtaining the buckets, we sort these buckets
+ and create chunks of equal size. This algorithm has complexity of order of n log of n. But it
+ is important to note that while the complexity with respect to n is reduced from quadratic to n
+ log of n, there is a large constant that is 128 to the power of 2. Therefore, the LSH attention
+ is only faster when we are dealing with very long sequences, typically longer than 2048 tokens.
+ Moving to the third approach called efficient attention.
+ From here onward, we deal with attention mechanisms in linear complexity. The general
+ idea of efficient attention is very simple. From linear algebra, we know that matrix multiplication
+ is associative, meaning that when we multiply three matrices together like A times B times C,
+ we can either compute A B first and then multiply that by C or we can compute B times C first and
+ then multiply A times B C. The end result is the same regardless of which order you take,
+ but the complexity may vary depending on the sizes of A B and C. So for the dot product attention,
+ if we consider the product of these three matrices Q K transpose V, instead of computing Q K transpose
+ first, we can first compute K transpose times V and then we multiply Q by the result of K transpose
+ V. While the results are equal, the complexity of the left multiplication is order of N squared times D,
+ while the one in the right has complexity D squared times N. And since D is much less than N,
+ the right one is more efficient. However, the problem is that we also have the softmax function
+ applied to Q K transpose. So because of that, we cannot bring Q out of softmax and multiply K
+ transpose directly by V. Let's use sigma to denote the softmax function. Given that softmax is applied
+ across each row, we will refer to it as sigma sub rho within the context of the original attention
+ formula. For efficient attention, the authors propose to replace sigma sub rho of Q K transpose
+ with sigma sub rho of Q times sigma sub column of K transposed, where sigma sub column is applied
+ across the columns of K. This new expression makes an approximation of softmax of Q K transpose.
+ And similar to the softmax, the rows of this product also sums to one. So now for the output
+ of the attention, we write sigma sub rho of Q times sigma sub column of K transposed times V.
+ And we can change the order of computations according to the associative property of matrix
+ multiplication. So first we compute sigma sub column of K transposed times V and then we multiply
+ sigma sub rho of Q from the left side. With this approximation and changing the order of computations,
+ the complexity of attention will be N times D squared for arithmetic operations.
+ And for the memory complexity, it is big O of N times D plus D squared. So the complexity for
+ both memory and arithmetic is linear with respect to sequence length N. The fourth paper also proposes
+ a linear attention mechanism, but with a slightly different approach that is based on the kernelized
+ version of attention formulation. So let's start with rewriting the original attention
+ to a generalized form by replacing softmax with the weighted similarities between Q i and K j.
+ So we get sum of similarity of Q i and K j times V j divided by the sum of similarities of Q i and
+ K j. Note that the denominator just plays the normalization role. In this generalized formulation,
+ if we choose to have exponential function like exp of Q i K j transpose as the similarity function,
+ that will be equivalent to the softmax. But instead of this exponential function,
+ we can use any kernel function such as the RBF kernel. The only constraint we have is that
+ the kernel must be non-negative. So assume we have feature function phi and we use the kernel
+ function phi of Q i times phi of K j transpose as the similarity function. Then we get this equation
+ for the attention output, which we can simplify that by taking phi of Q i out of the summation
+ since the summation is over j. And in vectorized form, it will be phi of Q times phi of K transposed
+ times V. Now the question is what feature function should be used? This paper proposes to use 1 plus
+ elu of x as the feature function. elu of x is a known activation function defined as x if x is
+ positive and exp of x minus 1 otherwise. So 1 plus elu of x will be always non-negative. I have
+ previously made a video and reviewed different activation functions for neural networks. Please
+ feel free to check out that video if you need a refresher with the link in the description.
+ The next paper is also fairly similar to the previous two. This paper is based on first-order
+ Taylor series expansion to derive the attention with linear complexity. Starting with the generalized
+ formulation of attention where the similarity function is the exp of Q i K j transpose that
+ is equivalent to the softmax function. With the first-order Taylor expansion, we can approximate
+ exp of Q i K j transpose as 1 plus Q i K j transpose. But there is a major problem with
+ this approximation which is we cannot guarantee that this will be non-negative. Therefore, the
+ authors decided to normalize Q i and K j and define the similarity function as 1 plus the normalized Q
+ times the normalized K transpose. These normalizations are based on the L2 norm of Q and K.
+ Now we can substitute this in the generalized attention equation and with some simplifications
+ we get to this equation. And if you rewrite that in vector form and rename Q prime to be
+ the normalized Q matrix and K prime to be the normalized K matrix, we get this equation where
+ one sub n is a vector of ones of size n and V transpose dot one sub n is basically taking
+ the sum of rows of V transpose. Moving to the next approach called Linformer that has yet
+ another linear attention. Linformer's attention uses a somewhat different strategy than the last
+ three papers as Linformer is based on the low-rank approximation of the attention matrix.
+ So the attention matrix from softmax function is a low-rank matrix. But what do we mean by a low-rank
+ matrix? When we describe a matrix A as low-rank, it implies that A can be closely approximated
+ by the multiplication of two smaller matrices B and C. And to find these smaller matrices,
+ we can use SVD or singular value decomposition. For example, with A, we can write that as A
+ equals U times sigma times V where U and V contain the left and right singular vectors
+ and sigma is a diagonal matrix with the singular values of A. Then we can take the R largest singular
+ values and their corresponding singular vectors and approximate A as U sub R sigma sub R and V sub R.
+ So this is great but the problem here is that SVD by itself is computationally very expensive
+ and the overhead cost of adding SVD will end up hurting rather than helping. So Linformer's
+ attention tries to approximate the low-rank attention matrix without explicitly computing the SVD.
+ For the low-rank approximation of the attention matrix, they introduce two new matrices called E
+ and F with dimensionality R times N. These new matrices are used to project the K and the V
+ matrices so we get E dot product with K and F dot product with V and we get dimensionality R times D.
+ Now we substitute K transpose in the softmax attention with E K transposed and this results
+ in the following matrix P which is called the context mapping matrix. Finally, we multiply P
+ with the projected F V matrix and that is the final output. So the updated diagram of the multi-head
+ dot product attention with this mechanism is shown here. As you can see they have added two
+ projections for the keys and values. The complexity of Linformer's attention is in order of N, R, D
+ and since attention is low-rank we choose R much less than N. Furthermore, the paper provides a
+ theoretical relationship between the approximation error and the selected R. So these last two papers
+ have a different strategy for reaching linear attention. Longformer is designed to process
+ long documents like the articles on archive. For such long documents, the original transformer
+ is prohibitively expensive since it scales quadratically with sequence length. So Longformer
+ has an attention mechanism with linear complexity. Longformer's attention uses a combination of local
+ and global attention patterns. For local attention, they use sliding windows or
+ dilated sliding windows. Capturing local context is very important since a lot of information about
+ a token can be obtained from its neighboring tokens. For global attention, they use some pre-selected
+ tokens and make symmetric attention patterns, meaning that all other tokens attend to these
+ pre-selected global tokens and these tokens also attend to all other tokens. This way,
+ long-range dependency signals can propagate from one position in the input sequence to another
+ location. Finally, our last approach which is called Big Bird. Similar to Longformer,
+ Big Bird also uses a combination of local and global patterns. But in addition, they also use
+ random patterns as well. The idea of using random patterns comes from graph theory where starting
+ from a fully connected graph where nodes are tokens and edges represent the connectivity patterns,
+ then with graph specification, we can randomly drop a large fraction of edges and still maintain a
+ small average path between the nodes. Therefore, in Big Bird, for random patterns, we allow each
+ query QI to attend to R randomly selected keys. Using the adjacency matrix A to represent the
+ connectivity patterns, we will have R number of 1s in each row for random attention.
+ Next, for local attention, a window of size W around position I in the adjacency matrix
+ is set to 1. That is, cells from I minus W half to I plus W half are set to 1.
+ And finally, for global attention, they propose two approaches. One is called Big Bird ITC or
+ Internal Transformer Construction which makes use of the existing tokens for global attention.
+ So a set of pre-selected tokens will attend to everyone and everyone will attend to them.
+ The second approach is called Big Bird ETC or Extended Transformer Construction where they
+ introduce some additional tokens to the sequence and make everyone attend to them while they also
+ attend to everyone. So finally, this figure shows the three different patterns, random,
+ local, and global. And Big Bird puts all of them together.
+ That concludes our video. We have explored eight strategies for enhancing the efficiency of the
+ attention mechanism transitioning from quadratic to linear complexity. I hope you found this video
+ informative and enjoyable. In our upcoming video, we will put these algorithms into practice using
+ PyTorch. This hands-on approach will help clarify the concepts and give you a better understanding
+ of how they work in real-world applications.
+ [BLANK_AUDIO]

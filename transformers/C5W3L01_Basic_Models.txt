@@ -1,0 +1,53 @@
+ Hello and welcome to this final week of this course as well as to the final week of this
+ sequence of five courses in the deep learning specialization. You're nearly at the finish line.
+ In this week you hear about sequence to sequence models which are useful for everything from
+ machine translation to speech recognition. Let's start with the basic models and then later this
+ week you hear about beam search, the attention model, and we'll wrap up the discussion of models
+ for audio data like speech. Let's get started. Let's say you want to input a French sentence
+ like "Jean vissique l'Afrique" in September and you want to translate it to the English sentence
+ "Jane is visiting Africa" in September. As usual let's use x1 through x in this case 5 to represent
+ the words in the input sequence and we'll use y1 through y6 to represent the words in the output
+ sequence. So how can you train a neural network to input the sequence x and output the sequence y?
+ Well here's something you could do and the ideas I'm about to present are mainly from these two
+ papers due to Ilya Saskoval, Oyo Vinyals, and Kwok Le, and that one by Qiang Xun Chou, Bart Van,
+ Marion Boer, Kagler Gausser, Dimitri Badenio, Fethi Bogers, Hugo Strank, and Yoshua Bengio.
+ First let's have a network which we're going to call the encoder network be built as a
+ RNN and this could be a GRU or an LSTM, feed in the input French words one word at a time
+ and after ingesting the input sequence the RNN then outputs a vector that represents the input
+ sentence. After that you can build a decoder network which you might draw here which takes
+ as input the encoding output by the encoder network shown in black on the left and then
+ can be trained to output the translation one word at a time until eventually it outputs the
+ say the end of sequence or end of sentence token upon which the decoder stops and as usual
+ we could take the generated tokens and feed them to the next set of hidden states in the sequence
+ like we're doing before when synthesizing text using the language model. One of the most
+ remarkable recent results in deep learning is that this model works. Given enough pairs of French and
+ English sentences if you train a model to input a French sentence and output the corresponding
+ English translation this will actually work decently well and this model simply uses an
+ encoding network whose job it is to find an encoding of the input French sentence and then
+ use a decoder network to then generate the corresponding English translation. An architecture
+ very similar to this also works for image captioning so given an image like the one shown here maybe you
+ want it to be captioned automatically as a cat sitting on a chair so how do you train a neural
+ network to input an image and output a caption like that phrase up there. Here's what you can do
+ from the earlier calls on confidence you've seen how you can input an image into a convolutional
+ network maybe a pre-trained Alex net and have that learn and encoding or learn a set of features
+ of the input image. So this is actually the Alex net architecture and if we get rid of this
+ um final softmax unit the pre-trained Alex net can give you a 4096 dimensional feature vector
+ of which to represent this picture of a cat and so this pre-trained network can be the encoder
+ network for the image and you now have a 4000 or 4096 dimensional vector that represents the image
+ you can then take this and feed it to an RNN whose job it is to generate the caption one word
+ at a time so similar to what we saw with machine translation translating from French to English
+ you can now input a feature vector describing the input and then have it generate
+ an output sequence or output set of words one word at a time and this actually works pretty well
+ for image captioning especially if the caption you want to generate is not too long. As far as
+ I know this model this type of model was first proposed by Jun Hua Mao Wei Shu Yi Yang Jiang Wang
+ Zhi Heng Huang and Alan Yeo although turns out there are multiple groups coming out with very
+ similar models independently and at about the same time. So two other groups that had done very
+ similar work at about the same time and I think independently of Mao Dao where Oliu Benyel,
+ Alexander Toshev, Sami Benjo and Dimitri Erhan as well as Andrei Kapotty and Fei Fei Li.
+ So you've now seen how a basic sequence to sequence model works or how a basic image to
+ sequence or image captioning model works but there's some differences between how you would
+ run a model like this to generate a sequence compared to how you were synthesizing novel text
+ using a language model. One of the key differences is you don't want a randomly
+ chosen translation you maybe want the most likely translation or you don't want a randomly chosen
+ caption maybe not but you might want the best caption the most likely caption.
+ So let's see in the next video how you go about generating that.

@@ -1,0 +1,63 @@
+ One of the challenges of machine translation is that given a French sentence there could be multiple English translations that are equally good translations in that French sentence.
+ So how do you evaluate a machine translation system if there are multiple equally good answers?
+ Unlike, say, image recognition where there's one right answer, you just measure accuracy.
+ If there are multiple great answers, how do you measure accuracy?
+ The way this is done conventionally is with something called the blue score.
+ So in this optional video, I want to share with you, I want to give you a sense of how the blue score works.
+ Let's say you are given a French sentence, the shyest of the tapis, and you are given a reference human generated translation of this, which is the cat is on the mat.
+ But there are multiple pretty good translations of this, so different human, different person might translate it as there is a cat on the mat.
+ And both of these are actually just fine, perfectly fine translations of the French sentence.
+ What the blue score does is given a machine generated translation, it allows you to automatically compute a score that measures how good is that machine translation.
+ And the intuition is so long as the machine generated translation is pretty close to any of the references provided by humans, then it will get a high blue score.
+ Blue, by the way, stands for bilingual evaluation.
+ Understudy. So in the theater world, an understudy is someone that learns the role of a more senior actor so they can take over the role of the more senior actor if necessary.
+ And motivation for blue and motivation for blue is that whereas you could ask human evaluators to evaluate the machine translation system, the blue score is an understudy,
+ could be a substitute for having humans evaluate every output of a machine translation system.
+ So the blue score was due to Kishore Pappineni, Salim Rukus, Todd Ward and Wei-Jing Zhu. This paper has been incredibly influential and it's actually quite a reasonable and it's actually quite a readable paper, so I encourage you to take a look if you have time.
+ So the intuition behind the blue score is we're going to look at the machine generated output and see if the types of words it generates appear in at least one of the human generated references.
+ And so these human generated references would be provided as part of the dev set or as part of the test set.
+ Now let's look at some extreme example. Let's say that the machine translation system, abbreviating machine translation as MT, so the machine translation or the MT output is DDDDDDDD, so this is clearly a pretty terrible translation.
+ So one way to measure how good the machine translation output is, is to look at each of the words in the output and see if it appears in the references.
+ And so this will be called a precision of the machine translation output and in this case there are seven words in the machine translation output and every one of these seven words appears in either reference one or reference two.
+ Right, so the word "the" appears in both references, so each of these words looks like a pretty good word to include, so this would have a precision of seven over seven. It looks like it has a great precision.
+ So this is why the basic precision measure of what fraction of the words in the MT output also appear in the references, this is not a particularly useful measure because it seems to imply that this MT output has very high precision.
+ So instead what we're going to use is a modified precision measure in which we will give each word credit only up to the maximum number of times it appears in the reference sentences.
+ So in reference one, the word "the" appears twice, in reference two, the word "the" appears just once, so two is bigger than one, and so we're going to say that the word "the" gets credit up to twice.
+ So with a modified precision, we will say that it gets a score of two out of seven, because out of seven words we'll give it two credits for appearing, so here the denominator is the count of the number of times the word "the" appears,
+ the seven words in total, and the numerator is the count of the number of times the word "the" appears, but we clip this count, we take a max, so we clip this count at two.
+ So this gives us the modified precision measure.
+ Now, so far we've been looking at words in isolation. In the blue score, you don't want to just look at isolated words, you maybe want to look at pairs of words as well.
+ Let's define a portion of the blue score on bigrams, and bigrams just means pairs of words appearing next to each other.
+ So now let's see how we could use bigrams to define the blue score, and this would just be a portion of the final blue score, and we'll take unigrams or single words as well as bigrams, which means pairs of words into count as well as maybe even longer sequences of words, such as trigrams, which means three words appearing together.
+ So let's continue our example from before, we have the same reference one and reference two, but now let's say the machine translation of the empty system has a slightly better output, you know, the cat, the cat on the mat, still not a great translation, but maybe better than the last one.
+ So here, the possible bigrams are, well, there's the cat, we'll ignore case, and then there's cat D, there's another bigram, and then there's D cat again, but I've already had that, so let's skip that, and then cat on is the next one, and then on the, and the mat. So these are the bigrams in the machine translation output.
+ And so let's count up how many times each of these bigrams appear, the cat appears twice, cat D appears once, and the others all appear just once.
+ And then finally, let's define the clip count, so count and then subscript clip. And to define that, let's take this column of numbers, but give our algorithm credit only up to the maximum number of times that that bigram appears in either reference one or reference two.
+ So the cat appears a maximum of ones in either of the references, so we're going to clip that count to one, cat D, well, it doesn't appear in reference one or reference two, so clip that to zero, cat on, yep, that appears once, we give it credit for once, on D appears once, give that credit for once, and D mat appears once.
+ So these are the clipped counts, we're taking all the counts and clipping them, reducing them to be no more than the number of times that bigram appears in at least one of the references.
+ And then finally, our modified bigram precision will be the sum of the count clips, so that's one, two, three, four, divided by the total number of bigrams, that's two, three, four, five, six. So four out of six or two thirds is the modified precision on bigrams.
+ So let's just formalize this a little bit further. With what we had developed with on unigrams, we defined this modified precision computed on unigrams as P subscript one, so P stands for precision and the subscript one here means we're referring to unigrams, but that is defined as sum over the unigrams.
+ So that just means a sum over the words that appear in the machine translation output, so this is called y hat of count clip of that unigram divided by some overall unigrams in the machine translation output of count number of
+ counts of that unigram, right? And so this was the, what we had gotten as I guess as two out of seven, two slides back. So the one here refers to unigram, meaning we're looking at single words in isolation. You can also define P n as the n gram version.
+ Instead of a unigram for n gram. So this would be sum over the n grams in the machine translation output of count clip of that n gram divided by sum over n grams of the count of that n gram.
+ And so this, these precisions or these modified precision scores measured on unigrams or on bigrams, which we did on the previous slide, or on trigrams, which are triples of words, or even higher values of n for other n grams.
+ This allows you to measure the degree to which the machine translation output is similar or maybe overlaps with the references.
+ And one thing that you could pretty convince yourself of is if the empty output is exactly the same as either reference one or reference two, then all of these values P one and P two, and so on, they'll all be equal to 1.0.
+ So to get a precision or a modified precision of 1.0, you just have to be exactly equal to one of the references. And sometimes it's possible to achieve this even if you aren't exactly the same as any of the references, but kind of combine them in a way that hopefully still results in a good translation.
+ Finally, finally, let's put this together to form the final blue score.
+ So P subscript n is the blue score computed on n grams only, or also the modified precision computed on n grams only. And by convention, to compute one number, you compute P one, P two, P three, and P four, and combine them together using the following formula.
+ It's going to be the average. So sum from n equals one to four of P n and divide that by four. So basically taking the average.
+ By convention, the blue score is defined as e to the this and exponentiation is a linear operate.
+ Exponentiation is a strictly monotonically increasing operation. And then we actually adjust this with one more factor called the BP penalty.
+ So BP stands for brevity penalty. The details maybe aren't super important, but just give you a sense.
+ It turns out that if you output very short translations, it's easier to get high precision because probably most of the words you appear, probably most of the words you output appear in the references.
+ So, but we don't want translations that are very short. So the BP or the brevity penalty is an adjustment factor that penalizes translation systems that output translations that are too short.
+ So the formula for the brevity penalties are following is equal to one if your machine translation system actually outputs things that are longer than the human generated reference outputs, and otherwise is some formula like that, that overall penalizes shorter translations.
+ So in the details you can find in this paper. So once again, earlier in this set of courses, you saw the importance of having a single row number evaluation metric, because it allows you to try out two ideas, see which one achieves a higher score, and then, you know, try to stick with the one that achieved a higher score.
+ So the reason the blue school was revolutionary for machine translation was because this gave a pretty good, by no means perfect, but pretty good single row number evaluation metric.
+ And so that accelerated the progress of the entire field of machine translation.
+ I hope this video gave you a sense of how the blue school works. In practice, a few people would implement the blue school from scratch their open source implementations, you can download and just use to evaluate your own system.
+ But today, blue school is used to evaluate many systems that generate text, such as machine translation systems, as well as the example I showed briefly earlier of image captioning systems where you would have a system have a neural network generate an image caption, and then use the blue school to see how much that overlaps with maybe a reference caption or multiple reference captions that were generated by people.
+ So the blue school is a useful single row number evaluation metrics to use whenever you want your algorithm to generate a piece of text, and you want to see whether it has similar meaning as a reference piece of text generated by humans.
+ This is not use of speech recognition, because the speech recognition, there's usually, you know, one ground truth and just use other measures to see if you got a speech transcription on pretty much exactly word for word correct.
+ But for things like image captioning, multiple captions for a picture, it could be about equally good or for machine translation, there are multiple translations about equally good, the blue school gives you a way to evaluate that automatically, and therefore speed up your alphabet development. So with that, I hope you have a sense of how the blue school works.

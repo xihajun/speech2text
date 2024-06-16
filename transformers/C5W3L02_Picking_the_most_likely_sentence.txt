@@ -1,0 +1,137 @@
+ There are some similarities between the sequence-to-sequence machine translation model and the language
+ models that you have worked with in the first week of this course,
+ but there are some significant differences as well.
+ Let's take a look.
+ So you can think of machine translation as building a conditional language model.
+ Here's what I mean.
+ In language modeling, this was the network we had built in the first week,
+ and this model allows you to estimate the probability of a sentence.
+ That's what a language model does.
+ And you can also use this to generate novel sentences.
+ And sometimes we're writing x1 and x2 here, where in this example,
+ x2 would be equal to y1 or equal to y hat 1 is just the feedback,
+ but x1, x2, and so on weren't important.
+ So just to clean this up for this slide, I'm going to just cross these off,
+ where x1 could be the vector of all zeros, and x2, x3 are just the previous output you
+ were generating.
+ So that was the language model.
+ The machine translation model looks as follows.
+ I'm going to use a couple different colors, green and purple,
+ to denote respectively the encoder network in green and the decoder network in purple.
+ And you notice that the decoder network looks pretty much identical
+ to the language model that we had up there.
+ So what the machine translation model is, is very similar to the language model,
+ except that instead of always starting it off with the vector of all zeros,
+ it instead has an encoder network that figures out some representation
+ for the input sentence, and it takes that input sentence and starts off the decoder
+ network with a representation of the input sentence,
+ rather than with the representation of all zeros.
+ So that's why I call this a conditional language model.
+ And instead of modeling the probability of any sentence,
+ it is now modeling the probability of, say, the output English translation,
+ conditioned on some input French sentence.
+ So in other words, you're trying to estimate the probability of a English translation,
+ like what's the chance that the translation is Jane is visiting Africa in September,
+ but conditioned on the input French sentences, like Jean-Bisic le fric en septembre.
+ So this is really the probability of an English sentence conditioned
+ on an input French sentence, which is why it is a conditional language model.
+ Now, if you want to apply this model to actually translate a sentence
+ from French into English, given this input French sentence,
+ the model might tell you what is the probability of different
+ corresponding English translations, right?
+ So this is X is the French sentence, Jean-Bisic le fric en septembre,
+ and this now tells you what's the probability of different English translations
+ of that French input.
+ And what you do not want is to sample outputs at random.
+ If you sample words from this distribution P of Y given X,
+ maybe one time you get a pretty good translation,
+ Jane is visiting Africa in September, but maybe another time you get
+ a different translation, Jane's going to be visiting Africa in September,
+ which sounds a little awkward, but it's not a terrible translation,
+ just not the best one, and sometimes, just by chance,
+ you get to study others in September, Jane visits Africa,
+ and maybe just by chance, sometimes you sample a really bad translation,
+ African French welcome Jane in September.
+ So when you're using this model for machine translation,
+ you're not trying to sample at random from this distribution.
+ Instead, what you would like is to find an English sentence Y
+ that maximizes that conditional probability.
+ So in developing a machine translation system,
+ one of the things you need to do is come up with an algorithm
+ that can actually find the value of Y that maximizes this term over here.
+ The most common algorithm for doing this, called the beam search,
+ is something you see in the next video.
+ But before moving on to describe beam search,
+ you might wonder, why not just use greedy search?
+ So what is greedy search?
+ Well, greedy search is an algorithm from computer science,
+ which says to generate the first word, just pick whatever is the most likely
+ first word according to your conditional language model,
+ according to your machine translation model,
+ and then after having picked the first word,
+ you then pick whatever is the second word that seems most likely,
+ and then pick the third word that seems most likely.
+ Because our algorithm is called greedy search.
+ And what you would really like is to pick the entire sequence of words,
+ you know, Y1, Y2, up to Yty, with hats there,
+ that maximizes the joint probability of that whole thing.
+ And it turns out that the greedy approach,
+ where you just pick the best first word,
+ and then after having picked the best first word,
+ try to pick the best second word,
+ and then after that, try to pick the best third word,
+ that approach doesn't really work.
+ To illustrate that, let's consider following two translations.
+ The first one is a better translation.
+ So hopefully, in our machine translation model,
+ it will say that P of Y given X is higher for the first sentence.
+ It's just a better, more succinct translation of the French input.
+ And the second one is not a bad translation,
+ it's just more verbal, says more unnecessary words.
+ But if the algorithm has picked Jane is as the first two words,
+ because going is a more common English word,
+ probably the chance of Jane is going given the French input,
+ this might actually be higher than the chance of Jane is visiting
+ given the input French sentence.
+ And so it's quite possible that if you just pick the third word
+ based on whatever maximizes the probability of just the first three words,
+ you end up choosing option number two.
+ But this ultimately ends up resulting in a less optimal sentence,
+ in a less good sentence as measured by this model for P of Y given X.
+ I know this was maybe a slightly hand-wavy argument,
+ but this is an example of a broader phenomenon
+ where if you want to find the sequence of words,
+ Y1, Y2, all the way up to the final word,
+ that together maximize the probability,
+ it's not always optimal to just pick one word at a time.
+ And of course, the total number of combinations of words
+ in an English sentence is exponentially large.
+ So if you have just 10,000 words in a dictionary,
+ and if you're contemplating translations that are up to 10 words long,
+ then there are 10,000 to the 10 possible sentences
+ that are 10 words long,
+ picking words from the vocabulary size of,
+ from dictionary size of 10,000 words.
+ So this is just a huge space of possible sentences,
+ and it's impossible to enumerate them all,
+ which is why the most common thing to do
+ is to use an approximate search algorithm.
+ And what an approximate search algorithm does is it will try,
+ it won't always succeed,
+ but it will try to pick the sentence Y
+ that maximizes that conditional probability.
+ And even though it's not guaranteed to find the value of Y
+ that maximizes this, it usually does a good enough job.
+ So to summarize, in this video,
+ you saw how machine translation can be posed as a
+ conditional language modeling problem.
+ But one major difference between this
+ and the earlier language modeling problems is
+ rather than wanting to generate a sentence at random,
+ you maybe want to try to find the most likely English sentence,
+ the most likely English translation.
+ But the set of all English sentences of a certain length
+ is too large to exhaustively enumerate,
+ so we'll have to resort to a search algorithm.
+ So with that, let's go on to the next video
+ where you learn about the Beam search algorithm.
