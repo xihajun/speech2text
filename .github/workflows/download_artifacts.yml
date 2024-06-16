@@ -6,6 +6,10 @@ on:
       run_id:
         description: 'The ID of the workflow run to download artifacts from'
         required: true
+      saved_path:
+        description: 'The path to save'
+        required: true
+        default: "artifacts"
 
 jobs:
   download-artifacts:
@@ -24,20 +28,20 @@ jobs:
           | jq -r '.artifacts[].archive_download_url')
 
         # Create a directory to store the downloaded artifacts
-        mkdir -p artifacts
+        mkdir -p ${{ github.event.inputs.saved_path }}
 
         # Download each artifact
         for url in $artifacts_url; do
           curl -sL -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -o artifacts/artifact.zip \
+            -o ${{ github.event.inputs.saved_path }}/artifact.zip \
             $url
-          unzip -o artifacts/artifact.zip -d artifacts
-          rm artifacts/artifact.zip
+          unzip -o ${{ github.event.inputs.saved_path }}/artifact.zip -d ${{ github.event.inputs.saved_path }}
+          rm ${{ github.event.inputs.saved_path }}/artifact.zip
         done
 
     - name: List Downloaded Artifacts
       run: |
-        ls -R artifacts
+        ls -R ${{ github.event.inputs.saved_path }}
 
     - name: Commit and Push Artifacts
       run: |
@@ -47,5 +51,5 @@ jobs:
 
         # Add, commit, and push changes
         git add .
-        git commit -m "Add downloaded artifacts from run ID ${{ github.event.inputs.run_id }}"
+        git commit -m "Add downloaded artifacts from run ID ${{ github.event.inputs.run_id }} to ${{ github.event.inputs.saved_path }}"
         git push
