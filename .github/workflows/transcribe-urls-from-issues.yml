@@ -42,8 +42,7 @@ jobs:
 
   upload_artifacts:
     needs: run-transcriptions
-    if: |
-      !cancelled()
+    if: always()
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
