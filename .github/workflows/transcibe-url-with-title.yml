@@ -38,12 +38,12 @@ jobs:
         # Download YouTube video
         mkdir youtube
         cd youtube
-        wget https://github.com/ytdl-org/ytdl-nightly/releases/download/2024.07.11/youtube-dl
-        chmod 777 youtube-dl
-        ./youtube-dl -o 'youtube.mp4' '${{ inputs.youtube_url }}'
+        # wget https://github.com/ytdl-org/ytdl-nightly/releases/download/2024.07.11/youtube-dl
+        # chmod 777 youtube-dl
+        youtube-dl -o 'youtube.mp4' '${{ inputs.youtube_url }}'
 
         # Get the YouTube video title
-        video_title=$(youtube-dl --get-title '${{ inputs.youtube_url }}' | sed 's/[^a-zA-Z0-9]/_/g')
+        video_title=$(youtube-dl --get-title '${{ inputs.youtube_url }}' | sed 's/ /_/g')
         echo "video_title=${video_title}" >> $GITHUB_OUTPUT
         
         # Convert video to wav
