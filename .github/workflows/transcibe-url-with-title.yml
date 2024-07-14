@@ -43,7 +43,7 @@ jobs:
         youtube-dl -o 'youtube.mp4' '${{ inputs.youtube_url }}'
 
         # Get the YouTube video title
-        video_title=$(youtube-dl --get-title '${{ inputs.youtube_url }}' | sed 's/ /_/g')
+        video_title=$(youtube-dl --get-title '${{ inputs.youtube_url }}' | sed 's/[^a-zA-Z0-9]/_/g')
         echo "video_title=${video_title}" >> $GITHUB_OUTPUT
         
         # Convert video to wav
