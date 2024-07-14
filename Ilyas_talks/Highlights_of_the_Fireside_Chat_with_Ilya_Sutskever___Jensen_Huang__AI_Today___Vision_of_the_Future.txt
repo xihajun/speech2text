@@ -1,0 +1,440 @@
+ What was your intuition around deep learning?
+ Why did you know that it was going to work?
+ Did you have any intuition that are going to lead to this kind of success?
+ Okay.
+ Well, first of all, thank you so much for the quote, for all the kind words.
+ A lot has changed thanks to the incredible power of deep learning.
+ Like I think this my personal starting point, I was interested in artificial intelligence
+ for a whole variety of reasons, starting from an intuitive understanding of appreciation
+ of its impact.
+ And also I had a lot of curiosity about what is consciousness?
+ What is the human experience?
+ And it felt like progress in artificial intelligence will help with that.
+ The next step was, well, back then I was starting in 2002, 2003, and it seemed like learning
+ is the thing that humans can do, that people can do, that computers can't do at all.
+ In 2003, 2002, computers could not learn anything.
+ And it wasn't even clear that it was possible in theory.
+ And so I thought that making progress in learning, in artificial learning, in machine learning,
+ that would lead to the greatest progress in AI.
+ And then I started to look around for what was out there and nothing seemed too promising.
+ But to my great luck, Jeff Hinton was a professor at my university and I was able to find him
+ and he was working in neural networks and it immediately made sense because neural networks
+ had the property that we are learning, we are automatically programming parallel computers.
+ Back then the parallel computers were small, but the promise was if you could somehow figure
+ out how learning in neural networks work, then you can program small parallel computers
+ from data.
+ And it was also similar enough to the brain and the brain works just like you had these
+ several factors going for it.
+ Now it wasn't clear how to get it to work, but of all the things that existed, that seemed
+ like it had by far the greatest long term promise.
+ Big bang of AI, fast forward to now.
+ You came out to the valley, you started OpenAI with some friends, you were the chief scientist.
+ Now what was the first initial idea about what to work on at OpenAI?
+ Because you guys worked on several things.
+ Some of the trails of inventions and work you could see led up to the chat GPT moment.
+ But what were the initial inspiration?
+ How would you approach intelligence from that moment and led to this?
+ Yeah.
+ So obviously when we started, it wasn't 100% clear how to proceed.
+ And the field was also very different compared to the way it is right now.
+ So right now you have these amazing artifacts, these amazing neural nets who are doing incredible
+ things and everyone is so excited.
+ But back in 2015, 2016, early 2016 when you were starting out, the whole thing seemed
+ pretty crazy.
+ There were so many fewer researchers, maybe there were between a hundred and a thousand
+ times fewer people in the field compared to now.
+ Back then you had like 100 people, most of them were working in Google/DeepMind and that
+ was that.
+ Then there were people picking up the skills, but it was very, very scarce, very rare still.
+ And we had two big initial ideas at the start of OpenAI that had a lot of staying power
+ and they stayed with us to this day.
+ And I'll describe them right now.
+ The first big idea that we had, one which I was especially excited about very early
+ on, is the idea of unsupervised learning through compression.
+ Some context.
+ Today, we take it for granted that unsupervised learning is this easy thing and you just pre-train
+ on everything and it all does exactly as you'd expect.
+ In 2016, unsupervised learning was an unsolved problem in machine learning that no one had
+ any insight, any clue as to what to do.
+ Yanli Khan would go around and give talks saying that you have this grand challenge
+ in supervised learning.
+ And I really believed that really good compression of the data will lead to unsupervised learning.
+ Now, compression is not language that's commonly used to describe what is really being done
+ until recently when suddenly it became apparent to many people that those GPTs actually compress
+ the training data.
+ You may recall the Ted Chiang New York Times article which also alluded to this.
+ But there is a real mathematical sense in which training these autoregressive generative models
+ compress the data.
+ And intuitively, you can see why that should work.
+ If you compress the data really well, you must extract all the hidden secrets which
+ exist in it.
+ Therefore, that is the key.
+ So that was the first idea that we were really excited about and that led to quite a few
+ works in OpenAI to the sentiment neuron, which I'll mention very briefly.
+ This work might not be well known outside of the machine learning field, but it was
+ very influential, especially in our thinking.
+ This work, the result there was that when you train a neural network, back then it was
+ not a transformer.
+ It was a smaller neural network before the transformer.
+ Small recurrent neural network.
+ LSTM to those who remember.
+ Sequence to sequence work, this is some of the work that you've done yourself.
+ So the same LSTM with a few twists, trained to predict the next token in Amazon reviews,
+ next character.
+ And we discovered that if you predict the next character well enough, there will be
+ a neuron inside that LSTM that corresponds to its sentiment.
+ So that was really cool because it showed some traction for unsupervised learning and
+ it validated the idea that the really good next character prediction, next something
+ prediction compression has the property that it discovers the secrets in the data.
+ That's what we see with these GPT models, right?
+ You train and people say it's just statistical correlation.
+ I mean, at this point, it should be so clear to anyone.
+ That observation also, for me intuitively, opened up the whole world of where do I get
+ the data for unsupervised learning?
+ Because I do have a whole lot of data.
+ If I could just make you predict the next character and I know what the ground truth
+ is, I know what the answer is, I could train a neural network model with that.
+ So that observation and masking and other technology, other approaches, opened my mind
+ about where would the world get all the data that's unsupervised for unsupervised learning.
+ Well, you've always believed that scaling will improve the performance of these models.
+ Yes.
+ Larger, larger networks, deeper networks, more training data would scale that.
+ There was a very important paper that OpenAI wrote about the scaling laws and the relationship
+ between loss and the size of the model and the amount of dataset, the size of the dataset.
+ When Transformers came out, it gave us the opportunity to train very, very large models
+ in very reasonable amount of time.
+ But with the intuition about the scaling laws and the size of models and data and your journey
+ of GPT-123, which came first, did you see the evidence of GPT-123 first or was it intuition
+ about the scaling law first?
+ The intuition, so I would say that the way I'd phrase it is that I had a very strong
+ belief that bigger is better and that one of the goals that we had at OpenAI is to figure
+ out how to use the scale correctly.
+ There was a lot of belief about in OpenAI, about scale from the very beginning.
+ The question is what to use it for precisely because I'll mention right now we're talking
+ about the GPTs, but there's another very important line of work which I haven't mentioned.
+ The second big idea, but I think now is a good time to make a detour and that's reinforcement
+ learning.
+ That clearly seems important as well.
+ What do you do with it?
+ So the first really big project that was done inside OpenAI was our effort at solving a
+ real-time strategy game and for context a real-time strategy game is like it's a competitive
+ sport.
+ We need to be smart, you need to have a quick reaction time, there's teamwork and you're
+ competing against another team and it's pretty involved and there is a whole competitive
+ league for that game.
+ The game is called Dota 2 and so we trained a reinforcement learning agent to play against
+ itself to produce with the goal of reaching a level so that it could compete against the
+ best players in the world and that was a major undertaking as well.
+ It was a very different line, it was reinforcement learning.
+ Yeah, I remember the day that you guys announced that work and by the way when I was asking
+ earlier about there's a large body of work that have come out of OpenAI, some of it seem
+ like detours, but in fact as you're explaining now they might have been detours, it's seemingly
+ detours, but they really led up to some of the important work that we're now talking
+ about chat GPT.
+ Yeah, I mean there has been real convergence where the GPTs produce the foundation and
+ the reinforcement learning from Dota morphed into reinforcement learning from human feedback
+ and that combination gave us chat GPT.
+ You know, there's a misunderstanding that chat GPT is in itself just one giant large
+ language model.
+ There's a system around it that's fairly complicated.
+ Could you explain briefly for the audience the fine tuning of it, the reinforcement learning
+ of it, the various surrounding systems that allows you to keep it on rails and give it
+ knowledge and so on and so forth?
+ Yeah, I can.
+ So the way to think about it is that when we train a large neural network to accurately
+ predict the next word in lots of different texts from the internet, what we are doing
+ is that we are learning a world model.
+ It looks like we are learning, it may look on the surface that we are just learning statistical
+ correlations in text, but it turns out that to just learn the statistical correlations
+ in text, to compress them really well, what the neural network learns is some representation
+ of the process that produced the text.
+ This text is actually a projection of the world.
+ There is a world out there and it has a projection on this text.
+ And so what the neural network is learning is more and more aspects of the world, of
+ people, of the human conditions, their hopes, dreams and motivations, their interactions
+ and the situations that we are in and the neural network learns a compressed, abstract,
+ usable representation of that.
+ This is what's being learned from accurately predicting the next word.
+ And furthermore, the more accurate you are predicting the next word, the higher fidelity,
+ the more resolution you get in this process.
+ So that's what the pre-training stage does.
+ But what this does not do is specify the desired behavior that we wish our neural network
+ to exhibit.
+ You see, a language model, what it really tries to do is to answer the following question.
+ If I had some random piece of text on the internet which starts with some prefix, some
+ prompt, what will it complete to?
+ If you just randomly ended up on some text from the internet.
+ But this is different from, well, I want to have an assistant which will be truthful,
+ that will be helpful, that will follow certain rules and not violate them, that requires
+ additional training.
+ This is where the fine-tuning and the reinforcement learning from human teachers and other forms
+ of AI assistance, it's not just reinforcement learning from human teachers, it's also reinforcement
+ learning from human and AI collaboration.
+ Our teachers are working together with an AI to teach our AI to behave.
+ But here we are not teaching it new knowledge.
+ This is not what's happening.
+ We are teaching it, we are communicating with it, we are communicating to it what it is
+ that we want it to be.
+ And this process, the second stage, is also extremely important.
+ The better we do the second stage, the more useful, the more reliable this neural network
+ will be.
+ So the second stage is extremely important too, in addition to the first stage of the
+ learn everything, learn everything, learn as much as you can about the world from the
+ projection of the world which is tested.
+ Chad GBT came out just a few months ago, fastest growing application in the history of humanity.
+ Lots of interpretations about why, but some of the things that is clear, it is the easiest
+ application that anyone has ever created for anyone to use.
+ It performs tasks, it performs things, it does things that are beyond people's expectation.
+ Anyone can use it.
+ There are no instruction sets, there are no wrong ways to use it, you just use it.
+ And if your instructions or prompts are ambiguous, the conversation refines the ambiguity until
+ your intents are understood by the application, by the AI.
+ The impact, of course, is clearly remarkable.
+ Now, yesterday, this is the day after GPT-4, just a few months later, the performance of
+ GPT-4 in many areas, astounding, SAT scores, GRE scores, bar exams, the number of tests
+ that it's able to perform at very capable levels, very capable human levels, astounding.
+ What were the major differences between Chad GBT and GPT-4 that led to its improvements
+ in these areas?
+ So GPT-4 is a pretty substantial improvement on top of Chad GPT across very many dimensions.
+ With trained GPT-4, I would say between more than six months ago, maybe eight months ago,
+ I don't remember exactly.
+ The first big difference between Chad GPT and GPT-4, and that perhaps is the most important
+ difference, is that the base on top of GPT-4 is built, predicts the next word with greater
+ accuracy.
+ This is really important because the better a neural network can predict the next word
+ in text, the more it understands it.
+ This claim is now perhaps accepted by many at this point, but it might still not be intuitive
+ or not completely intuitive as to why that is.
+ So I'd like to take a small detour and to give an analogy that will hopefully clarify
+ why more accurate prediction of the next word leads to more understanding, real understanding.
+ Let's consider an example.
+ Say you read a detective novel, it's like a complicated plot, a storyline, different characters,
+ lots of events, mysteries like clues, it's unclear.
+ Then let's say that at the last page of the book, the detective has gathered all the clues,
+ gathered all the people and saying, okay, I'm going to reveal the identity of whoever
+ committed the crime.
+ And that person's name is?
+ Predict that word.
+ Predict that word.
+ Exactly.
+ My goodness.
+ So there are many different words, but by predicting those words better and better and
+ better, the understanding of the text keeps on increasing.
+ GPT-4 predicts the next word better.
+ People say that that deep learning won't lead to reasoning, that deep learning won't lead
+ to reasoning.
+ But in order to predict that next word, figure out from all of the agents that were there
+ and all of their strengths or weaknesses or their intentions, and the context, and to
+ be able to predict that word, who was the murderer, that requires some amount of reasoning,
+ a fair amount of reasoning.
+ How is it that it's able to learn reasoning?
+ And if it learned reasoning, one of the things that I was going to ask you is of all the
+ tests that were taken between CHAT GPT and GPT-4, there were some tests that GPT-3 or
+ CHAT GPT was already very good at.
+ There were some tests that GPT-3 or CHAT GPT was not as good at, that GPT-4 was much better
+ at.
+ And there were some tests that neither are good at yet.
+ I would love for it, and some of it has to do with reasoning, it seems, that maybe in
+ calculus that it wasn't able to break maybe the problem down into its reasonable steps
+ and solve it.
+ But yet, in some areas, it seems to demonstrate reasoning skills.
+ And so is that an area that in predicting the next word, you're learning reasoning?
+ And what are the limitations now of GPT-4 that would enhance its ability to reason even further?
+ You know, reasoning isn't this super well defined concept.
+ But we can try to define it anyway, which is when you maybe when you go further, where
+ you are able to somehow think about it a little bit and get a better answer because of your
+ reasoning.
+ And I'd say that our neural nets, you know, maybe there is some kind of limitation which
+ could be addressed by, for example, asking the neural network to think out loud.
+ This has proven to be extremely effective for reasoning.
+ But I think it also remains to be seen just how far the basic neural network will go.
+ I think we have yet to fully tap out its potential.
+ But yeah, I mean, there is definitely some sense where reasoning is still not quite at
+ that level as some of the other capabilities of the neural network, though we would like
+ the reasoning capabilities of the neural network to be high, higher.
+ I think that it's fairly likely that business as usual will keep will improve the reasoning
+ capabilities of the neural network.
+ I wouldn't I wouldn't necessarily confidently rule out this possibility.
+ Yeah, because one of the things that is really cool is you ask you ask Chajapiti a question,
+ but before it answers the question, tell me first of what you know, and then answer the
+ question.
+ You know, usually when somebody answers a question, if you give me the foundational
+ knowledge that you have, or the foundational assumptions that you're making before you
+ answer the question, that really improves the my believability of the answer.
+ You're also demonstrating some level of reasoning when you're demonstrating reasoning.
+ And so it seems to me that Chajapiti has this inherent capability embedded in it.
+ Yeah, to some degree, this the the the the the way the one way to think about what's
+ happening now is that these neural networks have a lot of these capabilities, they're
+ just not quite very reliable.
+ In fact, you could say that reliability is currently the single biggest obstacle for
+ these neural networks being useful, truly useful.
+ If sometimes it is still the case that these neural networks hallucinate a little bit,
+ or maybe make some mistakes which are unexpected, which you wouldn't expect a person to make.
+ It is this kind of unreliability that makes them substantially less useful.
+ But I think that perhaps with a little bit more research with the current ideas that
+ we have, and perhaps a few more of the ambitious research plans, we'll be able to achieve higher
+ reliability as well.
+ And that will be truly useful that will allow us to have very accurate guardrails, which
+ are very precise.
+ That's right.
+ And it will make it ask for clarification where it's unsure, or maybe say that it doesn't
+ know something when it does anything it doesn't know, and do so extremely reliably.
+ So I'd say that these are some of the bottlenecks really, so it's not about whether it exhibits
+ some particular capability, but more how reliably exactly.
+ Yeah.
+ Multi-modality.
+ GPT-4 has the ability to learn from text and images and respond to input from text and
+ images.
+ First of all, the foundation of multi-modality learning, of course, Transformers has made
+ it possible for us to learn from multi-modality, tokenize text and images.
+ But at the foundational level, help us understand how multi-modality enhances the understanding
+ of the world beyond text by itself.
+ And my understanding is that when you do multi-modality learning, that even when it is just a text
+ prompt, the text prompt, the text understanding could actually be enhanced.
+ Tell us about multi-modality at the foundation, why it's so important, and what was the major
+ breakthrough and the characteristic differences as a result.
+ So there are two dimensions to multi-modality, two reasons why it is interesting.
+ The first reason is a little bit humble.
+ The first reason is that multi-modality is useful.
+ It is useful for a neural network to see, vision in particular, because the world is
+ very visual.
+ Human beings are very visual animals.
+ I believe that a third of the visual, of the human cortex is dedicated to vision.
+ And so by not having vision, the usefulness of our neural networks, though still considerable,
+ is not as big as it could be.
+ So it is a very simple usefulness argument.
+ It is simply useful to see, and GPT-4 can see quite well.
+ There is a second reason to division, which is that we learn more about the world by learning
+ from images in addition to learning from text.
+ That is also a powerful argument, though it is not as clear cut as it may seem.
+ I'll give you an example, or rather before giving an example, I'll make the general comment.
+ For a human being, us human beings, we get to hear about one billion words in our entire
+ life.
+ Only?
+ Only one billion words.
+ That's amazing.
+ Yeah.
+ That's not a lot.
+ Yeah, that's not a lot.
+ Does that include my own words in my own head?
+ Make it two billion words if you want, but you see what I mean.
+ Yeah.
+ We can see that because a billion seconds is 30 years, so you can kind of see, we don't
+ get to see more than a few words a second, and then we are asleep half the time.
+ So a couple billion words is the total we get in our entire life.
+ So it becomes really important for us to get as many sources of information as we can,
+ and we absolutely learn a lot more from vision.
+ The same argument holds true for our neural networks as well, except for the fact that
+ the neural network can learn from so many words.
+ So things which are hard to learn about the world from text in a few billion words may
+ become easier from trillions of words, and I'll give you an example.
+ Other colors, surely one needs to see to understand colors, and yet the text-only neural networks
+ who never seen a single photon in their entire life, if you ask them which colors are more
+ similar to each other, it will know that red is more similar to orange than to blue.
+ It will know that blue is more similar to purple than to yellow.
+ How does that happen?
+ And one answer is that information about the world, even the visual information, slowly
+ leaks in through text, but slowly, not as quickly.
+ But then you have a lot of text, you can still learn a lot.
+ Of course, once you also add vision and learning about the world from vision, you will learn
+ additional things which are not captured in text.
+ But I would not say that it is a binary, there are things which are impossible to learn from
+ text only.
+ I think this is more of an exchange rate.
+ And in particular, as you want to learn, if you are like a human being and you want to
+ learn from a billion words or a hundred million words, then of course the other sources of
+ information become far more important.
+ When you, on the context of the scores that I saw, the thing that was really interesting
+ was the data that you guys published.
+ Which one of the tests performed well by GPT-3 and which one of the tests performed substantially
+ better with GPT-4?
+ How did multimodality contribute to those tests, do you think?
+ Oh, I mean, in a pretty straightforward way.
+ Anytime there was a test where a problem, where to understand the problem you need to
+ look at a diagram, for example, in some math competitions, like there is a math competition
+ for high school students called AMC-12, and there, presumably, many of the problems have
+ a diagram.
+ So GPT-3.5 does quite badly on the test, GPT-4 with text only does, I think, I don't remember,
+ but it's like maybe from 2% to 20% accuracy of success rate.
+ But then when you add vision, it jumps to 40% success rate.
+ So the vision is really doing a lot of work.
+ The vision is extremely good.
+ And I think being able to reason visually as well and communicate visually will also
+ be very powerful and very nice things, which go beyond just learning about the world.
+ There are several things you can learn about the world.
+ You can reason about the world visually, and you can communicate visually, where now, in
+ the future, perhaps, in some future version, if you ask your neural net, hey, explain this
+ to me, rather than just producing four paragraphs, it will produce, hey, here's a little diagram
+ which clearly conveys to you exactly what you need to know and so on.
+ Yeah, that's incredible.
+ Tell us whatever you can about where we are now and where do you think we'll be in not
+ too distant future, but pick your horizon a year or two, where do you think this whole
+ language model area would be in some of the areas that you're most excited about?
+ Predictions are hard.
+ And although it's a little difficult to say things which are too specific, I think it's
+ safe to assume that progress will continue and that we will keep on seeing systems which
+ astound us in the things that they can do.
+ And the current frontiers will be centered around reliability, around the system can
+ be trusted, really get into a point where we can trust what it produces, really get
+ into a point where if it doesn't understand something, it asks for clarification, says
+ that it doesn't know something, says that it needs more information.
+ I think those are perhaps the biggest areas where improvement will lead to the biggest
+ impact on the usefulness of those systems, because right now that's really what stands
+ in the way.
+ You have an A, you're asking your own net to maybe summarize some long document and
+ you get a summary, like are you sure that some important detail wasn't omitted?
+ It's still a useful summary, but it's a different story when you know that all the important
+ points have been covered.
+ At some point, and in particular, it's okay if there is ambiguity, it's fine, but if a
+ point is clearly important, such that anyone else who saw that point would say this is
+ really important, then the neural network will also recognize that reliably.
+ That's when you know.
+ Same for the guardrails, same for its ability to clearly follow the intent of the user of
+ its operator.
+ I think we'll see a lot of that in the next two years.
+ That's terrific, because the progress in those two areas will make this technology trusted
+ by people to use and be able to apply for so many things.
+ I was thinking that was going to be the last question, but I didn't have another one, sorry
+ about that.
+ Okay, go for it.
+ So chat GPT to GPT-4, GPT-4, when you first started using it, what are some of the skills
+ that it demonstrated that surprised even you?
+ Well, there were lots of really cool things that it demonstrated, which were quite cool
+ and surprising.
+ It was quite good.
+ So I'll mention two.
+ So let's see, I'm just trying to think about the best way to go about it.
+ The short answer is that the level of its reliability was surprising.
+ Where the previous neural networks, if you ask them a question, sometimes they might
+ misunderstand something in a kind of a silly way, whereas the GPT-4 that stopped happening,
+ its ability to solve math problems became far greater.
+ It's like you could really like say, really do the derivation and like long complicated
+ derivation, you could convert the units and so on.
+ And that was really cool.
+ It works through a proof, it's pretty amazing.
+ Not all proofs, naturally, but quite a few.
+ Or another example would be like many people noticed that it has the ability to produce
+ poems with every word starting with the same letter or every word starting with some...
+ It follows instructions really, really clearly.
+ Not perfectly still, but much better than before.
+ Yeah, really good.
+ And on the vision side, I really love how it can explain jokes, it can explain memes.
+ You show it a meme and ask it why it's funny and it will tell you and it will be correct.
+ The vision part, I think, was also very...
+ It's like really actually seeing it when you can ask follow-up questions about some complicated
+ image with a complicated diagram and get an explanation.
+ That's really cool.
+ But yeah, overall, I will say, to take a step back, I've been in this business for quite
+ some time actually, almost exactly 20 years.
+ And the thing which I find most surprising is that it actually works.
+ It turned out to be the same little thing all along, which is no longer little and a
+ lot more serious and much more intense.
+ But it's the same neural network, just larger, trained on maybe larger data sets in different
+ ways with the same fundamental training algorithm.
+ So it's like, wow.
+ I would say this is what I find the most surprising.
+ Whenever I take a step back, I go, how is it possible that those ideas, those conceptual
+ ideas about, well, the brain has neurons, so maybe artificial neurons are just as good.
+ And so maybe we just need to train them somehow with some learning algorithm, that those arguments
+ turned out to be so incredibly correct.
+ That would be the biggest surprise, I'd say.

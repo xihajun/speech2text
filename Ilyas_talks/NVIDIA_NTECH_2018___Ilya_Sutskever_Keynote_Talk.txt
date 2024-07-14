@@ -1,0 +1,658 @@
+ Well welcome back everybody, it's my great pleasure to introduce Ilya Skutsuver who is
+ one of the true luminaries of deep learning.
+ He was there at the very beginning of the current revolution getting his Ph.D. with
+ Jeff Hinton at Toronto where he was one of the co-authors on the very seminal paper on
+ AlexNet which is really the network that by winning the ImageNet competition in 2012 kind
+ of demonstrated to everybody what deep learning was really capable of.
+ Since then he has done his own deep learning startup that got acquired by Google and worked
+ at Google Brain where he did the sequence to sequence model and contributed to TensorFlow.
+ He is a founder at OpenAI where he is now and he's going to tell you about some of the
+ recent results there in particular how they've been able to get AI to play games as well
+ or better than humans.
+ I've been asked to remind you that this talk is being shared on NVIDIA's YouTube channel
+ and it's being shared publicly and so please in the Q&A session don't say anything NVIDIA
+ confidential.
+ So thanks, let me turn it over to Ilya.
+ Thank you very much for the introduction.
+ Alright, so let's start.
+ At OpenAI our goal is to build safe AGI and to make sure that it's beneficial and that
+ its benefits are widely distributed.
+ When you think about AGI you identify some components that it should have.
+ For example, it would be good if we could achieve difficult goals in simulation.
+ It would be good if we could take those skills that you learned in simulation and take them
+ outside.
+ It would be good if we could learn great world models and it would be excellent if we, essential
+ to be precise, could address the issues around safety and deployment.
+ So in the technical part of my presentation I'll tell you about three of our recent results
+ that I am quite excited about.
+ OpenAI 5, our Dota bot that can play as strong as some of the best humans in this game.
+ Reactil, our robot which has achieved a very strong level of dexterity and our results
+ on unsupervised language understanding.
+ OpenAI 5, this is our Dota bot.
+ So the game of Dota, here's a video from it.
+ It's a really complicated game.
+ It is very messy.
+ It combines short-term tactics and long-term strategy.
+ It is the largest professional scene of any esports game and it has an annual prize pool
+ greater than $40 million.
+ So the game is popular.
+ This, oh you can't really see it well in the projector, but this is a photograph from this
+ year's TI which is the International, this is where the head-up bots play against a top
+ pro team, two top pro teams.
+ And you can't see it well at the projector, but this is a giant hole and there are 20,
+ at the giant stage and there are 20,000 people in it.
+ So I want to elaborate a little bit more about why this game is hard.
+ So I mentioned you've got tactics because there are lots of short-term things going
+ on.
+ You've got strategy simply because the game is long.
+ It's a long game, it's a single match that lasts an hour.
+ You have partial observability.
+ You don't see the full map, you only see part of it.
+ You have a very large number of heroes with completely complicated interactions in them.
+ You have 20,000 actions per game and you have a massive action space.
+ It's almost like it's essentially a continuous action space because you can select a unit
+ out of a pretty large number of units and tell it where to go.
+ And one other important thing is that the professional players, they dedicate their
+ lives to this game.
+ They put in tens of thousands of hours of deliberate practice of being as good at the
+ game as possible.
+ So it's not an easy game to play.
+ And the other thing that's very interesting and important about this game is that unlike
+ previous games which were used for AI, DOTA is closer to the real world.
+ Of course it's also not the real world, but it's closer.
+ So how did we do it?
+ We used large scale RL.
+ That's it.
+ We used an LSTM policy which is large, a large LSTM policy, I mean calling it large I guess
+ is a little bit of a subjective but you call it large or not, it's definitely large for
+ an RL policy.
+ Right now we have an LSTM with 4,000 neurons so it has about 100 something million parameters
+ and in terms of numbers, in terms of its number of flops, it's like the honeybee brain.
+ So we used self-play and we also used reward shaping.
+ A little bit of reward shaping was important.
+ So what's the key scientific discovery that we made during this work is that reinforcement
+ learning actually works.
+ So we already knew that supervised learning actually worked.
+ With supervised learning we can pretty much solve any problem we want.
+ If you have a large training set of input output examples, it doesn't matter if it's
+ vision, text, whatever domain, on the input side, the output side, supervised learning
+ can solve it.
+ And if your model doesn't work well you just need to make it larger and get a little bit
+ more data and then it will work.
+ And that's the miracle of supervised learning.
+ And we've shown that the same thing holds for RL.
+ We've shown that in RL if you have a hard problem, it can be a really hard problem,
+ you can achieve super high performance, superhuman performance if you just appropriately scale
+ it up.
+ Long horizon, that was a big deal, turns out not so much.
+ And I want to point out that nearly all reinforcement learning experts in the world had a pretty
+ pessimistic view towards RL.
+ They were certain that reinforcement learning cannot deal with long horizons, which justified
+ a lot of work in hierarchical reinforcement learning.
+ And it was just believed that reinforcement learning can do things.
+ Pure reinforcement learning has only been applied to very simple environments like simple
+ games and little simulated robots.
+ So those are toy problems and you can say okay well maybe reinforcement learning can
+ solve only toy problems.
+ And there's been additional skepticism about reinforcement learning.
+ There's this paper by Henderson et al., which I liked.
+ It showed some issues with reinforcement learning.
+ For example, here you see two curves which are the random average of five runs.
+ But it's the same algorithm in the same hyperparameter, just different random seeds.
+ So okay, from this you can conclude clearly this stuff's hopeless and forget about it.
+ But our results show that it is not the case.
+ If you scale things up, then suddenly you can solve very hard problems.
+ This is not to say that additional innovation in reinforcement learning is not important.
+ For example, it would be desirable to be able to achieve these difficult goals using much
+ less experience that we use.
+ However, the scientific conclusion from our work is this.
+ If there is a problem which is sufficiently valuable to solve and it's a reinforcement
+ learning problem, it can be solved.
+ So I want to talk a little bit about reinforcement learning, just explain it to you, because
+ just like the rest of machine learning, reinforcement learning is also very simple.
+ Here is the core idea of reinforcement learning.
+ It's just this slide.
+ Do something and add a little bit of noise to your actions.
+ If you did better than you expected, then make sure that you do those same actions more
+ often in the future.
+ That's it.
+ That's the core idea of reinforcement learning.
+ It's such a simple idea.
+ It's kind of crazy that it works.
+ I'm still amazed.
+ Now, I want to discuss the core improvement on this idea that enabled, that made it possible
+ to solve something as hard as the Dota game, and this is the idea of the actor critic.
+ With something like the game of Dota, you have 20,000 actions per game.
+ So that means you're going to add noise to 20,000 actions, and then see if that did a
+ little bit better than what you expect or not.
+ That's going to work too, but can you do a little bit better than that?
+ The key idea of the actor critic method is that you will learn a function that tells
+ you how good the state is, the value function.
+ It tells you how good things are, and the idea of the actor critic method is you add
+ a little bit of noise to your actions, and then you check, and then instead of running
+ the game all the way to the end, you consult your value function to see if things have
+ improved or not, so you're able to reduce the noise, and it turned out to be very important,
+ and it works, so there's bootstrapping that your value function, you say instead of running
+ the game to the end, I'm just going to add a little bit of noise and see, and then look
+ at the value function and see if things improved or not.
+ So it's a bit technical.
+ It's not really important for understanding for the rest of the talk, but I thought it's
+ fine and interesting.
+ Next, the policy, it's just an LSTM.
+ Just an LSTM.
+ We first had 1,000 neurons, then we increased it to 4,000 neurons right now, but the LSTM
+ which played against NTI had only 1,000 neurons.
+ It's pretty cool.
+ Wait.
+ I am 75% sure it had 1,000 neurons.
+ There's a small chance it had 2,000 neurons.
+ Now we have 4,000 neurons, and I want to show you the diagram which shows the architecture
+ and, basically, you've got all this complexity, and then it's all fed into the LSTM, so that's
+ the LSTM, and then it's extracted out.
+ The reason we do this is simply because your input, your observations are 20,000 dimensional,
+ and you need to cleverly use embedding to feed them in a way that the LSTM can consume,
+ and figuring this stuff out is important, but fundamentally, you just want to do something
+ sensible so you can consume your observations, and you can produce actions with the right
+ format.
+ I also want to talk a little bit about self-play, which is interesting.
+ Most of the games are against the current version of the bot, and then 20%, I think 20%
+ of the games are against previous versions of the bot.
+ I want to share some more cool facts.
+ So the biggest experiments use more than 100,000 CPU cores, more than 1,000 GPU cores, voltage,
+ etc.
+ The time horizon of RL has been 0.9997, and I think we've doubled it since then.
+ So we're talking about 10 minutes of time of half-life of time horizon, so it's a pretty
+ good horizon.
+ I want to share some other cool facts about what it's like to work with reinforcement
+ learning.
+ The thing about reinforcement learning is that you just can't tell if you have a bug
+ or not, it's impossible, because you look at your performance, and your performance can
+ keep on increasing, and you may even have a system which achieves state-of-the-art, or
+ maybe that even does really well, much better than you expected, and you can still have
+ bugs in your code, and you just need to keep reading the same lines of code again and again
+ and again, and as you fix the bugs, your performance goes up.
+ Another cool thing that we've discovered with our, once we scale things, once we run larger
+ RL experiments, is that this issue has completely gone away.
+ When we run our experiment many times, the curves track each other almost perfectly.
+ All this bad behavior has disappeared.
+ So the high-level conclusion from all this is that if you do things right, you fix all
+ the bugs, and you scale up reinforcement learning, you can solve very hard problems.
+ So like is already the case with supervised learning.
+ So that is a pretty good state of affairs.
+ One other interesting thing that we've done was the introduction of the team spirit parameter.
+ See the game, in the game you have five players versus five players.
+ So in order to accelerate learning, we made it so that each player on our team would be
+ selfish and only maximize its own reward.
+ And later on as the game progressed, we increased the team spirit parameter so that everyone
+ received the rewards of everyone else.
+ And you can see how if you are given short-term rewards which are dedicated to you, then you
+ learn faster, and doing that indeed accelerates our learning quite a bit.
+ I also want to show a little bit, to talk a little bit about the rate of our progress.
+ So this is a graph.
+ On the x-axis you see, this spans maybe from May to August, so that's four months, that's
+ a four months time period.
+ And the y-axis is the estimated MMR.
+ And MMR is kind of like an ELO rating, but not exactly.
+ And so in May we beat the best team of players that happened to work at OpenAI.
+ And then in June we beat a team of casters.
+ And gradually we reduced the restrictions, yes so here it was still the mirror match,
+ here we introduced more heroes, here we added drafting, and here, oh yeah, here's another
+ fun fact.
+ So the game has many, it's a complicated game and it has many rules.
+ In order to make our work easier, we've added restrictions to the game so that we'll be
+ able to make easier progress before we fix all the bugs.
+ And gradually we're removing all the restrictions.
+ One of the big restrictions that we had right up until the match was the single courier
+ versus multiple couriers.
+ So there is this thing in the game called the courier.
+ And what it does is that it brings items to your heroes.
+ In our, before the public match, before the last public match, we've had five couriers,
+ five invulnerable couriers which sent items to our heroes.
+ And as a result it allowed the bot to use a more aggressive strategy.
+ And people who watched the game, they felt that it wasn't quite the real thing.
+ So for TI, for a public match in late August, we switched to single courier.
+ Now here's a fun, here's an interesting fact.
+ We've only had five days of training with a single courier before the, before the biggest
+ public matches.
+ And despite that it did very sensible things.
+ But probably with a few more weeks of training, with a larger model, it will do a lot better
+ still.
+ So our remaining task is to decisively beat the best teams many times.
+ But the real conclusion here is that actually if you want to solve a hard problem with reinforcement
+ learning, you just can.
+ It's just going to work.
+ Just like supervised learning.
+ It's the same, the same, the same story exactly.
+ It was kind of hard to believe that supervised learning can do all those things.
+ It's not just vision.
+ It's everything.
+ And the same thing seems to hold true with reinforcement learning provided you have a
+ lot of experience.
+ You need a lot of experience.
+ That's an issue.
+ It needs to be fixed.
+ That is the situation right now.
+ Okay.
+ So this concludes the first sub part of the talk.
+ Now I want to switch to another result from OpenAEdit I'm really proud of.
+ And that's our robotics result.
+ So one of the issues of training agents in simulation with a huge amount of experience
+ is that you can say, "Well, but that can never possibly do useful things outside of that
+ simulation."
+ Well, here we addressed it a little bit.
+ The goal of this project was to get this robot hand to reorient this block.
+ And the way we did it is by training it in simulation in a clever way such that it will
+ transfer to the real world.
+ Now it's important to emphasize that our simulation is imperfect.
+ We don't model friction very well.
+ We don't model a lot of things.
+ There are many things about the physical hand which we don't know how to measure.
+ I will describe to you once the point of this part of the talk is to tell you about a very
+ simple idea that seems to work.
+ One other nice thing about our approach is that we were able to apply to multiple objects.
+ We were also able to rotate this octagonal prism and not just the block.
+ The core idea that made it work is called domain randomization.
+ It's not a new idea.
+ People were working on this idea for a long time.
+ What we've shown is that this idea works really, really well.
+ The idea of domain randomization is this.
+ If there is something in your simulation which you can't measure, you randomize it and you
+ require your policy to be able to solve it for any value of the randomization.
+ So what do I mean by that?
+ Let's say that we don't know what the friction should be because we just don't have a good
+ way of measuring that.
+ What we will do is that we will say that our policy needs to solve the problem regardless
+ of the value of the randomization.
+ I'm going to put it in a simulated world and the policy doesn't know what the friction
+ is.
+ It needs to interact with the world to quickly figure it out and deal with it.
+ So that's domain randomization.
+ It's that simple.
+ We also did it for perception as well.
+ So here we have, these are examples of the synthetic images that the camera has seen
+ which takes, you see the robot hand has different colors and different backgrounds and lightings
+ and all that.
+ And if you can deal with all that, then you can probably deal with the real world.
+ That's it.
+ That's the idea of domain randomization.
+ It's not a new idea.
+ The thing that's interesting is that it worked.
+ And especially that it worked in with the physics.
+ And we randomized some tens of numbers of variables and I want to show you a nice graphics
+ of how it looked like, oh yeah, there was something really cool that we did.
+ And that is we were able, I want to tell you about the way we trained the perception module.
+ So we designed the system in such a way that we have a controller which trains, which takes
+ as inputs the coordinates so it doesn't get to see the image.
+ Now there is an advantage to training your simulated policy without vision is that you
+ don't need to render images so you can get a lot more experience and train much better.
+ So how do you include vision?
+ So we trained a separate neural network which takes images and produces a prediction.
+ And then we required that that policy which was trained with the true state, with the
+ correct state, also sometimes use the prediction by the convolution, by the perception module.
+ So instead of using the true state, it would sometimes use that and just, and it was able
+ to learn to adapt to this kind of inputs very easily.
+ So the point is you were able to factorize the training of the control and perception
+ and that allowed us to save a lot of compute.
+ And then when it's done, you just give it the real images and you give it the real state
+ estimation of the fingertip locations, you feed it to the LSTM and you get the actions
+ and the whole thing works.
+ And fixing all the bugs here was challenging as well, things like latency mattered a lot,
+ the speed of the computer that runs the LSTM policy, we were surprised to observe a speed
+ up when we changed the computer which would run the policy to a slightly faster computer
+ so then the neural network run faster, the latency was reduced.
+ But the idea is simple, domain randomization.
+ If your simulation is different from the real world, you just randomize the thing you don't
+ know and you require that your policy deals with all these values and this idea goes surprisingly
+ far.
+ It's not a new idea, it just turns out that it's a good idea.
+ So the way we've trained both the Dota bot and the controller which manipulated the block
+ was done using rapid reinforcement learning infrastructure.
+ And it actually, there's a lot of shared code between the Dota bot and the robot training
+ and the code which trained the manipulation policy in Dactyl, there are obviously some
+ differences as well, but it turns out that because it's so hard to write good scalable
+ reinforcement learning code, it's worth reusing it.
+ So that was nice.
+ Oh yeah, I got another cool picture which shows you the three different cameras that look
+ at the location of the block, so you got these three cameras, they look at the block and
+ that's how they estimate its location.
+ Got a few more images of the vision architecture which just takes the three cameras, runs them
+ through a neural net and outputs the positions and the control policy which is basically
+ an LSTM.
+ It's pretty amazing how simple all these architectures are.
+ If you want to use vision, you just do a cognitive, it's always going to work.
+ So this is the, so this concludes the part about our dexterous manipulation results.
+ Now I want to switch to talking about our language understanding result with unsupervised
+ learning and I want to tell you the fundamental thing about this result which is all you do
+ is you train a very good language model and then you find you need to language tasks,
+ to language understanding tasks and you get a big improvement, a very big improvement
+ over state of the art in many cases.
+ That's it.
+ It's the original idea of pre-training and fine-tuning actually working.
+ The trick was to have a sufficiently good language model.
+ That's quite nice.
+ I want to show you, give you a sense of the improvements so you can see that on many,
+ so these are a bunch of different tasks.
+ The left column shows the before and the right column shows the after and the number on the
+ right is almost always larger and sometimes by a large margin and you may not be able
+ to see it all but these, so let me show, so these three rows show you the three tasks
+ of the improvement from our model was the largest and these are tasks that require multi-sentence
+ reasoning and understanding.
+ I'm going to go over this example just to give you an idea of what is required.
+ The example says Karen was assigned a roommate her first year of college, her roommate asked
+ her to go to a nearby city for a concert, Karen agreed happily, the show was absolutely
+ exhilarating and then one, Karen became good friends with her roommate, Karen hated her
+ roommate, which is more likely, it's that kind of thing and just training a very good
+ language model, fine-tuning it on this task, big improvement of a state of the art and
+ there's every reason to believe that if you train even bigger and better language models
+ the gap will increase even further and I'll tell you a little bit about the details.
+ The model was a transformer, I won't elaborate on the details of that but I will say that
+ I think it's one of the most important innovations in neural nets architectures in the past few
+ years.
+ The data set is a large corpus of books, the size of the context is 512, so in other words
+ the language model gets to look at the previous 500 words, which is a nice context and it's
+ been trained on 8 P100s for one month and I want to tell you, to show you a little bit
+ about how the transformer was used, so you got this transformer which takes, so this
+ is a diagram of the transformer, there are some details but you can ignore it, it's like
+ details, so this part is the transformer details but if you're curious I recommend you look
+ up the paper, attention is all you need and then here we describe how we simply represent
+ the different problems and feed them to the transformer, we do a bunch of sensible things,
+ for example if you have a multiple choice question, you feed each, you feed the context
+ and the possible answer to the transformer, you feed the concatenations, you get your
+ three representations and then you pass them through a linear model and that's it, so really
+ simple stuff, it's just that if you have a really good language model, you can solve
+ language understanding tasks and if your language model is better, your language understanding
+ will be better as well, so that's nice, it looks like unsupervised learning is starting
+ to show signs of life, it's an encouraging result.
+ Next I want to switch to the following, to the last part of the presentation which is
+ look at the trend that you have right now and try to understand if the current AI boom can
+ reach all the way to AGI or not and what's the probability of that and the goal of this
+ part of the talk is really to make the case that it's hard to lower bound the place we
+ will be in let's say 5 to 10 years, it's very hard to lower bound that, the probability
+ of getting to AGI can no longer be discounted and here I want to talk about big technological
+ revolutions that's already happened in the past, so the book, there is a book called
+ Profiles of the Future by Arthur C. Clarke which is a really good book because it analyzes
+ many of these technological revolutions and it has lots of cool factors there and one
+ of the things that it concludes is that with every big technological revolution such as
+ the airplane, space flight and nuclear power, you had very vocal and very eminent detractors
+ people that felt that it's definitely impossible and for example with the airplane various
+ people said that it cannot be done and then it was when it was done the same people said
+ that well sure you can do it for one person but it will never be economically viable,
+ with space flight an interesting thing that happened there is a mistake which Arthur C.
+ Clarke calls failure of nerve where the U.S. analyzed the question of sending objects to
+ space and concluded that it's impossible because you need to build a 200 ton rocket, so the
+ Russians went on and built the 200 ton rocket and in fact the astronomer of the U.K. said
+ that space travel is author bilge one year before the sputnik went into space, so that's
+ pretty interesting, next I want to go and talk about the history of AI, when we looked
+ at the history of AI we discovered that our old understanding of the history of AI was
+ not accurate, so what is the old understanding of the history of AI, is that the field went
+ through a sequence of excitements and pessimisms about different technologies, so it was excited
+ about perceptrons, sorry symbolic systems and perceptrons, then expert systems and back
+ propagation that support vector machines, now we are excited about neural networks again
+ and then in the future we will be excited about something else again, but the reality
+ is a little different in the following way, so when Rosenblatt presented the perceptron
+ he was really excited about it and he made the following statements, he said, so that
+ was in 1959 and it's very interesting what these statements are, so specifically he said
+ that it's an embryo of an electronic computer that will be able to walk, talk, see, write,
+ reproduce itself and be conscious of its existence, later perceptrons will be able to recognize
+ people and call out their names and instantly translate speech in one language to speech
+ and writing in another language, it was predicted, so that was 1959, so Rosenblatt became really
+ popular with the popular press and he got all the funding, so then Minsky and Poppert got
+ really upset, so Poppert admits that they wanted to stop, they felt that this direction
+ was unpromising and they wanted to stop progress in this field, they admit that there was hostility
+ in their book when they wrote the perceptron and they felt that the claims that Rosenblatt
+ was making were misleading and they were taking the funding away and Minsky directly admits
+ that he was concerned that other areas of AI were not getting funding and they wanted
+ to make a case that in their book progress in neural networks is impossible and then
+ in the 80s computers became cheaper and the cheaper computer has increased interest in
+ artificial intelligence, sorry in neural networks and then in this context the back propagation
+ algorithm was invented and there is a funny quote from Minsky and Poppert about the back
+ propagation algorithm, "we have the impression that many people in the connectionist community
+ do not understand that back propagation is merely a particular way to compute the gradient
+ and have assumed that back propagation is a new learning scheme that somehow gets around
+ the basic limitations of hill climbing".
+ Another very interesting thing that happened is that, so let's see, where does it lead
+ us?
+ So then the alternative interpretation is that neural nets research and the wave of
+ neural nets that we see right now is not a 5 year wave, it's a 60 year wave starting
+ with the perceptron and as computers getting better the results became more impressive.
+ In the early 90s we already had TD Gammon which was a self-play reinforcement learning
+ system which was able to be the best humans in Beckerman and one interesting fact about
+ TD Gammon by the way is that the total compute that was required to produce TD Gammon is
+ equivalent to 5 seconds over Volta.
+ So now that we have the alternative, the other interpretation of the history of AI, in other
+ words that neural nets have been the one persistent thread in the history of the field which has
+ been growing and getting better as computers have been increasing.
+ Now I want to survey a sequence of results over the past 5 years and to see how they
+ changed our beliefs as to what's possible and what's not possible.
+ So with the original AlexNet results, before that result it wasn't really believed that
+ neural nets can do anything and obviously they can't do vision and it would be totally
+ crazy that neural nets could solve hard problems and by the way one cool thing is the image
+ here which I got from Antonio Torralba which shows the performance of vision systems before
+ neural networks.
+ So do you see this little red rectangle?
+ So it thinks that it's a car because here it is zoomed in and here is how it looks like
+ when you apply, once you apply the HOG, the HOG vision transformer, the HOG feature transformer.
+ So it didn't work and it wasn't going to work and then it turns out that a large convolutional
+ neural network with supervised learning can do pretty well in vision.
+ Then with DQN, okay fine so maybe you can do vision but it then turned out that you
+ can take neural nets and turn them into agents that learn to achieve goals and what that
+ did is that it gave everyone, researchers the idea that it makes sense and it's a sensible
+ question to, it's a sensible research direction to give neural networks the goal, to use neural
+ networks to build agents that achieve goals.
+ Now after vision came neural machine translation and the belief was sure you can do perception
+ but you can't do things like translation, I mean come on, that requires tens of thousands
+ of lines of complicated code and various state machine algorithms and graph algorithms but
+ it turns out that no, if you just use a big neural net correctly you can just do it.
+ Then AlphaGo arrived and before AlphaGo the kind of belief you had about reinforcement
+ learning is that it's actually not good for anything, it only solves tiny toy problems
+ but now with AlphaGo it turns out that reinforcement learning in the form of multicolored research
+ can solve a very difficult task, a truly difficult task.
+ After the CEO OpenAI 5 we'll find sure you can solve something like computer go because
+ you have a small action space, the game is discrete, it's nothing like the real world,
+ sure you can't solve a game like Dota or Starcraft which is continuous and messy and more similar
+ to the real world but it turns out that if you just scale up reinforcement learning you
+ can do it no problem.
+ Okay so fine, so maybe we can do things in simulation but you definitely can't take things
+ outside of the simulation because you need so much experience inside the simulation,
+ how can you possibly use these algorithms outside but it turns out that if you change the simulation
+ a little bit you can in fact transfer skills from inside the simulation to outside as we've
+ shown in our work on the Dactyl robot.
+ Okay so then you can say well fine, so maybe you can achieve goals whenever you have a
+ cost function that clearly describes what you want to do, so in supervised learning
+ you want to minimize your training error, in reinforcement learning you want to maximize
+ the reward but you can't possibly do unsupervised learning, that would be too much but it turns
+ out that you can do unsupervised learning as well if you simply train a very large neural
+ network to predict the next beat of your signal and so far we've shown it for language, it
+ needs to be shown for other domains as well.
+ Finally I want to talk about the underlying trend that was powering it all and that's
+ the compute trend.
+ So it is pretty remarkable that the amount of compute from the original AlexNet result
+ to alpha goes zero is 300,000X and you're talking about five year gap.
+ Those are big increases, it's a three and a half months doubling time.
+ And I want to show you a visualization of the scale.
+ So this shows all the different results and we are basically zooming out with the scale
+ so you see, let's see, yeah it took a while, we've included some of the early results from
+ the 80s so that's why it took a while to get to the point where you know the dropout net
+ and AlexNet are even shown, you can see their end but it keeps going, then you have
+ the SIG to SIG compute is becoming small, the VGG compute is becoming small but it keeps
+ going.
+ So that gives you a sense of the increase in compute that occurred over the past five
+ years and finally we get to a point where even alpha goes zero starts being visible.
+ Now a lot of it is being powered by data center computing, in other words there are limits
+ to the amount of compute you can put on a single chip but then you just get many chips
+ together and that's going to be more important moving forward and I think that one thing
+ that will probably happen is that just like with the very large rockets, the rocket that
+ the Russians built in order to go to space, it will be important to have very large clusters
+ in order to get to the truly large amounts of compute but it's probably going to happen.
+ So to conclude, the point of this part of the talk was to show that while highly uncertain,
+ it's not possible to determine a lower bound to progress in the near term and maybe the
+ current wave of progress will actually lead us to AGI and what it means is that it's worth
+ proactively thinking about the risks, about addressing questions like machines pursuing
+ misspecified goals, machines subverted by, deployed systems subverted by humans and just
+ general, very rapid change, out of control economy, these are good questions to think
+ about and that's all I have to say, thank you very much.
+ Thank you, we have time for some questions and answers now, there are microphones at
+ both sides of the room so the people on YouTube and remote sites can hear, please go to the
+ microphone if you have a question.
+ I mean the precise statement is that supervised learning can solve any problem that a human
+ can solve in a fairly small number of seconds.
+ Hi, I'd like to ask a question about your thoughts on safe reinforcement learning and
+ what directions of safe reinforcement learning dealing with huge imbalances in datasets when
+ you have high importance examples, what directions do you think are interesting and worth pursuing?
+ So you asked about safe reinforcement learning and data imbalance, so I mean I think when
+ it comes to, so let me answer the easier question first, data imbalance there are lots of standard
+ tools, lots of approaches you could do which are pretty standard, you could train a small
+ model that will try to recognise the important examples which you can then feed to the large
+ model, things like this and this has already been done, in terms of safe reinforcement
+ learning I think that the kind of work that we do is for example learning reward functions
+ and preferences from human feedback, that is one example of an area which we've pursued
+ and other good areas include basically safe exploration would be another one, we try to
+ limit the change to the environment as you explore, this would be another example.
+ Over there.
+ Very nice talk, thank you.
+ So I'm curious, you mentioned some of the criticisms of deep learning over the years
+ and I'm wondering, so sample complexity I guess is one big issue, I'm curious, a critic
+ today might say it's horrendously sample inefficient, what are some things that you see and is that
+ even an issue or what are some things that you think might address that, thank you.
+ So I think some, so there's no, so sample complexity is an important issue which has
+ to be addressed, there's no question about it and some of the more promising ideas right
+ now look like transfer learning and training your system on other tasks, so for example
+ with the language results which I presented, you train a big neural net on to predict the
+ next word in a very large text corpus and by doing that you greatly reduce the sample complexity
+ of this model for other language tasks, so this is an example of how you might go about
+ doing that, yeah.
+ An argument that the critic could make is that the problems where you have shown the
+ best results so far are problems where there is high signal to noise, do you have any thoughts
+ on other areas where you have worse signal to noise?
+ Can you give an example?
+ Medicine.
+ Medicine, yeah, so in order to move to environments like this several things will need to happen,
+ we will need to be good at, we will need to get really good at unsupervised learning and
+ we will need to get really good at inventing or discovering reward functions for ourselves
+ which you could then optimize, so in other words once the agent can choose a sensible
+ looking reward function for itself and optimize that, it will both gain skill and gain new
+ data for its unsupervised understanding.
+ Thanks for the talk, one thing you mentioned was that in vision people seem to have really
+ converged on deep conv nets as kind of the one architecture that can solve basically
+ all the problems that you run into, we haven't really seen that with sequence models, you
+ guys use LSTMs in some places, transformers in other places, they are also the sequence
+ convolution models, do you think there is going to be a similar convergence for sequence
+ models or are we going to continue to have kind of a zoo of different things and what
+ is going to work best is going to depend on the application.
+ It's hard to predict that, I think it's definitely possible that there may be, I mean it feels,
+ so I think it's very possible that there will be several alternative architectures for,
+ for sequences, I mean to be fair even for images you have new candidate architectures
+ like the image transformer which may potentially become a more dominant architecture than the
+ convolutional, than the conventional convolution.
+ So I think in some sense, yeah, I mean there is a chance we will have some, let's say two
+ or three alternatives, but on the other hand it's only three alternatives, not so many.
+ Hi, in the case of the deep queue learning, I remember there was a result from several
+ years ago that they couldn't solve the roulette problem, right, because if it has no understanding
+ that the roulette wheel has to be balanced just from the samples you are always going
+ to think that some piece is lucky for a period of time.
+ So I'm just curious just in general, do you think that there's, that's not really like
+ an issue anymore in terms of with enough samples you can learn the rules of the universe or
+ do you have to still code some of those in for cases where the rewards are like really
+ almost designed to be, you know, to have high enough variance where it's difficult to learn
+ it, you know, just by averaging the outcomes.
+ Yeah, so I can talk about the, you know, your broader question, I haven't heard, I didn't
+ really understand what you meant by the roulette problem.
+ Okay, I can explain it very quickly, so this was the example for the double queue learning
+ network and their point was that they actually proved in that paper that with regular queue
+ learning, you know, basically the outliers are such that if you don't know the properties
+ of the roulette wheel that every single point has to be the same and random, if you just
+ treat the roles of the roulette wheel as independent variables then, you know, no matter for how
+ long you run, you're just always going, it's just never going to come up with the answer
+ that all the numbers are negative.
+ There's always a long enough, sorry I'm explaining this poorly, but you know.
+ So I mean, so it sounds like, and the question is, but then the question is something broader.
+ The question was, and therefore, sparse rewards, I didn't quite understand the question.
+ Yeah, well, I'm saying you solved that problem very easily by just sort of specifying that
+ all the points have to, you know, have to sort of have the same underlying probability,
+ but without coding that in, if you just look at them independently just from, you know,
+ you can have an infinite number of samples and you never really learn that all the numbers
+ are negative.
+ Yeah, so you definitely want to, in the long term, in the long run, you want to be in a
+ place where you don't hard code because the set of problems you want to solve is so vast
+ that I don't see how humans would be able to hard code useful things.
+ You know, if you have been able to hard code something useful like the convolution or the
+ recurrent net, that's pretty useful.
+ It's also very general.
+ Like you do want to hard code very general assumptions.
+ You want your model to, models to make use of all available information.
+ And the way you will probably deal with very, you know, situations where you don't know
+ what's going on is by benefiting from other sources of information.
+ That's what people do.
+ When we approach a new problem, we don't start from scratch.
+ We have all our life experience and when things are confusing, we try to go to Google and
+ talk to someone else.
+ And that will be at a high level, the way we will deal with totally new domains.
+ But I think that it is definitely desirable not to hard code things because it makes life
+ easier and it just seems unlikely to me that we will be smart enough to be able to hard
+ code things for the truly difficult problems.
+ So I'm also, probably speaking, bearish on this approach.
+ Yeah, no, I completely agree.
+ That's just a funny example of games.
+ You know these things are independent, but it's hard for the algorithm to learn that.
+ In real life, you actually don't know, right?
+ Yeah.
+ So I haven't, I'll need to look in this example in detail to form a definite opinion.
+ Thank you.
+ Hello, thank you for the talk.
+ What's the next hardest game in your opinion?
+ Is there anything that reinforcement learning can't learn?
+ I mean, there's definitely things that reinforcement learning can't learn.
+ I mean, one of the downsides of the way we've learned DOTA is that we needed millennial
+ experience.
+ So while you can learn very hard problems, if you're willing to gather sufficient experience,
+ how do you do that with less experience?
+ I think that is a better description of the challenges that are coming next.
+ In terms of solving hard games, I mean, I don't think that if you don't restrict the
+ amount of experience you get, I don't think that there are games that are really worth
+ solving.
+ Hi.
+ So, RLs have been used in NLP but not with that much success, like in abstract or summarization
+ and things like that.
+ So what is your general view about that and what, according to you, is a good task in
+ NLP where RLs can be used?
+ Sorry, what has not been used in RL?
+ In NLP?
+ In natural language processing.
+ I'm saying that, reinforcement learning.
+ I see.
+ Yeah.
+ So what, according to you, is like why is that the case and what would be a good task
+ in NLP for RL, to be solved by RL?
+ Yeah.
+ I mean, I think that makes sense.
+ See, RL requires that you can figure out the reward function and that you have an environment
+ and in NLP you don't have both.
+ So I think things like, let's say, like assistance, like dialogue systems, they can benefit from
+ RL.
+ Or for example, you know, have you seen the Google Duplex?
+ Like that's the kind of thing where you can say, hey, like, yeah, you have 10,000 people
+ talking to your system and, you know, if the system makes a mistake or doesn't do what
+ it's required, they press a button to give it a negative reward.
+ That would be an example.
+ Okay, so you are positive about using either NLP?
+ I mean, for sure.
+ For sure.
+ I just think it will be, it will look a little different from the current applications.
+ And in particular, I don't think that, so NLP is mostly data set driven.
+ So where is the RL?
+ So you need to move away from the data set.
+ You need to have an environment.
+ So you either have agents talking to each other, but then they won't talk real language,
+ or you have agents talking to humans.
+ But then it's just logistically difficult and only there aren't that many research labs
+ that could do it.
+ Okay.
+ Thank you.
+ Okay.
+ If there are no more questions, let's thank Oye again for his talk.
+ And I'd like to give him a little something to thank him for taking his valuable time
+ and sharing his thoughts with us.
+ Oh, thank you very much.
+ You're welcome.
+ Cool.
+ [laughter]

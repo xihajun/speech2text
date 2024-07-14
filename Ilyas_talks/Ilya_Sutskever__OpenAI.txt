@@ -1,0 +1,574 @@
+ So, about half and half. So, we do this every week. We try to get a fantastic speaker every week just like this week.
+ And so, why don't you just make it a regular habit to set aside the Wednesday afternoon and come and learn something.
+ It's not always in the same field. You learn about different fields so that when you graduate, you're actually a person of all seasons.
+ And you can face up to any kind of a challenge. And so, it's an entire education, even for the professors, it's an education to attend colloquium every week.
+ Always learn something new. So, to introduce the speaker, let me ask Peter Avila.
+ Hi, everyone. It's a great pleasure to introduce Ilya Tsitskever. Ilya did his PhD at the University of Toronto working with Jeff Hinton.
+ Then from there, went on to do a post-hoc at Stanford, then founded a company, got acquired by Google.
+ From there, founded OpenAI, the AI Institute in San Francisco, largely funded by Elon Musk.
+ And along the way, Ilya has written a lot of the papers that a lot of us are building up on these days.
+ For example, Ilya's paper on ImageNet from 2012, the first big deep learning results for image recognition sparked the whole activity in the field.
+ After that, papers on more specifics on how to do this drop out.
+ Also, paper on sequence-to-sequence that showed that actually deep learning works for discrete objects like language, namely, established new state-of-the-art machine translation.
+ Some of the learning to execute papers for neural Turing machines. And more recently, a lot of meta-learning and reinforcement learning work.
+ One of the, I think, most notable things is that, even though Ilya is still super young, it turns out that just in 2017, his papers were cited 20,000 times, just in one year.
+ Please join me in welcoming Ilya.
+ Thanks for the introduction, Peter. Okay, so thanks for stopping by my talk. I will give you an overview of some of the work that we've done at OpenAI over the past year.
+ And this is like a narrow subset that focuses, the talk will be a subset of that work focusing on meta-learning and self-play, which are two topics I like very much.
+ But I've been told that this is a more, slightly broader, a little bit more of a general interest talk, so I want to begin the presentation by talking a little bit about why deep learning actually works.
+ And I think it's not a self-evident question why deep learning works. It's not self-evident that it should work.
+ And I want to give some perspective which I think is not entirely obvious on that.
+ So one thing that you can actually prove mathematically, that the best possible way of generalizing that's completely unimprovable is to find the best short program that explains your data and then use that to make predictions.
+ And you can prove that it's impossible to do better than that. So if you think about machine learning, you need to think about concept classes. What are you looking for, given the data?
+ And if you're looking for the best short program, it's impossible to generalize better than that. And it can be proved, and the proof is not even that complicated.
+ And the intuition of it basically is that any regularity that can possibly exist is expressible as a short program. If you have a piece of data which cannot be compressed via the slightly shorter program, then that piece of data is totally random.
+ So you can take my word on it that it therefore follows that short programs are the best possible way to generalize, if only we could use them.
+ The problem is, it is impossible to find the best short program that describes the data. At least given today's knowledge, the computational problem of finding the best short program is intractable in practice, undecidable in theory.
+ So no short programs for us. But what about small circuits? Small circuits are the next best thing after short programs, because a small circuit can also perform non-obvious computation.
+ If you have a really deep, really wide circuit, maybe, you know, many, many thousand layers and many millions of millions wide, you can run lots of different algorithms on the inside. So it comes close. It comes close to short programs.
+ And extremely fortunately, the problem of finding the best small circuit given the data is solvable with backprop. And so basically what it boils down to is that we can find the best small circuit that explains the data.
+ And small circuits are kind of like programs, but not really. They are a little bit worse. It's like finding the best parallel program that runs 400 steps or less, 50 steps, that solves your problem.
+ And that's where the generalization comes from. Now, we don't know why, we don't know exactly why backpropagation is successful at finding the best short circuit, given your data.
+ It's a mystery and it's a very fortunate mystery. It powers all the progress that we've made in, all the progress that's been made in artificial intelligence over the past six years.
+ So I think there is an element of luck here. We are lucky that it works.
+ One thing which I, one useful analogy that I like to make when thinking about generalization is that learning models that in some ways have greater computational power generalize better. So you could make the case that the deeper your neural network is, the closer it comes to the ultimate best short program, and so the better it will generalize.
+ So that tries to touch on the question of where does generalization come from. I think the full answer is going to be unknown for quite some time because it also has to do with the specific data that we happen to want to solve.
+ It is very nice indeed that the problems we want to solve happen to be solvable with these classes of models.
+ One other statement I want to make is that I think that the backpropagation algorithm is going to stay with us until the very end because the problem that it solves is so fundamental, which is given data, find the best small circuit that fits to it.
+ It seems unlikely that this problem, that we will not want to solve this problem in the future. And so for this reason I feel like backprop is really important.
+ Now I want to spend a little bit of time talking about reinforcement learning. And so reinforcement learning is a framework for describing the behavior of agents. You've got an agent which takes actions, interacts with an environment, and receives rewards when it succeeds.
+ And it's pretty clear that it's a very general framework. But the thing that makes reinforcement learning interesting is that there exist useful algorithms in reinforcement learning.
+ So in other words, the algorithms of reinforcement learning make the framework interesting. Even though these algorithms have still a lot of room for improvement, they can already succeed in lots of non-obvious tasks.
+ And so therefore it's worth pushing on these algorithms. If you make really good reinforcement learning algorithms, perhaps you'll build very clever agents.
+ And so the way the reinforcement learning problem is formulated is as follows. You have some policy class where policy is just some function which takes inputs and produces actions. And for any given policy you can run it and you can figure out its performance, its cost.
+ And your goal is just to find the best policy that minimizes cost, maximizes rewards.
+ Now one way in which this framework formulation is different from reality is that in reality the agents generate the rewards to themselves.
+ And the only true cost function that exists is survival.
+ So if you want to build any reinforcement learning algorithm at all, you need to represent the policy somehow.
+ So how are you going to represent anything? The answer is always through using a neural network.
+ The neural network is going to take the actions and take the observations and produce actions.
+ And then for a given setting of the parameters you could calculate how good they are and then you could figure out how to compute the way to change these parameters to improve the model.
+ So if you change the parameters of the model many times and make many small improvements, then you may make a big improvement.
+ And very often in practice the improvement ends up being big enough to solve the problem.
+ So I want to talk a little bit about how reinforcement learning algorithms work.
+ The modern ones, the model-free ones, the ones that everyone uses today.
+ And you take a policy and you add a little bit of randomness to your actions somehow.
+ So you deviate from your usual behavior.
+ And then you simply check if the resulting cost was better than expected.
+ And if it is, you make it more likely.
+ By the way, I'm actually curious. How many people are familiar with the basics?
+ Please raise your hand.
+ Okay, so the audience here is informed so I can skip through the introductory parts.
+ Don't skip too much.
+ Alright. I'll skip on you a little bit.
+ But the point is you do something randomly and you see if it's better than usual.
+ And if it is, do more of that and repeat this many times.
+ So in reinforcement learning there are two classes of algorithms.
+ One of them is called policy gradients, which is basically what I just described.
+ And there is a beautiful formula above which says that if you just take the derivative of your cost function
+ and do a little bit of math, you get something which is exactly as described.
+ Where you just take some random actions with a little bit of randomness.
+ And if the result is better than expected, then increase the probability of taking these actions in the future.
+ Then there is also the Q-learning algorithm, which is a little bit less stable, a little bit more sample efficient.
+ I won't explain in too much detail how it works, but it has the property that it is off-policy.
+ Which means that it can learn not just from its own actions.
+ And I want to explain what it means.
+ On-policy means that you can only learn at all if you are the one who is taking the actions.
+ While off-policy means that you can learn from anyone's actions.
+ It doesn't just have to be your own.
+ So it seems like a more useful thing.
+ Although it's interesting that the algorithm which is more stable, the stable algorithms tend to be policy gradient based.
+ The one policy ones.
+ The ones that the Q-learning which is off-policy is also less stable.
+ At least as of today, things change quickly.
+ Now I'll spend a little bit of time illustrating how Q-learning works.
+ Even though I think this may be familiar to many people.
+ And basically we have this Q-function which tries to estimate for a given state and a given action how good or bad the future is going to be.
+ And you have this trajectory of states because your agent is taking many actions in the world.
+ It's relentlessly pursuing a goal.
+ Well, the Q-function has this recursive property.
+ Where the Q-function of SA is basically just the Q-function of S'A' plus the reward you got earlier.
+ So you got this recursivity.
+ And you can use this recursivity to estimate the Q-function.
+ And that gives you the Q-learning algorithm.
+ And I won't explain why it's off-policy.
+ All you need is to, for the purposes of this presentation, just take my word for it.
+ And now, what's the potential here? Why is this exciting?
+ So yes, the reinforcement learning algorithms that we have right now, they are very sample-inefficient.
+ They are really bad at exploration yet, although progress is being made.
+ But you can kind of see that if you had a really great reinforcement learning algorithm that would be just really data-efficient
+ and explore really well and make really good use of lots of sources of information,
+ then we'd be in good shape in terms of building intelligent agents.
+ But we still have work to do.
+ We still will be data-inefficient.
+ So now I want to talk a little bit about meta-learning, which will be an important part of this talk.
+ And I want to explain what it is.
+ So there is the abstract, the dream of meta-learning, the abstract idea.
+ That meta-learning is the idea that you can learn to learn,
+ kind of in the same way in which biological evolution has learned the learning algorithm of the brain.
+ And spiritually, the way you approach this problem is by training the system not on one task, but on many tasks.
+ And if you do that, then suddenly you've trained your system to solve new tasks really quickly.
+ So that would be a nice thing if you could do that.
+ It would be great if you could learn to learn.
+ We wouldn't need to design the algorithms ourselves.
+ Use the learning algorithm that you have right now to do the rest of the thinking for us.
+ You're not quite there yet, but meta-learning has had a fair bit of success.
+ And I just want to explain the dominant, the most common way of doing meta-learning.
+ The most common way of doing meta-learning is the most attractive one,
+ where you basically say that you want to reduce the problem of meta-learning to traditional deep learning.
+ Where you basically take your familiar supervised learning framework
+ and you replace each data point with a task from your training set of tasks.
+ And so what you do is that all these algorithms have the same kind of high-level shape,
+ where you have a model which receives information about the task plus a task instance,
+ and it needs to make the prediction.
+ And it's pretty easy to see that if you do that, then you will train a model
+ which can receive a new description of a task and make good predictions there.
+ And there have been some pretty successful, compelling success stories,
+ and I'll mention some of them.
+ A lot of meta-learning work was done in Berkeley as well.
+ But I'll mention some of the visual ones, the early ones that I think are notable,
+ because you see this task right here, I took this figure from a paper by Brendan Lake et al.
+ But I think the data set came earlier, so this isn't the right citation.
+ But one of the criticisms of, one of the ways in which neural nets were criticized is that they can't learn quickly, which is kind of true.
+ And a team in Josh Tenenbaum's lab had developed this data set,
+ which has a very large number of different characters and a very small number of examples for each character,
+ specifically as a challenge for neural networks.
+ And it turns out that the simple meta-learning approach where you just say
+ that I want to train a neural network that can learn to recognize any character really quickly,
+ that approach works super well, and it's been able to get superhuman performance.
+ And as far as I know, the best performance is achieved by Mishra et al., and I believe it's worked on with Peter.
+ And it's basically superhuman. It's just a neural net.
+ So meta-learning sometimes works really well.
+ There is also a very different take on meta-learning, which is a lot closer to the approach of
+ instead of learning the parameters of a big model, let's learn something compact and small, like the architecture.
+ Or even the algorithm, which is what evolution did.
+ And here you just say, why don't you search in architecture space and find the best architecture?
+ This is also a form of meta-learning. It also generalizes really well because this work,
+ if you learn an architecture on a small image data set, it will work really well on a large image data set as well.
+ And the reason it generalizes well is because the amount of information in an architecture is small.
+ And this is work from Google by Zopp and Lee.
+ So meta-learning works. Sometimes there are signs of life.
+ The promise is very strong. It's just so compelling.
+ You just set everything right and then your existing learning algorithm will learn the learning algorithm of the future.
+ That would be nice.
+ So now I want to dive into a detailed description of one algorithm that we've done.
+ It's called Hindsight Experience Replay.
+ And it's been a large collaboration with many people, driven primarily by Andriy Kovacharov.
+ And this is not exactly meta-learning. This is almost meta-learning.
+ And basically what happened there is that the way to think about what this algorithm does is that you try to solve a hard problem by making it harder.
+ And as a result, it becomes easier.
+ And so you frame one problem into the context of many problems.
+ You have very many problems that you're learning to solve simultaneously.
+ And that makes it easy.
+ And the problem here is basically a combination of exploration where, in reinforcement learning, we need to take the right action.
+ If you don't take the right action, you don't learn.
+ If you don't get rewards, how can you improve?
+ All your effort that doesn't lead to reward will be wasted.
+ It would be nice if you didn't have that.
+ And so if our reward is sparse, if we try to achieve our goal and to fail, the model doesn't learn.
+ So how do we fix that?
+ So it's a really simple idea. It's super intuitive.
+ You basically say you have the starting point.
+ You try to reach the state A, but you reach the state B instead.
+ And so can we learn something from this?
+ Well, we have a trajectory of how to reach the state B.
+ So maybe we can use this flawed attempt at reaching A as an opportunity to learn the state B.
+ And so this is very correct directionally.
+ It means that you don't waste experience, but you need an off-policy algorithm in order to learn it.
+ And that's why I've emphasized the off-policy stuff earlier, because your policy tries to reach A.
+ But you're going to use this data to teach a different policy which reaches B.
+ So you have this big parameterized function, and you just simply tell it which state you reach.
+ It's super straightforward, and it's intuitive, and it works really well, too.
+ Hindsight, experience, replay.
+ So I'm going to show you the video. It's pretty cool.
+ And so in this case, the reward is very sparse in binary.
+ I should just say, because the reward is sparse in binary, this makes it very hard for traditional reinforcement learning algorithms,
+ because you never get to see the reward.
+ If you were to shape your reward, perhaps you could solve these problems a little bit better,
+ although we still found it, you know, when the people that were working on this tried it, they still found it difficult.
+ But this algorithm just works on these cool tasks, and the videos look cool.
+ So let's keep watching.
+ You get these very nice, confident-looking movements from the hindsight, experience, replay algorithm.
+ And it just makes sense. Like, any time something happens, we want to learn from it.
+ And so we want this to be the basis of all future algorithms.
+ Now, again, this is in the absolutely sparse binary reward setting,
+ which means that the standard reinforcement learning algorithms are very disadvantaged.
+ But even if you try to shape a reward, one thing that you discover is that shaping rewards is sometimes easy,
+ but sometimes quite challenging.
+ And here is the same thing working on real physical blocks.
+ Okay, so this basically sums up the hindsight, experience, replay results.
+ Can you tell us what acronym is represented by HGR?
+ Hindsight, experience, replay.
+ And what you can see is that one of the limitations of all these results is that the state is very low-dimensional.
+ And if you have a general environment with very high-dimensional inputs and very low histories,
+ you've got the question of how do you represent your goals.
+ And so what it means is that representation learning is going to be very important.
+ And unsupervised learning probably doesn't work yet, but I think it's pretty close.
+ And we should keep thinking about how to really fuse unsupervised learning with reinforcement learning.
+ I think this is a fruitful area for the future.
+ Now I want to talk about a different project on doing transfer from sim to real with meta-learning.
+ And this work is by Peng et al., and multiple people who did this work are from Berkeley.
+ Unfortunately I don't have the full list here.
+ So it would be nice if we could train our robots in simulation and then deploy them on physical robots.
+ Simulations are easy to work with.
+ But it's also very clear that you can't simulate most things.
+ So then can anything be done here?
+ And I just want to explain one very simple idea of how you could do that.
+ And the answer is basically you train a policy that doesn't just solve the task in one simulated setting,
+ but it solves the task in a family of simulated settings.
+ So what does it mean?
+ You say, okay, I'm going to randomize the friction coefficients and gravity
+ and pretty much anything you can think of, the length of your robotic limbs and their masses and the frictions and sizes.
+ And your policy isn't told what you've done.
+ It needs to figure it out by interacting with the environment.
+ Well, if you do that, then you'll develop a robust policy that's pretty good at figuring out what's going on,
+ at least in these simulations.
+ And if this is done, then the resulting system will be much more likely
+ to generalize its knowledge from the simulation to the real world.
+ And this is an instance of meta-learning because in effect you're learning a policy
+ which is very quick at identifying the precise physics you're using.
+ So I would say this is a little bit, I mean, calling it meta-learning is a bit of a stretch.
+ It's more of a kind of a robust adaptive dynamic thing.
+ But it also has a meta-learning feel to it.
+ I want to show this video of the baseline.
+ So this is what happens when you don't...
+ This is what happens when you don't do this robustification of the policy.
+ So you try to get the hockey puck into the red dot and it just fails really dramatically.
+ It doesn't look very good.
+ And if you add these robustifications, then the result is a lot better.
+ Then it's like, you know, even when it pushes it around and it overshoots, it's just no problem.
+ So it looks pretty good.
+ So I think this toy example illustrates that the approach of training a policy in simulation
+ and then making sure that the policy doesn't solve just one instance of the simulation
+ but many different instances of it and figures out which one it is,
+ then it could succeed in generalizing to the real physical robot.
+ So that's encouraging.
+ Now I want to talk about another project by France et al.
+ And it's about doing hierarchical reinforcement learning.
+ So hierarchical reinforcement learning is one of those ideas that would be nice
+ if we could get it to work.
+ Because one of the problems with reinforcement learning, as it's currently done today,
+ is that you have very long horizons, which you have trouble dealing with.
+ And you have trouble dealing with that.
+ Exploration is not very directed, so it's not as fast as you would like.
+ And the credit assignment is challenging as well.
+ And so we can do a very simple meta-learning approach where you basically say
+ that you want to learn low-level actions which make learning fast.
+ So you have a distribution of the tasks and you want to find a set of low-level policies
+ such that if you use them inside the reinforcement learning algorithm,
+ you learn as quickly as possible.
+ And so if you do that, you can learn pretty sensible locomotion strategies
+ that go in a persistent direction.
+ And so here it is, the three policies, the high level,
+ and the system has been learned to find the policies that will solve problems like this.
+ And there is a specific distribution of this kind of problem that solves it as quickly as possible.
+ So that's pretty nice.
+ Now, one thing I want to mention here is one important limitation of high-capacity meta-learning.
+ So there are two ways to do meta-learning.
+ One is by learning a big neural network that can quickly solve problems in your distribution of tasks.
+ And the other one is by learning an architecture or an algorithm.
+ So you learn a small object.
+ So if you learn an architecture, if you learn an algorithm in a meta-learning setting,
+ it will likely generalize to many other tasks.
+ But this is not the case, or at least it is much less the case, for high-capacity meta-learning.
+ Where if you just want to, for example, train a very large recurrent neural network,
+ you want to learn a very large recurrent neural network that solves many tasks.
+ It will be very committed to the distribution of tasks that you've trained it on.
+ And if you give it a task that's meaningfully outside of the distribution, it will not succeed.
+ So as a kind of a slightly...
+ The kind of example I have in mind is, well, let's say you take your system and you train it to do math,
+ a little bit of math, and it teaches a little bit of programming, and you teach it how to read.
+ Could it do chemistry?
+ Well, not according to this paradigm, at least not obviously,
+ because it really needs to have the task to come from the same distribution of the training and in test time.
+ So I think for this to work, we will need to improve the generalization of our algorithms further.
+ Now I want to finish by talking about self-play.
+ Well, I think self-play is a really cool topic. It's been around for a long time, and I think it's really interesting and intriguing and mysterious.
+ And I want to start by talking about the very earliest work on self-play that I know of, and that's TD Gammon.
+ It was done back in 1992. It was by Tassaro, a single author work.
+ And in this work, they've used Q-learning with self-play to train a neural network that beats the world champion in backgammon.
+ So I think this may sound familiar in 2017 and 2018, but that's in 1992.
+ That's back when your CPUs were like, I don't know, 33 megahertz or something.
+ And if you look at this plot, you see it shows the performance as a function of time with different numbers of hidden units.
+ You see, okay, you have 10 hidden units, that's the red curve, and 20 hidden units is the green curve, all the way to the purple curve.
+ And yeah, it's basically nothing changed in 25 years, just the number of zeros and the number of hidden units.
+ And in fact, they've even discovered unconventional strategies that surprised experts in backgammon.
+ So that's just amazing that this work was done so long ago and it was looking forward into the future so much.
+ And this approach basically remained dormant. People were trying it out a little bit, but it really was revived by the Atari results of DeepMind.
+ And, you know, we've also had very compelling self-play results in AlphaGo Zero,
+ where they could train a very strong Go player from no knowledge at all to beating all humans.
+ Same is true about our Dota 2 results. It again started from zero and just did lots and lots of self-play.
+ And I want to talk a little bit about why I think self-play is really exciting.
+ Because you get things like this.
+ Self-play makes it possible to create very simple environments that support potentially unbounded complexity,
+ unbounded sophistication in your agents, unbounded scheming and social skills,
+ and seems relevant for building intelligent agents.
+ And there is work on artificial life by Carl Simms from '94.
+ And you can see that already there it looks very familiar. You see these little evolved creatures whose morphologies are evolved as well.
+ And here they are competing for the possession of a little green cube.
+ And again, this was done in 1994 on tiny computers.
+ And just like many, and just like other promising ideas that we are familiar with,
+ didn't have enough compute to really push them forward.
+ But I think that this is the kind of thing that we could get with large-scale self-play.
+ And I want to show some work that we've done just trying to revive this concept a little bit.
+ I'm going to show this video. This was work by Ben Sal et al. It was a productive summer internship.
+ There is a bit of music here. Let me turn it off.
+ Actually, maybe I can keep it on.
+ No, I can't. I can't.
+ But the point is, what's the point?
+ You've got this super simple environment, which in this case is just this sumo ring.
+ And you just tell the agents, you get a +1 when the other agent gets outside the ring.
+ And the reason I find this so...
+ Well, I personally like it because these things look alive.
+ Like they have this breadth of complicated behaviors that they learn just in order to stay in the game.
+ And so you can kind of see that if you let your imagination run wild, then...
+ Yeah, so this self-play is not symmetric.
+ And also these humanoids are a bit unnatural because they don't feel pain and they don't get tired.
+ And they don't have a whole lot of energy constraints.
+ Oh, it blocked it. That was good.
+ So that's pretty good too. So here you can guess what the goal is.
+ That was a nice dodge.
+ So this is an example. So one of the things that would be nice is that if you could take these self-play environments,
+ train our agents to do some kind of tasks from the self-play,
+ and then take the agent outside and get it to do something useful for us.
+ I think if that were possible, that would be amazing.
+ And here there is the tiniest of tests where we take the sumo wrestling agent and we just apply...
+ We put it isolated and alone inside the ring. It doesn't have a friend.
+ And we just apply big forces on it and see if it can balance itself.
+ And of course it can balance itself because it's been trained against an opponent trying to push it.
+ So it's really good at resisting force in general.
+ And so kind of the mental image here is that imagine you take a ninja and then you ask it to learn to become a chef.
+ Because the ninja is already so dexterous, it should have a really fairly easy time to be a very good cook.
+ That's the kind of high-level idea here. It hasn't happened yet.
+ But one thing I'd like to ask... yeah.
+ And so I think one of the key questions in this line of work is how can you set up a type of self-play environment
+ which, once you succeed, it can solve useful tasks for us which are different just from the environment itself.
+ And that's the big difference between games. In games the goal is to actually win the environment.
+ But that's not what we want. We want it to just be generally good at being clever and then solve our problems.
+ You know, do my homework type agent.
+ I want to show one slide which I think is interesting.
+ So one of the reasons... I would like to ask you to let your imaginations run wild and imagine that the hardware designers of neural nets
+ have built enormous giant computers and this self-play has been scaled up massively.
+ One thing that's notable that we know about biological evolution is that social species tend to be... tend to have larger brains, they tend to be smarter.
+ We know that this is true for any... it is very often the case that whenever you have two species which are related,
+ but one is social and one isn't, then the social one tends to be smarter.
+ We know that human biological evolution really accelerated over the past few million years probably because at that point,
+ well this is a bit speculative, but the theory here, my theory at least, is that humans became sufficiently competent with respect to their environment.
+ So they stopped being afraid of the lion and the biggest concern became the other human.
+ What do other humans think of you? What are they gossiping about you? Where do you stand in the packing order?
+ And so I think this kind of environment created an incentive for the larger brains.
+ And I was able, you know, as is often the case in science, it's very easy to find some scientific support for your hypothesis, which we did.
+ So there exists a paper in science which supports the claim that social environments stimulate the development of larger, cleverer brains.
+ And the specific evidence they present there is the convergent evolution in smart social apes and smart birds like crows,
+ who apparently they have similar cognitive functions even though they have very different brain structures.
+ Now I'm only 75% confident in this claim, but I'm pretty sure that birds don't have the same kind of cortex as we do.
+ Because the evolutionary split occurred a long time back in the past.
+ So I think it's interesting. I think this is intriguing at the very least.
+ But yeah, you could create a society of agents and just keep scaling it up and perhaps you're going to get agents that are going to be smart.
+ Now I want to finish with one observation about environments that are trained with self-play.
+ And this is a plot from the strength of our dotabot as a function of time going from April all the way to August.
+ And basically you just fix the bugs and you scale up your self-play environment.
+ And you scale up the amount of compute. And you get a very rapid increase in the strength of the system.
+ And it makes sense. In self-play environments, the compute is the data. So you can generate more of it.
+ So I guess I want to finish with the provocative question, which is if you have a sufficiently open-ended self-play environment,
+ will you get extremely rapid increase in the cognitive ability of your agents all the way to superhuman?
+ And on this note, I will finish the presentation. Thank you so much for your attention.
+ Before I start the question answering session, I want to say that one important thing I want to say is that many of these works were done
+ in collaboration with many people from Berkeley and especially Peter Abil. And I want to highlight that.
+ Okay, great. I wonder if you can show the last slide, because it seemed like it was a very important conclusion, but you went over it very quickly.
+ Yeah, so this is a very...it is a bit speculative. And it really is a question of...the specific statement here is that
+ if you believe that you're going to get truly smart human-level agents as a result of some kind of massive-scale self-play,
+ will you also experience the same kind of rapid increase in the capability of the agent that you see that we saw in our experience with Dota?
+ And in general, because you can convert compute into data, so you put more compute, this thing gets better.
+ So, I mean, that's sort of a general remark. Obviously, you compute more, you get better results, but I didn't quite grasp the difference between these two panels.
+ Well, so...so it's really a question of...so let's say it really boils down to this.
+ It's a question of what are the limits to progress in the fields and capabilities are.
+ Do the limits come from...like, in other words, given the right algorithms, which currently don't yet exist,
+ once you have them, how will the increase in the actual capability of the system look like?
+ I think there is definitely a possibility that it will be on the right side, that once you have...you know, you figure out your hierarchical reinforcement learning,
+ you figure out concept learning, you've got your own supervised learnings in good shape,
+ and then the massive neural net hardware arrives and you have a huge neural net, much bigger than the human brain.
+ This will happen. How will the plot look like over time?
+ So you're projecting that we've only seen the very beginning.
+ Okay, so let's throw it up to questions, and I see you already have your hand up.
+ Thank you for that. You mentioned hierarchy, and I'm wondering if you have an example of a hierarchical self-play that would, you know, increase the slope of this curve.
+ Yeah, so we don't have hierarchical...we have not tried hierarchical self-play.
+ This is more a statement from our experience with our Dota bot, where you start at basically losing to everyone and then your true skill metric,
+ which is like an ELO rating, just increased pretty much linearly and all the way to the best humans.
+ So that's...and I think this is a general...it seems like it could be a general property of self-play systems.
+ Which game was this? Dota. Dota. Yeah.
+ Okay, more questions?
+ Hey, Lea. Hey. Very nice talk. Thank you. I had a question on environments.
+ Do you have any thoughts on going beyond like sumo wrestling environments? What are good environments to study?
+ Well, these are the question of what makes a good environment.
+ So I think there are two ways of getting good environments.
+ One of them is from trying to solve problems that we care about, and they naturally generate environments.
+ I think another one is to think of open-ended environments where you can build...
+ So one of the slightly unsatisfying features of most of the environments that we have today is that they're a little bit not open-ended.
+ You've got a very kind of narrow domain, and you want to perform a task in this narrow domain.
+ But some environments which are very interesting to think about are ones where there is no limit to the depth of these environments.
+ And some of these examples include programming, math, even Minecraft.
+ In Minecraft, you could build structures of greater and greater complexity.
+ And, you know, at first people build little homes in Minecraft, then they build big castles,
+ and now you can find people who are building entire cities and even computers inside Minecraft.
+ Now, obviously, Minecraft has an obvious challenge, which is a problem, which is what do we want the agents to do there?
+ So it needs to be addressed, but kind of directionally, these would be nice environments to think about more.
+ This is sort of similar to that last question, but I was wondering what the effect, if you know, of complicated non-agent objects
+ and non-agent entities in the environment is on how well self-play works.
+ For instance, in the Sumo environment, the reason that the self-play agents can become very complex
+ and use very complex strategies is because that's necessary in order to compete against this other agent,
+ which is also using very complex strategies.
+ If instead you were working maybe not against another agent, but against a very simple agent that doesn't train,
+ but through some very complicated system you had to operate a lot of machines in this environment or something like that,
+ how does that affect the effectiveness of this?
+ Yeah, I mean, I think it depends a little bit on the specifics.
+ Like for sure that, you know, if you have a complicated environment or complicated problem was produced somehow,
+ then you will also need to develop a pretty competent agent.
+ I think the thing that's interesting about the self-play approach is that you generate the challenge yourself.
+ So the question of where does the challenge come from is answered for you.
+ There's a mic problem.
+ Oh, there's a mic problem.
+ Oh, no, no. It doesn't seem to be muted. Let me check again.
+ Anyway, let's continue. Any more questions?
+ Okay. So -- oh, we have quite a few.
+ Going back a bit to the hindsight experience policy,
+ you talk about -- you give the example of, you know, you're trying to reach the red spot A,
+ and you instead reach some spot B, and you're going to use that to train.
+ I guess I was wondering if you could elaborate on that a little bit more.
+ I mean, I'm not very familiar with DDPG, so perhaps that's critical to understanding this,
+ but I guess what I'm wondering is how do you turn every experience into, you know,
+ hitting the ball this way translates into this motion without doing it in a reward-based way?
+ Yeah, so basically you just say you have a policy which is parameterized by a goal state.
+ And then you say, in effect, you have a family of policies, one for every possible goal.
+ And then you say, okay, I'm going to run the policy that tries to reach state A,
+ and it reaches state B instead.
+ So I'm going to say, well, this is great training data for the policy which reaches state B.
+ So that's how you do it, in effect.
+ If you want more details, we could talk about it offline.
+ So two questions.
+ One is a very simple question about H-E-R again.
+ So if a task is difficult, for example, you know, hitting a fast ball in baseball,
+ so even the best humans can do it 38 percent of the time or something like that.
+ So the danger is that if you miss, you're going to say, oh, I was trying to miss,
+ so now I take this as a training example of how to miss, which is not --
+ you're actually doing the optimal action,
+ but your perceptual apparatus can't track the ball fast enough,
+ so that's the best you can do.
+ So it seems like you would run into trouble on tasks like that.
+ I mean, should I answer the first question before you ask the second?
+ Sure.
+ Let's do that.
+ So the method is still not absolutely perfect,
+ but on the question of what happens when you miss and you're trying to actually succeed,
+ then yeah, you'll have a lot of data on how to not reach the state.
+ So you're trying to reach a certain desired state which is hard to reach.
+ You try to do that, you reach a different state.
+ So you say, okay, well, I'm going to -- I will train my system to reach this state.
+ But next time I'm going to say I still want to --
+ what it means is that for that specific problem,
+ the approach of -- this approach will be less beneficial
+ than for an approach where the tasks are a little bit more continuous,
+ where you can have a more of a hill-climbing effect, where you gradually --
+ like let's say in a programming -- in the setting or context of programming,
+ you learn to program simple programs, you learn to write different subroutines,
+ and you gradually increase your competence, the set of states you know how to reach.
+ So I agree that when there is a very narrow state which is very hard to reach,
+ then it will not help, but whenever there is a kind of continuity to the states,
+ then this approach will help.
+ Okay.
+ So the second question is about self-play.
+ So when I saw your title, what I thought you were going to say was this.
+ Yeah, so if you think about AlphaGo, right,
+ if we tried to train AlphaGo by playing it against the existing world champion,
+ since it would never win a single game for the first 50 million games, right,
+ we'd learn nothing at all.
+ But because we play it against itself, it always has a 50% chance of winning.
+ So you're always going to get a gradient signal no matter how poorly you play.
+ Yeah, that's very important.
+ So the question is, is there some magic trick there that you can then apply
+ to tasks that are intrinsically difficult to get any reward signal on?
+ So if you take Spider Solitaire, for example,
+ if you watch an ordinary human play Spider Solitaire,
+ they lose the first 100 games and then they give up.
+ They say, "This is impossible. I hate this game."
+ There's no reward signal there because you're just not good enough to ever win.
+ And so is there a way you can convert Spider Solitaire into a two-player game
+ and somehow guarantee that you always get a gradient signal for that game?
+ So that's a very good question.
+ What you said is a very good point.
+ Before I elaborate on your question,
+ I just want to also talk about the fact that one of the key things of self-play
+ is that you always have an equally evenly matched opponent.
+ And what it means is that you also have potentially an indefinite incentive for improvement.
+ Even if you are really, really competent, if you have a super competent agent,
+ the opponent will be just as competent.
+ And so if done right, the system will be incentivized to improve.
+ And so I think, yeah, I think it's an important thing to emphasize.
+ It's also, by the way, why the exploration problem is much easier,
+ because you explore the strategy space together with your opponent.
+ And it's actually important not to have just one opponent,
+ but to have a whole little family of them for stability.
+ But that's basically crucial.
+ Now on your second question of what to do when you just can't get the reward.
+ So very often, if the problem is hard enough,
+ I think there isn't much you can do without having some kind of deep side information about the task.
+ But one approach that is popular and has been pursued by multiple groups
+ is to use asymmetric self-play for exploration.
+ You've got a predictor which tries to predict what's going to happen.
+ And you've got a policy which tries to take action which surprises the predictor.
+ So the predictor is going to say, OK, well, if you're going to -- I basically have opinions about
+ what will be the consequence of the different actions.
+ And the actor tries to find regions of space which surprise the predictor.
+ So you have this kind of a self-play -- it's not exactly self-play,
+ it's more of a kind of a competitive adversarial scenario
+ where the agent is incentivized to cover the entire space.
+ It doesn't answer the question of how to solve a hard task like Spider Solider,
+ because if you actually need to be super good, I think that's tough.
+ But at least you can see how this can give you a general guide of how to move forward in general.
+ I think we had a question back here, some question.
+ What do you think is exciting in terms of new architectures such as they've been building --
+ they've been adding like memory structures to neural nets, like the DNC paper.
+ So what do you see the role of new architectures playing in actually achieving
+ what we want for generalization and learning?
+ Yeah, so I think this is a very good question, the question of architectures.
+ I'd say that it's very rare to find really a genuinely good new architecture,
+ and genuine innovation in architecture space is uncommon.
+ I'd say the biggest innovation in architecture space over the past many years has been soft attention.
+ So soft attention is legitimately a major advance in architectures.
+ But it's also very hard to innovate in architecture space because the basic architectures are so good.
+ I think that better generalization will be achieved not -- and this is my opinion, it's not backed by data yet.
+ I think that better generalization will not be achieved by means of just improving the architecture,
+ but by means of changing the learning algorithm,
+ and possibly even the paradigm of the way we think about our models.
+ I think things like minimum description length and compression will be a lot more popular.
+ But it's not -- I think these are non-obvious questions.
+ But basically, I think architecture is important whenever you can actually -- in good new architectures.
+ For the hard problems, how about curriculum learning, to learn to hit a fast ball and start with a slow ball?
+ Yeah, for sure. Curriculum learning is a very important idea.
+ It's how humans learn, and it's a pleasant surprise that our neural networks also benefit from curriculums.
+ One nice thing about self-play is that the curriculum is built in. It's intrinsic.
+ What you lose in self-play is the ability to direct the self-play to a specified point.
+ So I have a question.
+ You showed us the nice videos, the wrestlers and the robots and so forth,
+ and I assume it's similar to deep learning in the sense that there's a framework of linear algebra underlying the whole thing.
+ So is there anything there other than linear algebra?
+ You just take two agents and you apply reinforcement learning algorithms.
+ And a reinforcement learning algorithm is a neural net with a slightly different way of updating the parameters.
+ So it's all matrix multiplication all the way down.
+ You just want to multiply big matrices as fast as possible.
+ Okay, we have one more.
+ So you mentioned something about transfer learning and the importance of that.
+ What do you think about concept extraction and transferring that,
+ and if that's something that you think is possible or people are doing right now?
+ So I think it really depends on what you mean by concept extraction exactly.
+ I think it's definitely the case that our transfer learning abilities are still rudimentary,
+ and we don't yet have methods that can extract seriously high-level concepts from one domain and then apply it in another domain.
+ I think there are ideas on how to approach that, but nothing that's really convincing on a task that matters.
+ Not yet.
+ Well, we really had a lot of questions, and the reason is that you gave very short, succinct answers, for which we are very grateful.
+ Let's give Ranga a great hand.
+ That was terrific.
+ That was great.
+ Thank you.
+ Thanks for coming.
+ Yeah, thanks for coming

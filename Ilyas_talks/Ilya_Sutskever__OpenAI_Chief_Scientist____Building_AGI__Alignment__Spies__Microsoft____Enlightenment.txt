@@ -1,0 +1,849 @@
+ But I would not underestimate the difficulty of alignment,
+ of models that are actually smarter than us,
+ of models that are capable of misrepresenting their intentions.
+ Are you worried about spies?
+ I'm really not worried about the way it's being leaked.
+ We'll all be able to become more enlightened because we'd
+ interact with an AGI that will help us see the world more correctly.
+ Imagine talking to the best meditation teacher in history.
+ Microsoft has been a very, very good partner for us.
+ So I challenge the claim that next token prediction cannot
+ surpass human performance if your base neural net is smart enough.
+ You just ask it like, what would a person
+ with great insight and wisdom and capability do?
+ Okay. Today, I have the pleasure of interviewing Ilya Tsutskover,
+ who is the co-founder and chief scientist of OpenAI.
+ Ilya, welcome to the Lunar Society.
+ Thank you. Happy to be here.
+ First question, and no humility allowed.
+ There's many scientists or maybe not that
+ many scientists who will make a big breakthrough in their field.
+ There's far fewer scientists who will make
+ multiple independent breakthroughs that
+ define their field throughout their career.
+ What is the difference? What distinguishes you from other researchers?
+ Why have you been able to make multiple breakthroughs in your field?
+ Well, thank you for the kind words.
+ It's hard to answer that question.
+ I mean, I tried really hard.
+ I gave it everything you got and that worked so far.
+ I think that's all there is to it.
+ Got it. What's the explanation for why there aren't more illicit uses of GPT?
+ Why aren't more foreign governments using it
+ to spread propaganda or scam grandmothers or something?
+ I mean, maybe they haven't really gotten to do it a lot,
+ but it also wouldn't surprise me if some of it was going on right now.
+ Certainly, I imagine they'd be taking some of
+ the open source models and trying to use them for that purpose.
+ I'm sure I would expect this would be something that'd be interested in the future.
+ It's technically possible they just haven't thought about it enough?
+ Or haven't done it at scale using their technology,
+ or maybe it's happening but you just don't know it.
+ Would you be able to track it if it was happening?
+ I think large-scale tracking is possible, yes.
+ I mean, this requires all special operations that is possible.
+ Now, there's some window in which AI is
+ very economically valuable on the scale of airplanes,
+ let's say, but we haven't reached AGI yet.
+ How big is that window?
+ I mean, I think this window, it's hard to give you a precise answer,
+ but it's definitely going to be like a good multi-year window.
+ It's also a question of definition because AI before it becomes
+ AGI is going to be increasingly more valuable year after year,
+ I'd say in an exponential way.
+ In some sense, it may feel like, especially in hindsight,
+ it may feel like there was only one year or two years
+ because those two years were larger than the previous years.
+ But I would say that already last year,
+ there've been a fair amount of economic value produced by AI.
+ Next year is going to be larger and larger after that.
+ So I think that there's going to be a good multi-year chunk of time.
+ But that's going to be true, I would say,
+ from now until AGI pretty much.
+ Well, because I'm curious if there's a startup that's using your models.
+ At some point, if you have AGI,
+ there's only one business in the world, it's OpenAI.
+ How much window do they have?
+ Does any business have where they're actually
+ producing something that AGI can't produce?
+ Yeah. Well, it's the same question as asking how long until AGI.
+ I think it's a hard question to answer.
+ I hesitate to give you a number.
+ Also because there is this thing where effect where
+ people who are optimistic people who are working on
+ the technology tend to underestimate the time it takes to get there.
+ But I think that the way I ground
+ myself is by thinking about a self-driving car.
+ In particular, there is an analogy where if you look at the Tesla,
+ and if you look at the self-driving behavior,
+ it looks like it does everything.
+ It does everything. But it's also clear that
+ there is still a long way to go in terms of reliability.
+ We might be in a similar place with respect to
+ our models where it also looks like we can do everything.
+ At the same time, we'll need to do some more work until we
+ really iron out all the issues and make it really good,
+ and really reliable, and robust, and well-behaved.
+ By 2030, what percent of GDP is AI?
+ Oh, gosh. Hard to answer that question.
+ Very hard to answer the question.
+ Give me an over-under.
+ Like the problem is that my error bars are in lock scale,
+ so I could imagine a huge percentage,
+ I could imagine a really disappointing small percentage at the same time.
+ Okay. So let's take the counterfactual where it is a small percentage.
+ Let's say it's 2030,
+ and not that much economic value has been created by these other ones.
+ As unlikely as you think this might be,
+ what would be your best explanation right now,
+ or why something like this might happen?
+ My best explanation, so I really don't think that's a likely possibility.
+ Yeah.
+ That's the preface to the comment.
+ But if I were to take the premise of your question,
+ "Well, why were things disappointing in terms of the real-world impact?"
+ My answer would be reliability.
+ If somehow it ends up being the case
+ that you really want them to be reliable and they end up not being reliable,
+ or if reliability is now to be harder than we expect,
+ I really don't think that will be the case.
+ But if I had to pick one,
+ if I had to pick one and you tell me, "Hey, why didn't things work out?"
+ It would be reliability, that you still have to look over the answers
+ and double-check everything.
+ That just really puts a damper on the economic value
+ that can be produced by those systems.
+ That they'll be technologically mature.
+ It's just a question of whether they'll be reliable enough.
+ Yeah, well, in some sense, not reliable means not technologically mature,
+ if you see what I mean.
+ Yeah, fair enough.
+ What's after generative models, right?
+ So before you're working on reinforcement learning,
+ is this basically it?
+ Is this a paradigm that gets us to AGI, or is there something after this?
+ I mean, I think this paradigm is going to go really, really far
+ and I would not underestimate it.
+ I think it's quite likely that this exact paradigm
+ is not going to be quite the AGI form factor.
+ I mean, I hesitate to say precisely what the next paradigm will be,
+ but I think it will probably involve integration
+ of all the different ideas that came in the past.
+ Is there some specific one you're referring to, or...?
+ I mean, it's hard to be specific.
+ So you could argue that the next token prediction
+ can only help us match human performance and maybe not surpass it.
+ What would it take to surpass human performance?
+ So I challenge the claim that the next token prediction
+ cannot surpass human performance.
+ It looks like on the surface it cannot.
+ It looks on the surface if you just learn to imitate,
+ to predict what people do, it means that you can only copy people.
+ But the here is a counter argument for why it might not be quite so
+ if your neural net is, if your base neural net is smart enough.
+ You just ask it like, what would a person with great insight
+ and wisdom and capability do?
+ Maybe such a person doesn't exist, but there's a pretty good chance
+ that the neural net will be able to extrapolate
+ how such a person would behave.
+ Do you see what I mean?
+ Yes, although where would it get that sort of insight
+ about what that person would do if not from...?
+ From the data of regular people, because like if you think about it,
+ what does it mean to predict the next token well enough?
+ What does it mean actually?
+ It's actually it's a much, it's a deeper question than it seems.
+ Predicting the next token well means that you understand
+ the underlying reality that led to the creation of that token.
+ It's not statistics like it is statistics, but what is statistics?
+ In order to understand those statistics, to compress them,
+ you need to understand what is it about the world
+ that creates those statistics.
+ And so then you say, OK, well, I have all those people.
+ What is it about the people that creates their behaviors?
+ Well, they have, you know, they have thoughts and they have feelings
+ and they have ideas and they do things in certain ways.
+ All of those would be deduced from next token prediction.
+ And I'd argue that this should make it possible,
+ not indefinitely, but to a pretty decent degree to say,
+ well, can you guess what you'd what you'd do if you took a person
+ with like this characteristic and that characteristic?
+ Like such a person doesn't exist.
+ But because you're so good at predicting the next token,
+ you should still be able to guess what that person would do.
+ This hypothetical, imaginary person
+ with far greater mental ability than the rest of us.
+ When we're doing reinforcement learning on these models,
+ how long before most of the data for the reinforcement learning
+ is coming from AIs and not humans?
+ I mean, already most of the data for reinforcement learning
+ is coming from AIs.
+ Yeah. Well, it's like the humans are being used to train the reward function.
+ But then the reward function in its interaction with the model is automatic.
+ And all the data that's generated during the process of reinforcement
+ learning is created by AI.
+ So, like, if you look at the current.
+ I would say technique paradigm, which is in getting some significant attention
+ because of chat GPT reinforcement learning from human feedback.
+ There is human feedback.
+ The human feedback is being used to train the reward function.
+ And then the reward function is being used to create the data which trains the model.
+ Got it. And is there any hope of just removing the human from the loop
+ and have it improve itself and some sort of alpha go away?
+ Yeah, definitely. I mean, I feel like in some sense, our hopes for.
+ Like, very much so.
+ The thing you really want is for the human teachers that tell you that teach the AI
+ for them to collaborate with an AI.
+ You might want to think about it.
+ And you might want to think of it as being in a world where
+ the human teachers do 1% of the world and the work and the AI do 99% of the work.
+ You don't want it to be 100% AI.
+ But you do want it to be a human machine collaboration, which teaches the next machine.
+ So currently, I mean, I've had a chance to play around these models.
+ They seem bad at multi-step reasoning and they have been getting better.
+ But what does it take to really surpass that barrier?
+ I mean, I think dedicated training will get us there.
+ More improvements to the base models will get us there.
+ But fundamentally, I also don't feel like they're that bad at multi-step reasoning.
+ I actually think that they are bad at mental multi-step reasoning,
+ but they're not allowed to think out loud.
+ But when they are allowed to think out loud, they're quite good.
+ And I expect this to improve significantly,
+ both with better models and with special training.
+ Are you running out of reasoning tokens on the Internet?
+ Are there enough of them?
+ I mean, you know, it's OK.
+ So for context on this question, there are claims that indeed,
+ at some point, we'll run out of tokens in general to train those models.
+ And yeah, I think this will happen one day.
+ And by the time that happens, we need to have other ways of training models,
+ other ways of productively improving their capabilities
+ and sharpening their behavior,
+ making sure they're doing exactly precisely what we want without more data.
+ You haven't run out of data yet? There's more?
+ Yeah, I would say the data situation is still quite good.
+ There's still lots to go.
+ But at some point, yeah, at some point, data will run out.
+ OK. What is the most valuable source of data?
+ Is it Reddit, Twitter, books?
+ What would you train many other tokens of other varieties for?
+ Generally speaking, you'd like tokens which are
+ speaking about smarter things, tokens which are like more interesting.
+ Yeah.
+ So, I mean, all this all the sources which you mentioned, they're valuable.
+ OK, so maybe not Twitter.
+ But do we need to go multimodal to get more tokens
+ or do we still have enough text tokens left?
+ I mean, I think that you can still go very far in text only,
+ but going multimodal seems like a very fruitful direction.
+ If you're comfortable talking about this,
+ like where is the place where we haven't scraped the tokens yet?
+ Oh, I mean, yeah, obviously, I mean, I can't answer that question for us,
+ but I'm sure I'm sure that for everyone, there's a different answer to that question.
+ How many orders of magnitude improvement can we get just not from scale
+ or not from data, but just from algorithmic improvements?
+ Hard to answer, but I'm sure there is some.
+ Is some a lot or is some a little?
+ I mean, it's only one way to find out.
+ OK, let me get your like quickfire opinions about these different research directions.
+ Retrieval transformers, so just like somehow storing the data outside of the
+ model itself and retrieving it somehow seems promising.
+ But do you see that as a path forward or I think it seems promising robotics?
+ Was it the right step for OpenAI to leave that behind?
+ Yeah, it was like back then.
+ It really wasn't possible to continue working in robotics
+ because there was so little data like back then.
+ If you wanted to do a robot, if you wanted to work on robotics,
+ you needed to become a robotics company.
+ You needed to really have a giant group of people
+ working on building robots and maintaining them and having.
+ And even then, like if you only if you're going to have a hundred robots,
+ it's a giant operations already, but you're not going to get that much data.
+ So in a world where most of the progress comes from the combination of compute and data,
+ right, that's where we've been, where it was the combination of compute
+ and data that drove the progress, there was no path to data from robotics.
+ So back in the day when you made a decision to stop working in robotics,
+ there was no path forward.
+ Is there one now?
+ So I'd say that now it is possible to create a path forward,
+ but one needs to really commit to the task of robotics.
+ You really need to say, I'm going to build like many thousands, tens of thousands,
+ hundreds of thousands of robots and somehow collect data from them
+ and find a gradual path where the robots are doing something slightly more useful
+ and then the data that they get from these robots and then the data that is obtained
+ and used to train the models and they do something that's slightly more useful.
+ So you could imagine this kind of gradual path of improvement where you build more robots,
+ they do more things, you collect more data and so on.
+ But you really need to be committed to this path.
+ If you say, I want to make robotics happen, that's what you need to do.
+ I believe that there are companies who are thinking about such, doing exactly that.
+ But I think that you need to really love robots and need to be really willing
+ to solve all the physical and logistical problems of dealing with them.
+ It's not the same as software at all.
+ So I think one could make progress in robotics today with enough motivation.
+ What ideas are you excited to try?
+ But you can't because they don't work well on current hardware.
+ I don't think current hardware is a limitation.
+ Okay.
+ I think it's just not the case.
+ Got it.
+ So, but anything you want to try, you can just spin it up?
+ I mean, of course, like the thing you might say, well, I wish current hardware was cheaper
+ or maybe it had higher, like maybe it would be better if it was higher memory processor
+ bandwidth, let's say.
+ But by and large, hardware is just a limitation.
+ Let's talk about alignment.
+ Do you think we will ever have a mathematical definition of alignment?
+ Mathematical definition, I think, is unlikely.
+ I do think that we will instead have multiple, like rather than achieving one mathematical
+ definition, I think we'll achieve multiple definitions that look at alignment from different
+ aspects.
+ And I think that this is how we will get the assurance that we want.
+ And by which I mean, you can look at the behavior.
+ You can look at the behavior in various tests, in various adversarial stress situations.
+ You can look at how the neural net operates from the inside.
+ I think you have to look at several of these factors at the same time.
+ And how short do you have to be before you release a model in the wild?
+ Is it 100% 95%?
+ Well, it depends how capable the model is.
+ The more capable the model is, the more the high over the Z, the more confident you need
+ to be.
+ Okay.
+ So just say it's something that's almost AGI.
+ Where is AGI?
+ That's what your AGI can do.
+ Keep in mind that AGI is an ambiguous term also.
+ Like your average college undergrads is an AGI, right?
+ But you see what I mean, there is significant ambiguity in terms of what is meant by AGI.
+ So depending on where you put this mark, you need to be more or less confident.
+ You mentioned a few of the paths towards alignment earlier.
+ What is the one you think is most promising at this point?
+ I think that it will be a combination.
+ I really think that you will not want to have just one approach.
+ I think we will want to have a combination of approaches where you spend a lot of compute
+ to adversarially probe it to find any mismatch between the behavior that you wanted to teach
+ and the behavior that it exhibits.
+ We look inside into the neural net using another neural net to understand how it operates on
+ the inside.
+ I think all of them will be necessary.
+ Every approach like this reduces the probability of misalignment.
+ And you also want to be in a world where your degree of alignment keeps on increasing faster
+ than the capability of the models.
+ I would say that right now our understanding of our models is still quite rudimentary.
+ We made some progress, but much more progress is possible.
+ And so I would expect that ultimately the thing that will really succeed is when we
+ will have a small neural net that is well understood, that's given the task to study the behavior
+ of a large neural net that is not understood to verify.
+ By what point is most of the AI research being done by AI?
+ I mean, so today when you use copilot, right, what fraction, how do you divide it up?
+ So I expect at some point you ask your descendant of charge GPT, you say, "Hey, like, I'm thinking
+ about this and this.
+ I suggest fruitful ideas I should try," and you would actually get fruitful ideas.
+ I don't think that will make it possible for you to solve problems you couldn't solve before.
+ Got it.
+ But it's somehow just telling the humans, giving them ideas faster or something.
+ It's not itself interacting with the...
+ One example.
+ I mean, you could slice it in a variety of ways.
+ But I think the bottleneck there is good ideas, good insights, and that's something the neural
+ net could help with.
+ If you design a billion-dollar prize for some sort of alignment, research, result, or product,
+ what is the concrete criterion you would set for that billion-dollar prize?
+ There's something that makes sense for such a prize?
+ It's funny that you asked this.
+ I was actually thinking about this exact question.
+ I haven't come up with an exact criterion yet.
+ Maybe something that with the benefit, maybe a prize where we could say that two years
+ later or three or five years later, we look back and say, "That was the main result."
+ So rather than say that there is a prize committee that decides right away, you wait for five
+ years and then award it retroactively.
+ But there's no concrete thing we can identify yet, as you solve this particular problem
+ and you've made a lot of progress.
+ I think a lot of progress yet, so I wouldn't say that this would be the full thing.
+ Do you think end-to-end training is the right architecture for bigger and bigger models
+ or do we need better ways of just connecting things together?
+ I think end-to-end training is very promising.
+ I think connecting things together is very promising.
+ Everything is promising.
+ The OpenAI is projecting revenues of a billion dollars in 2024.
+ That might very well be correct, but I'm just curious when you're talking about a new general
+ purpose technology, how do you estimate how big a windfall it'll be?
+ Why that particular number?
+ I mean, we've already had a product for quite a while now, back from the GPT-3 days from
+ two years ago through the API, and we've seen how it grew, we've seen how the response
+ to Dali has grown as well, and so you see how the response to chat GPT is.
+ And I think all of this gives us information that allows us to make a relatively sensible
+ extrapolation to 2024.
+ Maybe that would be one answer.
+ You need to have data.
+ You can't come up with those things out of thin air, because otherwise your error bars
+ will be off by, your error bars are going to be 100x in each direction.
+ I mean, but most exponentials don't stay exponential, especially when they get into bigger and bigger
+ quantities, right?
+ So how do you determine in this case that?
+ I mean, would you bet against AI?
+ Not after talking with you.
+ Let's talk about what a post-AGI future looks like.
+ Are people like you, you know, I'm guessing you're working like 80 hour weeks towards
+ this grand goal that you're really obsessed with.
+ Are you going to be satisfied in a world where you're basically living in an AI retirement
+ home?
+ Or like, what is your, what are you concretely doing after AGI comes?
+ I think the question of what I'll be doing or what people will be doing after AGI comes
+ is a very tricky question.
+ You know, I think where will people find meaning?
+ But I think, I think that that's something that AI could help us with.
+ One thing I imagine is that we'll all be able to become more enlightened because we'd
+ interact with an AGI that will help us see the world more correctly or become better
+ on the inside as a result of interacting.
+ Like imagine talking to the best meditation teacher in history.
+ I think that will be a helpful thing.
+ But I also think that because the world will change a lot, it will be very hard for people
+ to understand what is happening precisely and how to, and how to really contribute.
+ One thing that I think some people will choose to do is to become part AI in order to really
+ expand their minds and understanding and to really be able to solve the hardest problems
+ that society will face then.
+ Are you going to become part AI?
+ Very tempting.
+ It is tempting.
+ Well, do you think there'll be physically embodied humans and 3000?
+ 3000, oh, how do I know it's going to happen in 3000?
+ Like what does it look like?
+ Are there still like humans walking around on earth or have you guys thought concretely
+ about what you actually want this world to look like?
+ 3000.
+ Well, I mean, that, that, that the thing is, here's the thing, like, let me, let me describe
+ to you what I think is not quite right about the question.
+ Like it implies like, oh, like we get to decide how we want the world to look like.
+ I don't think that picture is correct.
+ I think change is the only constant.
+ And so of course, even after AGI is built, it doesn't mean that the world will be static.
+ The world will continue to change.
+ The world will continue to evolve and it will go through all kinds of transformations.
+ And I really have no, I don't think anyone has any idea of how the world will look like
+ in 3000.
+ But I do hope that there will be a lot of descendants of human beings who will live
+ happy fulfilled lives where they are free to do as their wish, as they see fit, where
+ they are the ones who are solving their own problems.
+ Like one of the things which I would not want, one, one, one world, which I would find very
+ unexciting is one where, you know, we build this powerful tool and then the government
+ said, okay, so the AGI said that society shall be run in such a way and now we shall run
+ society in such a way.
+ I'd much rather have a world where people are still free to make their own mistakes
+ and suffer their consequences and gradually evolve morally and progress forward on their
+ own through their own strength.
+ See what I mean?
+ Be the AGI providing more like a base safety net.
+ How much time do you spend thinking about these kinds of things versus just doing the
+ research?
+ But I do think about those things a fair bit, yeah, things are very interesting questions.
+ In what ways have the capabilities we have today, in what ways have they surpassed where
+ you expected them to be in 2015?
+ In what ways are they still not where you would have expected them to be by this point?
+ I mean, in fairness, they did surpass what I expected them to be in 2015.
+ In 2015, my thinking was a lot more, I just don't want to bet against deep learning.
+ I want to make the biggest possible bet on deep learning.
+ Don't know how but it will figure it out.
+ But is there any specific way in which it's been more than you expected or less than you
+ expected?
+ Like some concrete prediction you had in 2015 that's been prounced?
+ You know, unfortunately, I don't remember concrete predictions I made in 2015.
+ But I definitely think that overall in 2015, I just want to move to make the biggest bet
+ possible on deep learning.
+ But I didn't know exactly I didn't have a specific idea of how far things will go in
+ seven years.
+ Well, I mean, 2015, I did have all these bets with people in 2016, maybe 2017 that
+ things will go really far, but specifics.
+ So it's like it's both it's both the case that it surprised me.
+ And I was making these aggressive predictions.
+ But I think maybe I believe them only only if you only 50% on the inside.
+ Well, what do you believe now that even most people at OpenAI would find far fetched?
+ I mean, I think that this because we communicate a lot at OpenAI people have a pretty good
+ sense of what I think and so yeah, we've reached the point at OpenAI, I think we see eye to
+ eye on all these questions.
+ So Google has, you know, it's custom TPU hardware.
+ It has all this data from all its users, you know, Gmail, what, and so on.
+ Does it give it an advantage in terms of training bigger models and better models than you?
+ So I think like when the first at first when the TPU came out, I was really impressed and
+ I thought, wow, this is amazing.
+ But that's because I didn't quite understand hardware back then.
+ What really turned out to be the case is that TPUs and GPUs are almost the same thing.
+ They are very, very similar.
+ It's like, I think a GPU chip is a little bit bigger.
+ I think a TPU chip is a little bit smaller, it may be a little bit cheaper, but then they
+ make more GPUs than TPUs.
+ So I think the GPUs might be cheaper after all.
+ But fundamentally, you have a big processor and you have a lot of memory and there is
+ a bottleneck between those two.
+ And the problem that both the TPU and the GPU are trying to solve is that by the amount
+ of time it takes you to move one floating point from the memory to the processor, you can
+ do several floating point operations on the processor, which means that you have to do
+ some kind of batch processing.
+ And in this sense, both of these architectures are the same.
+ So I really feel like hardware, like in some sense, the only thing that matters about hardware
+ is cost, cost per flop, overall systems cost.
+ Okay, there isn't much that much difference.
+ Well, I actually don't know.
+ I don't know how much what the TPU costs are, but I would suspect that probably not.
+ If anything, probably the TPUs are more expensive because there is less of them.
+ When you're doing your work, how much of the time is spent, you know, configuring the right
+ initializations, making sure the training run goes well and getting the right hyperparameters
+ and how much is it just coming up with whole new ideas?
+ I would say it's a combination, but I think that coming up with it's a combination.
+ But coming up with whole new ideas is actually not.
+ It's like a modest part of the work.
+ Certainly coming up with new ideas is important.
+ But I think even more important is to understand the results, to understand the existing ideas,
+ to understand what's going on.
+ Because normally you'd have this, you know, neural net is a very complicated system, right?
+ And you ran it and you get some behavior which is hard to understand what's going on.
+ Understanding the results, figuring out what next experiment to run.
+ A lot of the time is spent on that.
+ Understanding what could be wrong, what could have caused the neural net produce a result
+ which was not expected.
+ I'd say a lot of time is spent as well, of course, coming up with new ideas, but not
+ new ideas.
+ I think like, I don't like this framing as much.
+ It's not that it's false.
+ But I think the main activity is actually understanding.
+ What do you see is the difference between the two?
+ So at least in my mind, when you say come up with new ideas, I'm like, oh, like what
+ happened if you did such and such?
+ Whereas understanding it's more like, what is this whole thing?
+ What are the real underlying phenomena that are going on?
+ What are the underlying effects?
+ Why are we doing things this way and not another way?
+ And of course, this is very adjacent to what can be described as coming up with ideas.
+ But I think the understanding part is where the real action takes place.
+ Does that describe your entire career?
+ Like, if you think back on like ImageNet or something, was that more new idea or was that
+ more understanding?
+ Definitely understanding.
+ Definitely understanding.
+ It was a new understanding of very old things.
+ What is the experience of training on Azure been like using Azure?
+ Fantastic.
+ I mean, yeah, I mean, Microsoft has been a very, very good partner for us.
+ And they've really helped take Azure and make it bring it to a point where it's really good
+ for ML.
+ And you're super happy with it.
+ How vulnerable is the whole AI ecosystem to something that might happen in Taiwan?
+ So let's say there's like a tsunami in Taiwan or something, what happens to AI in general?
+ It's definitely going to be a significant setback.
+ It's not going to like it might be something equivalent to like no one will be able to
+ get more more compute for a few years.
+ But I expect computers will spring up like, for example, I believe that Intel has facts
+ just of the previous generation of like a few generations ago.
+ That means that if Intel wanted to they could produce something GPU like from like four
+ years ago.
+ But yeah, it's not the best, let's say.
+ I'm actually not sure about if my statement about Intel is correct.
+ But I do know that there are fabs outside of Taiwan that is not as good.
+ But you can still use them and still go very far with them.
+ It's just it's just a setback.
+ Will inference get cost prohibitive as these models get bigger and bigger?
+ So I have a different way of looking at this question.
+ It's not that inference will become cost prohibitive.
+ Inference of better models will indeed become more expensive.
+ But is it prohibitive?
+ Well, it depends on how useful is it.
+ Like if it is more useful than it is expensive, then it is not prohibited.
+ But to give you an analogy, like suppose you want to talk to a lawyer, you have some case
+ you or need some advice or something, you are perfectly happy to spend $500 an hour.
+ Right, so if your neural net could give you like really reliable legal advice, you'd say
+ I'm happy to spend $400 for that advice and suddenly inference becomes very much non prohibitive.
+ The question is, can neural net produce an answer good enough at this cost?
+ Yes, and you will just have like price discrimination, different, different models.
+ I mean, it's already the case today.
+ So on our product, the API, we serve multiple neural nets of different sizes, and different
+ customers use different neural nets of different sizes depending on their use case.
+ Like if someone can take a small model and fine tune it and get something that's satisfactory
+ for them, they'll use that.
+ But if someone wants to do something more complicated and more interesting, they'll
+ use the biggest model.
+ How do you prevent these models from just becoming commodities where these different
+ companies just, they just spit each other's prices down until it's basically the cost
+ of the GPU run?
+ Yeah, I think, I think there is without question a force that's trying to create that.
+ And the answer is you got to keep on making progress.
+ You got to keep improving the models, you got to keep on coming up with new ideas and
+ making our models better and more reliable, more trustworthy, so you can trust their answers.
+ All those things.
+ Yeah, but let's say it's like 2025.
+ And the model from 2024, somebody just offering it a cost, and it's like so pretty good.
+ Why would people use a new one from 2025 if the one from just a year older is even better?
+ So there are several answers there.
+ For some use cases, that may be true.
+ There will be a new model from 2025, which will be driving the more interesting use cases.
+ There's also going to be a question of inference cost.
+ Like you can, you can do research to serve the same model at less cost.
+ So there will be different, the same model will be served, will cost different amounts
+ to serve for different companies.
+ I can also imagine some degree of specialization to where some companies may try to specialize
+ in some area and be stronger in a narrower area compared to other companies.
+ And I think that too may, that may be a response to commoditization to some degree.
+ As over time, do these different companies, do their research directions converge or do
+ they diverge?
+ Are they doing similar and similar things over time?
+ Or are they doing, are they going up, branching off into different areas?
+ So I'd say in the near term, it looks like there is convergence in the, like, I expect
+ there's going to be a convergence, a divergence converges behavior where there is a lot of
+ convergence on the near term work.
+ There's going to be some divergence on the longer term work.
+ But then once the longer term work starts to yield fruit, I think there will be convergence
+ again.
+ Got it.
+ When one of them finds the most promising area, they, everybody just.
+ That's right.
+ Now there is obviously less publishing now, so it will take longer before this promising
+ direction gets rediscovered.
+ But that's how I'd imagine it.
+ I think it's going to be convergence, divergence, convergence.
+ Yeah, we talked about this a little bit at the beginning, but you know, as foreign governments
+ learn about how capable these models are, how do you, are you worried about spies or
+ some sort of attack to get your weights or, you know, somehow abuse these models and learn
+ about them?
+ Yeah, it's definitely something that you absolutely can't discount that.
+ Yeah.
+ And yeah, something that we try to guard against the best of our ability, but it's going to
+ be a problem for everyone who is building this.
+ How do you prevent your weights from leaking?
+ I mean, you have like really good security people.
+ And how many people have the, if they wanted to just like stage into the weights machine,
+ how many people could do that?
+ I mean, like what I can say is that the security people that we have, they've done a really
+ good job so that I'm really not worried about the weights being leaked.
+ Okay.
+ Got it.
+ What kinds of emerging properties are you expecting from these models at this scale?
+ Is there something that just comes about de novo?
+ I'm sure things will come.
+ I'm sure really new surprising properties will come up.
+ I would not be surprised.
+ The thing which I'm really excited about or the thing which I'd like to see is reliability
+ and controllability.
+ I think that this will be very, very important class of emerging properties.
+ If you have reliability and controllability, I think that helps you solve a lot of problems.
+ Reliability means you can trust the models out with controllability means you can control
+ it.
+ And we'll see, but it will be very cool if those emerging properties did exist.
+ Is there some way you can predict it in advance?
+ Like what will happen in this parameter count?
+ What will happen in that parameter count?
+ I think it's possible to make some predictions about specific capabilities, though it's definitely
+ not simple and you can't do it in a super fine grained way, at least today.
+ But I think getting better at that is really important than anyone who is interested in
+ who has research ideas on how to do that.
+ I think that can be a valuable contribution.
+ How seriously do you take these scaling laws?
+ If there's a paper that says you just increase, you need this many orders of magnitude more
+ to get all the reasoning out, do you take that seriously or do you think it breaks down
+ at some point?
+ Well, the thing is that the scaling law tells you what happens as you what happens to your
+ lock to your next word prediction accuracy, right?
+ There is a whole separate challenge of linking next word prediction accuracy to reasoning
+ capability.
+ I do believe that indeed there is a link, but this link is complicated.
+ And we may find that there are other things that can give us more reasoning per unit effort.
+ Like for example, some special like, you know, you mentioned reasoning tokens, I think they
+ can be helpful.
+ There can be probably some things.
+ Is this is something you're considering just hiring humans to generate tokens for you?
+ Or is it all going to come from stuff that already exists out there?
+ I mean, I think that relying on people to teach our models to do things, especially,
+ you know, to make sure that they are well behaved and they don't produce false things,
+ I think is an extremely sensible thing to do.
+ Isn't it odd that we have the data we need exactly the same time as we have the transformer
+ at the exact same time that we have these GPUs?
+ Like, is it odd to you that all these things happen at the same time or do you not see
+ that way?
+ I mean, it is definitely an interesting, it is an interesting situation that is the case.
+ I will say that it is odd and it is less odd on some level.
+ Here's why it's less odd.
+ So what is the driving force behind the fact that the data exists, that the GPUs exists,
+ that the transformer exists.
+ So as the data exists because computers became better and cheaper, you've got smaller and
+ smaller transistors, and suddenly at some point it became economical for every person
+ to have a personal computer.
+ Once everyone has a personal computer, you really want to connect them to the network.
+ You get the internet.
+ Once you have the internet, you have suddenly data appearing in great quantities.
+ The GPUs were improving concurrently because you have more smaller and smaller transistors
+ and you're looking for things to do with them.
+ Gaming turned out to be the thing that you could do.
+ And then at some point, the gaming GPU and video said, wait a second, I may turn it into
+ a general purpose GPU computer.
+ Maybe someone will find it useful, turns out it's good for neural nets.
+ So it could have been the case that maybe the GPU would have arrived five years later
+ or 10 years later.
+ Let's suppose gaming wasn't the thing, it's kind of hard to imagine what does it mean
+ if gaming isn't a thing.
+ But it could, maybe there was a counterfactual world where GPUs arrived five years after
+ the data or five years before the data.
+ In which case, maybe things would move a little bit more, things would have been as ready
+ to go as they are now.
+ But that's the picture which I imagine.
+ All this progress in all these dimensions is very intertwined.
+ It's not a coincidence that you don't get to pick and choose in which dimension things
+ improve if you see what I mean.
+ How inevitable is this kind of progress?
+ So if like, let's say you and Jeffrey Hinton and a few other pioneers, if they were never
+ born, does the deep learning revolution happen around the same time?
+ How much does it delay?
+ I think maybe there would have been some delay, maybe like a year delay.
+ It's really hard to tell.
+ It's really hard to tell.
+ I mean, I hesitate to give a lot a lot a longer answer because okay, well, then you'd have
+ GPUs would keep on improving, right?
+ And at some point, I cannot see how someone would not have discovered it because here's
+ the other thing.
+ Okay, so let's suppose no one has done it.
+ Computers keep getting faster and better, it becomes easier and easier to train these
+ neural nets because you have bigger GPUs.
+ So it takes less engineering effort to train one, you don't need to optimize your code
+ as much.
+ You know, when the ImageNet data set came out, it was huge and it was very, very difficult
+ to use.
+ Now, imagine you wait for a few years and it becomes very easy to download and people
+ can just tinker.
+ So I would imagine that like a modest number of years maximum, this would be my guess.
+ I hesitate.
+ I hesitate to give it to give a lot a longer answer though.
+ You know, you can't you can't run.
+ You can't rerun the world you don't know.
+ Let's go back to alignment for a second.
+ As somebody who deeply understands these models, what is your intuition of how hard alignment
+ will be?
+ Like, I think with the so here's what I would say, I think with the current level of capabilities,
+ I think we have a pretty good set of ideas of how to align them.
+ But I would not underestimate the difficulty of alignment of models that are actually smarter
+ than us of models that are capable of misrepresenting their intentions.
+ Like I think I think it's something to think to think about a lot into research.
+ I think this is one area also, by the way, you know, like oftentimes academic researchers
+ asked me asked me where what's the best place where they can contribute and I think alignment
+ research is one place where I think academic researchers can make very meaningful contributions.
+ Other than that, do you think academia will come up with important insights about actual
+ capabilities or is that going to be just the companies at this point?
+ The companies will realize the capabilities.
+ I think it's very possible for academic research to come up with those insights.
+ I think it's just it doesn't seem to happen that much for some reason.
+ But I don't I don't think there's anything fundamental about academia.
+ Like it's not like academia can't I think maybe they're just not thinking about the
+ right problems or something because maybe it's just easier to see what needs to be done
+ inside these companies.
+ I see.
+ But there's a possibility that somebody could just realize, yeah, I totally think so.
+ Like why would I possibly rule this out?
+ You see what I mean?
+ What are the concrete steps by which these language models start actually impacting the
+ world of atoms and not just the world of bits?
+ Well, you see, I don't think that there is a distinction, a clean distinction between
+ the world of bits in the world of atoms.
+ Suppose the neural net tells you that, hey, like here is like something that you should
+ do and it's going to improve your life, but you need to rearrange your apartment in a
+ certain way.
+ Then you go and you rearrange your apartment as a result.
+ Did the neural net impact the world of atoms?
+ Yeah, fair enough, fair enough.
+ Do you think it'll take a couple of additional breakthroughs as important as the transformer
+ they get to superhuman AI or do you think we basically got the insights in the books
+ somewhere and we just need to implement them and connect them?
+ So I don't really see such a big distinction in those two cases.
+ And let me explain why.
+ Like I think what's one of the ways in which progress has taken place in the past is that
+ we've understood that something had a property, a desirable property all along, but you didn't
+ understand that.
+ So is that a breakthrough?
+ You can say, yes, it is.
+ Is that an implementation of something on the books?
+ Also, yes.
+ So my feeling is that a few of those are quite likely to happen, but that in hindsight, it
+ will not feel like a breakthrough.
+ Everybody is going to say, oh, well, of course, it's totally obvious that such and such thing
+ can work.
+ You see, with the transformer, the reason it's being brought up as a specific advance
+ is because it's the kind of thing that was not obvious for almost anyone.
+ So we look and say, yeah, like, it's not something which they knew about.
+ But if an advance comes from something like let's consider that is the most fundamental
+ advance of deep learning, that the big neural network trained with backpropagation and do
+ a lot of things like where's the novelty, not in the neural network, not in the backpropagation.
+ But then somehow it's the kind of but it was it is most definitely a giant conceptual breakthrough
+ because for the longest time, people just didn't see that.
+ But then now that everyone sees it, everyone's gonna say, well, of course, like, it's totally
+ obvious, big neural network, everyone knows that they can do it.
+ What is your opinion of your former advisors new forward forward algorithm?
+ I think that it's an attempt to brain and neural network without backpropagation.
+ And I think that this is especially interesting if you are motivated to try to understand
+ how the brain might be learning its connections.
+ The reason for that is that, as far as I know, neuroscientists are really convinced that
+ the brain cannot implement backpropagation, because the signals in the synapses only move
+ in one direction.
+ And so if you have a neuroscience motivation, and you want to say, okay, how can I come
+ up with something that tries to approximate approximate the good properties of backpropagation
+ without doing backpropagation?
+ That's what the forward forward algorithm is trying to do.
+ But if you are trying to just engineer a good system, there is no reason to not use backpropagation.
+ Like it's the only algorithm.
+ I guess I've heard you in different contexts talk about the need, like using humans as
+ the, you know, the existing example case that, you know, AGI exists, right?
+ So at what point do you take the metaphor less seriously and feel don't feel the need
+ to pursue it in terms of research, because it is important to you as a sort of existence
+ case?
+ Like at what point do I stop caring, caring about humans as an existence case of intelligence?
+ Or as the sort of, as an example in the model you want to follow in terms of pursuing intelligence
+ in models?
+ I see.
+ I mean, like you gotta, I think it's good to be inspired by humans.
+ I think it's good to be inspired by the brain.
+ I think there is an art into being inspired by humans in the brain correctly, because it's
+ very easy to latch onto an non-essential quality of humans or of the brain.
+ And I think many people who, many people whose research is trying to be inspired by humans
+ and by the brain often gets a little bit specific.
+ People get a little bit to, okay, so like what cognitive science model should we follow?
+ At the same time, consider the idea of the neural network itself, the idea of the artificial
+ neuron.
+ This too is inspired by the brain, but it turned out to be extremely fruitful.
+ So how do you do this?
+ What behaviors of human beings are essential that you say, like, this is something that
+ proves to us that it's possible.
+ What is inessential?
+ No, actually, this is like some emergent phenomena for something more basic.
+ And we just need to focus on our, on our, on getting our own basics right.
+ I would say, I would say that it's like, I think one should, one can and should be inspired
+ by human intelligence with care.
+ Small question.
+ Why is there in your case such a strong correlation between being first to the deep learning revolution
+ and still being one of the top researchers?
+ You would think that these two things wouldn't be that correlated, but why is that correlation?
+ I don't think those things are super correlated indeed.
+ I feel like in my case, I mean, honestly, it's hard to answer the question.
+ You know, I just kept on, kept, I kept trying really hard and it turned out to have sufficed
+ thus far.
+ Got it.
+ So it's a perseverance.
+ I think it's a necessary, but not a sufficient condition.
+ Like you know, many things need to come together in order to really figure something out.
+ Like you need to really go for it and also need to have the right way of looking at things.
+ And so it's hard, it's hard to give him like a really meaningful answer to this question.
+ All right.
+ Ilya, it has been a true pleasure.
+ Thank you so much for coming to the Lunar Society.
+ I appreciate you bringing us to the offices.
+ Thank you.
+ Yeah, I really enjoyed it.
+ Thank you very much.
+ Hey everybody.
+ I hope you enjoyed that episode.
+ Just wanted to let you know that in order to help pay for the bills associated with
+ this podcast, I'm turning on paid subscriptions on my sub stack at warkeshpatel.com.
+ No important content on this podcast will ever be paywalled.
+ So please don't donate if you have to think twice before buying a cup of coffee.
+ But if you have the means and you've enjoyed this podcast or gotten some kind of value
+ out of it, I would really appreciate your support.
+ As always, the most helpful thing you can do is to share the podcast, send it to people
+ you think might enjoy it, put it in Twitter, your group chats, et cetera, just splits the
+ world.
+ Appreciate your listening.
+ I'll see you next time.
+ Cheers.
+ [MUSIC]

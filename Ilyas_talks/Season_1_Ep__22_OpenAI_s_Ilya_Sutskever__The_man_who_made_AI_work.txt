@@ -1,0 +1,1582 @@
+ [MUSIC]
+ >> Today here with me is Ilya Sutskover.
+ Ilya is co-founder and chief scientist of OpenAI.
+ As a PhD student at Toronto,
+ Ilya was one of the authors on
+ the 2012 AlexNet paper that
+ completely changed the field of AI.
+ Having pretty much everyone switch from
+ traditional approaches to deep learning,
+ resulting in the avalanche of
+ AI breakthroughs we've seen the past 10 years.
+ After the AlexNet breakthrough in computer vision at Google,
+ among many other breakthroughs,
+ Ilya showed that neural networks
+ are unexpectedly great at machine translation.
+ At least at the time that was unexpected,
+ now it's long become the norm to
+ use neural nets for machine translation.
+ Late 2015, Ilya left Google to co-found OpenAI,
+ where he's chief scientist.
+ Some of his breakthroughs there include GPT,
+ Clib, Dolly, and Codex,
+ all of which I hope we'll be talking about.
+ Any single of the six breakthroughs I just mentioned so
+ far would make for a illustrious career,
+ and Ilya has many more than those six.
+ In fact, Ilya's works less than 10 years out of
+ his PhD are cited over 250,000 times,
+ reflective of his absolutely
+ mind-blowing influence on the field.
+ Ilya, I have to say,
+ I really miss our days together at OpenAI.
+ Every day, you were such a source of inspiration and creativity.
+ So happy to have you here on the podcast. Welcome.
+ Thank you, Peter. Thank you for the introduction.
+ I'm very happy to be on the podcast.
+ Well, I'm so glad we finally get to chat
+ again. We used to spend so much time together,
+ and I'm really excited to catch up on
+ all the things you've been up to in the last few years.
+ But first, I want to step back a little bit to what is,
+ I think many believe, definitely I believe,
+ the defining moment of the modern AI era,
+ which is the ImageNet breakthrough in 2012.
+ It's the moment where a neural network
+ beat all past approaches to computer vision by a very large margin.
+ And of course, you were one of the people making that happen.
+ And so I'm really curious, from your perspective,
+ how did that come about?
+ Everybody else is working on different approaches to computer vision.
+ And there you are working on neural nets for computer vision.
+ And then you drastically outperform everyone.
+ How do you even decide to do this?
+ Yeah, I'd say that what led me to this result
+ was a set of realizations
+ over the time period of a number of years, which I'll describe to you.
+ So I think the first really pivotal moment was when
+ James Martins has written a paper called
+ Deep Learning by Hessian Free Optimization.
+ And that was the first time anyone has shown that you can train deep
+ networks end to end from supervised data.
+ For some context, back in those days, everybody knew
+ that you cannot train deep networks.
+ It cannot be done. Back propagation is too weak.
+ You need to do some kind of pre-training of some sort,
+ and then maybe you'll get some kind of an oomph.
+ But if it is the case that you can train them end to end,
+ then what can they do?
+ And the thing is, there is one more piece of context that's really important.
+ So today we take deep learning for granted.
+ Of course, a large neural network is what you need.
+ And you shove data into it and you'll get amazing results.
+ Everyone knows that. Every child knows that.
+ How can it be that we did not know that?
+ How could such an obvious thing not be known?
+ Well, people were really focused on machine learning models
+ where they can prove that there is an algorithm which can perfectly train them.
+ But whenever you put this condition on yourself,
+ and you're required to find a simple, elegant mathematical proof,
+ you really end up restricting the power of your model.
+ In contrast, neural networks, like the fundamental thing about neural networks
+ is that they are basically little computers, little parallel computers
+ that are no longer so little anymore.
+ They can be as little or as large as you want, but basically it is a computer.
+ It is a parallel computer.
+ And when you train a neural network,
+ you program this computer with a back propagation algorithm.
+ And so the thing that really clicked for me is when I saw these results
+ with the Hessian-free Optimizer, I realized, wait a second.
+ So we can actually program those things now.
+ It's no longer the case that maybe you could--
+ so the prevailing view was, aspirationally,
+ maybe someone could train those things, but it's obviously impossible.
+ Local minimas will get you.
+ But no, you can train a neural net.
+ And the second realization is human vision is fast.
+ It takes several hundred milliseconds at most to recognize something,
+ and yet our neurons are slow.
+ So that means that you don't even need that many layers
+ to get respectable vision.
+ So you put this.
+ So what does that mean?
+ It means that if you have a neural network which is pretty large,
+ then there exist some parameters which achieve good results on vision.
+ Now, if only there was a data set which you could train from,
+ and then ImageNet came up, and then the GPUs came up,
+ and then this has to happen.
+ And then at some point, I had a conversation with Alex Skrzewski
+ where he said that he has GPU code which
+ can train a small con net to get respectable results on CEFR
+ in 60 seconds.
+ And I was like, oh my god.
+ So let's do this on ImageNet.
+ It's going to crush everything.
+ And that's how it came to be.
+ I love the back story here, Ilya.
+ And it reminds me a lot of our days at OpenAI
+ where many things to you just look unavoidable and just so clearly.
+ They have to be that way.
+ I remember the first time you articulated to me
+ that a neural net is just a computer program,
+ and this is several years before even Carpathi
+ started talking about software 2.0 being programming with neural nets.
+ And it's just parallel and serial compute.
+ It's really amazing that you saw this even before there
+ was real success in neural nets.
+ When did you realize it was actually working on ImageNet?
+ What was that like?
+ I mean, I had very little doubt that it would work.
+ But at this point, Alex was training the neural net
+ and the results were getting better week after week.
+ And that's about it.
+ But I felt like the big risk from my perspective
+ was, can we have--
+ do we have the ability to utilize the GPUs well enough?
+ Train a big enough--
+ big enough, there's no such thing.
+ It's small like an interestingly large neural network.
+ It has to be a neural network that is large enough
+ to be interesting.
+ Whereas all previous neural networks are small,
+ if you're just going to have something which is going to be way larger
+ than anything before, then it should do much better than anything
+ anyone's ever seen.
+ Of course, we are far beyond that.
+ Our computers are faster and neural networks are larger.
+ But the goal was not-- the goal was just to go as far as possible
+ with the hardware we had back then.
+ That was the risk, and fortunately, Alex
+ had the kernels that eliminated that risk.
+ Right, that's a very good point.
+ I mean, at the time, it wasn't--
+ I mean, today, you put something in PyTorch, TensorFlow,
+ whatever your favorite framework is, and you can train a neural network.
+ Back then, you actually had to build some pretty specialized tools
+ yourself to make this all run.
+ Now, as that breakthrough happens, I'm curious.
+ What are you thinking next?
+ What do you think?
+ OK, we'll do this.
+ You probably knew this breakthrough happened
+ before everybody else in the world, because I mean,
+ you had the results before the public workshop.
+ And so before everybody else in the world even knew
+ that neural nets are going to be the new state of the art
+ and a new way of doing computer vision, you already knew that.
+ And so where was your mind going at that point?
+ So I think there were two things which I was thinking about.
+ So my belief has been that we've proven
+ that neural nets can solve problems that human beings can
+ solve in a short amount of time, because with the risk,
+ we've proven that we can train neural nets
+ with modest numbers of layers.
+ And I thought we can make the neural networks wider,
+ and that will be pretty straightforward,
+ making them deeper is going to be harder.
+ And so I thought, OK, well, depth
+ is how you solve problems that require a lot of thinking.
+ So can we find some other interesting problems that
+ don't require a lot of thinking?
+ And I actually was thinking a little bit
+ about reinforcement learning.
+ But the other problem was problems in language
+ that people can understand quickly as well.
+ So with language, you also have the property
+ that you don't need to spend a lot of time thinking,
+ what did I say exactly?
+ Sometimes you do, but often you don't.
+ So problems in language, and translation
+ was the preeminent problem in language at the time.
+ And so that's why I was wondering if you could do something there.
+ Another thing which I was thinking about
+ was actually Go as well.
+ I was thinking that using a ConvNet
+ could potentially provide very good intuition
+ for the non-neural network Go plane
+ system that existed back then.
+ Can you say a bit more about the Go system?
+ How a neural network could and actually has changed then
+ from there how that's done?
+ I mean, basically, the thing about neural networks
+ is that, OK, so before deep learning,
+ anything you had to do with AI involved some kind of maybe
+ search procedure with some kind of hard-coded heuristics
+ where you have really experienced engineers,
+ spend a lot of time thinking really hard about how exactly
+ under what conditions they should continue something
+ or discontinue something or expand resources.
+ And they've spent all their time trying
+ to figure out those heuristics.
+ But the neural network is formalized intuition.
+ It is actually intuition.
+ It gives you the kind of expert gut feel.
+ Because I read this thing that an expert player in any game
+ can just look at the situation and instantly get
+ a really strong gut feel.
+ It's either this or that.
+ And then I spend all the time thinking
+ which of those two it is.
+ I said, great.
+ The neural network should have absolutely no trouble.
+ If you buy the theory that we can replicate functions
+ that humans can do in a short amount of time,
+ like less than a second, and it felt like, OK,
+ in case of something like Go, which
+ was a big unsolved problem back then,
+ a neural network should be able to do that.
+ Back in the time, Ilya, with the first time
+ I heard that maybe use a confnet for Go, my naive reaction,
+ obviously, because clearly it succeeded.
+ My naive reaction was, confnets are famous for translation
+ invariance.
+ And there's no way that we want to be translation invariant
+ on the board of Go, because it really
+ matters whether a pattern is in one place or another place.
+ But obviously, that didn't stop the confnets from succeeding
+ and just capturing the patterns, nevertheless.
+ Yeah, that's, again, the power of the parallel computer.
+ Can you imagine programming a confnet to do the right thing?
+ Well, it's a little bit hard to imagine that.
+ But it's true that that part may have been a small leap of faith.
+ And maybe to close the loop on Go,
+ so my interest in Go ended up in me
+ participating on the AlphaGo paper as well, in a modest way.
+ I had an intern, Chris Madison, and we
+ wanted to apply supercontinents to Go.
+ And at the same time, Google acquired DeepMind.
+ And all the DeepMind folks have visited Google.
+ And so we spoke with David Silver and Ajay Huang.
+ So it would be a cool project to try out.
+ But then DeepMind really, they put a lot of effort behind it.
+ And they really had a fantastic execution of this project.
+ Yeah, I think while the ImageNet moment is the moment most AI
+ researchers saw the coming of age of deep learning
+ and a whole new era starting, AlphaGo
+ is probably the moment most of the world
+ saw that AI is now capable of something very different
+ from what was possible before.
+ It's interesting, though, because while most of the world's
+ focused on that, around the same time,
+ actually a New York Times article
+ comes out saying that actually something very fundamental
+ has been happening in natural language processing, which
+ you alluded to, and that actually the whole Google
+ Translate system had been revamped with neural networks,
+ even though a lot of people think of neural nets
+ at the time as pattern recognition and patterns
+ should be signals, like speech or visual signals,
+ and language is discrete.
+ And so I'm really curious about that.
+ How do you make the leap from these continuous signals
+ where neural nets, to many people,
+ seem the natural fit to language which most people would
+ look at as discrete symbols and very different?
+ Yeah, so I think that leap is very natural
+ if you believe relatively strongly
+ that biological neurons and artificial neurons
+ are not the difference.
+ Because then you can say, OK, human beings--
+ let's think of the single best professional translator
+ in the world, someone who is extremely fluent
+ in both languages.
+ That person could probably translate language
+ almost instantly.
+ So there exists some neural network
+ with a relatively small number of layers
+ in that person's mind that can do this task.
+ OK, so if you have a neural network in our side
+ of our computer, which might be a little bit smaller,
+ and it's trained on a lot of input-output examples,
+ we already know that we will succeed in finding the neural
+ net that will solve the problem.
+ So therefore, the existence of that single really good
+ instantaneous translator or the existence of one such person
+ is proof that the neural network can do it.
+ Now, it's a large neural network.
+ Our brains are quite large.
+ But maybe you can take a leap of faith and say, well,
+ maybe our digital neurons, we can train them
+ a little bit more, and maybe they're a little bit less noisy,
+ and maybe it will still work out.
+ Now, of course, our neural networks
+ are still not at the level of a really amazing human
+ translator, so there's a gap.
+ But that was the chain of reasoning,
+ that humans can do it quickly.
+ Biological neurons are not unlike artificial neurons,
+ so why can't a neural network do it?
+ Let's find out.
+ With your collaborations at Google,
+ you invented the modern way of doing a machine translation
+ with neural networks, which is really amazing.
+ Can you say a little bit more about how that works?
+ All you need is a large neural network
+ with some way of ingesting some representations of words.
+ And when the representation of words--
+ so what does it mean, a representation?
+ It's a word that we use in AI often.
+ A representation is basically, OK, so you have the letter A.
+ How do you show it, or the word cat?
+ How do you present it to the neural network?
+ And you basically just need to agree with yourself
+ that, hey, they're going to create
+ some kind of a mapping between the words or the letters
+ into some kind of signals that happen to be in the format
+ that the neural net can accept.
+ So you just say, I'll just design this dictionary once
+ and feed those signals to the neural net.
+ And now you need to have some way for the neural
+ network to ingest those signals one at a time.
+ And then it emits the words one at a time of the translation.
+ And that's literally it.
+ It's called the autoregressive modeling approach,
+ and it's quite popular right now.
+ But it's not because it's necessarily special.
+ It's just convenient.
+ The neural networks do all the work.
+ The neural networks figure out how
+ to build up their inner machinery,
+ how to build up their neurons so that they will correctly
+ interpret the words as they come in one at a time,
+ and then somehow break them into little pieces
+ and transform them, and then do exactly
+ the right orchestrated dance to output the correct words one
+ at a time.
+ It's probably possible to design other neural networks
+ that are other ways of ingesting the words.
+ And people are exploring this right now.
+ You may have seen some--
+ if you follow ML Twitter, you may
+ have seen some phrases like diffusion models.
+ So maybe they will be able to ingest the words in parallel
+ and then do some sequential work and then
+ output them in parallel.
+ It doesn't actually matter.
+ What matters is that you just present the words
+ to the neural net somehow, and you have some way
+ that the neural net can output the words of the target.
+ And that's what matters.
+ Yeah, to me, it was a very big surprise at the time
+ that it worked so well for language.
+ I was 100% certain that it will work great
+ for anything continuous.
+ And then all of a sudden, the sequence-to-sequence models
+ that you pioneered was like, OK, well, I
+ guess now it's going to work for everything was my conclusion.
+ Because if it can work for language,
+ what's left in terms of signals we work with, right?
+ Now, you, of course, didn't start
+ working on neural nets from the day you were born.
+ And Ilya, I'm really curious, where did you grow up
+ and how did that lead you to ending up being an AI
+ researcher?
+ Yeah, so I was born in Russia.
+ I grew up in Israel, and I moved to Canada when I was 16.
+ According to my parents, I've been talking about AI
+ at a relatively early age.
+ And I definitely remember at some point
+ thinking about AI and reading about this whole business
+ with playing chess using brute force.
+ And it was totally clear.
+ It seemed that, yeah, you could do the chess stuff, no problem.
+ But the learning stuff, that's where the real meat of AI is.
+ That's why AI is so terrible, because it doesn't learn.
+ And humans learn all the time.
+ So can we do any learning at all?
+ So when my family moved to Canada, to Toronto,
+ and I entered the University of Toronto,
+ I sought out the learning professors.
+ And that's how I found Jeff Hinton.
+ And then the other thing is that he had this--
+ he was into training neural networks.
+ And neural networks seemed like a much more promising
+ direction than the other approaches,
+ because they didn't have obvious computational limitations,
+ like things like decision trees, which were--
+ those words-- that phrase was popular back in the day.
+ Now, Jeff, of course, has a very long history working in AI,
+ especially neural networks, deep learning.
+ Coming out of England, coming to the US,
+ then moving to Canada.
+ And his move to Canada, in some sense,
+ helped spark the AI, the beginning of the new AI era
+ in Canada, of all places.
+ You're there at the same time, which is really interesting.
+ Kind of curious, do you think there's
+ any reason your parents decided to go to Toronto,
+ and that it is the place where both you and Jeff ended up?
+ And Alex, I mean, the three of you
+ were there together to make that happen?
+ I think it's a bit of a happy coincidence.
+ I think it has to do with the way immigration works.
+ It is a fact that it is quite a bit easier
+ to immigrate into Canada.
+ And if you immigrate into Canada,
+ Toronto is perhaps the most appealing city to settle in.
+ Now, that coincidence brings you to University of Toronto.
+ And you find Jeff Hinton working on neural networks.
+ But I've got to imagine, when you looked into his history,
+ you must have noticed he'd been working on it for 30, 40 years.
+ And was there any moment you thought,
+ well, maybe if it doesn't work after 30, 40 years,
+ it's not going to work now either?
+ I see what you're saying.
+ But my motivation was different.
+ I had a very explicit motivation to make even a very, very small
+ but a meaningful contribution to AI, to learning.
+ Because I thought learning doesn't work at all completely.
+ And if it works just a little bit better because I was there,
+ I would declare it a success.
+ And so that was my goal.
+ And do you remember anything from your first meetings
+ with Jeff?
+ How was that?
+ I mean, so I was a third year undergrad
+ when I met him for the first time.
+ I mean, I thought it was great.
+ So my major in undergrad was math.
+ But the thing about math is that math is very hard.
+ And all the really talented people go into math.
+ And so one of the things which I thought was great about machine
+ learning is that not only it is the thing,
+ but also all the really clever people
+ go into math and physics.
+ So I was very pleased about that.
+ I remember from actually reading Cade Metz's book,
+ is actually possibly my favorite anecdote from the book.
+ Has Jeff telling the story about him meeting you, Elia?
+ And so here's how the book tells the story.
+ Maybe you've read it, maybe not.
+ But essentially, the book says, yeah, there's Jeff.
+ And this young student comes in, Elia Sutskova, undergrad still.
+ And Jeff gives you a paper.
+ And you go read it.
+ And you come back.
+ And you tell him, I don't understand it.
+ And Jeff's like, oh, that's OK.
+ You're still undergrad.
+ What don't you understand?
+ I can explain it to you.
+ And essentially, he'll say, actually, I
+ don't understand why they don't automate
+ the whole process of learning.
+ It's still too much hand holding.
+ I understand the paper.
+ I just don't understand why they're doing it that way.
+ And Jeff's like, OK, wow, this is interesting.
+ It gives you another paper.
+ And again, you go read.
+ You come back.
+ So goes the story.
+ And you say, oh, I don't understand this one either.
+ And Jeff's like, what do you understand?
+ Don't you understand about this one?
+ I'm happy to explain.
+ And you go, I don't understand why
+ they train a separate neural network for every application.
+ Why can't we train one gigantic network for everything?
+ It should help to be trained jointly.
+ And to me, that's really--
+ I mean, that reminds me a lot of our times
+ at OpenAI, where it always felt like you already
+ are thinking several steps into the future of how things are
+ going to shape up just from the evidence we have today,
+ how it really should be several years down the line.
+ At least according to the book, that's
+ how Jeff remembers the first two meetings with you.
+ Yeah, I mean, something like this did happen, it's true.
+ So the field of AI back then when I was starting out
+ was not a hopeful field.
+ It was a field of desolation and despair.
+ No one was making any progress at all.
+ And it was not clear if progress was even possible.
+ And so that's why-- well, what do you
+ do when you are in this situation?
+ So you're walking down this path.
+ This is the path, the most important path.
+ But you have no idea how long it is.
+ You have no idea how hard it's going to be.
+ What would be a reasonable goal in this case?
+ Well, the goal which I chose was, can I make a useful step?
+ One useful step.
+ So that was my explicit motivation at least
+ for quite a while before it became clear that actually
+ the path is going to become a lot sloppier and a lot more
+ rapid, where ambitions grew very rapidly.
+ But at first when there was no gradient,
+ the goal was just make any step at all,
+ anything useful that would be meaningful progress towards AI.
+ And I think that's really intriguing actually
+ earlier because I think that's what drives a lot of researchers
+ is to just find a way to make some progress not knowing
+ actually ahead of time how far you can get,
+ but just being so excited about the topic
+ that you just want to find a way to at least make some progress
+ and then keep going.
+ And it's, of course, very interesting in your case
+ that then the whole thing switched from slow progress
+ to ever faster progress all of a sudden thanks to the thing
+ that you're trying to make that bit of progress
+ and it turns out to open up the flood
+ gates for massive progress.
+ Now, you start in Canada.
+ Your PhD research, of course, completely changes the field.
+ You start a company that gets acquired by Google
+ and you're at Google.
+ Then the big thing and also the moment actually our paths
+ start crossing or about to cross is that you're
+ on this role at Google.
+ You're doing some of the most amazing pioneering work in AI.
+ You're clearly in an amazing situation
+ where you are doing some of the best work that's
+ happening in the world.
+ And you decide to change your situation.
+ How did that come about?
+ I remember being at Google and feeling really comfortable
+ and also really restless.
+ I think two factors contributed to that.
+ One is that somehow I could look 10 years into the future
+ and I had a little bit too much clarity about how things
+ would look like.
+ And I didn't enjoy that very much.
+ But there was another thing as well.
+ And that's the experience of seeing DeepMind work on AlphaGo.
+ And it was very inspiring.
+ And I thought that it's a sign of things to come,
+ that the field is starting to mature.
+ Up until that point, all progress in AI
+ has been driven by individual researchers
+ working on small projects, maybe small groups of researchers
+ with some advice by their professors
+ and maybe some other collaborators.
+ But usually it would be small groups.
+ Most of the work would be idea heavy
+ and then it would be some effort on the engineering execution
+ to prove that the idea is valid.
+ But I felt that AlphaGo was a little different.
+ It showed that, in fact, it showed to me
+ that the engineering is critical.
+ And in fact, the field will change
+ and you'll become the engineering
+ field that it is today.
+ Because the tools were getting very solid
+ and the question then becomes, OK, how do you really
+ train those networks?
+ How do you debug them?
+ How do you set up the distributed training?
+ And it's a lot of work and the stack is quite deep.
+ And I felt that the culture at Google
+ was very similar to the academia culture, which
+ is really good for generating radical novel ideas.
+ And in fact, Google has generated a lot
+ of radical and revolutionary ideas in AI over the years.
+ And most notably, the transformer
+ from the past few years.
+ But I felt that that's not going to be
+ the whole of progress in AI.
+ I felt that it's not now only a part of progress in AI.
+ So if you think of it as of the body,
+ you can say you need both the muscles and the skeleton
+ and the nervous system.
+ And if you only have one, it's amazing,
+ but the whole thing won't really move.
+ You need all things together.
+ And so I felt that I had a vague feeling
+ that it would be really nice if there
+ was some kind of a company which would have these elements
+ together.
+ But I didn't know how to do it.
+ I didn't have any path to it.
+ I was kind of just daydreaming about it.
+ And then at some point, I got an email from Sam Altman saying,
+ hey, let's get dinner with some cool people.
+ And I said, sure.
+ And I showed up and Greg Brokman was there
+ and Elon Musk was there and a few others.
+ And we just chatted about, wouldn't it
+ be nice to start a new AI lab?
+ And I found that really the time was right
+ because I was thinking about the same thoughts independently.
+ And I really wanted it to be engineering heavy.
+ And seeing that Elon was going to be involved,
+ I thought, well, who would be better--
+ can't imagine a better person from whom
+ to learn the big engineering project side of things.
+ So I think this was the genesis.
+ There is more to it.
+ But I think that was the real genesis of OpenAI
+ from my perspective that, yeah, I was thinking about something
+ and then just one day I woke up with this email.
+ Hey, the thing that from my perspective
+ was like I was daydreaming about something
+ and then my daydream came true, almost like this.
+ Daydream becomes true.
+ What you're really saying there is
+ that there is a group of people, very highly accomplished
+ and ambitious people, who are in some sense
+ aligned with your dream and want to make this happen together.
+ But all that gets you is essentially
+ sometimes some paperwork that a new company now exists
+ and maybe some money to get going.
+ But you actually still need to decide what to do
+ with those resources and with your time.
+ I'm kind of curious.
+ At the beginning of OpenAI, what was going on in your mind
+ in terms of how to shape this up?
+ I mean, obviously, it's been a massive success.
+ But I'm really curious about the beginning part
+ and how that played out for you.
+ So the beginning part, I would describe it
+ as a whole lot of stress.
+ And it wasn't exactly clear how to get going right away.
+ There was only clarity about a few things,
+ which is there needs to be some kind of a large project.
+ And I also was excited about the idea
+ that maybe if you can predict really well,
+ you make progress on unsupervised learning.
+ But beyond that, it wasn't clear what to do.
+ So we tried a lot of different things.
+ And then we decided that maybe it
+ would be good to solve a difficult computer game, Dota.
+ And this is where Greg just showed his strength
+ and he just took on this project.
+ Even though it seemed really impossible,
+ genuinely impossible, and just meant for it.
+ And somehow it worked in the most stereotypical deep learning
+ way, where the simplest method that we tried just
+ ended up working.
+ The simplest policy gradient method,
+ as we kept scaling it up, just never, never
+ stopped improving with more scale and more training.
+ Just to double click on that for a moment,
+ I don't think everybody knows what Dota is.
+ Can you say a bit about that?
+ And I fully agree.
+ Why it's so surprising that the simplest approach ultimately
+ work is a very hard problem.
+ So for some context, the state of the field back then was--
+ OK, so if you look at reinforcement learning
+ in particular, DeepMind has made some very exciting progress
+ first by training a neural net with reinforcement learning
+ to play simple computer games.
+ And then the reaction was, OK, that's
+ exciting and interesting and kind of cool,
+ but what else can you do?
+ And then AlphaGo happened.
+ And then the opinion is shifted.
+ OK, reinforcement learning maybe can do something.
+ But Go-- it's funny, by the way.
+ Go used to seem this-- used to look
+ to be this impossible game.
+ And now everyone says, oh, it's such a simple game.
+ The board is so small, upper sections [INAUDIBLE] quickly.
+ But then DeepMind were talking about how
+ StarCraft is the next logical step up to go.
+ And it made a lot of sense to me as well.
+ It seemed like a much harder game, not necessarily
+ for a person to play, but for our tools,
+ it seemed harder because it had much more--
+ you had a lot more moving parts.
+ It's much more chaotic.
+ It's a real-time strategy game.
+ And we thought that it would be nice to have our own twist
+ on it and to try to make a bot which can play Dota.
+ And Dota is another real-time strategy game
+ that's really popular.
+ It's been the-- it had--
+ I believe it definitely had--
+ I don't know if it still has--
+ the largest prize pool, the largest annual prize pool
+ of any professional e-sport game.
+ So it was very-- it has a very vibrant, very strong
+ professional scene.
+ People dedicate their lives to playing this game.
+ They-- it's a game of reflex and strategy and instinct.
+ And a lot of things happen.
+ You don't get to see the whole game.
+ The point is that it definitely felt
+ like a grand challenge for reinforcement learning
+ at that time.
+ And our opinion about the tools of reinforcement learning was--
+ so let's put it this way.
+ So the grand challenge felt like it's here.
+ And the field's opinion about the tools
+ and their ability to solve a problem like this was here.
+ There was a huge mismatch.
+ And so when we started working on it, we thought, oh, yeah,
+ we're going to need to develop all kinds of crazy planning
+ methods and hierarchical reinforcement learning methods
+ and whatnot.
+ But let's just get a baseline.
+ Let's just see when the baseline breaks.
+ And that's when the baseline just didn't break.
+ It just kept improving all the time.
+ And it's interesting, with each--
+ so what would happen over the course of this project,
+ we would have these public demonstrations of our progress.
+ As we reach different milestones of performance,
+ we would have some kind of a public exhibition
+ game against a professional of different level
+ of accomplishment.
+ So at first, we had a public exhibition game
+ against retired professionals.
+ Then we had them against active professionals.
+ And then finally, we had a game against the strongest
+ professionals, and we defeated them.
+ But the interesting thing is that at each step,
+ you'd have people who-- you'd have very knowledgeable experts
+ in ML who would come out on Twitter and say,
+ well, that was really cool and great success
+ for reinforcement learning.
+ But obviously, the next step would require the explicit planning
+ thing or the hierarchy thing.
+ And somehow, it did not.
+ So that was a very important result for us.
+ I felt like it really proved to us
+ that we can do large projects.
+ I remember I was not part of this project, just to be clear.
+ But I was there at OpenAIM when it was all happening,
+ working on other projects.
+ And I remember being very, very surprised
+ that no explicit structure was needed.
+ Though in my mind, obviously, but maybe it's not even true,
+ but in my mind, there is this large LSTM model neural
+ network that maybe somehow, through backpropagation,
+ actually internalized the structure that we all--
+ at least not all of us, but maybe me--
+ I thought we would have to put in explicitly.
+ And maybe the neural network was able to just absorb
+ that intuition through backpropagation
+ without the need to hard code it, which
+ was really intriguing to me, because it just seemed like,
+ wow, a lot of intuitions might be better provided
+ through data than through hard coding, which
+ seems a very common trend in all of deep learning.
+ But maybe reinforced learning at the time
+ wasn't as strongly believed yet till that result came out.
+ Yeah, I mean, I agree.
+ I agree with your assessment.
+ I feel like-- yeah, I like to think
+ that this result had changed the field's view at least
+ a little bit about the capability of simple
+ reinforcement learning.
+ Now, to be fair, you still need quite a hefty amount
+ of experience to get a very strong result and such, again.
+ And then we also used a similar approach.
+ So I would say, if you have the ability
+ to generate a very large amount of experience
+ against some kind of a simulator,
+ then this style of reinforcement learning
+ can be extremely successful.
+ And in fact, we have also--
+ another important result in OpenAI's history
+ was to use the same exact approach to train a robot
+ to solve the Rubik's Cube.
+ So a physical robot, a physical robot hand,
+ actually solved the physical Rubik's Cube.
+ And it was a quite challenging project.
+ The training was done entirely in simulation.
+ And the simulation was designed in such a way
+ so that it's extra hard.
+ And it requires the neural net to be very adaptive
+ so that when you give it the real robot,
+ the real physical robot, it will still succeed.
+ But at core, it was the same exact approach
+ as the one we used with the DOTA project, which
+ was very large-scale reinforcement learning.
+ In fact, it was even the same code.
+ So that was a case where we had this general technique,
+ these general powerful results, which
+ we were able to use in more than one place.
+ And that was what we've done on reinforcement learning.
+ I know that right now there's other reinforcement learning
+ happening at OpenAI in the context of language, actually,
+ before we get to-- and I'm really curious about that.
+ But before we get to that, language modeling,
+ GPT is probably the most visible thing in recent years
+ in the public eye of what AI is capable of.
+ And OpenAI generated these GPT generations
+ of models that can complete articles in very credible ways.
+ And it's been very surprising how capable it is.
+ And so what I'm really curious about,
+ again, in some senses, you decided that--
+ I mean, not alone, but together with collaborators at OpenAI,
+ you decided that time was right to go down
+ this path of building language models.
+ And I'm really curious, what was it for you
+ that made you believe that this was the thing to start doing?
+ Yeah, so from my side, a really important thing
+ that happened to me is that I was really
+ interested in unsupervised learning.
+ And for context, the results that we spoke about earlier on,
+ about vision and even about Go and Dota, all these results,
+ translation, they are all cases where you have, somehow,
+ you train a neural network by presenting it
+ with inputs and desired outputs.
+ You have your random input, not random.
+ You have a typical input, a sentence, an image, something.
+ And you have the desired output.
+ And the neural network, you run it,
+ and you compare the predicted output with the desired output.
+ And then you change the neural network to reduce this error.
+ And you just do it a lot.
+ You do it a lot, and that's how learning works.
+ And it's completely intuitive that if you will do this,
+ the neural network will succeed.
+ I should say, maybe not completely intuitive,
+ but definitely pretty intuitive today.
+ Because you say, hey, here is my input.
+ Here's my desired output.
+ Don't make the mistakes.
+ Eventually, the mistakes will go away.
+ And it is something where you can at least have
+ a reasonably strong intuition about why it should work,
+ why supervised learning works, and why reinforcement learning
+ works.
+ In contrast, at least in my mind,
+ unsupervised learning is much more mysterious.
+ Now, what is unsupervised learning exactly?
+ It's the idea that you can understand the world, whatever
+ that means.
+ You can understand the world by simply observing it
+ without there being a teacher that will tell you what
+ the desired behavior should be.
+ So there is a pretty obvious question, which is, OK,
+ so how could that possibly work?
+ How could it possibly be that you have--
+ OK, so what would you do then?
+ What was the typical prevailing thinking?
+ The prevailing thinking has been that maybe you
+ have some kind of task like you take
+ your input, your observation, an image, let's say,
+ and then you ask the neural network
+ to somehow transform it in some way
+ and then to produce the same image back.
+ But why would that be a good thing for the task you care
+ about?
+ Is there some mathematical reason for it?
+ I found it very unsatisfying.
+ In my mind, it felt to me like there
+ is no good mathematical basis for unsupervised learning
+ at all whatsoever.
+ And I was really bothered by it.
+ And after a lot of thinking, I developed the belief
+ that actually, if you predict the next bit really well,
+ you should have a really good unsupervised learning.
+ The idea is that if you can predict the next bit really
+ well, then you have extracted all the meaningful information
+ that somehow the model knows about all the meaningful
+ information that exists in the signal.
+ And therefore, it should have a representation
+ of all the concepts.
+ And it's the idea in the context of language modeling,
+ it's very intuitive.
+ If you can predict the next word moderately accurately,
+ maybe the model will know that words
+ are just clusters of characters separated by space.
+ If you predict better, you might know that there is a vocabulary,
+ but you won't be good at syntax.
+ If you improve your prediction even further,
+ you'll get better at the syntax as well.
+ And you will be producing syntactical mambo jumbo.
+ But if you improve your prediction even further,
+ necessarily the semantics has to start kicking in.
+ I felt that the same argument can be made about predicting
+ pixels as well.
+ So at some point, I started to believe
+ that maybe doing a really good job on prediction
+ will give us unsupervised learning, which back then
+ felt like a grand challenge.
+ Another interesting thing that now everyone
+ knows that unsupervised learning just works.
+ But not that long ago, it seemed like this completely
+ intractable thing.
+ So anyway, to come back to the story
+ of how the GPTs were created.
+ So then I'd say the first project that really
+ was a step in this direction was led
+ by Alec Radford, who is an important hero of the GPT
+ saga, where we trained an LSTM to predict the next character
+ on reviews on Amazon reviews of products.
+ And we discovered that this LSTM has a neuron which
+ corresponds to sentiment.
+ In other words, if you are reading
+ a review which is positive, the sentiment neuron will fire.
+ And if you are reading a review which is negative,
+ the sentiment neuron will not fire.
+ So that's interesting.
+ And that felt to us like it validated the conjecture of,
+ yeah, of course, eventually if you want to predict what comes
+ next really well, you need to discover
+ the truth about the data.
+ And so then what happened is that the transformer
+ came out.
+ And then we saw the transformer.
+ And I think it was pretty--
+ it got us really excited because we were really struggling.
+ We believed that long-term dependencies were really
+ important.
+ And the transformer had a very clean, elegant, and compute
+ efficient answer to long-term dependency.
+ And for context, the transformer is this neural network
+ architecture.
+ And in some sense, it's just really good.
+ But a little bit more technically,
+ so we discussed that these neural networks are deep
+ in some way.
+ And we know-- and it's been the case until relatively recently
+ that it was pretty hard to train deep neural networks.
+ And previous neural networks for training models
+ on sequences of language, the longer the sequence was,
+ the deeper the network would get,
+ the harder it would be to train.
+ But the transformer decoupled the depth of the transformer
+ from the length of the sequence.
+ So you could have a transformer of manageable depth
+ with very long sequences.
+ And that was exciting.
+ And this investigation led to GPT-1.
+ And then I would say, further, then we
+ continue to believe in scale.
+ And that led to GPT-2 and 3.
+ And here, it's really--
+ I want to call out Dario Amode, who really
+ believed that if he were to scale up the GPTs,
+ it would be the most amazing thing ever.
+ And that's how we got GPT-3.
+ And GPT-3, I mean, when it came out,
+ it wasn't just, I think, what was so exciting
+ to the entire community.
+ It wasn't just something that could complete text.
+ When you start with a prompt, it could maybe say, oh,
+ this is likely your next sentence.
+ I mean, it could complete all kinds of things.
+ People would write web pages, even write some very basic code
+ that gets completed with GPT-3.
+ They would-- and they would be able to prompt it.
+ And that really intrigued me, this notion of prompting,
+ where you have this gigantic model that's trained on,
+ I don't know how much text out there.
+ But that somehow, when you then briefly feed it
+ a little bit of extra text in the moment,
+ you can actually prime it to start doing something
+ that you want it to do.
+ Can you say a bit more about that?
+ Where did that come from, and how does that work, you think?
+ So what is a language model, exactly?
+ You just have a neural network that takes some text
+ and tries to output an educated guess of what
+ the next word might be.
+ And it outputs an educated guess.
+ It might say, it's 30% the word the--
+ some kind of a guess of probabilities
+ of what the words might be.
+ Then you can pick a word according to this probability
+ that the neural network outputs, and then commit to it,
+ and then ask the neural network to predict the next word again
+ and again and again.
+ Now, we know that real text, in some sense,
+ is very responsive to its beginning.
+ We know that text has a lot of very complicated structure.
+ And if you read a document which says, this document below,
+ we'll describe a list of questions
+ that were given in the MIT entrance exam in the 1900.
+ I just made it up.
+ Then I strongly expect that, in fact, there will be 10 or so
+ questions in math of the kind of math that was usually
+ in math exams in the 1900.
+ If the model is good enough, it should actually do that.
+ Now, how good enough is good enough?
+ Well, this is a little bit of a qualitative statement.
+ But if it is definitely good enough,
+ it should be able to do it.
+ So then you train a GPT-3, and you see,
+ can it actually do it?
+ And sometimes it cannot.
+ But very often, indeed, it is responsive.
+ It is very responsive to whatever text you give it.
+ Because to predict what comes next, correct, well enough,
+ you need to really understand the text you're given.
+ And I think this is kind of, in some way,
+ the centrality of prediction.
+ Good enough prediction gives you everything
+ you could ever dream about.
+ We are dropping new interviews every week.
+ So subscribe to the Robot Brains on whichever platform
+ you listen to your podcasts.
+ Now, one of the things that I think also stood out to me
+ with GPT is that it's a research breakthrough.
+ It's a major research breakthrough.
+ But it also feels very practical.
+ I mean, whenever I'm typing something,
+ I mean, I know what I want to type next.
+ It's already in my head.
+ But I still have to type it.
+ But with a GPT, GPT-2 onwards probably,
+ it could complete it fairly accurately.
+ And so it seemed like very different in that sense
+ from, for example, the Rubik's Cube breakthrough
+ or the Dota breakthroughs, which were fundamental research
+ breakthroughs.
+ But it was hard to dream of the direct applications.
+ And here with GPT, it was so easy to dream
+ of so many applications.
+ And I'm curious if, in your own evolution on things,
+ when GPT started working, did you
+ start thinking about applications?
+ Or did, more generally, people around you at OpenAAS
+ start thinking about applications?
+ What was going on?
+ Yeah, we were definitely excited about the potential
+ applications.
+ I mean, we were so excited about them
+ that we built a whole API product around GPT-3
+ so that people could go and build
+ their new and convenient and sometimes unprecedented
+ applications in language.
+ I mean, I think it's a general--
+ so maybe another way of looking at what's happening
+ is that AI is just continuing to get more and more capable.
+ And it can sometimes be tricky to tell
+ if a particular research advance is real or not real.
+ Suppose you have some cool demo of something.
+ What do you make of it?
+ It can be hard to understand the magnitude of the advance,
+ especially if you don't know how similar the demo is
+ to their training data, for example.
+ But if you have a product that's useful,
+ then the advance is real.
+ And I feel that maybe, in a sense,
+ we have moved away from the field has matured so much
+ that we no longer need to rely on demos and even benchmarks
+ as the only indicators of progress,
+ but usefulness as the truest indicator of progress.
+ And so that's why--
+ and so I think this is a good sign for GPT-3, for sure.
+ And yeah, the applications, we were excited about them.
+ And people are using GPT-3 all the time right now.
+ Are there any uses that you've seen
+ that you're able to share, applications being built?
+ There's plenty of applications.
+ I remember seeing something that helps you write a resume
+ and prettify it, something that helps improve your emails.
+ I think I've seen something like this.
+ I don't remember, but they all have this kind of flavor.
+ I know that there is a lot of users.
+ Unfortunately, I don't remember specific examples
+ of it up on my head.
+ This is jumping ahead a little bit
+ in the progression of the research trajectory
+ you've gone through with OpenAI, but maybe the biggest
+ application, of course, and maybe it's not called GPT
+ anymore, it's called Codex, but it's very similar.
+ It's a system that can help you write programs.
+ Can you say a bit about that?
+ And I'm curious, is it just like GPT,
+ but trained on GitHub code instead of text,
+ or are there some differences?
+ So the system that we described in the paper
+ is essentially a GPT-trained code.
+ It's that simple.
+ The thing that's interesting about it
+ is that it works as well as it does.
+ Because you can say, what have you even done?
+ You've done nothing.
+ You just took a large neural net, and you trained it
+ on code for a long time, and now you
+ have a neural net, and you trained it on code from GitHub.
+ But the result is not bad at all.
+ It can solve real coding problems much better
+ than I think most people would have expected.
+ And again, this comes back to the power of deep learning,
+ the power of these neural nets.
+ They don't care what problem to solve.
+ And you can all say, well, people can code,
+ so why can't neural nets?
+ If you believe that a biological neuron is not
+ very different from an artificial one,
+ then it's not an unreasonable belief at all.
+ So then the question becomes, what's the training data?
+ Predicting GitHub is not exactly the same as coding,
+ so maybe it won't quite do the right thing.
+ But it turned out to be good enough,
+ and it turned out to be very useful, especially
+ in situations where you have a library which you don't know.
+ Because it's right all of GitHub.
+ It has such familiarity with all the major libraries.
+ And if you don't know it, but you kind of just write a comment,
+ use this library to do X, it will come up
+ with code which is going to often be correct or pretty close.
+ And then you have something to work with,
+ and you edit it a little bit, and you have something working.
+ But yeah, it's just the GPT trying
+ to predict code pretty well.
+ I think, in many ways, it's really
+ mind blowing in terms of potential societal impact.
+ Because if I think about a lot of the way
+ we create impact in the world as people,
+ we're often sitting behind a computer, right?
+ And we're typing things.
+ And whether it's typing emails or writing up documents
+ on work we've been doing or writing code,
+ this could really accelerate anybody's work
+ and the kind of things we could do in one day.
+ I don't know if we're already seeing metrics for this,
+ but I would imagine that if it's not now
+ in the next generation.
+ And I'm curious about your thinking.
+ What kind of productivity we can expect from people
+ thanks to these tools?
+ So I'd say that in the near term, productivity
+ will continue to increase gradually.
+ I think that as time goes by and the capability of AI systems
+ increases, productivity will increase absolutely
+ dramatically.
+ I feel very confident in that.
+ We will have-- we will witness dramatic increases
+ in productivity.
+ Eventually, in the long term, a day
+ will come when the systems will, in fact, just--
+ the world will be kind of like the AI is doing all the work
+ and then that work is given to people to enjoy.
+ That's what I think is the long term future will hopefully
+ be like.
+ So in the medium term, it's going
+ to be amazing productivity increases.
+ And then in the long term future,
+ it's going to be infinite productivity or fully
+ automated productivity.
+ Now, one of the things that, of course, people think about a lot
+ in that context, when you give an AI a lot of productivity,
+ it better be productive doing the right thing
+ and it better not be productive, I don't know,
+ blowing something up by mistake and so forth
+ or just misunderstanding what it's supposed to be doing.
+ And in that sense, I've been really curious
+ about this project at OpenAI where reinforcement learning
+ is combined with GPT.
+ Can you say a bit more about that?
+ Take a step back.
+ So we have these AI systems that are becoming more and more
+ powerful.
+ And a great deal of their power is
+ coming from us training them on very large data
+ sets we don't understand for which we have an intuitive
+ understanding of what they do.
+ So they learn all kinds of things.
+ And then they act in ways which we can inspect,
+ but perhaps not--
+ we can inspect, but it might be--
+ and we do have, for these large language models, for example,
+ we do have some ability to control them
+ through the prompts.
+ And in fact, the better the language model we get,
+ the more controllable it will become through the prompts.
+ But we want more.
+ We want our models to do exactly what we want or act closer
+ to what we want as much as possible.
+ So we had this project indeed that you alluded to
+ of training these language models with reinforcement
+ learning from human feedback, where now you do reinforcement
+ learning not against a simulator,
+ but against human judges that tell you
+ whether the output was desirable or undesirable.
+ And if you think about it, this reinforcement learning
+ environment is really exciting.
+ You could even argue that reinforcement learning has kind
+ of maybe slowed down a little bit because there
+ weren't really cool environments in which you could do it.
+ But doing reinforcement learning with language models
+ and with people, that feels like such--
+ it's such a-- it opens such a powerful vista.
+ You can do so many things there.
+ And what we've shown is that these large neural networks,
+ these large GPT models, when you do reinforcement learning
+ from these teachers, essentially.
+ And I should also say there is a small technicality, which,
+ again, this is a technical thing for the male-focused subset
+ of the audience.
+ In reinforcement learning, you're
+ usually providing a reward, good or bad.
+ But the way we do it with reinforcement learning
+ from human feedback is that the teacher needs
+ to look at two outputs by the model
+ and to say which one is better because it's an easier task.
+ It's an easier task to compare two things than to say
+ whether one thing is good or bad in absolute.
+ And then we do a little bit of machine learning
+ in order to then create a reward out of it, a reward model,
+ and then use this reward model to train the neural net.
+ And this is a pretty sample-efficient thing to do.
+ And you obtain a very fine-grained way
+ of controlling the behavior of these neural networks,
+ of these language models.
+ And we've been using it quite a bit.
+ Like recently, we've been training these instruction
+ following models, which actually people
+ can use through the API, through the OpenAI API, where in GPT-3,
+ the model is just trained on the intranet.
+ So you need to be quite clever about specifying your prompt,
+ specifying your prompt into kind of core
+ and getting the model to do what you want,
+ providing some examples.
+ Whereas the instruction following model
+ has been trained in this way to literally do
+ what we tell it to.
+ So there is a word which I think is
+ known in some subsets of the machine learning community,
+ but not in all of it.
+ And it's called the model--
+ this is an attempt to align the model.
+ So the model, with its power and with great power
+ and unclear capabilities, will, in fact,
+ be trained and incentivized to literally do what you want.
+ And with the instruction following model,
+ you just tell it what you want.
+ Do x, write y, modify z, and it will do it.
+ So it's really convenient to use.
+ And this is an example of the technique
+ of reinforcement learning from human feedback in practice.
+ But moving forward, of course, you
+ want to learn from teachers in all kinds of ways.
+ And you want to use machine learning to not just have
+ people provide supervised examples or provide rewards,
+ but you really want to have a conversation where
+ you ask exactly the right question to learn
+ the information that we need to understand the concept.
+ So that's how things will be in the future.
+ But right now, this approach has been
+ used very successfully to make our GPT models more
+ aligned than they are naturally.
+ I'm going to say aligned.
+ As I understand it, you can also align them
+ in a personalized way, so align to a specific person's
+ preferences.
+ I could teach you to follow my preferences,
+ and you could have a different one.
+ I mean, so the answer is definitely yes.
+ So the specific model that I mentioned to you,
+ the instruction following model, this model,
+ it's a single model, and it's been aligned.
+ We say it's aligned, which is a way
+ to say that it's been trained and incentivized
+ to follow the instruction to give it.
+ So it's an interface, and it's a very convenient interface.
+ Of course, it is possible.
+ With these neural nets, they can do whatever you want.
+ You can train them in literally any way you want.
+ You can personalize them in arbitrary ways.
+ You could say, OK, for this user, we'll do this.
+ For that user, we'll do that.
+ And the user can be specified with the paragraph
+ or maybe some of their past actions.
+ So almost anything is possible.
+ Now, when you say almost anything is possible,
+ that also reminds me of a lot of our past conversations.
+ It always seems like no limits to your imagination
+ of what might be possible and angles to try to get there.
+ And maybe one of the other most surprising recent results
+ is traditionally a lot of work in computer vision,
+ in language processing, in reinforcement learning,
+ separate research arenas almost.
+ But then recently, you, together with collaborators at OpenAIR,
+ released the CLIP and DALI models
+ that bring language and vision, in some sense,
+ together into the same network to really somehow have
+ a single network that can handle both at the same time.
+ Again, I'm curious about how do you come to conclude, OK,
+ this is the direction that maybe we should push now.
+ Maybe it becomes possible now to have this combined model that
+ can handle both vision and language in the same model
+ and effectively translate between them as desired.
+ Well, I think the underlying motivation here
+ is that it seems implausible that the neural networks
+ of the future will not have both vision and language.
+ And that was the motivation to begin
+ thinking in this direction.
+ And as to whether this should be possible,
+ I mean, I think, at least in my view,
+ there was plenty of evidence that neural networks should just
+ succeed in this task if you make it large
+ and you have an appropriate data set.
+ If they can generate language like they do,
+ why can't they generate the language of images
+ or go in the other direction as well?
+ So it was more--
+ maybe it's good to think of it as an exploration
+ of training neural networks in both images and text.
+ And with Dali for context, Dali is literally
+ a GPT-3 that is trained on text followed by almost
+ like a textual representation of an image.
+ So we use those tokens to represent an image
+ so that from the perspective of the model,
+ it's just some kind of a funky language.
+ But it's kind of like you can train
+ GPT-2 on English text and French text.
+ It doesn't care.
+ So what if you just had a different language which
+ had some human language and the language of images?
+ And that's Dali.
+ And it worked exactly as you'd expect.
+ And it was still a lot of fun to see a neural network
+ generate images like it did.
+ And with Clip, it was an exploration
+ in the opposite direction, which is
+ can a neural network learn to see
+ using a lot of loose natural language provision?
+ Can it learn a huge variety of visual concepts?
+ And can it do so in a way that's very robust?
+ And I think the robustness point is something which I think
+ is also very flexible.
+ But I think the robustness point is especially important
+ in my eyes.
+ And let me explain what I mean by robustness.
+ So there's one thing which I think is especially notable
+ and unsatisfying in neural networks provision
+ is that they make these mistakes that a human being would never
+ make.
+ So we spoke earlier about the ImageNet data set
+ and about training neural networks to recognize
+ the images in this data set.
+ And you'd have neural nets which achieve superhuman performance
+ in this data set.
+ Then you'd put it on your phone and start taking photos.
+ It would make all these disappointing mistakes.
+ What's going on?
+ And then it turns out that what's really going on
+ is that there are all kinds of peculiarities
+ in this data set which are hard to notice if you don't
+ pay close attention.
+ And so people have built all kinds of test sets
+ with the same objects, but for maybe unusual angles
+ or in a different presentation for which the ImageNet
+ neural network is just failed.
+ But the clip neural network, it was
+ trained on this vast and loosely labeled data
+ from the intro of this text.
+ This neural network was able to do well
+ on all these variants of ImageNet.
+ It was much more robust to the presentation
+ of the visual concept.
+ And I think this kind of robustness is very important
+ because human beings are--
+ when it comes to our vision, a third of our brain
+ is dedicated to vision.
+ Our vision is unbelievably good.
+ And I feel like this is a step towards making neural nets
+ a little bit more robust, a little bit more--
+ neural nets whose capability is a little bit more
+ in line with the capability of our own vision.
+ Now, you say ImageNet versus the clip data set.
+ The clip data set is a lot larger.
+ How much larger is it?
+ I mean, what's the difference in size between those?
+ Like hundreds of times larger.
+ It has open-ended categories because the categories
+ are just free-form text.
+ But it's really kind of the size, but also
+ the coverage and the variety.
+ The data set needs to be diverse.
+ It needs to have a lot of stuff in it.
+ If a data set is narrow, it will hurt the neural network.
+ When I look back at the last 10-- well, nine-ish years,
+ since the ImageNet breakthrough, it
+ seems like year after year there are new breakthroughs,
+ new capabilities that didn't exist before.
+ Many of them, thanks to you, Ilya, and your collaborators.
+ And I'm kind of curious, how do you--
+ from looking back at the last nine years
+ and then as you project forward, are there
+ some things that you are particularly excited about
+ that we can't yet do today, but you're
+ hopeful that maybe become feasible in the next few years?
+ Yeah.
+ So I'd say that there is a sense in which the deep learning
+ saga is actually a lot older in the past nine years.
+ It's funny, if you read some of the statements made
+ by Rosenblatt, I think in the '60s.
+ So the Rosenblatt invented the Perceptron,
+ which was one of the first neural networks that
+ could learn something interesting on a real computer.
+ It could learn some image classification.
+ And then the Rosenblatt went on to the New York Times
+ and he said, one day, a neural network will see and hear
+ and translate and be conscious of itself and be your friend.
+ Something like this.
+ And he was trying to raise money to build increasingly larger
+ computers.
+ And he had academic detractors who
+ didn't like the way funding was misallocated in their mind.
+ And that led to the first major neural network winter.
+ And then I think now these ideas were kind of always
+ there in the background, just that the environment wasn't
+ ready, because you needed both the data and the compute.
+ And then as soon as the data and the compute became ready,
+ you were able to jump on this opportunity
+ and materialize the progress.
+ And I fully expect that progress will continue.
+ I think that we will have far more capable neural networks.
+ I think that--
+ I don't want to be too specific about what I think about what
+ exactly may happen, because it's hard to predict those things.
+ But I would say one thing which would be nice
+ is to see our neural networks being even more reliable
+ than they are, being so reliable that you can really
+ trust their output, and when they don't know something,
+ they'll just tell you, and maybe ask for clarification.
+ I think that will be quite impactful.
+ I think they will be taking a lot more action than they are
+ right now.
+ I think our neural networks are still quite inert and passive.
+ And they'll be much more useful.
+ Their usefulness will continue to grow.
+ And I mean, for sure, I'm totally certain that we
+ will need some kind of new ideas,
+ even if those new ideas may have the form of looking
+ at things differently from the way we are looking at them
+ right now.
+ And I would argue that a lot of the major progress
+ in deep learning has this form.
+ Well, for example, the most recent progress
+ in unsupervised learning.
+ Like, what was done?
+ What's different?
+ We just train larger language models.
+ But they've existed in the past.
+ It's just we realize that language models
+ were the right thing all along.
+ So I think there will be more realizations likely that's worth,
+ things that are right in front of our noses
+ are actually far more powerful and far more capable
+ than we expected.
+ And yeah, I do expect that the capability of these systems
+ will continue to increase.
+ They will become increasingly more impactful in the world.
+ They will become a much greater topic of conversation.
+ I think that we will see unbelievable, truly
+ unbelievable applications, incredible applications,
+ positive, very given transformative applications.
+ I think we could imagine lots of them with very powerful AI.
+ And eventually, I really do think
+ that you'll be in a world where the AI does the work
+ and we the people enjoy this work
+ and we use this work to our benefit and enjoyment.
+ And part of the reason OpenAI is a cap profit company
+ where after we return our obligations to our investors,
+ we turn back into a nonprofit so that we can help materialize
+ this future vision where you have this useful AI that's
+ doing all the work and all the people get to enjoy it.
+ And that's really beautiful.
+ I like the model you have there because it essentially,
+ I mean, it reflects the, in some sense, the vision
+ that the benefits of really capable AI could be unlimited.
+ And it's not great to concentrate
+ an unlimited benefit into a very small group of people
+ because, I mean, that's just not great
+ for the rest of the world.
+ So I love the model you have there.
+ One of the things that ties into this, Ilya,
+ is that maybe AI's also becoming more expensive.
+ A lot of people talk about it, that training models,
+ you want a bigger model that's going to be more capable,
+ but then you need the resources to train those bigger models.
+ And I'm really curious about your thinking on that.
+ Is it just going to be the more money, the bigger the model,
+ the more capable?
+ Or is it possible that the future is different?
+ So there is a huge amount of incentive
+ to increase the efficiency of our models
+ and to find ways to do more with less.
+ And this incentive is very strong,
+ and it affects everyone in the field.
+ And I fully expect that in the future,
+ we'll be able to do much more using
+ a fraction of the cost of AI right now.
+ I think that's just going to happen for sure.
+ I think cost of hardware will drop.
+ I think methods will become more efficient in all sorts of ways.
+ There are multiple dimensions of efficiency
+ that our models could utilize that they aren't.
+ At the same time, I also think that it is true
+ that bigger models will always be better.
+ And I think that's just the fact of life.
+ And I expect there should be almost
+ like a kind of a power law of different models
+ doing different things.
+ I think you'll have very powerful models
+ in small numbers that are used for certain tasks.
+ And you'd have many more smaller models that
+ are still hugely useful.
+ But then you have even more models
+ which are smaller and more specialized.
+ So you'd have this kind of continuum of size,
+ specialization.
+ And it's going to be an ecosystem.
+ It's going to be not unlike how in nature there are animals
+ that occupy any niche.
+ And so I expect that the same thing will happen with compute
+ that for every level of compute, there
+ will be some optimal way of using it.
+ And people will find that way and create
+ very interesting applications.
+ Love your vision, Ilya.
+ I think we actually covered a tremendous amount already.
+ I'm really intrigued by everything we've covered.
+ But there is one question that's really still on my mind
+ that I'm hoping we can get through, which is--
+ Ilya, you've been behind a lot of the breakthroughs
+ in AI in the last 10 years, actually even a bit before that.
+ And I'm just kind of curious, what does your day look like?
+ What do you think are some habits and things
+ on your schedule or things you do that help
+ you be creative and productive?
+ It's hard to give useful blanket advice like this.
+ But maybe two answers consist of protecting my time
+ and just trying really hard.
+ I don't think there is an easy way.
+ You need to just got to embrace the suffering
+ and push through it and pushing those walls.
+ And that's where the good stuff is found.
+ Now, when you say protecting your time, which really
+ resonates, of course, then you get
+ to choose how you fill it in.
+ And I'm kind of curious if you just look at,
+ let's say, maybe the last week or the week before,
+ and you're like, protect that time, what are you doing?
+ Are you going on walks?
+ Are you reading papers?
+ Are you brainstorming with people?
+ What's going on?
+ Yeah, I'd say mostly, in my case,
+ it would be not necessarily going in works,
+ but lots of solitary work.
+ And yeah, there are people with whom
+ I have very intense research conversations, which
+ are very important.
+ And I think those are the main things I do.
+ I do know that you're also an artist, or aspiring artist,
+ whatever we want to call it at the same time.
+ Do you think that plays a role at all
+ in boosting your creativity?
+ I mean, I'm sure it doesn't hurt.
+ So it's hard to know with these things, obviously, but yeah.
+ I think it can only help.
+ Well, Ilya, it's so wonderful to have had
+ this chance to chat with you.
+ I mean, it's been way too long since we've
+ had a chance to catch up.
+ And this has been so good to get to know you even better
+ than before.
+ Thank you so much for making the time.
+ Thank you, Peter.
+ It's a great pleasure being on the podcast.
+ [MUSIC PLAYING]
+ [MUSIC PLAYING]
+ [MUSIC PLAYING]
+ [MUSIC PLAYING]
+, [MUSIC PLAYING]
+ [MUSIC PLAYING]
+ [MUSIC PLAYING]
+ [MUSIC PLAYING]
+ [MUSIC PLAYING]

@@ -1,0 +1,734 @@
+ In my talk, I will tell you about the progress we've done over the past year towards the
+ Open AI mission.
+ Let me tell you what the Open AI mission is.
+ It is to ensure that artificial general intelligence, AGI, by which we mean highly autonomous systems
+ which outperform humans at most economically valuable work, benefits all of humanity.
+ In the first part of my presentation, I want to tell you about some of the technical progress
+ that we've made towards simply advancing AI.
+ The first result I want to tell you about is Open AI 5, which is the neural network
+ that we trained to play DOTA at a level that equals that of the strongest players in the
+ world.
+ So DOTA is a very large, difficult, popular real-time strategy game.
+ The main thing about the game DOTA is that unlike previous games which were used to test
+ AI algorithms, DOTA is closer to the real world.
+ It is a chaotic game where you have partial observability.
+ There are very many actions you can take at any point in time, and the games are very
+ long, lasting for more than an hour, but you have 20,000 actions that you can take during
+ it.
+ Also, significantly, people dedicate their lives to this game.
+ They practice for 20,000 hours, more than 10,000 hours of deliberate practice to get
+ good at it.
+ Another important thing about this game is that it's really popular.
+ It has the largest professional e-sports scene of any game in the world, and it has the largest
+ price pool, the largest annual price pool, which is $40 million.
+ So what we have is that DOTA is a very hard game.
+ It is chaotic.
+ It is messy.
+ It is more similar to the real world than previous games that people have tried to apply
+ eye to.
+ And people who play this game, they play this game really well, so it is a hard game.
+ Doing well in this game is not easy.
+ I'm going to show you a small video to give you a taste of how the game looks like.
+ >> Oh, no!
+ >> You can hear it from here.
+ >> Yeah.
+ >> Here you have our bot chasing a human player.
+ This is from August, we were playing against some of the strongest teams in the world.
+ And here, you know, we are chasing, so here's a bot chasing the human player.
+ >> Yeah, here comes the -- >> Oh, did it do the math?
+ >> Yeah.
+ >> Did it do the math?
+ Open AI.
+ >> It's beyond math.
+ >> Yeah.
+ So we were able to catch the human player in a way that the casters did not expect.
+ So it just shows an example where it can do surprising things.
+ Just to give you a sense, you should be able to tell that that's the case from the tone
+ of the voice of the commentators.
+ Because the game is pretty complicated to understand, at least at the beginning.
+ So now I want to tell you how we solved the game.
+ Our entire solution fits into this one slide.
+ And that is very large-scale reinforcement learning.
+ The idea -- the thing that's novel here is that we show that very large-scale reinforcement
+ learning can solve very hard problems.
+ When our larger-scale experiments were such that our bot has accumulated more than 500
+ years of gameplay experience in one game, the policy that we used to play the game is
+ now consuming as much compute as that of a honeybee brain.
+ The training was done through self-play where the neural network is playing against a copy
+ of itself.
+ As the neural network gets better, its opponent gets better.
+ So when it's very weak, it has a weak opponent.
+ And when it becomes strong, it has a strong opponent.
+ So it can always improve.
+ And as a result of this, we did not need to use any human data at all.
+ A small amount of reward shaping was necessary as well.
+ It wasn't simply optimizing the win or the lose, but it was also optimizing a few things
+ like its resource accumulation and its short-term wins and fights.
+ So that's it.
+ This is the solution.
+ It's so simple.
+ So where's the science?
+ What's innovative about it?
+ This is actually a very common theme in deep learning where a lot of discoveries and breakthroughs
+ do not consist of new algorithms.
+ Instead, they consist of a realization that the old algorithms were more powerful than
+ we thought.
+ And the same is the case here.
+ Before our results, nearly all experts in reinforcement learning believed that reinforcement
+ learning is actually not such a great technology, that it cannot solve hard problems.
+ The only hard problem that's been solved prior to our work on DOTA was AlphaGo.
+ But it was using search, tree search, and so everyone said, well, it's using tree search,
+ so it's really different.
+ It's kind of reinforcement learning, but not really.
+ The normal reinforcement learning is really not that good, but we showed otherwise.
+ We showed that the same story that we've seen with supervised learning also takes place
+ with reinforcement learning.
+ We already know that with supervised learning, if you want to solve some problem, you can
+ probably do it if you collect a large enough labeled data set.
+ And this is why we see all the commercial applications of AI today, because supervised
+ learning works so well.
+ But what we've shown is that the same holds true to reinforcement learning.
+ If there is a problem that you want to solve really badly, even if this problem is very
+ hard, reinforcement learning can succeed if you give it enough experience.
+ The amount of experience required is very high, admittedly, so at least today, on the
+ surface, it may appear that this is only restricted to simulated environments.
+ But this is it.
+ And I want to just give you some cool facts to give you a taste of the scale that was
+ required.
+ We used more than 100,000 CPU cores to generate the experience in parallel.
+ So you got 100,000 CPU cores in parallel and several thousand GPUs running the neural networks
+ for multiple weeks.
+ This was the scale that was required.
+ Another fun fact is that when we were playing in the international in August, when we played
+ close matches against two very strong teams, world-class teams, but then we lost to them,
+ is that the network has not had much -- due to the timing of the contest, the network
+ did not have as much time to play, to practice with the new rules.
+ And so it would be very interesting to see what would happen if the same match were to
+ take place simply two weeks later.
+ There is one other piece of information I want to tell you, and this is the rate of
+ growth.
+ Let's see.
+ Okay.
+ It's too hard.
+ If you -- like, what this plot shows is the improvement in the strength of our bot as
+ a function of time.
+ So here is the interesting thing to note.
+ We started in May -- we didn't start in May, but in May, right here, our bot was finally
+ able to beat the team consisting of the strongest Dota players who also happen to work at OpenAI.
+ So this was in May, which is not long ago.
+ Then in June, we were able to beat a much stronger team, and stronger team still.
+ In July 1st, so that's, I guess, two months after May, we were able to beat a semi-pro
+ team.
+ Here on the Y axis, what we are showing is the MMR, the estimated MMR of the team, which
+ is kind of like an ELO rating.
+ If there is a gap of, like, 500 MMR, it means that the probability that you're going to
+ win is very high.
+ So every time you have a -- oops -- every time you have a 500 MMR gap, you're very likely
+ to win.
+ Okay.
+ Afterwards, we were able to -- in August, we played against these two teams, which are
+ the strongest teams in the world, and we lost.
+ But the matches were very close, and, in fact, for the first 30 minutes of the games, it
+ wasn't clear which way the outcome was going to go.
+ So that gives you a sense.
+ So we are talking about, I guess, a four-month time span, and during those four months, the
+ strength of the body increased extremely rapidly.
+ So that's an interesting fact to think about.
+ It takes a human many more years to become so good.
+ Okay.
+ So this concludes my summary of our Dota results.
+ I want to switch to the next cool result, Dactyl.
+ So this is our work on robotics.
+ I'm just going to show you a video of what we did, what we accomplished.
+ We built a system which can control a physical robot.
+ This is not a simulation.
+ This is a real robot reorienting a block made out of wood.
+ So there are no sensors inside the block.
+ It uses vision and sensation to tell what the block is.
+ And what you see at the bottom right is the target orientation.
+ So it's trying to reach a target orientation, and then once it reaches it, it's given a
+ new target.
+ So now it's reached it.
+ Yep.
+ Now it has a new target.
+ And will it succeed?
+ Of course it will succeed.
+ It just takes it.
+ Yeah.
+ Look at it go.
+ It's so cool.
+ So I want to tell you how we did that.
+ Like oh, yeah, I don't happen to have a video of this, but we also got the same result with
+ a differently shaped object.
+ And it was also pretty easy to do because our approach doesn't seem to care too much
+ about which object it is.
+ So one of the valid criticisms one could make to our Dota bot is that it required a huge
+ amount of simulated experience.
+ And therefore you can conclude that, OK, sure, your reinforcement learning works on these
+ simulated environments, which is pretty good, but the real world, you cannot collect this
+ much data.
+ It's just impossible.
+ It's too expensive.
+ It's impractical.
+ So you're never going to be able to solve hard problems like you did in simulation.
+ So we thought, wouldn't it be nice if we could train our system in simulation and deploy
+ it to the real robot, train in sim, deploy in the real world?
+ And I'm just going to show you how we did that, how we did that.
+ Because this slide is going to be technical, so if you want to zone out for a few minutes,
+ you can.
+ The next two, three slides are going to be technical, so feel free to not follow.
+ But if you're curious, then pay attention.
+ So why is sim to real hard?
+ Sim to real is hard because the simulation is different from the real robot.
+ Imagine you have your block.
+ You don't know the friction of its sides.
+ You don't know its precise size, and you don't know its precise weight.
+ You don't know the precise resistance of the forces on the robot.
+ There is a whole bunch of things you don't know in the simulation.
+ And we had a very simple solution by using an old idea.
+ It is an old idea called domain randomization.
+ The way it works is as follows.
+ If you don't know something, you randomize it, and you request your system to succeed
+ not just for one size of your block, but for any size, not just for one value of the friction,
+ but for any friction.
+ You create a robust system which can succeed even if you change the friction, even if you
+ change the weight, even if you change the resistance and all kinds of other attributes.
+ And that was enough.
+ By training our system in simulation to be robust to all those different variations in
+ physics and appearance, it generalized to the physical robot without any training at
+ all on the physical robot.
+ So we did all the training and simulation and no training on the physical robot.
+ And because of domain randomization, this old idea, we've shown that it works.
+ So again, it's very simple.
+ Train in simulation, add a little bit of domain randomization, and deploy it on the real robot.
+ And I just want to tell you one cool fact.
+ The cool fact is that the training code that we used to train in simulation, to train to
+ achieve in simulation, was the same code which we used to train the system to play Dota.
+ So think about that as well.
+ I find this to be very inspiring.
+ How can it be?
+ How does the algorithm know which problem to solve?
+ It doesn't seem to care.
+ It says give me the problem, I'm going to solve it.
+ So this gives you a hint of the generality.
+ Okay.
+ So that's good.
+ Now I want to spend a little bit of time telling you about one more result.
+ This result in some ways is technical, but it has the coolest videos.
+ I'm going to go to a technical slide where it's totally fine to pay less attention unless
+ you're curious in which case you should pay more attention.
+ So here is the technical part.
+ In reinforcement learning, here is how reinforcement learning works.
+ Here's how it works.
+ It is actually simple.
+ Hear me out.
+ Reinforcement learning works by having your agents try to do different random things.
+ You do something random and then you see if you like it or not.
+ And if you like it, you do more of that.
+ And this sentence summarizes the essence of reinforcement learning.
+ It also works if you're able to get your feedback.
+ You try to do something and you see, okay, was that good?
+ Probably.
+ It probably is good.
+ Or maybe it's not good.
+ And on this basis you learn.
+ Now where it breaks down is in situations where you don't get the feedback.
+ There is a famous computer game in AI research called Montezuma's Revenge.
+ This game is famous for not having a lot of rewards.
+ The agent needs to do lots of different things before it can get any reward at all.
+ That's how Montezuma's Revenge is like.
+ So this game was famously difficult for reinforcement learning algorithms because you would take
+ your random moves and you wouldn't get any reward at all.
+ So you couldn't learn because you need the feedback.
+ In reinforcement learning, you do something random, you do something different, you do
+ something new, and you see if you like it.
+ But you need to be able to tell if you like it or not.
+ You need to get the feedback.
+ If you don't get the feedback, you can't learn.
+ And in some environments in the game, in the classic game Montezuma's Revenge, which is
+ really popular in research, you can take lots of random action and you don't get any feedback
+ at all.
+ No feedback, no learning.
+ So here is the very simple idea that we use to solve this problem.
+ We had a certain way of determining if a state is novel, and if it's novel, then you get
+ positive feedback.
+ You get rewarded.
+ You're basically saying seek novelty, avoid boredom.
+ It's not a new idea as well.
+ The thing that is new is that we implemented it without any bugs.
+ We fixed all the bugs in the code.
+ And while it may seem amusing, those bugs are extremely difficult to fix.
+ In fact, once we fixed all the bugs in our code, we used our code base to reimplement
+ some other existing methods which used similar ideas, and we got better results than they
+ did with their own published work because our implementations had fewer bugs.
+ Okay.
+ I'm going to show you the video now, now that you've heard the theory.
+ So to sum it up in one sentence, I guess two sentences, reinforcement learning is the thing
+ you do when you try something new randomly and then you see if you like it.
+ And if you like it, you do more of that.
+ That's reinforcement learning.
+ The second thing is when you are in a situation where you just don't get feedback, what do
+ you do?
+ One idea is you seek novelty and you avoid boredom.
+ Seek novelty, avoid boredom.
+ And if you do those two things, cool things will happen.
+ Here it is.
+ So here's the game.
+ Actually, let me just explain the game to you so that you'll have some context of what
+ you're going to see.
+ It's a platform game.
+ So you've got this little character jumping around the platform and it's doing things
+ like collecting keys and collecting coins and collecting a torch.
+ And it needs to move from room to room and it needs to collect some items in order to
+ unlock some other doors that lead to some other rooms and that kind of stuff.
+ And you'll just see it act.
+ Here it is going through lasers, collecting some coins.
+ Check this out.
+ It really likes to be close to deadly things, which you may have seen some of these behavior
+ in humans also.
+ OK.
+ So this shows what happens.
+ We basically, in the game, and this is another visualization of all the different rooms in
+ the game.
+ Basically, our algorithm was able to sometimes visit all of them and pass the first level.
+ And to give you a sense of how big of an advance it is, we have made this convenient plot for
+ you to invest, to inspect.
+ So all those different blue points show the performance on the game on Zoom's revenge.
+ And this is our work.
+ So this is the before, and this is the after.
+ I'm going to show you one more cool video, Mario, another game you've heard.
+ Here we did something different.
+ We told it, forget about rewards.
+ Forget about collectivity in the game.
+ Let's just see what happens if we tell you, please don't be bored.
+ What will you do if we ask you to please not to be bored?
+ And the answer is quite a lot, it turns out.
+ We're going to show it to you right now.
+ And basically, it learns not to hate dying.
+ It doesn't like dying because dying is boring.
+ When it dies, it goes back to the beginning of the level or to the beginning of the game,
+ and it's already been there.
+ So why would you want to do that?
+ That just sucks.
+ So it passed the level.
+ It's pretty interesting.
+ And if you notice, you'll see that it doesn't go after the coins because it doesn't know
+ that coins are interesting.
+ It just wants to do cool, new, interesting things.
+ And now it just keeps going and going, and it just does very -- oh, it died.
+ That's not good.
+ So it just does sensible things, and it passes more levels, and it seems to be pretty competent.
+ And yeah, it just keeps going.
+ It's not perfect.
+ Oh, that's cool.
+ There's a boss in this level, and it's just going to kill the boss.
+ Let's see.
+ Yeah, so this is the boss, and it just took care of it instantly, no problems.
+ And very sadly, it died.
+ But that's what it can do when it's simply been requested to not be bored.
+ This is how not being bored looks like.
+ I'm going to show you two more videos, a little bit more technical, that gives you an illustration,
+ a more refined, fine-grained illustration of how the boredom avoidance business looks
+ like.
+ So I'm going to show you a video of the game of Pong.
+ The game of Pong looks like this.
+ You've got a little paddle right here, and the paddle has this little ball which is trying
+ to bounce off.
+ It's going to hit the ball, and the ball is going to hit those stones.
+ And what you see here are the rewards, the boredom, the kind of the curiosity-based rewards
+ that the agent gets.
+ Let's see what happens.
+ And you have the little dot which shows their actual rewarded experience right now.
+ So OK.
+ And notice, it hit a stone, and it got a huge reward, a spike.
+ So basically, like, yeah, it happens to be interested by the right things.
+ Look, I made a stone disappear.
+ That's really cool.
+ That's the beginning of training.
+ Later in training, when it's already good at not making stones disappear, this is the
+ end of the level, and you see this giant spike.
+ So you can guess what's going to happen.
+ When you pass the level, it's going to be really surprising you can do that.
+ So look, we're about to pass the level, and yeah, look at this giant reward that it got.
+ So it's just sensible.
+ It's what you'd expect.
+ So to sum it up, in reinforcement learning, the way it works is you do something random
+ and you see if you like it.
+ But sometimes you may not know if you like it or not.
+ Sometimes the feedback is hard to get.
+ So at the very least, if you try to not be bored, if your feedback is, am I bored?
+ Is this new?
+ That's a pretty good objective.
+ And we've implemented it so well, we found the right design choices and the right implementation
+ so that we could achieve these unprecedented results on Montezuma's Revenge and the school
+ Mario video, and hopefully it will be useful in many other applications as well.
+ Okay.
+ So this concludes the first part of my presentation.
+ Now I want to go to the second part of my presentation and talk about the OpenAI mission.
+ As I mentioned to you earlier, OpenAI's mission is to ensure that artificial general intelligence,
+ AGI, by which we mean highly autonomous systems that outperform humans at most economically
+ valuable work, benefits all of humanity.
+ That's from the OpenAI charter.
+ And I want to spend a little bit of time talking to you about this AGI business.
+ What is it exactly?
+ So let's just try to think through the consequences of a system which can outperform humans at
+ most economically valuable work.
+ And because the systems are going to be computer systems, they'll be cheaper to run, so we
+ will be able to generate very massive wealth, which has the potential to end poverty and
+ achieve material abundance, which are nice things.
+ Other nice consequences can be that we will have systems which can automatically generate
+ science and technology.
+ And that will be nice too.
+ We will be able to cure all sorts of diseases which are currently incurable, extend life,
+ and have superhuman healthcare.
+ That will be cool.
+ We could mitigate global warming, clean the oceans, fix the environment.
+ That will be nice as well.
+ Massively improve education and psychological well-being.
+ So those are some of the -- this is by no means an exhaustive list.
+ This is more meant to give you an idea of the ways in which the world will change once
+ such systems will be created.
+ But you can respond by saying, well, sure, of course, like when you build those systems
+ in like a million -- in 500 years or a thousand years, then these problems will become relevant
+ and the open AI mission will become relevant because no one will have a job.
+ But it's not relevant today, is it?
+ I mean, we are so far from building anything like AGI.
+ We are so far.
+ Why bother?
+ Let me talk about it.
+ And so I think this is a very valid question.
+ And to address this question, in the next part of my presentation, I will simply present
+ to you the progress that we've witnessed over the past six years.
+ I'm going to show you some facts.
+ I'm going to show you some curves, essentially.
+ And our conclusion from these -- from inspecting this progress is that near-term AGI cannot
+ be ruled out, and it should be taken as a serious possibility.
+ Okay.
+ Let's review the progress that we've seen in the past six years.
+ All of it, 100% of the progress that we've seen is driven by the neural network.
+ The humble neural network, which was invented many decades ago with the backpropagation
+ algorithm, has miraculously been able to overcome, year after year, barriers which seemed to
+ be insurmountable at this time.
+ And I would like to show you some examples of these barriers being completely destroyed.
+ So you know, we talk about the deep learning revolution and how it changed everything.
+ One useful thing would be to look at how AI used to be before the deep learning revolution.
+ Here's an example.
+ So what you see here is a demonstration of a vision system which was state-of-the-art
+ from 2005 to maybe 2000 -- for a few years, at least.
+ It's the hog features.
+ They were really popular.
+ And so the interesting thing here is you can see their mistake.
+ You see this little rectangle, and here we have it zoomed in?
+ So the hog feature thinks that this is a car.
+ Why would it think that this is a car?
+ You're smiling, but this was state-of-the-art.
+ It thinks that this is a car because when you run this little image patch through the
+ hog feature, you get this thing.
+ And this thing does kind of look like a car, and it template matches to a car.
+ So things were pretty bad, and everyone were pessimistic, and it looked like the AI will
+ never work, and the AI venture will remain with us forever.
+ But thankfully, that was not the case.
+ And in 2012, with Jeff Hinton, Alex Kozhevsky, and myself, we were able to show that deep
+ neural networks can do much better than previous approaches.
+ But the thing that's really interesting is what happened afterwards.
+ What happened afterwards is that the speed in which things improved was very high.
+ So this 2012, so this shows performance on the ImageNet data set, top five.
+ So we got down to 15%.
+ In 2016, it's gone down to 3%, and in 2018, it's less than 2%.
+ So you've got this almost exponential reduction in error year after year.
+ Well, that's kind of cool.
+ But it's not the only case when we've seen such examples.
+ Here is machine translation.
+ So in 2014, we've seen the first examples of neural networks being applied to machine
+ translation, and I was involved in making some of that happen.
+ And from 2014 to 2018, we've seen an increase.
+ So just a little bit of context.
+ Accuracy on machine translation is measured with this thing called the blue score.
+ You don't need to know what it is.
+ It just has a name, the blue score.
+ What matters about it is that the important thing about the blue score, the blue score,
+ is that before neural machine translation, it was increasing super slowly.
+ If you were to write a paper which improved your state-of-the-art machine translation
+ by 0.1 bluepoints, that was a major advance.
+ Okay.
+ So this is the performance on a certain mature data set, the WMT English to French.
+ With something like English to French, you can say performance is already pretty solid,
+ there is no way you can improve it much more, is there?
+ And yet over the past four years, we've seen an improvement of nine bluepoints in an accelerating
+ way.
+ So that's pretty good, pretty interesting.
+ We've seen a rapidly increasing and even accelerating performance in machine translation.
+ I want to show you, go also through image generation.
+ In 2014, the GAN was introduced.
+ But it wasn't that good in 2014, so it could generate these faces and it could generate
+ those images.
+ Okay.
+ Then in 2015, the DC GAN was introduced.
+ This was done by my colleague at OpenAI, Alec Radford, and it generated those faces which
+ were higher resolution but kind of slightly deformed, and you have those images of kind
+ of cool-looking bedrooms, I guess.
+ Okay.
+ But then in 2017, you have this.
+ Those images are generated, every single pixel that you see is output by a neural net.
+ Those are not real people.
+ And in 2018, you have this.
+ So those images are generated by a neural network also.
+ The reason you can tell is that if you pay, start paying attention to this little rocket
+ here, it's, I guess, a space shuttle, you will see that it doesn't make sense.
+ But it will not be easy to see, it will take some effort.
+ So let's go back.
+ Oops.
+ 2014, 2015, 2017, 2018, this is a super rapid increase in performance.
+ In fact, I'll say this.
+ If you were to go back to 2016, the overwhelming majority of machine learning researchers would
+ have been very confident that this would not be achievable two years ago.
+ Three years ago, it would be even inconceivable to dream that something like this would happen.
+ Okay.
+ That's pretty interesting.
+ Next, I want to go to one more area, which is reinforcement learning.
+ So reinforcement, deep reinforcement learning in particular is another area which has experienced
+ extremely rapid increase in performance.
+ In 2013, DeepMind released this paper, which showed how to apply a neural network with
+ reinforcement learning to a computer game.
+ And it was really cool because now you don't have just a neural network which does perception.
+ It also does action.
+ It has perception and action.
+ And that's really cool.
+ But of course, it's just such a simple game.
+ It's not useful or anything, obviously.
+ Then in 2015, we've had a little bit of progress, and now deep reinforcement learning could train
+ these stick figures to run like that, which is cool.
+ It's like maybe one day it will be useful for robotics.
+ Maybe.
+ It looks kind of cool.
+ Then in 2016, we've had AlphaGo.
+ The interesting thing about AlphaGo is that when it happened, the experts were surprised.
+ Many people were really surprised by this because it had such a huge state space and
+ the planning is so complicated and it beat all humans.
+ Now of course, after it happened, people started to say, well, the game of Go, the state space
+ is so small and the games are so short, but we know this is after the fact, not before.
+ And of course, the belief after that was that, well, okay, fine, you can play those board
+ games, but you can't play some of these harder games, real-time strategy games.
+ There's just no way.
+ The tools aren't powerful enough.
+ And then in 2018, we came out with OpenAI 5, where we've used a very large scale, admittedly
+ very large scale in order to play on par with the strongest teams in the world.
+ And then in the same year, in about the same time, we've also shown that you can take what
+ you've learned in simulation and apply it to the real world.
+ So this is progress and deep reinforcement learning and let me just give you a quick recap
+ of what we've seen.
+ This is 2013, 2015.
+ This is state of the art of 2015, 2016, quite a big jump, and then 2018.
+ So it's like this, deep reinforcement learning has improved extremely rapidly.
+ So that's pretty nice.
+ What else?
+ What else is there to show?
+ There is one other hidden dimension, very important dimension that has been a key driving
+ force behind all the results that we've seen, and that is compute.
+ So you need to know two things about compute.
+ The first is that it grew extremely rapidly and the second is that neural networks can
+ absorb all the compute that you give them.
+ So here is a fun fact.
+ Over the past six years, the amount of compute used by the biggest neural network experiments
+ has increased by a factor of 300,000.
+ Six years, 300,000.
+ This is a lot faster than what we are used to in Moore's law.
+ It's been mostly driven through parallelism.
+ But on the other dimension, which is interesting, is that the neural network algorithms were
+ able to consume all this compute.
+ This is why we've seen all this increase in performance.
+ Our algorithms have barely changed.
+ We've simply developed the skill to apply them at scale and realize what it can do.
+ And so it's also very remarkable, I find, that as we make all these advances, our algorithms
+ barely change.
+ It's just we discover new properties of our algorithms.
+ So what other hidden properties do our algorithms contain that you haven't discovered yet?
+ And nobody knows.
+ But I do believe that we have not yet uncovered all their secrets.
+ Next I want to show you a little animation to give you a much more visual sense of what
+ 300,000 increase in five years means.
+ This animation is going to be similar to some animations you may have seen when you have
+ a picture of -- you may have seen some of these animations which try to convey the scale
+ of the universe, when you show, like, a person and then you zoom out and you show the street
+ and you show the city, then you show, like, the earth, then you zoom out some more, you
+ show the moon, then you show the solar system, then you show the galaxies, so you know, that
+ thing.
+ So we did this.
+ We created a video like this, but for compute.
+ And I'm just going to -- wait, oh, okay.
+ I want to just show you where to pay attention, too.
+ So this is going to be the animation.
+ So you have these columns right here.
+ And they show compute.
+ They show the compute that was required by the different results.
+ And you'll see that only the third row right here, it doesn't go all the way to the end.
+ All the other columns go far beyond the scale of the slide initially.
+ And we're going to zoom out.
+ Now here we show the amount of compute required by various classic neural net results from
+ the '90s.
+ And here we show all the important -- you know, a subset of the important results over
+ the past six years.
+ And I'm just going to press play and we're going to begin the zoom out process and just
+ look at it and just experience the increase in the compute.
+ When you show it on a log scale, it just kind of doesn't feel the same way.
+ So let's do it.
+ All right.
+ So the old results have vanished.
+ You don't see them anymore.
+ And here's the axis.
+ You can see how the axis is zooming out.
+ Okay.
+ DQN, the Atari plane neural net, it was pretty small, so that's why it didn't take a lot
+ of compute.
+ The neural net was small.
+ And it's disappeared, you don't see it anymore.
+ Okay.
+ Let's keep going.
+ Okay.
+ Dropout.
+ This is a dropout paper.
+ And this is AlexNet.
+ Disappearing.
+ Okay.
+ This is the sequence to sequence model.
+ You can see it.
+ Yes, you can see the end of that.
+ Deep speech.
+ ResNet.
+ Neural architecture search.
+ You'll see that eventually.
+ But just feel it.
+ Look.
+ Look how much we've zoomed out.
+ Okay.
+ Exception.
+ Our one-on-one dota TI.
+ This is neural machine translation.
+ And look at this.
+ Still going.
+ This is the dota 5.5 TI.
+ This actually column is out of date.
+ It's much larger right now.
+ We haven't calculated it.
+ Alpha go, alpha zero, alpha go zero.
+ So this should give you a visual sense of a very hidden trend that's been going on over
+ the past six years whose visible manifestations were the results that I've shown you.
+ It is really -- I find it really almost incredible that no matter how much compute you have, you
+ could just train a bigger neural net and more data, and you will get better performance.
+ I just find it inconceivable.
+ And the other thing which is totally remarkable is that the kind of compute which you need
+ for neural nets is buildable.
+ So that's why we're seeing this progress.
+ Because it's just a neural network.
+ It's in the name network.
+ So a network of computers.
+ If it's a bigger network, you're going to have more compute.
+ So that's -- I find that to be very inspiring and remarkable.
+ And of course, there are some questions, conclusions.
+ So what do we want to conclude from this?
+ Like, it is obvious and unquestionable that very formidable challenges in AI remain.
+ Unsupervised learning, robust classification, reasoning, abstraction, and who knows what
+ else which we don't know how to do.
+ There are real limits, conceptual limits, which appear to be insurmountable today, just
+ like there were conceptual limits which appeared to be insurmountable in the past.
+ But we've also seen this very strange trend of extremely rapid progress.
+ So we've seen the rapid progress in compute, we've seen the rapid progress in results.
+ And so the question is, what's going to happen?
+ Will this trend continue?
+ How long is it going to continue for?
+ Is it going to slow down or not?
+ And where will it stop?
+ Will it get to AGI?
+ How will you place your bets?
+ And so that's really all I had to say, that while highly uncertain, near-term AGI should
+ really be taken as a serious possibility.
+ And what it means is that we need to think not just about the benefits, but also the
+ risks posed by such technology.
+ Very powerful systems pursuing goals which were mis-specified by their creators.
+ Very powerful systems misused by malevolent humans.
+ And an economy that's growing extremely rapidly without actually benefiting the quality of
+ lives of the humans which we would wish it benefited to.
+ And this is all I have to say.
+ Thank you very much for your attention.
+ Now we have time for some questions and answers.
+ So we open up to the audience to ask questions.
+ We have a volunteer to bring Mike to you.
+ Thank you, you have very inspiring content.
+ So AGI is possible, near future, that's what you said, right?
+ Okay, now if you do not have access to simulation data, and if the physical world, obtaining
+ data from physical world is expensive and painful, then how would you apply curiosity
+ model to such space models?
+ When the simulation is not accessible, and that's the case in most problems, we need
+ to get the data.
+ And one area which I didn't talk much about in this presentation, but it's also very exciting
+ and making very rapid progress is unsupervised learning.
+ This year is the year of unsupervised learning in language.
+ There's been a sequence of results which showed that when you simply train a language model
+ on natural text and then fine tune it on different tasks, you get surprisingly good results.
+ We had a blog post about it in June which showed that you can have one system, one language
+ model fine tuned to different tasks and just gets much better performance than all previous
+ systems by a big margin.
+ And then a few months later, Google, in their work on the BERT model, scaled it up, changed
+ the cost function a bit and got even better results.
+ And basically now we are in a place where if you want to do natural language processing,
+ you must use unsupervised learning.
+ And unsupervised learning has the potential to be the answer to this question.
+ Unsupervised data is cheap and models are getting large so they can absorb all this
+ data and I think this is the direction we will see things heading.
+ >> I have a simple question.
+ We always see the top five in classification.
+ Top one is not that great so far, 82%, 83% accuracy and it hasn't really improved much
+ in the last few years.
+ It's that's I just wanted to know if there are classification networks that actually
+ give you higher accuracy for top one because top five is a metric, top one is the real
+ thing.
+ >> Yeah.
+ The question of top one is very good.
+ I think one issue with these, every data set has an unreachable error rate which, for example,
+ is a function of the ambiguity in the labels.
+ So I think the best way to do it is to have a panel of humans try to classify each image
+ and that will tell us the best attainable accuracy on the data set.
+ And I think that you will probably find is that something like the best attainable accuracy
+ on ImageNet top one, my guess would be maybe 7% or something like this.
+ Maybe even 10.
+ But I'm not sure.
+ Don't quote me on this.
+ This is the kind of prediction which is very easy to be embarrassed about later.
+ I also think that top one is now 85%, I believe.
+ >> Okay.
+ So maybe there's a new result because I have seen 82, 83% with inception V4.
+ >> Yeah.
+ I mean, I haven't been following it very closely, but I think -- I mean, 80.
+ I also don't have a good intuitive sense of what 84% top one means.
+ Like, what is the nature of the mistakes and how close it is to being the highest achievable
+ accuracy.
+ I just don't know the answer to that.
+ >> Right.
+ The other question I have is that we have lower accuracy for object detection than the
+ classification networks, and I'm not sure even it goes to 80%.
+ You know, I mean, these are real applications, for example.
+ >> Yeah.
+ I think this is a very good point, and I would expect the same kind of unsupervised learning
+ that's been helping out with NLP within not too long of a time to help with vision as
+ well.
+ And I expect that to be a significant improvement.
+ But the models that will be required for this will be far larger.
+ >> Hey, Ilya, thank you for the talk.
+ It's very inspiring.
+ So I'm from JPMorgan, so working on AI in finance.
+ So finance is all about decision-making, long-term, short-term.
+ Could you maybe share some of your thoughts about how to use reinforcement learning in
+ finance usage?
+ >> So I mean, I think the best -- so, first of all, I should preface my answer by saying
+ that I'm not a finance expert by any means.
+ I don't have any experience whatsoever with this domain.
+ I would guess if you want to do some kind -- if you want to decide if you want to buy something
+ or sell something or authorize some kind of decision, you want to be able to predict the
+ consequences of a decision that you would have made as accurately as possible.
+ So if you have already a system which is making a lot of decisions, you could train potentially
+ a very large neural net that will try to predict the consequence of those decisions.
+ And I think for something like trading, I think it can work pretty well.
+ For something like authorizing loans, you have to be careful with things like bias.
+ But in general, I mean, I think you can -- in my opinion, there should be a huge number
+ of places you could apply big neural nets in finance and get very good outcomes from
+ doing that.
