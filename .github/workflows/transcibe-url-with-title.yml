@@ -38,7 +38,7 @@ jobs:
         # Download YouTube video
         mkdir youtube
         cd youtube
-        wget https://github.com/ytdl-org/ytdl-nightly/releases/download/2024.07.25/youtube-dl
+        wget https://github.com/ytdl-org/ytdl-nightly/releases/download/2024.08.02/youtube-dl
         chmod 777 youtube-dl
         ./youtube-dl -o 'youtube.mp4' '${{ inputs.youtube_url }}'
 
