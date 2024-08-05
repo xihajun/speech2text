@@ -41,7 +41,7 @@ jobs:
         wget https://github.com/ytdl-org/ytdl-nightly/releases/download/2024.08.02/youtube-dl
         chmod 777 youtube-dl
         ./youtube-dl -U 
-        ./youtube-dl -o 'youtube.mp4' '${{ inputs.youtube_url }}'
+        ./youtube-dl -v -f 242 -o 'youtube.mp4' '${{ inputs.youtube_url }}'
 
         # Get the YouTube video title
         video_title=$(youtube-dl --get-title '${{ inputs.youtube_url }}' | sed 's/[^a-zA-Z0-9]/_/g')
