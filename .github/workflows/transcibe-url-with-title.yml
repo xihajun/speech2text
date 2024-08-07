@@ -40,7 +40,6 @@ jobs:
         cd youtube
         wget https://github.com/ytdl-org/ytdl-nightly/releases/download/2024.08.07/youtube-dl
         chmod 777 youtube-dl
-        ./youtube-dl -U 
         ./youtube-dl -o 'youtube.mp4' '${{ inputs.youtube_url }}'
 
         # Get the YouTube video title
